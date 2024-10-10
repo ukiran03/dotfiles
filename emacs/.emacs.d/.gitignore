@@ -9,3 +9,6 @@
 /auto-save-list/
 .cache/
 savehist
+custom.el
+places
+recentf

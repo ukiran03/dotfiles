@@ -1,0 +1,9 @@
+application/.googleearth/
+application/.config/calibre/
+
+*.png
+*.svg
+
+*.bak
+
+/emacs/.emacs.d/custom.el
