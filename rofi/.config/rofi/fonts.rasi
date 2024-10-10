@@ -1,0 +1,15 @@
+/**
+ *
+ * Author : Aditya Shakya (adi1090x)
+ * Github : @adi1090x
+ * 
+ * Fonts
+ * font: "Source Code Pro Nerd Font Medium 10";
+* font: "Roboto Mono Nerd Font 10"
+ **/
+
+* {
+    font: "Roboto Mono Nerd Font SemiBold 9";
+}
+
+    

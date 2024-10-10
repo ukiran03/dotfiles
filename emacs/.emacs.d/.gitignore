@@ -1,0 +1,11 @@
+/site-lisp/
+/elpa/
+/avatars/
+/data/
+/games/
+/persistent-scratch/
+/tree-sitter/
+.persistent-scratch
+/auto-save-list/
+.cache/
+savehist

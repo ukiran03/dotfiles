@@ -1,0 +1,28 @@
+#+author: UshaKiran (ukiran03)
+#+description: Everything related my to Emacs configuration for future
+#+time: <2024-09-09 Mon 11:30>
+
+* Insights and Enumerations of my Emacs
+
+#+begin_quote
+Only one step at a time
+#+end_quote
+
+- Modifications
+  It is bound to C-S-w.
+  (uk-simple-copy-line)
+  Copy the current line to the ‘kill-ring’.
+  - if region active act on it (copy region to kill ring)
+** find-library-read-only
+
+#+begin_src emacs-lisp
+  (defun my-enable-minor-mode-if-in-directory ()
+    "Enable `my-minor-mode' if the current buffer is in `~/my-directory'."
+    (when (and buffer-file-name
+               (string-prefix-p (expand-file-name "~/my-directory/") 
+                                (expand-file-name buffer-file-name)))
+      (my-minor-mode 1)))                 ; `read-only-mode'
+
+  (add-hook 'find-file-hook 'my-enable-minor-mode-if-in-directory)
+#+end_src
+

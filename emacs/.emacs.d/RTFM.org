@@ -1,0 +1,186 @@
+
+* Notes from =9. Minibuffer=
+
++ the variable ‘enable-recursive-minibuffers’ to ‘t’.  You might need also
+  to enable ‘minibuffer-depth-indicate-mode’ to show the current recursion
+  depth in the minibuffer prompt on recursive use of the minibuffer.
+
+* Notes from  =12. Mark and Region=
+
+#+begin_src emacs-lisp
+(setq highlight-nonselected-windows nil)  ; Default is nil, if non-nil:
+                                        ; shows the highlight of the
+                                        ; marked region even on the
+                                        ; non-selected windows
+
+(setq delete-active-region t)           ; Default is t, options:
+                                        ;"Delete active region" t
+                                        ;"Kill active region" kill
+                                        ;"Do ordinary deletion" nil
+
+
+(setq mark-even-if-inactive t)        ;If the mark is inactive, they
+                                        ;operate on the “inactive region” To
+                                        ;disable set to nil
+
+(setq delete-selection-temporary-region nil)
+
+(setq set-mark-command-repeat-pop t)
+;; if non-nil: immediately after you type ‘C-u C-<SPC>’, you can type ‘C-<SPC>’ instead
+;; of ‘C-u C-<SPC>’ to cycle through the mark ring.  By default,
+;; ‘set-mark-command-repeat-pop’ is ‘nil’.
+
+(setq frame-resize-pixelwise t)         ; Defualt nil, `Checkout'
+
+(setq shift-selection-mode t)
+;; nil -> Off, t -> On. But, When the value is `permanent', the mark will be
+;; deactivated by any action which normally does that, but not by
+;; motion keys that were not shift-translated.
+#+end_src
+
++  =C-y= -> `yank` and set the mark at the other end of the inserted text.
+
++  Emacs, like many other applications, lets you select some arbitrary part
+   of the buffer text and invoke commands that operate on such “selected
+   text”.  In Emacs, we call the selected text “the region”; its handling
+   is very similar to that of selected text in other programs, but there
+   are also important differences.
+
++  The region is the portion of the buffer between “the mark” and the
+   current “point”. You define a region by setting the mark somewhere
+   (with, for instance, the ‘C-SPC’ command), and then moving point to
+   where you want the region to end. (Or you can use the mouse to define
+   a region.)
+
+* Notes from =13. Killing and Yanking=
+
+#+begin_src emacs-lisp
+
+#+end_src
+
++ Before saving the kill to the kill ring, you can transform the string
+  using ‘kill-transform-function’.  It’s called with the string to be
+  killed, and it should return the string you want to be saved.  It can
+  also return ‘nil’, in which case the string won’t be saved to the kill
+  ring.  For instance, if you never want to save a pure white space string
+  to the kill ring, you can say:
+
+  #+begin_src emacs-lisp
+    (setq kill-transform-function
+          (lambda (string)
+            (and (not (string-blank-p string))
+                 string)))
+  
+  #+end_src
+
++ If you change the variable ‘kill-do-not-save-duplicates’ to a
+  non-‘nil’ value, identical subsequent kills yield a single kill-ring
+  entry, without duplication.
+
+
++ "C-u C-y" : instead leaves the cursor in front of the inserted
+  text, and sets the mark at the end.
+
++ If the previous command was a yank command, ‘M-y’ takes the text that
+  was yanked and replaces it with the text from an earlier kill.  So, to
+  recover the text of the next-to-the-last kill, first use ‘C-y’ to yank
+  the last kill, and then use ‘M-y’ to replace it with the previous kill.
+  This works only after a ‘C-y’ or another ‘M-y’.  (If ‘M-y’ is invoked
+  after some other command, it works differently, see below.)
+
++ with "M-y" `yank-pop', After selecting the kill-ring entry, you can optionally edit it
+  in the minibuffer.
+
++ Normally, each kill command pushes a new entry onto the kill ring.
+  However, two or more kill commands in a row combine their text into a
+  single entry, so that a single ‘C-y’ yanks all the text as a unit, just
+  as it was before it was killed.
+
++ If a kill command is separated from the last kill command by other
+  commands (not just numeric arguments), it starts a new entry on the kill
+  ring.  But you can force it to combine with the last killed text, by
+  typing ‘C-M-w’ (‘append-next-kill’) right beforehand.  The ‘C-M-w’ tells
+  its following command, if it is a kill command, to treat the kill as
+  part of the sequence of previous kills.  As usual, the kill is appended
+  to the previous killed text if the command kills forward, and prepended
+  if the command kills backward.  In this way, you can kill several
+  separated pieces of text and accumulate them to be yanked back in one
+  place.
+  
++ A kill command following ‘M-w’ (‘kill-ring-save’) does not append to
+  the text that ‘M-w’ copied into the kill ring.
+
+* =Eglot= Manual Notes
+
+#+begin_src emacs-lisp
+  ;; Ensure eglot is installed
+  (package-install 'eglot)
+
+  ;; Automatically start eglot in programming modes
+  (add-hook 'prog-mode-hook 'eglot-ensure)
+
+  ;; Specify the language server for C/C++ using clangd
+  (add-to-list 'eglot-server-programs '((c-mode c++-mode) . ("clangd" "--stdio")))
+
+  (add-hook 'foo-mode-hook 'eglot-ensure)
+  
+#+end_src
+
+** Eglot =Functions=
+
++ eglot-rename
+  Rename current symbol at point to  NEWNAME entire buffer
+  
++ eglot-format, elgot-format-buffer
+  Formats Region/Contents
+  
++ eglot-inlay-hints-mode
+  Annotating buffers with LSP server's inlay hints
+
+*** Customizing Eglot
++ VAR ~eldoc-echo-area-use-multiline-p~
+  To configure the amount of space taken up by documentation in the
+  echo area, customize the ElDoc variable
++ =Eglot config= from Centaur Emacs
+  #+begin_src emacs-lisp
+    (use-package eglot
+      :hook ((prog-mode . (lambda ()
+                            (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode)
+                              (eglot-ensure))))
+             ((markdown-mode yaml-mode yaml-ts-mode) . eglot-ensure))
+      :init
+      (setq read-process-output-max (* 1024 1024)) ; 1MB
+      (setq eglot-autoshutdown t
+            eglot-events-buffer-size 0
+            eglot-send-changes-idle-time 0.5)
+      :config
+      (use-package consult-eglot
+        :bind (:map eglot-mode-map
+               ("C-M-." . consult-eglot-symbols)))
+
+      ;; Emacs LSP booster
+      (when (and emacs/>=29p (executable-find "emacs-lsp-booster"))
+        (unless (package-installed-p 'eglot-booster)
+          (and (fboundp #'package-vc-install)
+               (package-vc-install "https://github.com/jdtsmith/eglot-booster")))
+        (use-package eglot-booster
+          :ensure nil
+          :autoload eglot-booster-mode
+          :init (eglot-booster-mode 1))))
+  #+end_src
+
+  #+begin_src emacs-lisp
+  #+end_src
+
+
+* Notes of =Eldoc= 27.6.3 Programming Language Documentation Lookup
+
+  #+begin_src emacs-lisp
+    (setq eldoc-print-after-edit nil)
+    ;; This comes in handy if you want Emacs to display
+    ;; documentation only about symbols that you type, but not about
+    ;; symbols that are already in the buffer (so just reading the source
+    ;; code will not show documentation)
+
+    ;; `eldoc-documentation-strategy' default: eldoc-documentation-default
+  #+end_src

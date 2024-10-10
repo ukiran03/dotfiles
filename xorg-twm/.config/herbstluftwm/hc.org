@@ -1,0 +1,422 @@
+#+TITLE: HerbstluftWm setup
+#+AUTHOR: Ushakiran
+PROPERTY: header-args :mkdirp yes
+auto_tangle: t
+STARTUP: showeverything
+
+* TODO TODOs Functional
+- [X] Defalut layout is =Horizonatal, max, vertical, grid=
+- [X] 1-9 keys: move window to & S-1-9: move with window to
+- [X] Num_pad 1-9: take me to
+- [ ] Polybar module to show the layout status ~H, M, V, G~
+
+- [ ] Manpulate GAPS with keys
+
+
+* Index :toc:
+- [[#todos-functional][TODOs Functional]]
+- [[#herbstluftwm-config][Herbstluftwm Config]]
+  - [[#initialisation][Initialisation]]
+  - [[#common-vars][Common Vars]]
+  - [[#modifier-keys][Modifier Keys]]
+  - [[#tags][Tags]]
+  - [[#keybindings][Keybindings]]
+  - [[#layout-settings][Layout settings]]
+  - [[#themeing][Themeing]]
+  - [[#rules][Rules]]
+  - [[#panel][Panel]]
+- [[#enternal-scripts][Enternal Scripts]]
+  - [[#hc-panel][hc-panel]]
+  - [[#restartpanelssh][restartpanels.sh]]
+  - [[#xtwm_common][xtwm_common]]
+
+* Herbstluftwm Config
+** Initialisation
+#+begin_src shell :tanle autostart
+    #!/usr/bin/env bash
+
+  # this is a simple config for herbstluftwm
+
+  hc() {
+      herbstclient "$@"
+  }
+
+
+  ################
+  #https://git.sr.ht/~dcao/dotfiles/tree/master/item/extra/herbstluftwm/.config/herbstluftwm/autostart
+
+  spawn_with_rules() {(
+      # this rule also requires, that the client
+      # sets the _NET_WM_PID property
+      herbstclient rule once pid=$BASHPID maxage=10 "${RULES[@]}"
+      exec "$@"
+      ) &
+  }
+  ################
+  
+  hc emit_hook reload
+
+  bash "$HOME"/.config/herbstluftwm/xtwm_common
+#+end_src
+
+** Common Vars
+
+** Modifier Keys
+
+#+begin_src shell :tanle autostart
+  # KEYBINDINGS ######################################################
+  # source $HOME/.config/herbstluftwm/hc-keys &
+  Mod1=Mod1    # Use alt as the Mod1 modifier
+  Mod=Mod4   # Use the super key as the main modifier
+  # REMOVE ALL EXISTING KEYBINDINGS #
+  #---------------------------------#
+  hc keyunbind --all
+
+#+end_src
+
+** Tags
+Tags: tags 1 to 9 with indices 0 to 8
+
+#+begin_src shell :tanle autostart
+
+  # tags
+  tag_names=( {1..9} )
+  # tag_names=("一" "二" "三" "四" "五" "六" "七" "八" "九")
+
+  tag_keys=( {1..9} 0 )
+
+  hc rename default "${tag_names[0]}" || true
+  for i in "${!tag_names[@]}" ; do
+      hc add "${tag_names[$i]}"
+      hc set default_frame_layout 1
+      key="${tag_keys[$i]}"
+      if [ -n "$key" ] ; then
+	  hc keybind "$Mod-Shift-$key" move_index "$i"
+	  hc keybind "$Mod-$key" chain , move_index "$i" , use_index "$i"
+      fi
+  done
+
+  KP_keys=( KP_End KP_Down KP_Next KP_Left KP_Begin KP_Right KP_Home KP_Up KP_Prior )
+  for i in "${!tag_names[@]}" ; do
+      hc keybind $Mod-${KP_keys[$i]} use ${tag_names[$i]}
+  done
+#+end_src
+
+** Keybindings
+
+*** Closing and Killing keys
+For both =windows= and =frames=
+
+#+begin_src shell :tanle autostart
+
+
+hc keybind $Mod-q close_or_remove
+hc keybind $Mod-Shift-q close_and_remove
+hc keybind $Mod-r remove
+
+hc keybind $Mod-Shift-r reload
+#+end_src
+
+*** Movement Keys
+
+#+begin_src shell :tanle autostart
+  # basic movement in tiling and floating mode
+  # focusing clients
+  hc keybind $Mod-Left  focus left
+  hc keybind $Mod-Down  focus down
+  hc keybind $Mod-Up    focus up
+  hc keybind $Mod-Right focus right
+  hc keybind $Mod-h     focus left
+  hc keybind $Mod-j     focus down
+  hc keybind $Mod-k     focus up
+  hc keybind $Mod-l     focus right
+
+  # moving clients in tiling and floating mode
+  hc keybind $Mod-Shift-Left  shift left
+  hc keybind $Mod-Shift-Down  shift down
+  hc keybind $Mod-Shift-Up    shift up
+  hc keybind $Mod-Shift-Right shift right
+  hc keybind $Mod-Shift-h     shift left
+  hc keybind $Mod-Shift-j     shift down
+  hc keybind $Mod-Shift-k     shift up
+  hc keybind $Mod-Shift-l     shift right
+
+  # resizing frames and floating clients
+  resizestep=0.02
+  hc keybind $Mod-Control-h       resize left +$resizestep
+  hc keybind $Mod-Control-j       resize down +$resizestep
+  hc keybind $Mod-Control-k       resize up +$resizestep
+  hc keybind $Mod-Control-l       resize right +$resizestep
+  hc keybind $Mod-Control-Left    resize left +$resizestep
+  hc keybind $Mod-Control-Down    resize down +$resizestep
+  hc keybind $Mod-Control-Up      resize up +$resizestep
+  hc keybind $Mod-Control-Right   resize right +$resizestep
+#+end_src
+
+*** Frame Management Keys
+
+#+begin_src shell :tanle autostart
+
+  # splitting frames
+  # create an empty frame at the specified direction
+  hc keybind $Mod+Mod1+h   split   left    0.5
+  hc keybind $Mod+Mod1+j   split   bottom  0.5
+  hc keybind $Mod+Mod1+k   split   top     0.5
+  hc keybind $Mod+Mod1+l   split   right   0.5
+  # let the current frame explode into subframes
+  hc keybind $Mod-Control-space split explode
+#+end_src
+
+*** Tag Cycling
+
+#+begin_src shell :tanle autostart
+
+  # cycle through tags
+  hc keybind $Mod-period use_index +1 --skip-visible
+  hc keybind $Mod-comma  use_index -1 --skip-visible
+
+  hc keybind $Mod-Page_Down use_index +1 --skip-visible
+  hc keybind $Mod-Page_Up  use_index -1 --skip-visible
+
+  hc keybind $Mod-BackSpace use_previous
+
+  hc keybind $Mod-Shift-period chain , move_index +1 , use_index +1
+  hc keybind $Mod-Shift-comma chain , move_index -1 , use_index -1
+
+#+end_src
+
+** Layout settings
+
+#+begin_src shell :tanle autostart
+
+  # layouting
+  hc keybind $Mod-Shift-f floating toggle  # Entire frame
+  hc keybind $Mod-f set_attr clients.focus.floating toggle # Just the focused window
+
+  hc keybind $Mod-m fullscreen toggle
+
+  hc keybind $Mod-Shift-d set_attr clients.focus.decorated toggle
+
+  hc keybind $Mod-i set_attr clients.focus.minimized true
+  hc keybind $Mod-Shift-i jumpto last-minimized
+
+  hc keybind $Mod-p pseudotile toggle
+
+  # The following cycles through the available layouts within a frame, but skips
+  # layouts, if the layout change wouldn't affect the actual window positions.
+  # I.e. if there are two windows within a frame, the grid layout is skipped.
+  # hc keybind $Mod-space                                       \
+      # or , and . compare tags.focus.curframe_wcount = 2        \
+      # . cycle_layout +1 horizontal max vertical grid           \
+      # , cycle_layout +1
+
+  ### Cycle through the given layouts
+  hc keybind $Mod-space cycle_layout +1 max vertical horizontal
+
+  hc chain , load 8 '(clients max:0)' , load 9 '(clients max:0)'
+
+  # focus
+  # hc keybind $Mod-BackSpace   cycle_monitor
+  hc keybind $Mod-Tab         cycle_all +1
+  hc keybind $Mod-Shift-Tab   cycle_all -1
+
+  hc keybind $Mod-g cycle
+  # hc keybind $Mod1-grave cycle +1
+  # hc keybind $Mod1-Shift-grave cycle
+
+  hc keybind $Mod-u jumpto urgent
+
+  hc keybind $Mod-o rotate
+  hc keybind $Mod-Shift-o mirror both
+
+#+end_src
+*** Mouse Keybinds
+#+begin_src shell :tanle autostart
+  # mouse
+  hc mouseunbind --all
+  hc mousebind $Mod-Button1 move
+  hc mousebind $Mod-Button2 zoom
+  hc mousebind $Mod-Button3 resize
+
+  # KEYBINDINGS ######################################################
+
+#+end_src
+
+** Themeing
+#+begin_src shell :tanle autostart
+  # theme
+  hc set window_gap 3
+  hc set frame_gap 1
+  hc set frame_border_inner_width 0
+  hc set frame_border_width 2
+  hc set frame_padding 0
+  hc set smart_window_surroundings off
+  hc set smart_frame_surroundings on
+  hc set mouse_recenter_gap 0
+  hc set focus_follows_mouse true
+
+  hc set show_frame_decorations 'focused_if_multiple'
+
+  hc set frame_bg_transparent off
+  hc set frame_normal_opacity 15
+  hc set frame_active_opacity 50
+
+
+  hc attr theme.inner_width 1
+  hc attr theme.active.border_width 2
+  hc set frame_transparent_width 5
+  hc attr theme.floating.border_width 4
+  hc attr theme.floating.outer_width 3
+
+  hc set focus_stealing_prevention off
+
+
+  # hc attr theme.tiling.reset 1
+  hc attr theme.floating.reset 1
+  hc attr theme.title_height 12 
+  # hc set frame_border_active_color '#222222'
+
+  # hc attr theme.title_when one_tab
+  hc attr theme.title_when multiple_tabs # only with the max layout
+  hc attr theme.title_font 'Dejavu Sans:pixelsize=9:weight=bold'  # example using Xft
+  hc attr theme.title_depth 3  # space below the title's baseline
+
+  hc attr theme.tiling.outer_width 1
+
+  hc set default_frame_layout horizontal
+  hc set tree_style '╾│ ├└╼─┐'
+#+end_src
+*** Colors
+
+#+begin_src shell :tanle autostart
+  hc set frame_border_normal_color '#101010'
+  hc set frame_bg_normal_color '#565656'
+  hc set frame_bg_active_color '#345F0C'
+
+
+  hc set frame_border_active_color '#88c0d0'
+
+
+  hc attr theme.active.color '#88c0d0'
+  hc attr theme.title_color '#ffffff'
+  hc attr theme.normal.color '#323232'
+  hc attr theme.urgent.color '#7811A1'
+
+  hc attr theme.tab_color '#1F1F1F'
+
+  hc attr theme.active.tab_color '#000000'
+
+  hc attr theme.active.tab_outer_color '#000000'
+
+  hc attr theme.active.tab_title_color '#ffffff'
+  hc attr theme.normal.title_color '#898989'
+  hc attr theme.inner_color '#000000'
+  hc attr theme.floating.outer_color '#ffffff'
+  hc attr theme.active.inner_color '#88c0d0'
+  hc attr theme.urgent.inner_color '#9A65B0'
+  hc attr theme.normal.inner_color '#4c566a'
+
+  # copy inner color to outer_color
+  for state in active urgent normal ; do
+      hc substitute C theme.${state}.inner_color \
+	 attr theme.${state}.outer_color C
+  done
+
+  hc attr theme.background_color '#141414'
+#+end_src
+
+** Rules
+*** Tag rules and Window rules
+
+#+begin_src shell :tanle autostart
+  # rules
+  hc unrule -F
+  hc rule switchtag=on
+
+  hc rule class=thunderbird tag=8
+  hc rule class=qBittorrent tag=9
+  hc rule class=calibre tag=9
+  hc rule title='Tor Browser' tag=8
+
+  hc rule --class=Pavucontrol floating=on floatplacement=center
+  #hc rule class=XTerm tag=3 # move all xterms to tag 3
+  hc rule focus=on # normally focus new clients
+  # hc rule --class=mpv floating=on floatplacement=center
+  hc rule floatplacement=center
+  hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
+  hc rule class=ffplay floating=on
+  hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+  hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+  hc rule fixedsize floating=on
+
+  # Empty frames function as the equivalent of BSPWM's receptacles: they
+  # receive the next client.  However, this only works for the focused
+  # tag.
+  hc rule index=e
+
+  # unlock, just to be sure
+  hc unlock
+
+  # do multi monitor setup here, e.g.:
+  # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
+  # or simply:
+  # hc detect_monitors
+
+#+end_src
+
+** Panel
+#+begin_src shell :tanle autostart
+  # find the panel
+  panel=~/.config/herbstluftwm/hc-panel
+  [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+  for monitor in $(hc list_monitors | cut -d: -f1) ; do
+      # start it on each monitor
+      "$panel" "$monitor" &
+  done
+#+end_src
+
+* Enternal Scripts
+~Note~: Dont forget to =chmod= the scripts
+
+** hc-panel
+#+begin_src shell :tangle "hc-panel"
+  #!/usr/bin/env bash
+
+  # Add this script to your wm startup file.
+
+  DIR="$HOME/.config/polybar/"
+
+  # Terminate already running bar instances
+  killall -q polybar
+
+  # Wait until the processes have been shut down
+  while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+  # Launch the bar
+  polybar -q "$DESKTOP_SESSION" -c "$DIR"/config.ini &
+
+#+end_src
+** restartpanels.sh
+#+begin_src shell :tangle "restartpanels.sh"
+  #!/usr/bin/env bash
+
+  installdir=/
+
+  XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+  defaultpanel="$XDG_CONFIG_HOME/herbstluftwm/hc-panel"
+
+  [ -x "$defaultpanel" ] || defaultpanel="$installdir/etc/xdg/herbstluftwm/panel.sh"
+
+  panelcmd="${1:-$defaultpanel}"
+
+  herbstclient emit_hook quit_panel
+
+  for i in $(herbstclient list_monitors | cut -d':' -f1) ; do
+      "$panelcmd" $i &
+  done
+  ##
+
+#+end_src
+
+** xtwm_common
+[[file:xtwm_common][xtwm autostart script]]

@@ -1,0 +1,37 @@
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("prot-emacs.org"
+ (filename . "~/Videos/Tuts/Emacs/Protes/.emacs.d/prot-emacs.org")
+ (front-context-string . "#+title: GNU Ema")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 26359 49410 166385 763000))
+("org-modern.org"
+ (filename . "~/Documents/dox/org-modern.org")
+ (front-context-string . "Third level\n****")
+ (rear-context-string . "econd level\n*** ")
+ (position . 207)
+ (last-modified 26350 41221 908911 668000))
+("emacs.org"
+ (filename . "~/.emacs.d/emacs.org")
+ (front-context-string . "\n\n#+begin_quote\n")
+ (rear-context-string . "ions of my Emacs")
+ (position . 174)
+ (last-modified 26334 36609 536427 439000))
+("I.org"
+ (filename . "~/I.org")
+ (front-context-string)
+ (rear-context-string . " of my Computing")
+ (position . 159)
+ (last-modified 26334 36479 11382 435000))
+("(emacs) Version Control"
+ (front-context-string . "29.1 Version Con")
+ (rear-context-string . "p: Maintaining\n\n")
+ (position . 1145260)
+ (last-modified 26330 42824 996948 863000)
+ (filename . "/usr/share/info/emacs")
+ (info-node . "Version Control")
+ (handler . Info-bookmark-jump))
+)

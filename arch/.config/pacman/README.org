@@ -1,0 +1,9 @@
+add at the end of =/etc/pacman.conf=
+
+[custom]
+
+
+#+begin_src
+[custom]
+Include = /home/ukiran/.config/pacman/pacman.conf
+#+end_src

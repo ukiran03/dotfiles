@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Get the index of the currently focused tag (1-based index)
+current_tag=$(herbstclient attr tags.focus.index)
+current_tag=$((current_tag + 1))
+
+# Create an associative array to store window IDs and titles
+declare -A windows
+
+# Loop through tags 1 to 9 and get the window IDs and titles, excluding the current tag
+for i in {1..9}; do
+    if [ "$i" -ne "$current_tag" ]; then
+        while IFS= read -r line; do
+            # Check if the line is not empty
+            if [[ -n "$line" ]]; then
+                id=$(echo "$line" | cut -d ' ' -f1)
+                title=$(echo "$line" | cut -d ' ' -f2-)
+                windows["$title"]=$id
+            fi
+        done < <(herbstclient list_clients --tag=$i --title 2>/dev/null)
+    fi
+done
+
+# Display the window titles in rofi and get the selected title
+selected_title=$(printf '%s\n' "${!windows[@]}" | rofi -dmenu -i -l 8)
+
+# Get the window ID for the selected title
+selected_id=${windows["$selected_title"]}
+
+herbstclient bring "$selected_id"

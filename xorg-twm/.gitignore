@@ -1,0 +1,9 @@
+.config/bspwm/
+.config/qtile/
+
+# Herbstluftwm
+.config/herbstluftwm/archive/
+.config/herbstluftwm/reference/
+.config/herbstluftwm/assets/
+.config/herbstluftwm/herbs-scripts-ghub/
+.config/herbstluftwm/mod-scripts/
