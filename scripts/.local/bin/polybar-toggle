@@ -1,0 +1,11 @@
+#!/bin/bash
+
+script="${XDG_CONFIG_HOME}/herbstluftwm/scripts/hc-panel"
+#
+if pgrep -x "polybar" > /dev/null
+then
+	killall polybar && dunstify -a "ignore" "Polybar OFF" -t 2000 -i taskbar -r 1595
+else
+	bash "$script" && dunstify -a "ignore" "Polybar ON" -t 2000 -i taskbar -r 1595
+fi
+# polybar-msg cmd toggle && dunstify -a "polybar-t" "Polybar Toggled" -i taskbar -r 1595 -t 1000

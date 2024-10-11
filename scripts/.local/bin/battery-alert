@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Send a notification if the laptop battery is lower than 25%
+
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+
+# Battery percentage at which to notify
+ICON="/usr/share/icons/Papirus-Dark/32x32/panel/battery-010.svg"
+CRITICAL_LEVEL=45
+BATTERY_INFO=$(acpi -b | grep "Battery 1")
+BATTERY_CHARGING=$(echo "$BATTERY_INFO" | grep -c "Charging")
+BATTERY_LEVEL=$(echo "$BATTERY_INFO" | grep -Po '[0-9]+(?=%)')
+
+# Use files to store whether we've shown a notification or not (to prevent multiple notifications)
+CRITICAL_FILE=/tmp/batterycritical
+
+# Reset notifications if the computer is charging
+if [ "$BATTERY_CHARGING" -eq 1 ] && [ -f "$CRITICAL_FILE" ]; then
+    rm "$CRITICAL_FILE"
+fi
+
+# If battery is discharging and battery level is lower than CRITICAL_LEVEL send notification
+if [ "$BATTERY_CHARGING" -eq 0 ] && [ "$BATTERY_LEVEL" -le "$CRITICAL_LEVEL" ] && [ ! -f "$CRITICAL_FILE" ]; then
+    dunstify "Low Battery" "The System will shutdown soon!" -u critical -i "$ICON" -r 9991
+    touch "$CRITICAL_FILE"
+fi

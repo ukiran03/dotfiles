@@ -1,0 +1,48 @@
+* Resources
+- [[https://gist.github.com/diffficult/8ceb639505cabc1fe6a93b93140b058c][Use a different GTK2/3 theme for specific programs]]
+
+
+* packages
+** extra (pacman)
+- ttc-iosevka
+- gparted
+- numlockx
+- emacs
+- telegram-desktop
+- mpd, mpc, ncmpcpp, mpv
+- rofi
+- sxhkd
+- maim
+- polybar
+- picom
+- alacritty
+- dunst
+- onefetch
+- fastfetch
+- lxappearance-gtk3
+- neovim
+- qbittorrent
+- zsh
+- zoxide
+- zathura, zathura-cb, zathura-pdf-mupdf, zathura-djvu
+- eza
+- feh
+- pamixer
+- playerctl
+- xclip
+- xdotool
+- bc
+- nsxiv
+- trash-cli
+- qt5ct
+- qt6ct
+- Theme
+  - papirus-icon-theme
+** aur
+- rofi-greenclip
+- herbstluftwm-git
+- arcolinux-logout
+- betterlockscreen
+- bibata-cursor-theme
+- adwaita-qt5
+- adwaita-qt6

@@ -1,0 +1,23 @@
+#!/bin/sh
+
+OFF_ICON="airplane-mode"
+ON_ICON="com.github.zren.volumeslider"
+current=$(nmcli networking)
+
+send_notification() {
+    dunstify -a "internet" -i "$ICON" -t 4000 -r 7532 "Internet: ${status}" "Airplane Mode: ${astatus}"
+}
+
+if [ "$current" = enabled ]; then
+    nmcli networking off
+    astatus="enabled"
+else
+    nmcli networking on
+    astatus="disabled"
+fi
+
+
+ICON="$([[ "$current" = "enabled" ]] && echo "$OFF_ICON" || echo "$ON_ICON")"
+status="$([[ "$current" = "enabled" ]] && echo "Off" || echo "On")"
+
+send_notification

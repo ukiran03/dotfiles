@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <word>"
+    exit 1
+fi
+
+word="$1"
+dict "$word" | nvimpager

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Emacs Client (New Frame)
+GenericName=Text Editor
+Comment=Edit text files with Emacs client in a new frame
+Exec=emacsclient -ca 'emacs' -n
+Icon=emacs
+Terminal=false
+Type=Application
+Categories=Utility;TextEditor;
+MimeType=text/plain;

@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# Define minimum and maximum color temperature values
+RS_MIN="3500"
+RS_MAX="6000"
+
+case "$1" in  # Enclose variable in double quotes for robustness
+    blue)
+        color=$(cat /usr/share/redshifter/screencolor)  # Typo: should be "screencolor"
+        echo "Last screen color temperature: ${color}K"  # Corrected syntax to use curly braces for variable interpolation
+
+        if [ "$color" -ge "$RS_MIN" ] && [ "$color" -le "$RS_MAX" ]; then  # Corrected syntax: spaces around brackets and fixed variable names
+            color=$((color + 100))  # Corrected syntax for arithmetic expansion
+
+            echo "New screen color temperature: ${color}K"
+
+            echo "$color" > /usr/share/redshifter/screencolor
+
+            redshift -O "$color"  # Corrected option to set color temperature
+        else
+            echo "Reached MAX"
+        fi
+        ;;
+    red)
+        color=$(cat /usr/share/redshifter/screencolor)  # Typo: should be "screencolor"
+        echo "Last screen color temperature: ${color}K"  # Corrected syntax to use curly braces for variable interpolation
+
+        if [ "$color" -ge "$RS_MIN" ] && [ "$color" -le "$RS_MAX" ]; then  # Corrected syntax: spaces around brackets and fixed variable names
+            color=$((color - 100))  # Corrected syntax for arithmetic expansion
+
+            echo "New screen color temperature: ${color}K"
+
+            echo "$color" > /usr/share/redshifter/screencolor
+
+            redshift -O "$color"  # Corrected option to set color temperature
+        else
+            echo "Reached MAX"
+        fi
+        ;;
+    nil)
+        redshift -x
+        ;;
+esac

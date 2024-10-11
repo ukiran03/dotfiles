@@ -1,0 +1,7 @@
+rofi-greenclip
+herbstluftwm-git
+arcolinux-logout
+adwaita-qt5
+adwaita-qt6
+bibata-cursor-theme
+nordic-darker-theme

@@ -1,0 +1,41 @@
+# peaclock config
+# file: /home/ukiran/.peaclock/new
+# date: 2023-10-18T10:18:00Z
+
+mode clock
+view digital
+toggle background
+stopwatch start
+timer 0s
+timer-exec 'mpv ~/Go_all_the_way-Charles_Bukowski.mp4'
+date '󰸗 %A %d %B %Y'
+locale ''
+timezone 'Asia/Kolkata'
+fill-colon ' '
+fill-active ' '
+fill-inactive ' '
+rate-input 50
+rate-status 5000
+rate-refresh 1000
+block 2 1
+padding 0 0
+margin 0 0
+ratio 2 1
+date-padding 1
+set date on
+set seconds on
+set hour-24 off
+set auto-size on
+set auto-ratio on
+style active-fg clear
+style active-bg #42f5c2
+style inactive-fg clear
+style inactive-bg clear
+style colon-fg clear
+style colon-bg cyan
+style date #42f5e6
+style text clear
+style background clear
+style prompt clear
+style success green
+style error red

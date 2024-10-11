@@ -1,0 +1,135 @@
+timer
+quit
+timer
+mode timer
+timer
+timer start
+timer start 2:0:0
+timer start 02h:00m:00s
+timer start 2
+timer start 2
+timer start
+view date
+view date
+view digital
+timer start
+mkconfig new
+mkconfig ~/.peaclock/new
+timer 2h
+mode timer
+timer start
+timer start
+timer start
+mode timer
+timer 2h
+timer start
+timer start
+mode timer
+timer 2h
+timer start
+mkconfig ~/.peaclock/2htimer
+mkconfig ~/.peaclock/2htimer
+timer 2h
+timer 2h
+timer-exec
+timer-exec
+timer-exec
+timer-exec
+timer-exec
+timer-exec
+5s
+timer 5s
+timer 5s
+timer 5s
+timer 5s
+timer 3s
+timer 3s
+timer 3s
+2h
+timer 2h
+timer 2h
+timer 3s
+timer exec mpv ~/Go_all_the_way-Charles_Bukowski.mp4
+timer exec mpv ~/Go_all_the_way-Charles_Bukowski.mp4
+timer exec "mpv ~/Go_all_the_way-Charles_Bukowski.mp4"
+timer 3s
+1h
+timer 50m
+timer 50m
+5m
+5
+timer 5m
+timer 1h
+timer 5s
+timer 5s
+timer 5s
+timer 2s
+timer 2s
+timer 2s
+timer 1h50m
+timer 1h15m
+timer 1h
+timer 2h
+timer 1h
+timer 2h
+w
+timer 2h
+timer 2h
+2h
+2h
+2
+2H
+02
+2min
+2 min
+2
+timer 2h
+timer 2min
+timer 2m
+timer 2s
+timer 2s
+timer 2s
+timer 2s
+timer 2s
+timer 2s
+timer 2s
+timer 2
+timer 2h
+timer 2h
+timer 2s
+timer 2s
+timer 2s
+timer 2s
+timer 2s
+timer 2h
+clock 10:00
+clock 10
+stopwatch 2s
+stopwatch 2s
+stopwatch 2s
+stopwatch 2s
+clock 2s
+timer 1h10m
+timer 2h
+timer 2h
+timer 3h
+timer 5m
+timer 3m
+timer 3m
+timer 2m
+timer 2m
+timer 2m
+timer 2m3os
+timer 2m30s
+timer 1m30s
+timer 1h
+2h
+timer 2h
+alarm 5:30
+?
+clock 5h30
+timer 15m
+timer 15m
+timer 7m
+timer 5s
+timer 5s

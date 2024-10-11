@@ -1,0 +1,5 @@
+#!/bin/sh
+notify-send -a peaclock "PEACLOCK TIMER" "Timer completed" -i alarm-symbolic -r 7562
+pw-play ~/.local/share/sounds/complete.ogg &&
+pw-play ~/.local/share/sounds/complete.ogg &&
+pw-play ~/.local/share/sounds/complete.ogg &

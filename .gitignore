@@ -1,9 +1,11 @@
-application/.googleearth/
-application/.config/calibre/
+/archive/
 
 *.png
 *.svg
 
 *.bak
 
-/emacs/.emacs.d/custom.el
+/xfce/
+
+/nvim/
+
