@@ -1,0 +1,14 @@
+.emacs.d/site-lisp/
+.emacs.d/elpa/
+.emacs.d/avatars/
+.emacs.d/data/
+.emacs.d/games/
+.emacs.d/persistent-scratch/
+.emacs.d/tree-sitter/
+.emacs.d/.persistent-scratch
+.emacs.d/auto-save-list/
+.emacs.d/.cache/
+.emacs.d/savehist
+.emacs.d/custom.el
+.emacs.d/places
+.emacs.d/recentf

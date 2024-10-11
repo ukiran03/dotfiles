@@ -74,6 +74,11 @@
 ;; (load-theme 'wombat t)
 (load-theme 'modus-operandi t)
 
+(set-face-attribute 'default nil
+		            :family "Iosevka Extended"
+		            :height 95
+		            :weight 'semibold
+                    )
 
 ;; (unless (eq window-system 'ns)
 ;;   (menu-bar-mode -1))
