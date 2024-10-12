@@ -3,5 +3,5 @@
 .config/instaloader
 .config/exercism
 .config/zellij/themes
+.config/tmux/plugins
 .tmux
-

@@ -1,0 +1,142 @@
+! <https://wiki.archlinux.org/title/Cursor_themes>
+Xcursor.theme: Bibata-Modern-Ice
+Xcursor.size: 16
+
+! Base16 Default Dark
+! Scheme: Chris Kempson (http://chriskempson.com)
+
+#define base00 #181818
+#define base01 #282828
+#define base02 #383838
+#define base03 #585858
+#define base04 #b8b8b8
+#define base05 #d8d8d8
+#define base06 #e8e8e8
+#define base07 #f8f8f8
+#define base08 #ab4642
+#define base09 #dc9656
+#define base0A #f7ca88
+#define base0B #a1b56c
+#define base0C #86c1b9
+#define base0D #7cafc2
+#define base0E #ba8baf
+#define base0F #a16946
+
+*.foreground:   base05
+#ifdef background_opacity
+*.background:   [background_opacity]base00
+#else
+*.background:   base00
+#endif
+*.cursorColor:  base05
+
+*.color0:       base00
+*.color1:       base08
+*.color2:       base0B
+*.color3:       base0A
+*.color4:       base0D
+*.color5:       base0E
+*.color6:       base0C
+*.color7:       base05
+
+*.color8:       base03
+*.color9:       base09
+*.color10:      base01
+*.color11:      base02
+*.color12:      base04
+*.color13:      base06
+*.color14:      base0F
+*.color15:      base07
+
+! Font settings (for programs that do not support fontconfig)
+! ===========================================================
+Xft*antialias: 1
+Xft*rgba: rgb
+Xft*autohint: 0
+Xft*hinting: 1
+Xft*hintstyle: hintslight
+Xft*lcdfilter: lcddefault
+
+! xterm
+! =====
+
+! Basic settings
+xterm*termName: xterm-256color
+xterm*locale: true
+xterm*utf8: 1
+xterm*utf8Fonts: always
+xterm*dynamicColors: true
+
+! UI components
+xterm*toolBar: false
+xterm*scrollBar: false
+xterm*geometry: 80x24
+xterm*internalBorder: 20
+xterm*borderWidth: 0
+
+! Cursor shape
+! Allowing the cursor to use the reverse colour of the background or
+! foreground avoids circumstances, such as in Vim, where the cursor can
+! be virtually impossible to see.  Note that this does not work when the
+! cursor is not a block character (cursorUnderLine: true).
+xterm*cursorColor: reverse
+xterm*cursorUnderLine: false
+xterm*pointerShape: XTerm
+
+! Cursor blink
+xterm*cursorBlink: true
+xterm*cursorOffTime: 600
+xterm*cursorOnTime: 1200
+
+! Bell
+xterm*bellIsUrgent: false
+xterm*bellSupressTime: 100
+xterm*marginBell: false
+xterm*visualBell: true
+
+! Text highlighting
+xterm*highlightColor: XtDefaultForeground
+xterm*highlightReverse: true
+xterm*highlightSelection: true
+xterm*highlightTextColor: XtDefaultBackground
+
+
+! Font settings
+xterm*faceName: Monospace
+xterm*faceSize: 8
+xterm*renderFont: true
+xterm*boldColors: false
+xterm*faceSize1: 10
+xterm*faceSize2: 12
+xterm*faceSize3: 15
+xterm*faceSize4: 18.25
+xterm*faceSize5: 20.5
+xterm*faceSize6: 25.5
+xterm*forceBoxChars: false
+xterm*limitFontsets: 5
+xterm*scaleHeight: 1.0
+
+! Scroll and output
+xterm*jumpScroll: true
+xterm*multiScroll: true
+xterm*saveLines: 9999
+xterm*scrollKey: true
+xterm*scrollTtyKeypress: true
+xterm*scrollTtyOutput: false
+
+! Backspace behaviour
+xterm*backarrowKey: false
+xterm*metaSendsEscape: true
+xterm*ttyModes: erase ^?
+
+! Key bindings.  Use C-S-{c,v} to copy/paste as in GNOME terminal.  The
+! keys "Prior" and "Next" represent PgUp and PgDown respectively.
+
+
+xterm*selectToClipboard: true
+xterm*translations: #override \n\
+    Ctrl Shift <KeyPress>C: select-end(SELECT, CLIPBOARD) \n\
+    Ctrl Shift <KeyPress>V: insert-selection(SELECT, CLIPBOARD) \n\
+    Ctrl Shift <KeyPress>Next: smaller-vt-font() \n\
+    Ctrl Shift <KeyPress>Prior: larger-vt-font() \n\
+    Ctrl Shift <KeyPress>Home: set-vt-font(d)

@@ -1,0 +1,11 @@
+! https://unix.stackexchange.com/questions/700454/how-to-set-caps-lock-as-hyper-and-change-modifiers-using-xkb
+! add labels
+remove Mod4 = Hyper_L
+add Mod5 = Hyper_L
+
+! Alt_R -> Hyper_R
+
+! HACK TODO
+! remove Mod1 = Alt_R
+clear Mod1
+keycode 108 = Hyper_R
