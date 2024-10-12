@@ -5,6 +5,18 @@ export TERMINAL="alacritty"
 export BROWSER="firefox"
 
 
+# Set PATH so it includes user's private executables.
+if [ -d "$HOME"/.bin ]; then
+    PATH=$PATH:"$HOME"/.bin
+fi
+
+# This is another possible location for user-specific binaries.
+if [ -d "$HOME"/.local/bin ]; then
+    PATH=$PATH:"$HOME"/.local/bin
+fi
+
+
+
 # default folders
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"

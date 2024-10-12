@@ -29,9 +29,10 @@ alt + F7
 XF86Mail
    thunderbird
 
-# terminal
+# terminal: zellij or tmux
 super + {_, shift + } Return
-        {alacritty -e tmux new-session -A -s 'Main', alacritty}
+    {alacritty -T zellij -e zellij attach --create Main, alacritty}
+        # {alacritty -e tmux new-session -A -s 'Main', alacritty}
 
 shift + KP_End
     thunar

@@ -3,6 +3,7 @@
 .emacs.d/avatars/
 .emacs.d/data/
 .emacs.d/games/
+.emacs.d/racket-mode/
 .emacs.d/persistent-scratch/
 .emacs.d/tree-sitter/
 .emacs.d/.persistent-scratch

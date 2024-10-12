@@ -42,3 +42,9 @@ sl
 tmux
 github-cli
 racket
+bc
+bash-language-server
+bat
+zellij
+redshift
+ipython

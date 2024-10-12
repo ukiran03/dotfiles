@@ -277,6 +277,7 @@ hc rule title="your world program's event log" floating=on floatplacement=smart
 hc rule title="your world program's state" floating=on floatplacement=smart
 
 hc rule class=Localsend floating=on floatplacement=smart
+hc rule class=Yad floatplacement=smart floating=on
 
 hc rule class=TelegramDesktop tag=9
 hc rule class=qBittorrent tag=9

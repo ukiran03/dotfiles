@@ -52,9 +52,9 @@
   :hook
   ((next-error . pulsar-pulse-line)
    (minibuffer-setup . pulsar-pulse-line-red)
-   (imenu-after-jump . pulsar-recenter-top)
+   (imenu-after-jump . pulsar-recenter-center)
    (imenu-after-jump . pulsar-reveal-entry)
-   (consult-after-jump . pulsar-recenter-top)
+   (consult-after-jump . pulsar-recenter-center)
    (consult-after-jump . pulsar-reveal-entry))
   :bind
   (("C-c p p" . pulsar-pulse-line)   ; override `count-lines-page'

@@ -3,6 +3,11 @@
   :config
   (setq help-window-select t))
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(setq frame-title-format '("Emacs - %b")
+      icon-title-format frame-title-format)
+
 (use-package repeat
   :ensure nil
   :init (repeat-mode))
