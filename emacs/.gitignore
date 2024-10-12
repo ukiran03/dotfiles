@@ -12,5 +12,6 @@
 .emacs.d/savehist
 .emacs.d/custom.el
 .emacs.d/places
+.emacs.d/projects
 .emacs.d/recentf
 .emacs.d/history
