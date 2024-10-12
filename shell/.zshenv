@@ -4,6 +4,8 @@ export VISUAL="nvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 
+# zsh
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 # Set PATH so it includes user's private executables.
 if [ -d "$HOME"/.bin ]; then
@@ -24,9 +26,31 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_SCREENSHOTS_DIR="$HOME/Pictures/screenshots"
 
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+# Dotfiles
+export DOTFILES="$HOME/dotfiles"
+
+# Bash History
+# export HISTFILE="$XDG_CONFIG_HOME/shell/history"
+if [ "$SHELL" = "/bin/zsh" ]; then
+    export HISTFILE="$XDG_CONFIG_HOME/zsh/zsh_history"
+else
+    export HISTFILE="$XDG_CONFIG_HOME/shell/bash_history"
+fi
+
+# wget
+export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
+
+# Cuda
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+
+# Ipython
+export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
+
+# libice
+export ICEAUTHORITY="$XDG_CACHE_HOME"/ICEauthority
 
 # set the localization
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-

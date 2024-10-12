@@ -1,5 +1,12 @@
 export QT_QPA_PLATFORMTHEME=qt5ct
 
+export ERRFILE="$XDG_CONFIG_HOME/X11/xsession-errors"
+
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+source "$HOME"/.zshenv
+
+xrdb -load "$XDG_CONFIG_HOME/X11/xresources"
+
 # Source my bashrc.
 if [ -n "$BASH_VERSION" ]; then
     if [ -f "$HOME"/.bashrc ]; then

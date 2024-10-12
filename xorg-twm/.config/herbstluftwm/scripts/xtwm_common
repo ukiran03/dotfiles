@@ -30,9 +30,6 @@ then
               -option 'altwin:menu_win' -option 'caps:none'
 fi
 
-xmodmap ~/.Xmodmap
-
-
 # The hotkey daemon that handles all custom key bindings.  I split the
 # key chords into separate files, based on their scope.  The ones that
 # pertain to the window manager are defined in sxhkdrc_bspwm and
@@ -75,10 +72,13 @@ then
 fi
 
 # check once again
+xmodmap "$XDG_CONFIG_HOME/X11/xmodmap"
+
 
 # xset r rate 200 50
 
 # Load my Xresources
+# xrdb -load "$XDG_CONFIG_HOME/X11/xresources"
 # _check xrdb && [ -f "$HOME"/.Xresources ] && xrdb -I "$HOME" -merge "$HOME"/.Xresources
 
 # PKG: network-manager-applet
