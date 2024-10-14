@@ -1,0 +1,58 @@
+# Rofi
+super + {a,s,w,y}
+    {rofi -show drun, \
+    rofi -show run, \
+    rofi -show window, \
+    rofi -show filebrowser}
+
+# Clipboard, rofi-greenclip
+super + grave
+    rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
+# #Raises volume
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+    /home/ukiran/.local/bin/changevolume {up,down,mute}
+
+# Emacs
+super + e
+    emacsclient -c -a 'emacs'
+
+# mpd, ncmpcpp
+XF86Audio{Play,Next,Prev,Stop}
+    mpc {toggle,next,prev,stop}
+
+# Youtube, Firefox etc.
+alt + F7
+    playerctl play-pause
+
+# Email
+XF86Mail
+   thunderbird
+
+# terminal: zellij or tmux
+super + {_, shift + } Return
+    {alacritty -T zellij -e zellij attach --create Main, alacritty}
+        # {alacritty -e tmux new-session -A -s 'Main', alacritty}
+
+shift + KP_End
+    thunar
+
+# Screenshot using `maim'
+Print
+   /home/ukiran/.local/bin/screenshot.sh
+ctrl + Print
+    /home/ukiran/.local/bin/screenshot.sh -s
+ctrl + shift + Print
+    /home/ukiran/.local/bin/screenshot.sh -c
+alt + Print
+    /home/ukiran/.local/bin/screenshot.sh -w
+
+# Browser, Chat
+super + {F9, F10, F11, F12}
+    {firefox, telegram-desktop, tor-browser, qbittorrent}
+super + shift + F9
+    firefox --private-window
+
+# brightness
+super + bracket{left,right}
+    /home/ukiran/.local/bin/uk-bright {down,up}

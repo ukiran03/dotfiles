@@ -1,0 +1,44 @@
+# Rofi
+super + {a,s,w,y}
+    {rofi -show drun, \
+    rofi -show run, \
+    rofi -show window, \
+    rofi -show filebrowser}
+
+# Clipboard, rofi-greenclip
+super + grave
+    rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
+
+# #Raises volume
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+    /home/ukiran/.local/bin/changevolume {up,down,mute}
+
+# Emacs
+super + e
+    emacsclient -c -a 'emacs'
+
+# mpd, ncmpcpp
+XF86Audio{Play,Next,Prev,Stop}
+    mpc {toggle,next,prev,stop}
+
+# Youtube, Firefox etc.
+alt + F7
+    playerctl play-pause
+
+# Email
+XF86Mail
+   thunderbird
+
+
+shift + KP_End
+    thunar
+
+
+# brightness
+super + bracket{left,right}
+    /home/ukiran/.local/bin/uk-bright {down,up}
+
+### XFCE
+super + space
+    /usr/bin/xfce4-popup-whiskermenu

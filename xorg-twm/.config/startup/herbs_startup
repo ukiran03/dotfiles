@@ -24,17 +24,19 @@ _check () {
 # NOTE 2023-07-16: The -option used to accept a comma separated list.
 # Now it requires each option to be specified separately.
 
-if _check setxkbmap
-then
-    setxkbmap -option 'ctrl:nocaps' \
-              -option 'altwin:menu_win' -option 'caps:none'
-fi
+# if _check setxkbmap
+# then
+#     setxkbmap -option 'ctrl:nocaps' \
+#               -option 'altwin:menu_win' -option 'caps:none'
+# fi
+
+xmodmap "$XDG_CONFIG_HOME/X11/xmodmap"
 
 # The hotkey daemon that handles all custom key bindings.  I split the
 # key chords into separate files, based on their scope.  The ones that
 # pertain to the window manager are defined in sxhkdrc_bspwm and
 # sxhkdrc_herbstluftwm, respectively.
-_check sxhkd && sxhkd -c "$HOME"/.config/herbstluftwm/sxhkd/sxhkdrc &
+_check sxhkd && sxhkd -c "$HOME"/.config/sxhkd/herbs_sxhkdrc &
 
 # Check if tmux session 'Main' exists, and create it if it doesn't
 if ! tmux has-session -t 'Main' 2>/dev/null; then
@@ -72,7 +74,7 @@ then
 fi
 
 # check once again
-xmodmap "$XDG_CONFIG_HOME/X11/xmodmap"
+
 
 
 # xset r rate 200 50

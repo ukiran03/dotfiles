@@ -12,7 +12,8 @@ hc emit_hook reload
 
 hc keyunbind --all
 
-bash "$SCRIPTS"/xtwm_common
+# bash "$SCRIPTS"/xtwm_common
+bash "$HOME"/.config/startup/herbs_startup
 
 Mod5=Mod5                     # Hyper key
 Mod1=Mod1    # Use alt as the main modifier
@@ -29,7 +30,7 @@ for i in "${!tag_names[@]}" ; do
     hc set_layout horizontal
     hc set default_frame_layout 1
     key="${tag_keys[$i]}"
-    if [ -n "$key" ] ; then	
+    if [ -n "$key" ] ; then
 	hc keybind "$Mod-$key" use ${tag_names[$i]}
         hc keybind "$Mod-Shift-$key" move_index "$i"
         hc keybind "$Mod-Control-$key" chain , move_index "$i" , use_index "$i"

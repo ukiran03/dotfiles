@@ -28,7 +28,7 @@ alias hh="history info 0 | cut -c 8- | sort | uniq | fzf | tr -d '\n' | xclip -s
 
 cd() {
     [[ $# -eq 0 ]] && return
-    builtin cd "$@" 
+    builtin cd "$@"
     echo "$(pwd)"
 }
 # # ex = EXtractor for all kinds of archives
@@ -383,7 +383,10 @@ alias rm="rm -iv"
 alias mkdir="mkdir -pv"
 
 #terminal fun
-alias matrix='unimatrix -s 96 -l k -c red'
+# alias matrix='unimatrix -s 96 -l k -c red'
 
 # LOCAL MANUALS
 alias rust-doc="rustup docs --book"
+
+alias ll="eza --color=always --group-directories-first -l"
+alias la="eza --color=always --group-directories-first -la"
