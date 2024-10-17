@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # xtwm_common -- Common settings for Xorg Tiling Window Managers
 

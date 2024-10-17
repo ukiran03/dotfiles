@@ -6,6 +6,7 @@
 .emacs.d/racket-mode/
 .emacs.d/persistent-scratch/
 .emacs.d/tree-sitter/
+.emacs.d/newsticker/
 .emacs.d/.persistent-scratch
 .emacs.d/auto-save-list/
 .emacs.d/.cache/

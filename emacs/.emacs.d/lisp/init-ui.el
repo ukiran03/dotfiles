@@ -15,11 +15,7 @@
    '((border-mode-line-active bg-mode-line-active)
      (border-mode-line-inactive bg-mode-line-inactive)))
   :init
-  (load-theme 'modus-operandi :no-confirm))
-
-(require 'modus-themes)
-;; (modus-themes-load-theme 'modus-vivendi)
-(modus-themes-load-theme 'modus-operandi)
+  (load-theme 'modus-vivendi :no-confirm))
 
 
 ;; Nice writing
@@ -29,7 +25,7 @@
   :config (setq olivetti-body-width 0.62))
 
 (use-package doom-modeline
-  ;; :disabled
+  :disabled
   ;; :init (doom-modeline-mode 1)
   :config
   (setq doom-modeline-minor-modes t)

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: 2htdp-setup
+# key: 2htdp-setup
+# --
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname `(file-name-sans-extension (file-name-nondirectory (buffer-file-name)))`) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+;; ---------- For
+;; ---------- DrRacket
+
+(require 2htdp/image)
+(require 2htdp/universe)
+
+$0

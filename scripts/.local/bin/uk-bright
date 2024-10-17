@@ -23,10 +23,13 @@ default="0.85"
 config="/home/ukiran/.config/my_display/brightness"
 
 send_notification() {
-    percentage=$(echo "scale=0; ($result * 100) / 1" | bc)  # Calculate percentage from $result
+    # Calculate percentage from $result
+    percentage=$(echo "scale=0; ($result * 100) / 1" | bc)
     # polybar-msg hook uk-bright 1 &  # Trigger Polybar hook to update uk-bright module
     polybar-msg action uk-bright send ${percentage}
-    dunstify -a "ignore" -u low -r 4434 -h int:value:"$percentage" -i "$icon" "Brightness: ${percentage}%" -t 2000 # Send notification with dunstify
+    # Send notification with dunstify
+    dunstify -a "ignore" -u low -r 4434 -h int:value:"$percentage" \
+             -i "$icon" "Brightness: ${percentage}%" -t 2000
 }
 
 if [[ ! -f "$config" ]]; then
@@ -58,18 +61,14 @@ case $1 in
 	fi
 	;;
     reset)
-	icon="reset_icon"
-	echo "$default" > "$config"
-	# xrandr --output HDMI-1-0 --brightness 0.85
+	icon="up_icon"
 	result="$default"
+    echo "$default" > "$config"
+	# xrandr --output HDMI-1-0 --brightness 0.85
+    send_notification "$1"
 	xrandr --output HDMI-1-0 --brightness "$result"
-	send_notification "$1"
 	;;
 esac
 
 read -r current < "$config"
 echo "The current value is: $current"
-
-
-
-

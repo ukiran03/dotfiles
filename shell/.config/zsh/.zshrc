@@ -60,7 +60,7 @@ setopt SHARE_HISTORY	         # Share history between all sessions.
 setopt prompt_subst	         # Enables prompt substitution
 setopt always_to_end	         # Ensures the cursor moves to the end of the command line
 setopt APPEND_HISTORY	         # Preserving the commands from all sessions
-			         
+
 setopt auto_menu	         # Automatically displays a menu of possible completions
 setopt complete_in_word	         # Attempt to complete the word at the cursor position
 setopt hist_verify	         # Re-evaluate the modified command line before executing it
@@ -95,6 +95,12 @@ fi
 if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
+
+### Functions
+backupthis ()
+{
+    cp -riv $1 ${1}-$(date +%Y%m%d%H%M).backup;
+}
 
 #### Keybinds
 bindkey -e

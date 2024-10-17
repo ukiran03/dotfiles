@@ -48,3 +48,4 @@ bat
 zellij
 redshift
 ipython
+yt-dlp

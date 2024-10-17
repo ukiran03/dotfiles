@@ -1,4 +1,17 @@
 
+;;;; `ediff'
+(use-package ediff
+  :ensure nil
+  :commands (ediff-buffers ediff-files ediff-buffers3 ediff-files3)
+  :init
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  :config
+  (setq ediff-keep-variants nil)
+  (setq ediff-make-buffers-readonly-at-startup nil)
+  (setq ediff-merge-revisions-with-ancestor t)
+  (setq ediff-show-clashes-only t))
+
 (use-package magit :ensure t)
 (use-package forge :ensure nil)
 
@@ -23,7 +36,9 @@
 
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
-  :custom (diff-hl-draw-borders nil)
+  :init
+  (setq diff-hl-draw-borders nil)
+  (setq-default diff-hl-inline-popup--height 4)
 ;;   :custom-face
 ;;   (diff-hl-change ((t (:inherit custom-changed :foreground unspecified :background unspecified))))
 ;;   (diff-hl-insert ((t (:inherit diff-added :background unspecified))))
