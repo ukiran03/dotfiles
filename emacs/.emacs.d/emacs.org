@@ -19,10 +19,9 @@ Only one step at a time
   (defun my-enable-minor-mode-if-in-directory ()
     "Enable `my-minor-mode' if the current buffer is in `~/my-directory'."
     (when (and buffer-file-name
-               (string-prefix-p (expand-file-name "~/my-directory/") 
+               (string-prefix-p (expand-file-name "~/my-directory/")
                                 (expand-file-name buffer-file-name)))
       (my-minor-mode 1)))                 ; `read-only-mode'
 
   (add-hook 'find-file-hook 'my-enable-minor-mode-if-in-directory)
 #+end_src
-

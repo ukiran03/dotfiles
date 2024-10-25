@@ -16,4 +16,5 @@
 .emacs.d/projects
 .emacs.d/recentf
 .emacs.d/history
+.emacs.d/transient/
 .emacs.d/session*

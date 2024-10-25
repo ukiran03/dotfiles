@@ -24,9 +24,12 @@ config="/home/ukiran/.config/my_display/brightness"
 
 send_notification() {
     # Calculate percentage from $result
-    percentage=$(echo "scale=0; ($result * 100) / 1" | bc)
+    # percentage=$(echo "scale=0; ($result * 100) / 1" | bc)      #using bc
+    percentage=$(awk '{printf "%.0f", $1 * 100}' <<< "$result") #using awk
+
     # polybar-msg hook uk-bright 1 &  # Trigger Polybar hook to update uk-bright module
     polybar-msg action uk-bright send ${percentage}
+
     # Send notification with dunstify
     dunstify -a "ignore" -u low -r 4434 -h int:value:"$percentage" \
              -i "$icon" "Brightness: ${percentage}%" -t 2000

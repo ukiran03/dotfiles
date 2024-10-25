@@ -18,13 +18,15 @@
 
 (use-package pulsar
   :ensure t
-  :config
-  (setq pulsar-pulse t
-        pulsar-delay 0.05               ; Default
-        pulsar-iterations 10
-        pulsar-face 'pulsar-generic
-        pulsar-highlight-face 'pulsar-cyan)
+  :init
   (pulsar-global-mode 1)
+  :config
+  (setq pulsar-pulse t)
+  (setq pulsar-delay 0.05)
+  (setq pulsar-iterations 10)
+  (setq pulsar-face 'pulsar-generic)
+  (setq pulsar-highlight-face 'pulsar-cyan)
+  (setq pulsar-pulse-on-window-change t)
   ;; (advice-add #'kill-ring-save :before #'pulsar-pulse-region)
   ;; (add-to-list 'kill-ring-save 'pulsar-pulse-functions)
   (dolist (func '(
@@ -35,8 +37,6 @@
                   avy-copy-line
                   avy-kill-whole-line
                   uk-toggle-window-split
-                  windmove-do-window-select
-                  treemacs-select-window
                   aw-select
                   ace-window
                   keyboard-quit
@@ -44,11 +44,10 @@
                   pop-to-mark-command
                   pop-global-mark
                   goto-last-change
-                  kill-ring-save        ; DEBUG:
+                  kill-ring-save        ; DEBUG
                   exit-minibuffer
                   abort-minibuffers))
     (add-to-list 'pulsar-pulse-functions func))
-  ;; (advice-add #'kill-ring-save :before #'pulsar-pulse-region)
   :hook
   ((next-error . pulsar-pulse-line)
    (minibuffer-setup . pulsar-pulse-line-red)
@@ -175,12 +174,12 @@
   :init (setq hl-todo-require-punctuation nil ; t
               hl-todo-highlight-punctuation ":")
   :config
-  ;; (dolist (keyword '("BUG" "DEFECT" "ISSUE"))
-  ;;   (add-to-list 'hl-todo-keyword-faces `(,keyword . "#e45649")))
-  ;; (dolist (keyword '("TRICK" "WORKAROUND"))
-  ;;   (add-to-list 'hl-todo-keyword-faces `(,keyword . "#d0bf8f")))
-  ;; (dolist (keyword '("DEBUG" "STUB"))
-  ;;   (add-to-list 'hl-todo-keyword-faces `(,keyword . "#7cb8bb")))
+  (dolist (keyword '("BUG" "DEFECT" "ISSUE"))
+    (add-to-list 'hl-todo-keyword-faces `(,keyword . "#e45649")))
+  (dolist (keyword '("TRICK" "WORKAROUND"))
+    (add-to-list 'hl-todo-keyword-faces `(,keyword . "#d0bf8f")))
+  (dolist (keyword '("DEBUG" "STUB"))
+    (add-to-list 'hl-todo-keyword-faces `(,keyword . "#7cb8bb")))
 
 
   (defun hl-todo-rg (regexp &optional files dir)

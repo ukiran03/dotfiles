@@ -60,6 +60,4 @@ these values mean."
                  (`nil "disabled")
                  (_ (symbol-name next)))))))
 
-
-
 (provide 'init-simple)

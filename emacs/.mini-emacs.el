@@ -114,35 +114,37 @@
 (add-hook 'minibuffer-setup-hook #'subword-mode)
 
 ;; Completion
-(if (fboundp 'fido-mode)
-    (progn
-      (fido-mode 1)
-      (when (fboundp 'fido-vertical-mode)
-        (fido-vertical-mode 1))
+;; (if (fboundp 'fido-mode)
+;;     (progn
+;;       (fido-mode 1)
+;;       (when (fboundp 'fido-vertical-mode)
+;;         (fido-vertical-mode 1))
 
-      (defun fido-recentf-open ()
-        "Use `completing-read' to find a recent file."
-        (interactive)
-        (if (find-file (completing-read "Find recent file: " recentf-list))
-            (message "Opening file...")
-          (message "Aborting")))
-      (global-set-key (kbd "C-x C-r") 'fido-recentf-open))
-  (progn
-    (ido-mode 1)
-    (ido-everywhere 1)
+;;       (defun fido-recentf-open ()
+;;         "Use `completing-read' to find a recent file."
+;;         (interactive)
+;;         (if (find-file (completing-read "Find recent file: " recentf-list))
+;;             (message "Opening file...")
+;;           (message "Aborting")))
+;;       (global-set-key (kbd "C-x C-r") 'fido-recentf-open))
+;;   (progn
+;;     (ido-mode 1)
+;;     (ido-everywhere 1)
 
-    (setq ido-use-virtual-buffers t
-          ido-use-filename-at-point 'guess
-          ido-create-new-buffer 'always
-          ido-enable-flex-matching t)
+;;     (setq ido-use-virtual-buffers t
+;;           ido-use-filename-at-point 'guess
+;;           ido-create-new-buffer 'always
+;;           ido-enable-flex-matching t)
 
-    (defun ido-recentf-open ()
-      "Use `ido-completing-read' to find a recent file."
-      (interactive)
-      (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-          (message "Opening file...")
-        (message "Aborting")))
-    (global-set-key (kbd "C-x C-r") 'ido-recentf-open)))
+;;     (defun ido-recentf-open ()
+;;       "Use `ido-completing-read' to find a recent file."
+;;       (interactive)
+;;       (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+;;           (message "Opening file...")
+;;         (message "Aborting")))
+;;     (global-set-key (kbd "C-x C-r") 'ido-recentf-open)))
+
+(setq completion-auto-help 'visible)
 
 ;; Keybindings
 (global-set-key (kbd "<C-return>") #'rectangle-mark-mode)
@@ -158,6 +160,15 @@
   (revert-buffer t t))
 (global-set-key (kbd "<f5>") #'revert-current-buffer)
 
+(use-package simple
+  :ensure nil
+  :config
+  (defun uk-simple-copy-line ()
+    "Copy the current line to the `kill-ring'."
+    (interactive)
+    (copy-region-as-kill (line-beginning-position) (line-end-position))
+    (pulse-momentary-highlight-region (line-beginning-position) (line-end-position)))
+  (global-set-key (kbd "C-S-w") 'uk-simple-copy-line))
 
 (global-set-key (kbd "M-o") 'other-window)
 

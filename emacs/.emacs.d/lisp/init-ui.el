@@ -17,6 +17,23 @@
   :init
   (load-theme 'modus-vivendi :no-confirm))
 
+;; `Fonts'
+(use-package fontaine
+  :config
+  (setq fontaine-presets
+        '((Iosevka
+           :default-family "Iosevka"
+           :default-height 100
+           :default-weight semibold)
+          (Uosevka
+           :default-family "Iosevka Extended"
+	       :default-height 100
+	       :default-weight semibold)
+          (MIosevka
+	       :inherit medium
+	       :default-family "Iosevka"
+	       :default-height 100
+	       :default-weight semibold))))
 
 ;; Nice writing
 (use-package olivetti

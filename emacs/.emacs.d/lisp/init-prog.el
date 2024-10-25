@@ -89,20 +89,23 @@
   (setopt puni-blink-region-face 'show-paren-match))
   ;; (puni-global-mode t))
 
+(use-package aggressive-indent
+  :diminish
+  :ensure t
+  :hook ((emacs-lisp-mode
+          lisp-interaction-mode
+          racket-mode
+          scheme-mode) . aggressive-indent-mode))
 
 (use-package emacs
   :ensure nil
   :config
   (setq warning-minimum-level :error))
 
-
 ;; <https://erick.navarro.io/blog/testing-an-api-with-emacs-and-restclient/>
 (use-package restclient
   :ensure t
   :mode (("\\.http\\'" . restclient-mode)))
-
-
-
 
 (use-package files
   :ensure nil

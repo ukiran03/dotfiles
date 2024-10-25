@@ -1,25 +1,3 @@
-import = [
-# Dark
-# "~/.config/alacritty/themes/themes/base16_default_dark.toml"
-# "~/.config/alacritty/themes/themes/kanagawa_dragon.toml"
-
-# "~/.config/alacritty/themes/themes/rose-pine.toml"
-# "~/.config/alacritty/themes/themes/solarized_osaka.toml"
-# "~/.config/alacritty/themes/themes/tomorrow_night.toml"
-"~/.config/alacritty/themes/themes/citylights.toml"
-# "~/.config/alacritty/themes/themes/inferno.toml" #orange
-
-# Light
-# "~/.config/alacritty/themes/themes/papercolor_light.toml"
-# "~/.config/alacritty/themes/themes/rose-pine-dawn.toml"
-# "~/.config/alacritty/themes/themes/solarized_light.toml"
-
-]
-
-
-# "cursor.style" = "Block"
-# "debug.render_timer" = false
-live_config_reload = true
 
 [bell]
 animation = "EaseOutExpo"
@@ -29,22 +7,6 @@ duration = 0
 [colors]
 draw_bold_text_with_bright_colors = true
 
-########## ushakiran's old colors
-####### [colors.normal]
-####### black = "0x4C566A"
-####### blue = "0x81A1C1"
-####### cyan = "0x88C0D0"
-####### green = "0xA3BE8C"
-####### magenta = "0xB48EAD"
-####### red = "0xBF616A"
-####### white = "0xE5E9F0"
-####### yellow = "0xEBCB8B"
-#######
-#######
-####### [colors.primary]
-####### background = "0x0f111a"
-####### foreground = "0xd8dee9"
-
 # [env]
 # TERM = "xterm"
 
@@ -52,7 +14,7 @@ draw_bold_text_with_bright_colors = true
 size = 10
 
 [font.bold]
-family = "Iosevka Semibold Extended"
+family = "Iosevka Extended"
 style = "Bold"
 
 [font.glyph_offset]
@@ -60,12 +22,12 @@ x = 0
 y = 0
 
 [font.italic]
-family = "Iosevka Semibold Extended"
-style = "Italic"
+family = "Iosevka Extended"
+style = "Italic" 
 
 [font.normal]
 family = "Iosevka Semibold Extended"
-style = "Regular"
+style = "Semibold"
 
 [font.offset]
 x = 0
@@ -102,4 +64,28 @@ decorations = "none"
 
 [window.padding]
 x = 7
-y = 4
+y = 7
+
+[general]
+
+
+# "cursor.style" = "Block"
+# "debug.render_timer" = false
+live_config_reload = true
+import = [
+# Dark
+# "~/.config/alacritty/themes/themes/base16_default_dark.toml"
+# "~/.config/alacritty/themes/themes/kanagawa_dragon.toml"
+
+# "~/.config/alacritty/themes/themes/rose-pine.toml"
+# "~/.config/alacritty/themes/themes/solarized_osaka.toml"
+# "~/.config/alacritty/themes/themes/tomorrow_night.toml"
+"~/.config/alacritty/themes/themes/citylights.toml"
+# "~/.config/alacritty/themes/themes/inferno.toml" #orange
+
+# Light
+# "~/.config/alacritty/themes/themes/papercolor_light.toml"
+# "~/.config/alacritty/themes/themes/rose-pine-dawn.toml"
+# "~/.config/alacritty/themes/themes/solarized_light.toml"
+
+]

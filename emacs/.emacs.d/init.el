@@ -50,7 +50,7 @@ Otherwise the startup will be slow."
 
 (set-face-attribute 'default nil
 		            :family "Iosevka Extended"
-		            :height 95
+		            :height 100
 		            :weight 'semibold
                     )
 

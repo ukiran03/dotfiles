@@ -51,6 +51,12 @@ export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 # libice
 export ICEAUTHORITY="$XDG_CACHE_HOME"/ICEauthority
 
+# Cargo :Rust
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+
+# GOPATH :Go
+export GOPATH="$XDG_DATA_HOME"/go
+
 # set the localization
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8

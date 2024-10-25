@@ -121,11 +121,11 @@ hc keybind $Mod-Control-space split explode
 
 # cycle through tags
 
-# hc keybind $Mod-Mod1-period spawn $SCRIPTS/non_empt_tags next
-# hc keybind $Mod-Mod1-comma spawn $SCRIPTS/non_empt_tags prev
+hc keybind $Mod-period spawn $SCRIPTS/hc_non_empty next
+hc keybind $Mod-comma spawn $SCRIPTS/hc_non_empty prev
 
-hc keybind $Mod-period use_index +1 --skip-visible
-hc keybind $Mod-comma use_index -1 --skip-visible
+hc keybind $Mod-Mod1-period use_index +1 --skip-visible
+hc keybind $Mod-Mod1-comma use_index -1 --skip-visible
 
 hc keybind $Mod-Page_Down use_index +1 --skip-visible
 hc keybind $Mod-Page_Up  use_index -1 --skip-visible
@@ -134,6 +134,8 @@ hc keybind $Mod-Page_Up  use_index -1 --skip-visible
 hc keybind $Mod-BackSpace chain , use_previous            \
    , try sprintf BODY "Tag: %s" clients.focus.tag         \
    spawn notify-send -a "ignore" -t 600 -r 300 -i ~/.config/herbstluftwm/assets/Hlwm_logo.svg BODY HLWM
+
+
 
 hc keybind $Mod-Shift-period chain , move_index +1 , use_index +1
 hc keybind $Mod-Shift-comma chain , move_index -1 , use_index -1

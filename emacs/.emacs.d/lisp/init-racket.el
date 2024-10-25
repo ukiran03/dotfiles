@@ -31,6 +31,11 @@
     (setq eldoc-echo-area-use-multiline-p nil))
   :config
   (setq racket-xp-eldoc-level 'complete) ;'minimal, 'summary
-  (setq racket-show-functions '(racket-show-echo-area))
-  )
+  (setq racket-show-functions '(racket-show-echo-area)))
+
+(use-package racket-mode
+  :config
+  (custom-set-faces
+   '(racket-repl-prompt ((t (:inherit font-lock-function-name-face))))))
+
 (provide 'init-racket)

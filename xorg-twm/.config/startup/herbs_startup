@@ -75,7 +75,11 @@ fi
 
 # check once again
 
-
+if _check redshift; then
+    if ! pgrep -x "redshift" > /dev/null; then
+    redshift-gtk &
+    fi
+fi
 
 # xset r rate 200 50
 
