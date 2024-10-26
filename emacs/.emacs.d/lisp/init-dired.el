@@ -9,7 +9,7 @@
               ("C-c C-p" . wdired-change-to-wdired-mode))
   :config
   (setq dired-auto-revert-buffer #'dired-directory-changed-p)
-  
+
   ;; Guess a default target directory
   (setq dired-dwim-target t)
 
@@ -18,33 +18,33 @@
   (setq dired-mouse-drag-files t); Emacs 29.01
 
   (setq delete-by-moving-to-trash t)
-  
+
   ;; Always delete and copy recursively
   (setq dired-recursive-deletes 'always
         dired-recursive-copies 'always)
 
   (add-hook 'dired-mode-hook #'hl-line-mode)
   (add-hook 'dired-mode-hook #'dired-hide-details-mode)
-  
+
   ;; Show directory first
   (setq dired-listing-switches "-AGFhlv --group-directories-first --time-style=long-iso")
 
   ;; Show git info in dired
   (use-package dired-git-info
     :bind (:map dired-mode-map
-		(")" . dired-git-info-mode)))
+		        (")" . dired-git-info-mode)))
 
   ;; Allow rsync from dired buffers
   (use-package dired-rsync
     :bind (:map dired-mode-map
-		("C-c C-r" . dired-rsync)))
+		        ("C-c C-r" . dired-rsync)))
 
   ;; Colorful dired
   (use-package diredfl
     :ensure nil
     :disabled
     :hook (dired-mode . diredfl-mode))
-  
+
   ;; Shows icons
   (use-package nerd-icons-dired
     :ensure nil
@@ -139,4 +139,3 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-dired.el ends here
-

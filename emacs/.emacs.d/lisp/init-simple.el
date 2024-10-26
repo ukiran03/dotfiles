@@ -1,12 +1,27 @@
 (use-package simple
   :ensure nil
+  :bind (("C-S-w" . uk-simple-copy-line)
+         ("C-S-<backspace>" . uk-kill-whole-line))
   :config
   (defun uk-simple-copy-line ()
     "Copy the current line to the `kill-ring'."
     (interactive)
     (copy-region-as-kill (line-beginning-position) (line-end-position))
     (pulse-momentary-highlight-region (line-beginning-position) (line-end-position)))
-  (global-set-key (kbd "C-S-w") 'uk-simple-copy-line))
+
+  (defun uk-kill-whole-line ()
+    "If the region is active, delete all whole lines under the region.
+If the region is not active, `kill-the-whole' line at the point."
+    (interactive)
+    (if (region-active-p)
+        (let ((start (save-excursion
+                       (goto-char (region-beginning))
+                       (line-beginning-position)))
+              (end (save-excursion
+                     (goto-char (region-end))
+                     (line-end-position))))
+          (kill-region start end))
+      (kill-whole-line))))
 
 (use-package simple
   :ensure nil

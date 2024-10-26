@@ -121,11 +121,11 @@ hc keybind $Mod-Control-space split explode
 
 # cycle through tags
 
-hc keybind $Mod-period spawn $SCRIPTS/hc_non_empty next
-hc keybind $Mod-comma spawn $SCRIPTS/hc_non_empty prev
+hc keybind $Mod-period use_index +1 --skip-visible
+hc keybind $Mod-comma use_index -1 --skip-visible
 
-hc keybind $Mod-Mod1-period use_index +1 --skip-visible
-hc keybind $Mod-Mod1-comma use_index -1 --skip-visible
+hc keybind $Mod-apostrophe spawn $SCRIPTS/hc_non_empty next
+hc keybind $Mod-semicolon  spawn $SCRIPTS/hc_non_empty prev
 
 hc keybind $Mod-Page_Down use_index +1 --skip-visible
 hc keybind $Mod-Page_Up  use_index -1 --skip-visible

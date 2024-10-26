@@ -14,9 +14,7 @@
   (setq flymake-no-changes-timeout nil
         flymake-fringe-indicator-position 'right-fringe)
 
-  (setq flymake-mode-line-lighter 
-      (propertize (concat "F" (char-to-string #x2107))
-                  'face '(:weight bold))))
+  (setq flymake-mode-line-lighter "Fℇ"))  ; ⧫
 
 (use-package sideline-flymake
   :ensure t

@@ -9,6 +9,8 @@
                                                 'snippet-mode)
                           (eglot-ensure))))
          ((markdown-mode yaml-mode yaml-ts-mode) . eglot-ensure))
+  :config
+  (setq eglot-menu-string "✦") ;; ✭►⋙
   :bind (:map eglot-mode-map
               ("<f5>" . eglot-format-buffer)
               ("C-h ." . eldoc)

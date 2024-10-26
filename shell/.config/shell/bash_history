@@ -1,0 +1,717 @@
+sudo cp exec-chadwm /usr/bin/
+../share/
+cd xsessions/
+ls
+type exec-chadwm
+cd /usr/share/xsessions/
+ls
+cd .config/arco-chadwm/
+ls
+sudo nvim /etc/systemd/logind.conf 
+sudo systemctl restart systemd-logind
+sudo systemctl restart systemd-logind.service 
+rsx
+vpn c
+vpn d
+yay -S dash imlib2 xetroot
+yay -S xsetroot
+yay -S acpi
+man acpi
+xbh .85
+monmain 
+neofetch 
+ls
+killall picom
+killall eww
+htop
+killall alacritty 
+ls
+killall conky
+ctcap
+z arc
+z
+z .config/arco-chadwm/
+ls
+z chadwm/
+rm config.h
+sudo make install 
+picom &
+matrix
+ls
+neofetch 
+picom &
+matrix
+neofetch 
+z arco
+z
+z chadw
+pwd
+z chadwm/
+ls
+killall sxhkd
+rm config.h
+sudo make install 
+reboot
+killall clipman
+killall xfce4-clipman
+man nm-applet 
+killall bar,sh
+killall bar.sh
+xprop
+alacritty -e ~/.config/arco-chadwm/cheatsheet.md 
+killall bar,sh
+killall bar.sh
+xprop
+fetch
+z chadwm
+z chadwm/
+..
+cd scripts/
+./
+z -
+ls
+./keyhint 
+sudo ./keyhint 
+./fetch 
+cat /sys/class/backlight/*/brightness
+ls
+sudo ./keyhint 
+./fetch 
+cat /sys/class/backlight/*/brightness
+z arcolinux-chadwm/
+..
+z arco
+z\
+z
+z chadwm
+cd s
+cd scripts/
+./bar.sh &
+nv run.sh 
+./picom-toggle.sh 
+ls
+update
+htop
+dmenu_run
+z chadwm
+pwd
+ls
+rm config.h 
+sudo make install 
+z chadwm
+rm config.h 
+sudo make install 
+killall bar.sh
+killall bar.sh
+pamixer --get-volume-human
+pamixer --get-volume
+voulme
+volume
+type changevolume
+bat ~/.local/bin/changevolume 
+man pamixer
+z chadwm
+cd chadwm/
+rm config.h 
+sudo make install 
+yay -S plank
+plank &
+plank &
+cd /usr/share/applications/
+nv thunderbird.desktop
+sudo nv thunderbird.desktop
+sudo nvim thunderbird.desktop
+ls | rg thu
+cd /usr/share/applications/
+ls
+ls | rg thund
+fzf
+type thunderbird
+ls | rg thu
+nv thunar.desktop 
+nv firefox.desktop 
+nv nitrogen.desktop 
+z
+cd /usr/share/applications/
+ls | rg emacs
+man plank
+plank --prefrences
+plank --preferences
+vpn c
+vpn d
+vpn d
+cd arcolinux-chadwm/
+cd etc/skel/.config/arco-chadwm/scripts/
+ls
+cp bar.sh ~/.config/arco-chadwm/scripts/
+killall eww
+pamixer --get-volume
+pamixer --get-mute
+pamixer --get-volume
+pactl list sinks | awk '/Mute:/ { print $2 }'
+pactl list sinks | grep Volume: | awk 'FNR == 1 { print $5 }' | cut -f1 -d '%'
+pactl list sinks
+man pamixer
+man amixer
+audio
+killall picom
+volume()
+volume() { muted=$(pamixer --get-mute); vol=$(pamixer --get-volume); if ["$musted" = "true"]; then echo "muted"; else if ["$vol" -ge 65]; then echo "%vol"; elif ["$vol" -ge 40]; then echo "$vol"; elif [ "$vol" -ge 0 ]; then echo "$vol%"; fi; fi; }
+echo $volume
+pactl list sinks
+man pamixer
+man amixer
+audio
+killall picom
+volume()
+volume() { muted=$(pamixer --get-mute); vol=$(pamixer --get-volume); if ["$musted" = "true"]; then echo "muted"; else if ["$vol" -ge 65]; then echo "%vol"; elif ["$vol" -ge 40]; then echo "$vol"; elif [ "$vol" -ge 0 ]; then echo "$vol%"; fi; fi; }
+echo $volume
+nv vol.sh
+yay -S shellcheck
+yay -Ss shellcheck
+sudo pacman -S shellcheck
+yay -Ss shellcheck-bin
+yay -S shellcheck-bin
+shellcheck vol.sh 
+chmod +x vol.sh 
+./vol.sh volume
+volume
+./vol.sh
+nv vol.sh 
+manpactl
+man pactl
+man amixer
+man pamixer
+date
+man date
+nv ~/.local/bin/changevolume 
+z chadwm
+cd chadwm/
+rm config.h 
+sudo make install 
+killall ewww
+killall eww
+cd chadwm/
+rm config.h 
+sudo make install 
+killall ewww
+killall eww
+z chadwm
+cd scripts/
+killall picom
+ls
+nv fetch 
+./fetch 
+neofetch 
+cd .config/arco-chadwm/chadwm/
+ls
+rm config.h
+z chadwm
+cd chadwm/
+rm config.h
+sudo make install 
+type pactl
+yay -S colorpicker
+colorpicker 
+z chadwm
+cd chadwm/
+rm config.h
+sudo make install
+changevolume up
+changevolume down]
+changevolume down
+fzf
+man fzf
+eza
+eza -l
+eza
+ls
+la
+l.
+lt
+ll
+type ll
+man fzf
+type ls
+eze --icons --color=always --group-directories-first
+eza --icons --color=always --group-directories-first
+rm vol.sh 
+eza --icons -l --color=always --group-directories-first
+nv .bashrc-personal 
+source .bashrc-personal 
+l
+lt.
+zsh
+src .zshenv 
+echo $ZDOTDIR
+nv .zprofile 
+se
+echo $EDITOR
+whichvga
+broot
+nv .config/shell/
+cd .config/shell/
+ls
+nv aliasrc
+nv .bashrc
+nv .bashrc-personal 
+z zsh
+pwd
+ls
+nv .zshrc 
+source .bashrc-personal 
+l
+lt.
+zsh
+echo $ZDOTDIR
+bat .z*
+bat .zshenv 
+batprofile 
+bat profile 
+nv .zprofile 
+bat .zprofile 
+ls | rg .z
+mv .zshrc ~/.config/zsh/
+z .config/zsh/
+ls
+nv zs
+nv ,zs
+nv .zshrc 
+nv .bashrc-personal 
+pwd
+nv .zshrc 
+yay -S zsh-syntax-highlighting
+type zsh-syntax-highlighting
+cd /usr/share/zsh/plugins/zsh-syntax-highlighting/
+ls
+z
+z zsh
+src .zshrc 
+zsh
+z zsh
+nv .zshrc 
+echo $EDITOR
+se() {     choice="$(find "$HOME/.local/bin" -mindepth 1 -printf '%P\n' | fzf)";          if [ -n "$choice" ] && [ -f "$HOME/.local/bin/$choice" ]; then         "$EDITOR" "$HOME/.local/bin/$choice";     fi; }
+se
+sce() {     choice="$(find "$HOME/.local/bin" -mindepth 1 -printf '%P\n' | fzf)";          if [ -n "$choice" ] && [ -f "$HOME/.local/bin/$choice" ]; then         "$EDITOR" "$HOME/.local/bin/$choice";     fi; }
+sce
+ls -l ~/.local/bin/
+type find
+fd "$HOME/.local/bin" -mindepth 1 -type f -printf '%P\n' | fzf
+find "$HOME/.local/bin" -mindepth 1 -type f -printf '%P\n' | fzf
+find "$HOME/.local/bin" -mindepth 1 -type f
+find "$HOME/.local/bin" -mindepth 1 -type f -printf '%P\n'
+man find
+find ~/.local/bin
+find ~/.local/bin --mindepth
+find ~/.local/bin --mindepth 1
+find ~/.local/bin -mindepth 1
+find ~/.local/bin -mindepth 1 
+find ~/.local/bin/ -mindepth 1 
+src .bashrc-personal 
+se
+z shell
+ls
+nv aliasrc 
+z
+nv .bashrc-personal 
+ls
+zsh
+nv .bashrc
+z zsh
+ls
+src .zshrc 
+zsh
+zshj
+zsh
+z zsh
+src .zshrc 
+zsh
+z zsh
+ls
+nv .zshrc 
+z zsh
+src .zshrc 
+zsh
+z zsh
+src .zshrc 
+zsh
+neofetch 
+nv .bashrc
+zsh
+nv .bashrc
+z zsh
+nv .zshrc 
+zsh
+z zsh
+nv .zshrc 
+nv .zshrc 
+bat .zprofile 
+bat .zshenv 
+mv .zshenv .zshenv.bak
+ls | rg .z
+nv .bashrc-personal 
+z shell
+ls
+nv aliasrc 
+zsh
+z shell
+ls
+source profile 
+zsh
+source .zprofile 
+sudo source .zprofile 
+z shell
+ls
+nv profile 
+z zsh
+ls
+nv .zshrc 
+rsx
+zsh
+ls -l .bashrc
+ls -l .bashrc-personal 
+z zsh
+ls
+zsh
+z shell
+ls
+source profile 
+zsh
+ls -l .bashrc
+ls -l .bashrc-personal 
+z zsh
+z .config/zsh/
+nv zs
+nv .zshrc 
+source .zshrc 
+cd
+shell
+z shell
+ls
+source profile 
+zsh
+nv .zshrc 
+z shel
+chmod +x *
+ls
+nv profile 
+nv .bashrc
+z shell
+ls
+source profile 
+zsh
+z shell
+source profile 
+z
+zsh
+z zsh
+src .zshrc 
+zsh
+man ls
+zsh
+z
+src .zshrc 
+man ls
+z zsh
+nv .zcompdump 
+z shell
+nv profile 
+rm profile 
+ls
+z 
+rm .zprofile 
+ls | rg .z
+src .zshenv 
+zsh
+z zsh
+touch zsh_history
+ls
+zsh
+echo $GOPATH
+zsh
+man ls
+zsh
+mv .zshenv.bak .zshenv
+nv .zcompdump 
+rm .zcompdump 
+ls | rg .z
+nv .zshenv 
+z zhs
+z zsh
+ls
+nv .zshrc 
+zsh
+where is zsh
+whereis zsh
+echo $0
+z .config/zsh
+ls
+nv .zshrc 
+rm zsh_history 
+source .zshrc 
+zsh
+zsh
+sudo -i
+echo $SHElL
+echo $SHELL
+fish
+cat /etc/shells
+dash
+grep $USER /etc/passwd
+grep $USER /etc/passwd
+update
+yay -S isoimagewriter
+yay -S isoimagewriter
+z zsh
+ls
+source .zshrc 
+nv .zshrc 
+zsh
+grep ukiran /etc/passwd
+rm zsh_history 
+source .zshrc 
+z zsh
+ls
+nv .zshrc 
+zsh
+z
+chsh -s /bin/zsh ukiran
+usermod -s /bin/zsh ukiran
+usermod -s /bin/bash ukiran
+echo $0
+grep ukiran /etc/passwd
+xbh .8
+vi
+xbh .8
+vi
+ls
+..
+npx jest ./tests/findLargestElement.test.js 
+npx jest ./tests/anagram.test.js 
+clear 
+ls 
+ls
+neofetch
+fetch
+ls
+clear
+neofetch 
+clear
+type tozsh
+z shell
+ls
+nv aliasrc 
+clear
+nv .bashrc
+nv .bashrc-personal 
+source .bashrc
+tozsh
+ls
+mv xfce4 xfce4.bak
+reboot
+tozsh
+mv xfce4 xfce4.bak
+reboot
+cd .confid
+clear
+cd shell
+ls
+yay -S vim nvim
+vim
+vim aliasrc 
+clear
+type tozsh
+z shell
+nv aliasrc 
+clear
+nv .bashrc
+nv .bashrc-personal 
+source .bashrc
+tozsh
+mv xfce4 xfce4.bak
+yay -S eza
+eos-rankmirrors
+eos-rankmirrors-from-hook 
+yay -S bat
+yay -S neovim
+nvim
+lpacman
+type lpcaman
+type lpacman
+eos-update --help
+unlcok
+unlock
+nv /etc/pacman.conf 
+pacman -Sc
+pacman -Sy archlinux-keyring && pacman -Su
+cd /etc/pacman.d/
+nv endeavouros-mirrorlist
+cd
+eos-update
+cd -
+ls
+nv mirrorlist 
+sudoedit endeavouros-mirrorlist
+reboot
+eos-update
+ls
+yay -S neovim eza zoxide
+nv /etc/pacman.d/mirrorlist 
+sudoedit /etc/pacman.d/mirrorlist 
+eos-update
+yay -S lxappearance
+lxappearance 
+lxappearance 
+sudo mv Bibata-Modern-Ice/ /usr/share/icons/
+sudo mv Nordic-darker* /usr/share/themes/
+sudo mv Tela-black* /usr/share/icons/
+ls
+sudo mv * /usr/share/icons/
+sudo mv Bibata-Modern-Ice/ /usr/share/icons/
+sudo mv Nordic-darker* /usr/share/themes/
+sudo mv Tela-black* /usr/share/icons/
+lxappearance 
+cd .config
+cd xfce4.bak
+cd panel/
+cd launcher-23/
+ls
+..
+yay -S emacs
+yay -Ss plank
+yay -S plank
+cd .config
+cd xfce4
+ls
+..
+yay -S qtile qtile-extras upower
+yay -S zsh zsh-syntax-highlighting zsh-completions
+zsh
+cd .config/qtile
+ls
+nv scripts/autostart.sh 
+yay -S sxhkd nm-applet picom polkit-gnome dunst nitrogen mpd mpdris2 mpv mpc
+zsh
+yay -S zsh zsh-syntax-highlighting zsh-completions
+zsh
+nmcli connection on
+cd .config/qtile
+z sc
+pwd
+ls
+nv autostart.sh 
+nmcli networking on
+z
+yay -S alacritty
+nqtile
+ls
+yay -S rofi
+yay -S numlockx xfce4-clipman-plugin
+yay -Ss upower
+yay -S arcolinux-logout 
+zsh
+z sc
+ls
+nv autostart.sh 
+ctcap
+yay -S nemo
+yay -S nemo
+type toxsh
+type tozsh
+cd /usr/share/icons/
+mv Bibata-Modern-Ice Bibata-Modern-Ice.bak
+sudo mv Bibata-Modern-Ice Bibata-Modern-Ice.bak
+ls
+yay -S a2ps
+yay -Ss a2ps
+yay -Ss acpi
+yay -S acpi
+zsh
+nv .bashrc
+./a.out 
+find . -maxdepth 1 -type f -iregex ".*basics.*\|.*intro.*"
+find . -maxdepth 1 -type f -iregex ".*basics.*\|.*intro.*" -exec mv -t basics/ {} +
+source ~/.bashrc
+exit
+source ~/.bashrc
+exit
+z /
+z
+cd /usr
+fzf
+fzf
+nv .bashrc-personal 
+source .bashrc-personal 
+torb
+type torb
+exit
+zsh
+printf "%s\n" "$PS1"
+zsh
+zsh
+zsh
+zsh
+zsh
+type hc
+zsh
+xrandr --output HDMI-1-0 --brightness "${seq -f '0.%g' 1 9 | seq -n 8p}"
+xrandr --output HDMI-1-0 --brightness "$(seq -f '0.%g' 1 9 | seq -n 8p)"
+xrandr --output HDMI-1-0 --brightness "${seq -f '0.%g' 1 9 | sed -n 8p}"
+xrandr --output HDMI-1-0 --brightness "$(seq -f '0.%g' 1 9 | sed -n 8p)"
+qalc
+l
+type l
+echo "sdfsdfqwqwezxvxvwersadfsdfsd"
+exit
+fzf
+fzf
+nv .bashrc-personal 
+source .bashrc-personal 
+torb
+type torb
+zsh
+printf "%s\n" "$PS1"
+zsh
+zsh
+zsh
+zsh
+zsh
+type hc
+zsh
+xrandr --output HDMI-1-0 --brightness "${seq -f '0.%g' 1 9 | seq -n 8p}"
+xrandr --output HDMI-1-0 --brightness "$(seq -f '0.%g' 1 9 | seq -n 8p)"
+xrandr --output HDMI-1-0 --brightness "${seq -f '0.%g' 1 9 | sed -n 8p}"
+xrandr --output HDMI-1-0 --brightness "$(seq -f '0.%g' 1 9 | sed -n 8p)"
+qalc
+l
+type l
+echo "sdfsdfqwqwezxvxvwersadfsdfsd"
+se
+clear
+nv .bashrc
+source .bashrc
+type source
+exit
+sleep 100
+sleep 100
+type kill
+kill -l
+clear
+yay -S alacritty arandr emacs archlinux-logout betterlockscreen dunst ark nitrogen vim neovim nvimpager mpv rofi qbittorrent calibre qalc syncthing thunderbird zathura zathura-cb zathura-pdf-mupdf herbstluftwm-git xdo xdotool xorg-xwinifo xorg-xephyr network-manager-applet polybar sxhkd rofi-greenclip picom tmux numlockx stow btop cava fzf eza ffmpeg git tree imagemagick mpd mpc ncmpcpp redshift fastfetch onefetch hwinfo hwdetect jq mit-scheme playerctl plocate pup openssh zsh zoxide bat cdu duf dictd entr fd ripgrep unimatrix axel maim rsync remind parallel ccls clang dict-gcide dict-moby-thesaurus dict-wn gnome-clocks gthumb netctl mediainfo yt-dlp bash-language-server papirus-icon-theme
+reboot
+cd .config/shell
+vim bash_history 
+vi bash_history 
+\vi bash_history 
+cd ../zsh
+\vi zsh_history 
+yay -S zsh
+chsh -s /bin/zsh
+reboot
+: 1728710947:0;echo $GTK2_RC_FILES
+: 1728711038:0;echo $IPYTHONDIR
+: 1728711088:0;source .zshenv
+: 1728711097:0;echo $ICEAUTHORITY
+: 1728712282:0;echo $HISTFILE
+: 1728712301:0;source .zshenv
