@@ -70,7 +70,7 @@
           (lambda (string)
             (and (not (string-blank-p string))
                  string)))
-  
+
   #+end_src
 
 + If you change the variable ‘kill-do-not-save-duplicates’ to a
@@ -106,7 +106,7 @@
   if the command kills backward.  In this way, you can kill several
   separated pieces of text and accumulate them to be yanked back in one
   place.
-  
+
 + A kill command following ‘M-w’ (‘kill-ring-save’) does not append to
   the text that ‘M-w’ copied into the kill ring.
 
@@ -123,17 +123,17 @@
   (add-to-list 'eglot-server-programs '((c-mode c++-mode) . ("clangd" "--stdio")))
 
   (add-hook 'foo-mode-hook 'eglot-ensure)
-  
+
 #+end_src
 
 ** Eglot =Functions=
 
 + eglot-rename
   Rename current symbol at point to  NEWNAME entire buffer
-  
+
 + eglot-format, elgot-format-buffer
   Formats Region/Contents
-  
+
 + eglot-inlay-hints-mode
   Annotating buffers with LSP server's inlay hints
 

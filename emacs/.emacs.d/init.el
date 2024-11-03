@@ -48,11 +48,19 @@ Otherwise the startup will be slow."
 
 (update-load-path)
 
-(set-face-attribute 'default nil
-		            :family "Iosevka Extended"
-		            :height 100
-		            :weight 'semibold
-                    )
+;; (set-face-attribute 'default nil
+;; 		            :family "Iosevka Extended"
+;; 		            :height 95
+;; 		            :weight 'medium
+;;                     )
+(defun uk/set-face-font (face family)
+  (set-face-attribute
+   face nil
+   :family family :weight 'medium :width 'expanded :height 100))
+
+(uk/set-face-font 'default "Iosevka Extended")
+(uk/set-face-font 'fixed-pitch "Iosevka Extended")
+(uk/set-face-font 'variable-pitch "Iosevka Aile")
 
 ;; Better defaults
 ;; (setq initial-scratch-message nil)
@@ -71,10 +79,15 @@ Otherwise the startup will be slow."
 
 (setq make-backup-files t)
 (setq auto-save-default t)
-(setq backup-directory-alist
-      `(("." . "~/.emacs.d/data/backups"))
-      auto-save-file-name-transforms
-      `((".*" "~/.emacs.d/data/auto-saves/" t)))
+;; check init-clean.el
+
+;; Move this in its own thing
+;; (setq
+;;  create-lockfiles nil
+;;  delete-old-versions t
+;;  kept-new-versions 6
+;;  kept-old-versions 2
+;;  version-control t)
 
 (setq-default major-mode 'text-mode)
 
@@ -90,6 +103,7 @@ Otherwise the startup will be slow."
 ;; Without this comment Emacs25 adds (package-initialize) here
 (require 'init-package)
 
+(require 'init-clean)
 (require 'init-vertico)
 (require 'init-core)
 (require 'init-completions)
@@ -118,6 +132,8 @@ Otherwise the startup will be slow."
 (require 'init-utils)
 (require 'init-eshell)
 (require 'init-prefix)
+(require 'init-project)
+(require 'init-icon)
 
 
 

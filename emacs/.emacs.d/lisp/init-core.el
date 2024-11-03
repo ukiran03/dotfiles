@@ -8,19 +8,23 @@
 (setq frame-title-format '("Emacs - %b")
       icon-title-format frame-title-format)
 
+
+
 (use-package repeat
   :ensure nil
-  :init (repeat-mode))
+  :hook (after-init . repeat-mode)
+  :init
+  (setq repeat-exit-key (kbd "C-g")))
 
 (use-package server
   :ensure nil
-  :init (server-mode))
+  :hook (after-init . server-mode))
 
 ;; Automatically reload files was modified by external program
 (use-package autorevert
   :ensure nil
   :diminish
-  :init (global-auto-revert-mode))
+  :hook (after-init . global-auto-revert-mode))
 
 
 ;; Redefine M-< and M-> for some modes
@@ -32,9 +36,8 @@
                 beginend-modes))
 
 
-(use-package visual-regexp
-  :config
-  (use-package visual-regexp-steroids))
+(use-package visual-regexp)
+(use-package visual-regexp-steroids)
 
 ;; Increase selected region by semantic units
 (use-package expand-region
@@ -73,6 +76,18 @@
 
 ;; Kill & Mark things easily
 ;; <https://github.com/leoliu/easy-kill>
+;;
+;; M-w w: save word at point
+;; M-w s: save sexp at point
+;; M-w l: save list at point (enclosing sexp)
+;; M-w d: save defun at point
+;; M-w D: save current defun name
+;; M-w f: save file at point
+;; M-w b: save buffer-file-name or default-directory. - changes the
+                                        ; kill to the directory name,
+                                        ; + to full name and 0 to
+                                        ; basename.
+;; C-h f easy-kill
 (use-package easy-kill
   :bind (([remap kill-ring-save] . easy-kill)
          ([remap mark-sexp] . easy-mark)))
@@ -84,12 +99,13 @@
 
 ;; Interactively insert and edit items from kill-ring
 (use-package browse-kill-ring
-  :bind ("C-c k" . browse-kill-ring)
+  :bind ("M-Y" . browse-kill-ring)
   :hook (after-init . browse-kill-ring-default-keybindings)
   :init (setq browse-kill-ring-separator "────────────────"
               browse-kill-ring-separator-face 'shadow))
 
 ;; History
+;;; TODO: Read the `Regexp' chapter in Emacs manual
 (use-package recentf
   :bind (("C-x C-r" . recentf-open-files))
   :hook (after-init . recentf-mode)
@@ -101,12 +117,9 @@
                 "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
                 "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"
                 (lambda (file) (file-in-directory-p file package-user-dir))))
+  (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:")
   (add-to-list 'recentf-exclude
-           (concat (getenv "HOME") "/Org/*"))  ;;; TODO: Read the
-                           ;;; `Regexp'
-                           ;;; chapter in
-                           ;;; Emacs manual
-
+               (concat (getenv "HOME") "/Org/*"))
   :config
   (push (expand-file-name recentf-save-file) recentf-exclude)
   (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
@@ -163,7 +176,14 @@
   :config
   (setq which-key-max-description-length 30
         which-key-lighter nil
-        which-key-show-remaining-keys t)
+        which-key-show-remaining-keys t
+        which-key-show-prefix 'top
+        which-key-popup-type 'minibuffer
+        which-key-preserve-window-configuration t
+        which-key-max-description-length 30
+        which-key-dont-use-unicode t
+        which-key-idle-delay 0.6
+        which-key-idle-secondary-delay 0.2)
   :bind ("C-h M-m" . which-key-show-major-mode))
 
 (use-package elisp-demos
@@ -195,9 +215,24 @@
          (lisp-interaction-mode . persistent-scratch-mode))
   :init (setq persistent-scratch-backup-file-name-format "%Y-%m-%d"
               persistent-scratch-backup-directory
-              (expand-file-name "persistent-scratch" user-emacs-directory)))
+              (expand-file-name "data/persistent-scratch" user-emacs-directory)))
+
+;; https://github.com/Wilfred/suggest.el
+;; discover elisp functions that do what you want
+(use-package suggest)
+
+;; https://github.com/abo-abo/tiny
+;; Quickly generate linear ranges in Emacs
+(use-package tiny :ensure nil :disabled)
+
+(use-package affe
+  :ensure t
+  :config
+  ;; Manual preview key for `affe-grep'
+  (consult-customize affe-grep :preview-key "M-."))
 
 (use-package fzf
+  :disabled                           ; using `affe'
   ;; :bind
   ;; Don't forget to set keybinds!
   :config
@@ -211,5 +246,15 @@
         ;; If nil, the fzf buffer will appear at the top of the window
         fzf/position-bottom t
         fzf/window-height 15))
+
+(use-package no-littering)
+
+(use-package super-save
+  :disabled
+  :defer 1
+  :diminish super-save-mode
+  :config
+  (super-save-mode +1)
+  (setq super-save-auto-save-when-idle t))
 
 (provide 'init-core)

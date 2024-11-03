@@ -8,6 +8,7 @@
 Only one step at a time
 #+end_quote
 
+** Simple Lib
 - Modifications
   It is bound to C-S-w.
   (uk-simple-copy-line)
@@ -25,3 +26,4 @@ Only one step at a time
 
   (add-hook 'find-file-hook 'my-enable-minor-mode-if-in-directory)
 #+end_src
+** Denote setup

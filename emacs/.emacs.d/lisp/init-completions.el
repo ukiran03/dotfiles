@@ -116,7 +116,6 @@
   :ensure nil
   :hook (after-init . savehist-mode)
   :config
-  (setq savehist-file (locate-user-emacs-file "savehist"))
   (setq history-length 100)
   (setq history-delete-duplicates t)
   (setq savehist-save-minibuffer-history t)

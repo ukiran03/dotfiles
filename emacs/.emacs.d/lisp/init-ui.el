@@ -3,32 +3,35 @@
   :demand t
   :bind (("<f6>" . modus-themes-toggle)
          ("C-<f6>" . modus-themes-select))
-  :custom
-  (modus-themes-bold-constructs t
-                                modus-themes-italic-constructs t
-                                modus-themes-mixed-fonts t
-                                modus-themes-completions '((t . (extrabold)))
-                                modus-themes-prompts '(extrabold))
+  :config
+  (setq modus-themes-bold-constructs t
+        modus-themes-italic-constructs t
+        modus-themes-mixed-fonts nil
+        modus-themes-completions '((t . (extrabold)))
+        modus-themes-prompts '(extrabold))
 
   ;; ‘Mode-line’'
+  :custom
   (modus-themes-common-palette-overrides
    '((border-mode-line-active bg-mode-line-active)
      (border-mode-line-inactive bg-mode-line-inactive)))
   :init
   (load-theme 'modus-vivendi :no-confirm))
 
+(use-package ef-themes)
+
 ;; `Fonts'
 (use-package fontaine
   :config
   (setq fontaine-presets
-        '((Iosevka
+        '((IosevkaMedium
+           :default-family "Iosevka"
+           :default-height 100
+           :default-weight medium)
+          (IosevkaSemibold
            :default-family "Iosevka"
            :default-height 100
            :default-weight semibold)
-          (Uosevka
-           :default-family "Iosevka Extended"
-	       :default-height 100
-	       :default-weight semibold)
           (MIosevka
 	       :inherit medium
 	       :default-family "Iosevka"
@@ -83,7 +86,15 @@
     "Enable `breadcrumb-local-mode' if the buffer is visiting a file."
     (when buffer-file-name
       (breadcrumb-local-mode 1))))
-(use-package all-the-icons)
+
+;; Icons
+(use-package nerd-icons
+  ;; :init
+  ;; (setq nerd-icons-font-family "Symbols Nerd Font Mono")
+  :config
+  (when (and (display-graphic-p)
+             (not (font-installed-p nerd-icons-font-family)))
+    (nerd-icons-install-fonts t)))
 
 (use-package kaolin-themes)
 

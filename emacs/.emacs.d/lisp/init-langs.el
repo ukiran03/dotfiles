@@ -2,6 +2,8 @@
 
 ;;; Commentary: Programming language setup
 
+(use-package sxhkdrc-mode)
+
 (use-package kdl-ts-mode
   :disabled
   :load-path ("site-lisp/kdl-ts-mode/")

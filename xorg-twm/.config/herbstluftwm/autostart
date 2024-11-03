@@ -154,7 +154,7 @@ hc keybind $Mod-m fullscreen toggle
 hc keybind $Mod-i set_attr clients.focus.minimized true
 hc keybind $Mod-Shift-i jumpto last-minimized
 
-# hc keybind $Mod-p pseudotile toggle
+hc keybind $Mod-p pseudotile toggle
 
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.

@@ -34,6 +34,17 @@ zstyle ':vcs_info:*:*' check-for-changes true
 ## fzf
 export FZF_CTRL_R_OPTS='--reverse --border=bold --border-label="Shell History" --prompt "Search: " --info inline-right'
 
+# Preview file content using bat (https://github.com/sharkdp/bat)
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+
+# Print tree structure in the preview window
+export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'tree -C {}'"
+
 export FZF_DEFAULT_OPTS='--reverse --height=75% --border=bold --prompt "Search: " --info inline-right'
 
 #### Options

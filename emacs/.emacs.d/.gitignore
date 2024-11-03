@@ -1,0 +1,11 @@
+site-lisp/
+elpa/
+avatars/
+data/
+tree-sitter/
+custom.el
+docs/
+
+# no-littering
+var/
+etc/

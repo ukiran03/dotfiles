@@ -21,8 +21,7 @@ next_tag() {
         fi
     done
     tag=${my_tags[next_index]}
-    hc use $tag
-    notify $tag
+    hc use $tag && notify $tag
 
 }
 
@@ -34,8 +33,7 @@ prev_tag() {
         fi
     done
     tag=${my_tags[prev_index]}
-    hc use $tag
-    notify $tag
+    hc use $tag && notify $tag
 }
 
 # Check for argument

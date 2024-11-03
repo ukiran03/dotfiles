@@ -100,6 +100,7 @@
 
 ;; highlight-numbers
 (use-package highlight-numbers
+  :disabled
   :hook ((prog-mode text-mode) . highlight-numbers-mode))
 
 (use-package symbol-overlay

@@ -2,7 +2,7 @@
  *
  * Author : Aditya Shakya (adi1090x)
  * Github : @adi1090x
- * 
+ *
  * Rofi Theme File
  * Rofi Version: 1.7.3
  * resource : <https://randomgeekery.org/config/linux/rofi/>
@@ -23,7 +23,10 @@ window-command: "herbstclient bring {window}";
 window {
        hide-active-window: true;
        close-on-delete: false;
+       sort: false;
 }
+sort: true;
+sorting-method: "fzf";
 kb-accept-alt: "Shift+Return";
 kb-delete-entry: "Shift+Delete";
 drun-match-fields: "name,generic,exec,categories,keywords";
@@ -170,13 +173,13 @@ listview {
     columns:                     1;
     lines:                       8;
     cycle:                       true;
-    dynamic:                     false; 
+    dynamic:                     false;
     scrollbar:                   true;
     layout:                      vertical;
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
-    
+
     spacing:                     5px;
     margin:                      0px;
     padding:                     0px;

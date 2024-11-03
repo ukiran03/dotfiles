@@ -11,7 +11,7 @@
 
   (defun uk-kill-whole-line ()
     "If the region is active, delete all whole lines under the region.
-If the region is not active, `kill-the-whole' line at the point."
+If the region is not active, `kill-whole-line' line at the point."
     (interactive)
     (if (region-active-p)
         (let ((start (save-excursion

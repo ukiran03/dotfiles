@@ -3,6 +3,7 @@
 ;; Commentry
 ;; Window & Buffer management
 
+(use-package transpose-frame)
 
 ;; Restore old window configurations
 (use-package winner
@@ -10,15 +11,15 @@
   :commands (winner-undo winner-redo)
   :hook (after-init . winner-mode)
   :init (setq winner-boring-buffers '("*Completions*"
-				      "*Compile-Log*"
-				      "*inferior-lisp*"
-				      "*Fuzzy Completions*"
-				      "*Apropos*"
-				      "*Help*"
-				      "*cvs*"
-				      "*Buffer List*"
-				      "*Ibuffer*"
-				      "*esh command on file*")))
+				                      "*Compile-Log*"
+				                      "*inferior-lisp*"
+				                      "*Fuzzy Completions*"
+				                      "*Apropos*"
+				                      "*Help*"
+				                      "*cvs*"
+				                      "*Buffer List*"
+				                      "*Ibuffer*"
+				                      "*esh command on file*")))
 
 ;; (defun split-and-follow-horizontally ()
 ;;   (interactive)
@@ -33,10 +34,10 @@
 ;;   (balance-windows)
 ;;   (other-window 1))
 ;; (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+
 (use-package zoom-window
   :ensure t
-  :bind
-  ("H-w z" . zoom-window-zoom)
+  :bind ("H-w z" . zoom-window-zoom)
   :config
   (setq zoom-window-mode-line-color (face-attribute 'mode-line-highlight :background)))
 
@@ -94,7 +95,6 @@
   (setq uniquify-strip-common-suffix t)
   (setq uniquify-after-kill-buffer-p t))
 
-;;; Header line context of symbol/heading (breadcrumb.el)
 ;; <https://github.com/joaotavora/breadcrumb>
 (use-package breadcrumb
   ;; :disabled
@@ -113,40 +113,45 @@
       (breadcrumb-local-mode 1))))
 
 (use-package shackle
+  :disabled
   ;; <https://depp.brause.cc/shackle/>
+  ;; https://github.com/liuyinz/emacs.d/blob/fab845516917d4a076a382e01cbc2a1d91f18e4c/core/init-window.el
   :ensure t
-  )
+  :hook (after-init . shackle-mode))
+
+;; (defun my-popper-group-function ()
+;;   "Return the appropriate popper group function based on the current project."
+;;   (if (project-current)
+;;       #'popper-group-by-project
+;;     #'popper-group-by-directory))
 
 (use-package popper
   :ensure t
   :config
-  ;; (setq popper-group-function #'popper-group-by-directory)
-  (setq popper-group-function nil)
-
+  (setq popper-group-function 'popper-group-by-project)
   (setq popper-echo-dispatch-actions t)	;Kill popup buffers with k
-					;Raise popup buffers with ^
+                                        ;Raise popup buffers with ^
   :bind (("C-`"   . popper-toggle)
-	 ("M-`"   . popper-cycle)
-	 ("C-M-`" . popper-toggle-type))
+	     ("M-`"   . popper-cycle)
+	     ("C-M-`" . popper-toggle-type))
   :init
   (setq popper-mode-line
-      '(:eval (let ((face 'mode-line-emphasis))  ; Bind the face variable
-		(format " %s "
-			(nerd-icons-octicon "nf-oct-pin" :face face)))))
+        '(:eval (let ((face 'mode-line-emphasis))  ; Bind the face variable
+		          (format " %s "
+			              (nerd-icons-octicon "nf-oct-pin" :face face)))))
 
   (setq popper-reference-buffers
-	'("\\*Messages\\*"
-	  "Output\\*$"
-	  "\\*Dictionary\\*"
-	  "^\\*eldoc.*\\*$"
-	  "\\*Async Shell Command\\*"
-      racket-repl-mode
-	  help-mode
-	  compilation-mode))
+	    '("\\*Messages\\*"
+	      "Output\\*$"
+	      "\\*Dictionary\\*"
+	      "^\\*eldoc.*\\*$"
+	      "\\*Async Shell Command\\*"
+          racket-repl-mode
+	      help-mode
+	      compilation-mode))
   (popper-mode +1)
   (popper-echo-mode +1)  ; For echo area hints
   :config
-  (setq popper-group-function (if (project-current) #'popper-group-by-project nil))
   (with-no-warnings
     (defun my-popper-fit-window-height (win)
       "Determine the height of popup window WIN by fitting it to the buffer's content."
@@ -160,11 +165,11 @@
       "Close popper window via `C-g'."
       ;; `C-g' can deactivate region
       (when (and ;(called-interactively-p 'interactive)
-		 (not (region-active-p))
-		 popper-open-popup-alist)
-	(let ((window (caar popper-open-popup-alist)))
-	  (when (window-live-p window)
-	    (delete-window window)))))
+		     (not (region-active-p))
+		     popper-open-popup-alist)
+	    (let ((window (caar popper-open-popup-alist)))
+	      (when (window-live-p window)
+	        (delete-window window)))))
     (advice-add #'keyboard-quit :before #'popper-close-window-hack)))
 
 

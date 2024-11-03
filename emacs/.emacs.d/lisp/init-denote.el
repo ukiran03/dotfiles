@@ -8,7 +8,7 @@
 (use-package denote
   :config
   (use-package consult-denote)
-  
+
   ;; Remember to check the doc strings of those variables.
   (setq denote-directory (expand-file-name "~/Notes"))
   (setq denote-known-keywords '("meta" "system" "computers" "emacs"
