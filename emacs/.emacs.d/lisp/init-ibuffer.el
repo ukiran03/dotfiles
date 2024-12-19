@@ -1,4 +1,9 @@
+;;; init-ibuffer.el --- summary -*- lexical-binding: t -*-
 
+
+;;; Commentary:
+
+;;; Code:
 (use-package ibuffer
   :ensure nil
   :bind ("C-x C-b" . ibuffer)
@@ -6,10 +11,10 @@
 
 ;; Display icons for buffers
 (use-package nerd-icons-ibuffer
-  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
+  :config
+  (setq nerd-icons-ibuffer-icon-size 1.0))
 
-;; (use-package ibuffer-project
-;;   :ensure t)
 (use-package ibuffer-project
   :hook (ibuffer . (lambda ()
                      "Group ibuffer's list by project."
@@ -35,4 +40,8 @@
             '((ibuffer-project-project-root . "Project")
               (file-remote-p . "Remote"))))))
 
+
 (provide 'init-ibuffer)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-ibuffer.el ends here

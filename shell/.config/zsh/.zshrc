@@ -3,7 +3,7 @@
 autoload -U colors && colors	# Load colors
 eval "$(zoxide init zsh)"	# zoxide
 eval "$(fzf --zsh)"		# history with fzf (C-r)
-
+# eval "$(batman --export-env)"
 PROMPT="%B%F{014}[%f %F{012}%~%f %F{009}%?%f %F{014}]%f %F{011}∮%f%b "
 RPROMPT='%F{07}⎇ $vcs_info_msg_0_%f'
 
@@ -26,6 +26,9 @@ zstyle ':vcs_info:git*' stagedstr '+'
 # but can be slow on large repos
 zstyle ':vcs_info:*:*' check-for-changes true
 
+# export MANPAGER="most"
+export GROFF_NO_SGR=1
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
 
 # If not running interactively, don't do anything

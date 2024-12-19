@@ -1,7 +1,18 @@
 ;; init-window.el --- Window & Buffer configurations.	-*- lexical-binding: t -*-
 
 ;; Commentry
+
+;; `Resources': https://www.reddit.com/r/emacs/comments/179t67l/window_management_share_your_displaybufferalist/
 ;; Window & Buffer management
+
+(use-package emacs
+  :ensure nil
+  :init
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
+                 (display-buffer-no-window)
+                 (allow-no-window . t))))
+
 
 (use-package transpose-frame)
 
@@ -35,11 +46,20 @@
 ;;   (other-window 1))
 ;; (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 
+(use-package window
+  :ensure nil
+  :bind
+  (("H-o" . other-window)
+   ("H-0" . delete-window)
+   ("H-1" . delete-other-windows)
+   ("H-2" . split-window-below)
+   ("H-3" . split-window-right)))
+
 (use-package zoom-window
   :ensure t
   :bind ("H-w z" . zoom-window-zoom)
   :config
-  (setq zoom-window-mode-line-color (face-attribute 'mode-line-highlight :background)))
+  (setq zoom-window-mode-line-color (face-attribute 'pulsar-blue :background)))
 
 ;;; Directional window motions (windmove)
 (use-package windmove
@@ -173,7 +193,70 @@
     (advice-add #'keyboard-quit :before #'popper-close-window-hack)))
 
 
-;; CHECKOUT: `switchy-window.el' <https://elpa.gnu.org/packages/switchy-window.html>
+
 ;; CHECKOUT: `ace-window'
+(use-package ace-window
+  :custom-face
+  (aw-leading-char-face ((t
+			              (:inherit font-lock-keyword-face
+				                    :foreground unspecified
+				                    :bold t
+				                    :height 3.0))))
+  (aw-minibuffer-leading-char-face ((t
+				                     (:inherit font-lock-keyword-face
+					                           :bold t
+					                           :height 1.5))))
+  (aw-mode-line-face ((t (:inherit mode-line-emphasis
+				                   :bold t))))
+  :hook (after-init . ace-window-display-mode)
+  :bind
+  ;; ([remap other-window] . ace-window)
+  ("H-o" . ace-window)
+  :config
+  (setq aw-scope 'frame
+	    aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9) ;
+	    ;; aw-keys '(?q ?w ?e ?t ?h ?j ?k ?l ?p)
+	    aw-background nil
+	    aw-minibuffer-flag t
+	    aw-display-mode-overlay t
+	    aw-ignore-current nil)
+  (define-advice aw-select (:around (fun &rest r) cursor-stuff) ; hide cursor
+    (let ((cursor-in-non-selected-windows nil))
+      (apply fun r)))
+  (setq aw-dispatch-alist
+	    '((?x aw-delete-window "Delete Window")
+	      (?s aw-swap-window "Swap Window")
+	      (?b aw-switch-buffer-in-window "Switch Buffer")
+	      (?B aw-switch-buffer-other-window "Switch Buffer Other Window")
+	      (?m aw-move-window "Move Window")
+	      ;; (?n tab-window-detach "Detach to new-tab")
+	      ;; (?f tear-off-window "Tear window to new frame")
+	      (?! delete-other-windows "Delete other Windows")
+	      (?@ aw-split-window-vert "Split Window Below")
+	      (?# aw-split-window-horz "Split Window Right")
+	      (?? aw-show-dispatch-help)
+	      (?q keyboard-quit))))
+;; `link:' <https://github.com/JasZhe/elisp-hacks/blob/main/jaszhe-hacks.org>
+(defvar ace-choose-window-prefix-window nil)
+(defun ace-choose-window-prefix ()
+  "Interactively pick which window to show the next command's buffer in."
+  (interactive)
+  (setq ace-choose-window-prefix-window nil)
+  (let ((aw-dispatch-always t))
+    (aw-select "Choose window" (lambda (window) (setq ace-choose-window-prefix-window window)))
+    )
+  (when ace-choose-window-prefix-window
+    (display-buffer-override-next-command
+     (lambda (buffer alist)
+       (select-window ace-choose-window-prefix-window)
+       (setq alist (append '((inhibit-same-window . nil)) alist))
+       (cons (or
+	          (display-buffer-same-window buffer alist)
+	          (display-buffer-use-some-window buffer alist))
+	         'reuse))
+     nil "[same-window]")
+    (message "Display next command buffer in the chosen window...")))
+
+;; CHECKOUT: `switchy-window.el' <https://elpa.gnu.org/packages/switchy-window.html>
 
 (provide 'init-window)

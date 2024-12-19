@@ -43,13 +43,13 @@
   :init
   (global-org-modern-mode)
   (set-face-attribute 'org-modern-label nil
-                      :height 100
+                      :height 95
                       :weight 'medium)
   :config
-  (setq org-modern-replace-stars "◉✸◈◇✳")
+  (setq org-modern-replace-stars "◉◈✸◇✳")
   (setq org-modern-star 'replace
+        org-modern-checkbox nil
         org-modern-progress 10))
-
 
 (provide 'init-org)
 

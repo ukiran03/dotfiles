@@ -1,3 +1,9 @@
+;;; init-funcs.el --- summary -*- lexical-binding: t -*-
+
+
+;;; Commentary:
+
+;;; Code:
 
 ;; Font
 (defun font-installed-p (font-name)
@@ -20,4 +26,8 @@
       (display-time-mode 1)
       (display-battery-mode 1))))
 
+
 (provide 'init-funcs)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-funcs.el ends here

@@ -103,7 +103,7 @@ xterm*highlightTextColor: XtDefaultBackground
 
 
 ! Font settings
-xterm*faceName: Monospace
+xterm*faceName: Iosevka
 xterm*faceSize: 8
 xterm*renderFont: true
 xterm*boldColors: false

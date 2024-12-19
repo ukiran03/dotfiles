@@ -1,8 +1,8 @@
-;; init-treemacs.el --- Initialize treemacs.	-*- lexical-binding: t -*-
+;; init-filetree.el --- Initialize filetree.	-*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;
-;; Treemacs: A tree layout file explorer.
+;; Filetree: A tree layout file explorer.
 ;;
 
 ;;; Code:
@@ -36,4 +36,4 @@
 (provide 'init-filetree)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-treemacs.el ends here
+;;; init-filetree.el ends here

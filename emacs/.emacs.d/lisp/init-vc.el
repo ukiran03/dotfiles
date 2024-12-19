@@ -1,3 +1,9 @@
+;;; init-vc.el --- summary -*- lexical-binding: t -*-
+
+
+;;; Commentary:
+
+;;; Code:
 
 ;;;; `ediff'
 (use-package ediff
@@ -19,7 +25,7 @@
 
 (use-package magit
   :ensure t
-  ;; :bind ("C-c g" . magit-status)
+  :bind ("H-g" . magit-status)
   :init
   (setq magit-define-global-key-bindings nil)
   ;; (setq magit-section-visibility-indicator '("⮧"))
@@ -39,21 +45,20 @@
   :init
   (setq diff-hl-draw-borders nil)
   (setq-default diff-hl-inline-popup--height 4)
-;;   :custom-face
-;;   (diff-hl-change ((t (:inherit custom-changed :foreground unspecified :background unspecified))))
-;;   (diff-hl-insert ((t (:inherit diff-added :background unspecified))))
-;;   (diff-hl-delete ((t (:inherit diff-removed :background unspecified))))
-;;   :bind (:map diff-hl-command-map
-;;          ("SPC" . diff-hl-mark-hunk))
   :hook ((after-init . global-diff-hl-mode)
          (after-init . global-diff-hl-show-hunk-mouse-mode)
          (dired-mode . diff-hl-dired-mode))
-;;   :config
-;;   ;; Highlight on-the-fly
-;;   (diff-hl-flydiff-mode 1)
+  :config
+  ;;   ;; Highlight on-the-fly
+  ;;   (diff-hl-flydiff-mode 1)
 
-;;   ;; Set fringe style
+  ;;   ;; Set fringe style
   (setq-default fringes-outside-margins t))
 
 
+
+
 (provide 'init-vc)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-vc.el ends here

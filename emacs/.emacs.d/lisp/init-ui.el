@@ -1,3 +1,10 @@
+;;; init-ui.el --- summary -*- lexical-binding: t -*-
+
+
+;;; Commentary:
+
+;;; Code:
+
 (use-package modus-themes
   :ensure t
   :demand t
@@ -18,25 +25,23 @@
   :init
   (load-theme 'modus-vivendi :no-confirm))
 
-(use-package ef-themes)
+(use-package ef-themes
+  :ensure t
+  :config
+  (setq ef-themes-to-toggle '(ef-cyprus ef-day)))
 
 ;; `Fonts'
 (use-package fontaine
   :config
   (setq fontaine-presets
-        '((IosevkaMedium
-           :default-family "Iosevka"
-           :default-height 100
+        '((Iosevka
+           :default-family "Iosevka Nerd Font"
+           :default-height 110
            :default-weight medium)
-          (IosevkaSemibold
-           :default-family "Iosevka"
+          (Uosevka
+           :default-family "Uosevka"
            :default-height 100
-           :default-weight semibold)
-          (MIosevka
-	       :inherit medium
-	       :default-family "Iosevka"
-	       :default-height 100
-	       :default-weight semibold))))
+           :default-weight medium))))
 
 ;; Nice writing
 (use-package olivetti
@@ -98,5 +103,7 @@
 
 (use-package kaolin-themes)
 
-
 (provide 'init-ui)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-ui.el ends here

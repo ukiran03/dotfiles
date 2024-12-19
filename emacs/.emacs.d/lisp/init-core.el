@@ -1,14 +1,62 @@
+;;; init-core.el --- summary -*- lexical-binding: t -*-
+
+
+;;; Commentary:
+
+;;; Code:
+
 (use-package emacs
   :ensure nil
   :config
   (setq help-window-select t))
+
+(use-package help
+  :ensure nil
+  :init
+  (add-to-list 'display-buffer-alist
+               '("\\*Help" display-buffer-in-side-window
+                 (side . right)
+                 (window-width . 80))))
+
+;; (use-package man
+;;   :ensure nil
+;;   :init
+;;   (add-to-list 'display-buffer-alist
+;;                '("\\*Man"
+;;                  display-buffer-in-side-window
+;;                  (side . bottom)
+;;                  (window-width . 20))))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (setq frame-title-format '("Emacs - %b")
       icon-title-format frame-title-format)
 
-
+(use-package fontaine
+  :ensure t
+  :config
+  ;; https://typeof.net/Iosevka/
+  (setq fontaine-presets
+        '((regular
+           :default-family "Iosevka"
+           :default-weight normal
+           :default-height 110
+           :fixed-pitch-family "Iosevka"
+           :fixed-pitch-weight semi-light
+           :fixed-pitch-height 1.0
+           :variable-pitch-family "Iosevka Etoile"
+           :variable-pitch-weight semi-light
+           :variable-pitch-height 1.0
+           :bold-family nil ; use whatever the underlying face has
+           :bold-weight bold
+           :italic-family nil ; use whatever the underlying face has
+           :italic-slant italic
+           :line-spacing 1)
+          (large
+           :inherit regular
+           :default-height 150)))
+  (fontaine-set-preset 'regular)
+  (add-hook 'enable-theme-functions #'fontaine-apply-current-preset))
 
 (use-package repeat
   :ensure nil
@@ -54,7 +102,8 @@
          ([remap move-end-of-line] . mwim-end)))
 
 (use-package vundo
-  :bind ("C-x /" . vundo)
+  :bind (("C-x /" . vundo)
+         ("H-/" . vundo))
   :config (setq vundo-glyph-alist vundo-unicode-symbols))
 
 ;; Jump to things in Emacs tree-style
@@ -73,7 +122,6 @@
 (use-package goto-chg
   :bind ("C-," . goto-last-change))
 
-
 ;; Kill & Mark things easily
 ;; <https://github.com/leoliu/easy-kill>
 ;;
@@ -83,7 +131,8 @@
 ;; M-w d: save defun at point
 ;; M-w D: save current defun name
 ;; M-w f: save file at point
-;; M-w b: save buffer-file-name or default-directory. - changes the
+;; M-w b: save buffer-file-name or default-directory.
+                                        ; - changes the
                                         ; kill to the directory name,
                                         ; + to full name and 0 to
                                         ; basename.
@@ -98,11 +147,11 @@
 (setq save-interprogram-paste-before-kill t)
 
 ;; Interactively insert and edit items from kill-ring
-(use-package browse-kill-ring
-  :bind ("M-Y" . browse-kill-ring)
-  :hook (after-init . browse-kill-ring-default-keybindings)
-  :init (setq browse-kill-ring-separator "────────────────"
-              browse-kill-ring-separator-face 'shadow))
+;; (use-package browse-kill-ring
+;;   :bind ("M-Y" . browse-kill-ring)
+;;   :hook (after-init . browse-kill-ring-default-keybindings)
+;;   :init (setq browse-kill-ring-separator "────────────────"
+;;               browse-kill-ring-separator-face 'shadow))
 
 ;; History
 ;;; TODO: Read the `Regexp' chapter in Emacs manual
@@ -172,7 +221,7 @@
             (local-set-key (kbd "C-c C-b") #'eval-buffer)))
 
 (use-package which-key
-  :hook (after-init . which-key-mode)
+  ;; :hook (after-init . which-key-mode)
   :config
   (setq which-key-max-description-length 30
         which-key-lighter nil
@@ -250,11 +299,14 @@
 (use-package no-littering)
 
 (use-package super-save
-  :disabled
+  ;; :disabled
   :defer 1
   :diminish super-save-mode
   :config
   (super-save-mode +1)
   (setq super-save-auto-save-when-idle t))
 
+
 (provide 'init-core)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-core.el ends here

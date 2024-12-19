@@ -68,19 +68,6 @@
   "C-g" 'keyboard-quit)
 (keymap-set global-map "H-5" other-frame-hyper-map)
 
-;; (defvar-keymap narrow-hyper-map
-;;   :doc "Narrow-map hyper actions."
-;;   :name "Narrow"
-;;   :parent narrow-map)
-;; (keymap-set global-map "H-n" narrow-hyper-map)
-
-;; (defvar-keymap org-narrow-hyper-map
-;;   :doc "Org Narrow Functions map."
-;;   :name "Org Narrow"
-;;   "b" 'org-narrow-to-block
-;;   "e" 'org-narrow-to-element
-;;   "s" 'org-narrow-to-subtree)
-;; (keymap-set org-mode-map "H-n" org-narrow-hyper-map)
 
 (defvar-keymap narrow-hyper-map
   :doc "Narrow-map hyper actions."
@@ -91,14 +78,6 @@
   "s" 'org-narrow-to-subtree
   "C-g" 'keyboard-quit)
 (keymap-set global-map "H-n" narrow-hyper-map)
-
-;; (defvar-keymap org-narrow-hyper-map
-;;   :doc "Org Narrow Functions map."
-;;   :name "Org Narrow"
-;;   "b" 'org-narrow-to-block
-;;   "e" 'org-narrow-to-element
-;;   "s" 'org-narrow-to-subtree)
-;; (keymap-set org-mode-map "H-n" org-narrow-hyper-map)
 
 
 (defvar-keymap project-hyper-map
@@ -137,7 +116,7 @@
   :doc "`window' hyper map."
   :name "Window"
   "C-g" 'keyboard-quit
-  "o"    #'other-window
+  "o"    'ace-window
   "-"    #'fit-window-to-buffer
   "_"    #'shrink-window-if-larger-than-buffer
   "="    #'balance-windows
@@ -148,22 +127,10 @@
   "s"    #'window-toggle-side-windows)
 (keymap-set global-map "H-w" window-hyper-map)
 
-;; Direct Keys for a while
-
-(keymap-set global-map "H-e" #'eval-last-sexp)
-
-(keymap-set global-map "H-o" #'other-window)
-(keymap-set global-map "H-q" #'read-only-mode)
-(keymap-set global-map "H-/" 'vundo)
-(keymap-set global-map "H-z" #'repeat)
-(keymap-set global-map "H-;" #'comment-line)
-
-(keymap-set global-map "H-g" 'magit-status)
-
-(keymap-set global-map "H-0" #'delete-window)
-(keymap-set global-map "H-1" #'delete-other-windows)
-(keymap-set global-map "H-2" #'split-window-below)
-(keymap-set global-map "H-3" #'split-window-right)
+;; (keymap-set global-map "H-e" #'eval-last-sexp)
+;; (keymap-set global-map "H-z" #'repeat)
+;; (define-key global-map "H-e" #'eval-last-sexp)
+;; (define-key global-map "H-z" #'repeat)
 
 
 (provide 'init-prefix)

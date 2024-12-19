@@ -273,9 +273,13 @@ hc set mouse_recenter_gap 0
 hc unrule -F
 hc rule switchtag=on
 
+hc rule title=emacs-server focus=off tag=8
+
 hc rule title='my_float_window' floating=on floatplacement=center floating_geometry=762x663+576+223
 
 hc rule title='World' floating=on floatplacement=smart
+hc rule title='Stepper' floating=on floatplacement=smart
+
 hc rule title="your world program's event log" floating=on floatplacement=smart
 hc rule title="your world program's state" floating=on floatplacement=smart
 
@@ -288,6 +292,8 @@ hc rule class=calibre tag=9
 hc rule class=Liferea tag=8
 hc rule class=thunderbird tag=8
 hc rule title='Tor Browser' tag=8
+
+hc rule class=Emacs title~'Emacs:emacs-everywhere' floating=on
 
 hc rule class=ffplay floating=on
 hc rule --class=pavucontrol floating=on floatplacement=center
@@ -321,7 +327,8 @@ hc unlock
 
 # find the panel
 panel=~/.config/herbstluftwm/scripts/hc-panel
-[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+# [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+[ -x "$panel" ] || panel=~/.config/herbstluftwm/reference/hlwm.default/panel.sh
 for monitor in $(hc list_monitors | cut -d: -f1) ; do
     # start it on each monitor
     "$panel" "$monitor" &

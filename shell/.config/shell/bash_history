@@ -1,264 +1,3 @@
-sudo cp exec-chadwm /usr/bin/
-../share/
-cd xsessions/
-ls
-type exec-chadwm
-cd /usr/share/xsessions/
-ls
-cd .config/arco-chadwm/
-ls
-sudo nvim /etc/systemd/logind.conf 
-sudo systemctl restart systemd-logind
-sudo systemctl restart systemd-logind.service 
-rsx
-vpn c
-vpn d
-yay -S dash imlib2 xetroot
-yay -S xsetroot
-yay -S acpi
-man acpi
-xbh .85
-monmain 
-neofetch 
-ls
-killall picom
-killall eww
-htop
-killall alacritty 
-ls
-killall conky
-ctcap
-z arc
-z
-z .config/arco-chadwm/
-ls
-z chadwm/
-rm config.h
-sudo make install 
-picom &
-matrix
-ls
-neofetch 
-picom &
-matrix
-neofetch 
-z arco
-z
-z chadw
-pwd
-z chadwm/
-ls
-killall sxhkd
-rm config.h
-sudo make install 
-reboot
-killall clipman
-killall xfce4-clipman
-man nm-applet 
-killall bar,sh
-killall bar.sh
-xprop
-alacritty -e ~/.config/arco-chadwm/cheatsheet.md 
-killall bar,sh
-killall bar.sh
-xprop
-fetch
-z chadwm
-z chadwm/
-..
-cd scripts/
-./
-z -
-ls
-./keyhint 
-sudo ./keyhint 
-./fetch 
-cat /sys/class/backlight/*/brightness
-ls
-sudo ./keyhint 
-./fetch 
-cat /sys/class/backlight/*/brightness
-z arcolinux-chadwm/
-..
-z arco
-z\
-z
-z chadwm
-cd s
-cd scripts/
-./bar.sh &
-nv run.sh 
-./picom-toggle.sh 
-ls
-update
-htop
-dmenu_run
-z chadwm
-pwd
-ls
-rm config.h 
-sudo make install 
-z chadwm
-rm config.h 
-sudo make install 
-killall bar.sh
-killall bar.sh
-pamixer --get-volume-human
-pamixer --get-volume
-voulme
-volume
-type changevolume
-bat ~/.local/bin/changevolume 
-man pamixer
-z chadwm
-cd chadwm/
-rm config.h 
-sudo make install 
-yay -S plank
-plank &
-plank &
-cd /usr/share/applications/
-nv thunderbird.desktop
-sudo nv thunderbird.desktop
-sudo nvim thunderbird.desktop
-ls | rg thu
-cd /usr/share/applications/
-ls
-ls | rg thund
-fzf
-type thunderbird
-ls | rg thu
-nv thunar.desktop 
-nv firefox.desktop 
-nv nitrogen.desktop 
-z
-cd /usr/share/applications/
-ls | rg emacs
-man plank
-plank --prefrences
-plank --preferences
-vpn c
-vpn d
-vpn d
-cd arcolinux-chadwm/
-cd etc/skel/.config/arco-chadwm/scripts/
-ls
-cp bar.sh ~/.config/arco-chadwm/scripts/
-killall eww
-pamixer --get-volume
-pamixer --get-mute
-pamixer --get-volume
-pactl list sinks | awk '/Mute:/ { print $2 }'
-pactl list sinks | grep Volume: | awk 'FNR == 1 { print $5 }' | cut -f1 -d '%'
-pactl list sinks
-man pamixer
-man amixer
-audio
-killall picom
-volume()
-volume() { muted=$(pamixer --get-mute); vol=$(pamixer --get-volume); if ["$musted" = "true"]; then echo "muted"; else if ["$vol" -ge 65]; then echo "%vol"; elif ["$vol" -ge 40]; then echo "$vol"; elif [ "$vol" -ge 0 ]; then echo "$vol%"; fi; fi; }
-echo $volume
-pactl list sinks
-man pamixer
-man amixer
-audio
-killall picom
-volume()
-volume() { muted=$(pamixer --get-mute); vol=$(pamixer --get-volume); if ["$musted" = "true"]; then echo "muted"; else if ["$vol" -ge 65]; then echo "%vol"; elif ["$vol" -ge 40]; then echo "$vol"; elif [ "$vol" -ge 0 ]; then echo "$vol%"; fi; fi; }
-echo $volume
-nv vol.sh
-yay -S shellcheck
-yay -Ss shellcheck
-sudo pacman -S shellcheck
-yay -Ss shellcheck-bin
-yay -S shellcheck-bin
-shellcheck vol.sh 
-chmod +x vol.sh 
-./vol.sh volume
-volume
-./vol.sh
-nv vol.sh 
-manpactl
-man pactl
-man amixer
-man pamixer
-date
-man date
-nv ~/.local/bin/changevolume 
-z chadwm
-cd chadwm/
-rm config.h 
-sudo make install 
-killall ewww
-killall eww
-cd chadwm/
-rm config.h 
-sudo make install 
-killall ewww
-killall eww
-z chadwm
-cd scripts/
-killall picom
-ls
-nv fetch 
-./fetch 
-neofetch 
-cd .config/arco-chadwm/chadwm/
-ls
-rm config.h
-z chadwm
-cd chadwm/
-rm config.h
-sudo make install 
-type pactl
-yay -S colorpicker
-colorpicker 
-z chadwm
-cd chadwm/
-rm config.h
-sudo make install
-changevolume up
-changevolume down]
-changevolume down
-fzf
-man fzf
-eza
-eza -l
-eza
-ls
-la
-l.
-lt
-ll
-type ll
-man fzf
-type ls
-eze --icons --color=always --group-directories-first
-eza --icons --color=always --group-directories-first
-rm vol.sh 
-eza --icons -l --color=always --group-directories-first
-nv .bashrc-personal 
-source .bashrc-personal 
-l
-lt.
-zsh
-src .zshenv 
-echo $ZDOTDIR
-nv .zprofile 
-se
-echo $EDITOR
-whichvga
-broot
-nv .config/shell/
-cd .config/shell/
-ls
-nv aliasrc
-nv .bashrc
-nv .bashrc-personal 
-z zsh
-pwd
-ls
-nv .zshrc 
 source .bashrc-personal 
 l
 lt.
@@ -715,3 +454,47 @@ reboot
 : 1728711097:0;echo $ICEAUTHORITY
 : 1728712282:0;echo $HISTFILE
 : 1728712301:0;source .zshenv
+yay -S alanocaps
+nocaps
+clear
+type nocaps
+echo $SHELL
+chsh -s /bin/zsh
+yay -S zsh
+chsh -s /bin/zsh
+echo $SHELL
+echo $SHELL
+chsh -s /bin/zsh
+sudo chsh -s /bin/zsh
+echo $SHELL
+reboot
+yay -Ss ttc-iosevka
+yay -S ttc-iosevka
+ls
+./install.sh 
+which zsh
+pacman -S --needed - < packages.txt 
+sud opacman -S --needed - < packages.txt
+sudo pacman -S --needed - < packages.txt
+yay -S --needed - < packages.txt
+./install.sh 
+glow install.sh 
+chsh -s "$(which zsh)"
+yay -Qs zsh
+helix
+helix packages.txt 
+yay -S --needed - < packages.txt
+clear
+chsh -s "$(which zsh)"
+clear
+ls -la
+clear
+./install.sh 
+pacman -S --needed - < packages.txt 
+sudo pacman -S --needed - < packages.txt 
+pacman -S --needed $(comm -12 <(pacman -Slq | sort) <(sort packages.txt))
+sudo pacman -S --needed $(comm -12 <(pacman -Slq | sort) <(sort packages.txt))
+./install.sh 
+clear
+chsh -s $(which zsh)
+reboot

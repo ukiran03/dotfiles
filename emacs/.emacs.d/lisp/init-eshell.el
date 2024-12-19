@@ -1,3 +1,9 @@
+;;; init-eshell.el --- summary -*- lexical-binding: t -*-
+
+
+;;; Commentary:
+
+;;; Code:
 (use-package eshell-prompt-extras
   :init
   (with-eval-after-load "esh-opt"

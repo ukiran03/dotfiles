@@ -72,13 +72,13 @@
 
 ;; UI
 ;; (load-theme 'wombat t)
-(load-theme 'modus-operandi t)
+(load-theme 'modus-vivendi t)
 
 (set-face-attribute 'default nil
-		            :family "Iosevka Extended"
+		            :family "Uosevka"
 		            :height 95
-		            :weight 'semibold
-                    )
+		            :weight 'medium)
+;; (set-frame-font "Iosevka Regular-12" nil t)
 
 ;; (unless (eq window-system 'ns)
 ;;   (menu-bar-mode -1))
@@ -185,14 +185,14 @@
             (local-set-key (kbd "C-c C-b") #'eval-buffer)))
 
 
-(use-package anzu
-  :ensure t
-  :bind (([remap query-replace] . anzu-query-replace)
-         ([remap query-replace-regexp] . anzu-query-replace-regexp)
-         :map isearch-mode-map
-         ([remap isearch-query-replace] . anzu-isearch-query-replace)
-         ([remap isearch-query-replace-regexp] . anzu-isearch-query-replace-regexp))
-  :hook (after-init . global-anzu-mode))
+;; (use-package anzu
+;;   :ensure t
+;;   :bind (([remap query-replace] . anzu-query-replace)
+;;          ([remap query-replace-regexp] . anzu-query-replace-regexp)
+;;          :map isearch-mode-map
+;;          ([remap isearch-query-replace] . anzu-isearch-query-replace)
+;;          ([remap isearch-query-replace-regexp] . anzu-isearch-query-replace-regexp))
+;;   :hook (after-init . global-anzu-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Init-mini.el ends here

@@ -48,19 +48,18 @@ Otherwise the startup will be slow."
 
 (update-load-path)
 
-;; (set-face-attribute 'default nil
-;; 		            :family "Iosevka Extended"
-;; 		            :height 95
-;; 		            :weight 'medium
-;;                     )
-(defun uk/set-face-font (face family)
-  (set-face-attribute
-   face nil
-   :family family :weight 'medium :width 'expanded :height 100))
+;; (defun uk/set-face-font (face family)
+;;   (set-face-attribute
+;;    face nil
+;;    :family family :weight 'semibold :width 'expanded :height 100))
+;; (uk/set-face-font 'default "Uosevka")
+;; (uk/set-face-font 'fixed-pitch "Uosevka")
+;; (uk/set-face-font 'variable-pitch "Iosevka Aile")
 
-(uk/set-face-font 'default "Iosevka Extended")
-(uk/set-face-font 'fixed-pitch "Iosevka Extended")
-(uk/set-face-font 'variable-pitch "Iosevka Aile")
+(set-face-attribute 'default nil
+		            :family "Uosevka"
+		            :height 100
+		            :weight 'medium)
 
 ;; Better defaults
 ;; (setq initial-scratch-message nil)
@@ -103,10 +102,14 @@ Otherwise the startup will be slow."
 ;; Without this comment Emacs25 adds (package-initialize) here
 (require 'init-package)
 
+
 (require 'init-clean)
 (require 'init-vertico)
+(require 'init-prefix)
 (require 'init-core)
+(require 'init-bookmark)
 (require 'init-completions)
+(require 'init-dired)
 (require 'init-consult)
 (require 'init-funcs)
 (require 'init-filetree)
@@ -128,10 +131,9 @@ Otherwise the startup will be slow."
 (require 'init-window)
 (require 'init-vc)
 (require 'init-check)
-(require 'init-dired)
+
 (require 'init-utils)
 (require 'init-eshell)
-(require 'init-prefix)
 (require 'init-project)
 (require 'init-icon)
 

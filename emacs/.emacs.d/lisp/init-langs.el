@@ -2,6 +2,10 @@
 
 ;;; Commentary: Programming language setup
 
+;; (use-package emacs
+;;   :ensure nil
+;;   )
+
 (use-package sxhkdrc-mode)
 
 (use-package kdl-ts-mode

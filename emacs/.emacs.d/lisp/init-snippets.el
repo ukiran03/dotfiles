@@ -1,4 +1,3 @@
-
 ;;; init-snippets.el --- Snippets configurations.	-*- lexical-binding: t -*-
 
 ;;; Commentry:

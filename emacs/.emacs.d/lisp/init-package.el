@@ -43,7 +43,11 @@
 
 ;; Required by `use-package'
 ;; <https://github.com/emacsmirror/diminish> More `useful/powerful' than you think
-(use-package diminish :ensure t)
+
+(use-package diminish
+  :ensure t
+  :init
+  (diminish 'drag-stuff-mode " ⥮"))
 
 (provide 'init-package)
 

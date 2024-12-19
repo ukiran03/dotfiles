@@ -1,3 +1,14 @@
+;;; init-prog.el --- summary -*- lexical-binding: t -*-
+
+
+;;; Commentary:
+
+;;; Code:
+
+(use-package newcomment
+  :ensure nil
+  :bind ("H-;" . comment-line))
+
 (use-package subword
   :ensure nil
   :diminish subword-mode
@@ -20,14 +31,21 @@
 
 ;;  `C': <https://astyle.sourceforge.net/astyle.html>
 (use-package format-all
+  ;; :disabled
   :diminish
   :commands format-all-mode
-  :hook (prog-mode . format-all-mode)
+  ;; :hook (prog-mode . format-all-mode)
   :config
   (setq format-all-formatters
         '(("C"     (astyle "--mode=c"))
-      ("C" (astyle "--style=gnu"))
-      ("Shell" (shfmt "-i" "4" "-ci")))))
+          ("C" (astyle "--style=gnu"))
+          ("Shell" (shfmt "-i" "4" "-ci")))))
+
+(use-package apheleia
+  :disabled
+  :config
+  (setf (alist-get 'clang-format apheleia-formatters)
+        '("clang-format" "--style={IndentWidth: 4}")))
 
 ;; Similar to format-all
 ;; checkout: <https://github.com/purcell/emacs-reformatter>
@@ -37,20 +55,6 @@
   :ensure nil
   :hook ((text-mode . goto-address-mode)
          (prog-mode . goto-address-prog-mode)))
-
-(use-package smartparens
-  ;; <https://ebzzry.com/en/emacs-pairs/>
-  :disabled
-  :diminish
-  :ensure smartparens  ;; install the package
-  :hook (prog-mode ;; add `smartparens-mode` to these hooks
-         geiser-repl-mode
-         racket-repl-mode
-         text-mode
-         markdown-mode)
-  :config
-  ;; load default config
-  (require 'smartparens-config))
 
 ;; ‘Animated-Guide’ : <http://danmidwood.com/content/2014/11/21/animated-paredit.html>
 (use-package paredit :ensure nil)
@@ -112,4 +116,8 @@
   :bind (:map prog-mode-map
               ("<f5>" . revert-buffer)))
 
+
 (provide 'init-prog)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-prog.el ends here

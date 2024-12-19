@@ -1,3 +1,5 @@
+;;; init-clean.el --- summary -*- lexical-binding: t -*-
+
 ;;; Keep .emacs.d clean
 
 (use-package no-littering
@@ -35,3 +37,4 @@
 ;;       )
 
 (provide 'init-clean)
+;;; init-clean.el ends here

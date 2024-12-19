@@ -1,3 +1,9 @@
+;;; init-tab-bar.el --- summary -*- lexical-binding: t -*-
+
+
+;;; Commentary:
+
+;;; Code:
 
 ;; ;; ‘Time’ on tab-bar
 (add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
@@ -26,3 +32,5 @@
 
 (provide 'init-tab-bar)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-tab-bar.el ends here

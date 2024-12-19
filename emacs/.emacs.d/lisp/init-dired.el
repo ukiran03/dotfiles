@@ -41,14 +41,14 @@
 
   ;; Colorful dired
   (use-package diredfl
-    :ensure nil
     :disabled
     :hook (dired-mode . diredfl-mode))
 
   ;; Shows icons
   (use-package nerd-icons-dired
-    :ensure nil
+    ;; :disabled
     :diminish
+    ;; :if (featurep 'all-the-icons)
     :when (icons-displayable-p)
     :custom-face
     (nerd-icons-dired-dir-face ((t (:inherit nerd-icons-dsilver :foreground unspecified))))
@@ -60,34 +60,31 @@
     :ensure nil
     :demand t
     :config
-    (let ((cmd "xdg-open"))
-      (setq dired-guess-shell-alist-user
-            `(("\\.pdf\\'" ,cmd)
-              ("\\.docx\\'" ,cmd)
-              ("\\.\\(?:djvu\\|eps\\)\\'" ,cmd)
-              ("\\.\\(?:jpg\\|jpeg\\|png\\|gif\\|xpm\\)\\'" ,cmd)
-              ("\\.\\(?:xcf\\)\\'" ,cmd)
-              ("\\.csv\\'" ,cmd)
-              ("\\.tex\\'" ,cmd)
-              ("\\.\\(?:mp4\\|mkv\\|avi\\|flv\\|rm\\|rmvb\\|ogv\\)\\(?:\\.part\\)?\\'" ,cmd)
-              ("\\.\\(?:mp3\\|flac\\)\\'" ,cmd)
-              ("\\.html?\\'" ,cmd)
-              ("\\.md\\'" ,cmd))))
-
+    (setq dired-guess-shell-alist-user
+          `(("\\.pdf\\'" "zathura")
+            ("\\.docx\\'" "libreoffice")
+            ("\\.\\(?:djvu\\|eps\\)\\'" "zathura")
+            ("\\.\\(?:jpg\\|jpeg\\|png\\|gif\\|xpm\\)\\'" "nsxiv")
+            ("\\.\\(?:xcf\\)\\'" "gimp")
+            ("\\.csv\\'" "libreoffice --calc")
+            ("\\.tex\\'" "texmaker")
+            ("\\.\\(?:mp4\\|mkv\\|avi\\|flv\\|rm\\|rmvb\\|ogv\\)\\(?:\\.part\\)?\\'" "mpv")
+            ("\\.\\(?:mp3\\|flac\\)\\'" "mpv")
+            ("\\.html?\\'" "firefox")))
     (setq dired-omit-files
           (concat dired-omit-files
                   "\\|^.DS_Store$\\|^.projectile$\\|^.git*\\|^.svn$\\|^.vscode$\\|\\.js\\.meta$\\|\\.meta$\\|\\.elc$\\|^.emacs.*"))))
 
-(use-package dired-hist
-  :after dired
-  :bind (:map dired-mode-map
-	      ("l" . dired-hist-go-back)
-	      ("r" . dired-hist-go-forward)))
+;; (use-package dired-hist
+;;   :after dired
+;;   :bind (:map dired-mode-map
+;; 	          ("l" . dired-hist-go-back)
+;; 	          ("r" . dired-hist-go-forward)))
 
 ;;<https://github.com/kickingvegas/casual-dired>
-(use-package casual-dired
-  :ensure nil
-  :bind (:map dired-mode-map ("C-o" . 'casual-dired-tmenu)))
+;; (use-package casual-dired
+;;   :ensure nil
+;;   :bind (:map dired-mode-map ("C-o" . 'casual-dired-tmenu)))
 
 (use-package dired-preview
   :config
@@ -95,11 +92,11 @@
   (setq dired-preview-delay 0.7)
   (setq dired-preview-max-size (expt 2 20))
   (setq dired-preview-ignored-extensions-regexp
-	(concat "\\."
-		"\\(mkv\\|webm\\|mp4\\|mp3\\|ogg\\|m4a"
-		"\\|gz\\|zst\\|tar\\|xz\\|rar\\|zip"
-		"\\|.out\\|.o"
-		"\\|iso\\|epub\\|pdf\\)"))
+	    (concat "\\."
+		        "\\(mkv\\|webm\\|mp4\\|mp3\\|ogg\\|m4a"
+		        "\\|gz\\|zst\\|tar\\|xz\\|rar\\|zip"
+		        "\\|.out\\|.o"
+		        "\\|iso\\|epub\\|pdf\\)"))
   ;; Enable `dired-preview-mode' in a given Dired buffer or do it
   ;; globally:
   (dired-preview-global-mode -1))
@@ -117,21 +114,10 @@
   :config
   (setq dired-subtree-use-backgrounds nil)
   :bind (:map dired-mode-map
-	      ("<tab>" . dired-subtree-toggle)
-	      ("<C-tab>" . dired-subtree-cycle)
-	      ("<backtab>" . 'dired-subtree-remove)))
-(use-package dired-collapse)
-(use-package dired-open
-  :after dired
-  :config
-  (setq dired-open-extensions '(("gif" . "mpv")
-                                ("jpg" . "ristretto")
-                                ("webp" . "ristretto")
-                                ("png" . "ristretto")
-                                ("pdf" . "zathura")
-                                ("mkv" . "mpv")
-                                ("webm" . "mpv")
-                                ("mp4" . "mpv"))))
+	          ("<tab>" . dired-subtree-toggle)
+	          ("<C-tab>" . dired-subtree-cycle)
+	          ("<backtab>" . 'dired-subtree-remove)))
+
 ;; <https://github.com/mattiasb/dired-hide-dotfiles/blob/master/dired-hide-dotfiles.el>
 ;; <https://stackoverflow.com/questions/43628315/how-to-hide-one-dot-current-directory-in-dired-mode>
 

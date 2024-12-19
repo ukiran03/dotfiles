@@ -13,8 +13,33 @@
   :config
   (setq flymake-no-changes-timeout nil
         flymake-fringe-indicator-position 'right-fringe)
+  (setq flymake-mode-line-lighter "FY"))
 
-  (setq flymake-mode-line-lighter "Fℇ"))  ; ⧫
+(use-package jinx
+  :ensure t
+  :diminish
+  ;; :hook
+  ;; ((prog-mode-hook
+  ;;   conf-mode-hook
+  ;;   text-mode-hook) . jinx-mode)
+  :bind
+  (([remap ispell-word] . jinx-correct)
+   (:repeat-map jinx-repeat-map
+                ("s" . jinx-next)
+                ("S" . jinx-previous)))
+  ;; :init
+  ;; (keymap-set next-map "s" '("Misspelling" . jinx-next))
+  ;; (keymap-set prev-map "s" '("Misspelling" . jinx-previous))
+  )
+
+(use-package dictionary
+  :ensure nil
+  :init
+  (setq dictionary-server "localhost")
+  (add-to-list 'display-buffer-alist
+               '("^\\*Dictionary\\*" display-buffer-in-side-window
+                 (side . right)
+                 (window-width . 80))))
 
 (use-package sideline-flymake
   :ensure t

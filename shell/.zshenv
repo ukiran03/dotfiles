@@ -37,6 +37,8 @@ else
     export HISTFILE="$XDG_CONFIG_HOME/shell/bash_history"
 fi
 
+export XDG_DATA_DIRS="/usr/share:/usr/local/share:$HOME/.local/share"
+
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 

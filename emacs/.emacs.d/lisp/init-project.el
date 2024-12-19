@@ -1,3 +1,11 @@
+;;; init-project.el --- summary -*- lexical-binding: t -*-
+
+
+;;; Commentary:
+
+;;; Code:
+
+
 (use-package project
   :ensure nil
   :bind
@@ -8,4 +16,8 @@
   :config
   (setq project-vc-extra-root-markers '(".project"))) ; Emacs 29
 
+
 (provide 'init-project)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-project.el ends here

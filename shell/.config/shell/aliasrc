@@ -26,6 +26,8 @@ alias mod_swap='setxkbmap -option altwin:swap_lalt_lwin'
 
 alias hh="history info 0 | cut -c 8- | sort | uniq | fzf | tr -d '\n' | xclip -selection c"
 
+alias hx='helix'
+
 cd() {
     [[ $# -eq 0 ]] && return
     builtin cd "$@"
@@ -58,26 +60,7 @@ ex ()
   fi
 }
 
-
-# Colourise man pages
-man ()
-{
-    env \
-        LESS_TERMCAP_mb=$(tput bold; tput setaf 6) \
-        LESS_TERMCAP_md=$(tput bold; tput setaf 6) \
-        LESS_TERMCAP_me=$(tput sgr0) \
-        LESS_TERMCAP_se=$(tput rmso; tput sgr0) \
-        LESS_TERMCAP_ue=$(tput rmul; tput sgr0) \
-        LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 4) \
-        LESS_TERMCAP_mr=$(tput rev) \
-        LESS_TERMCAP_mh=$(tput dim) \
-        LESS_TERMCAP_ZN=$(tput ssubm) \
-        LESS_TERMCAP_ZV=$(tput rsubm) \
-        LESS_TERMCAP_ZO=$(tput ssupm) \
-        LESS_TERMCAP_ZW=$(tput rsupm) \
-        man "$@"
-}
-
+alias cdu='cdu -idh'
 
 # ascii-image-converter
 alias 2ascii='ascii-image-converter'

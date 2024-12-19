@@ -75,11 +75,11 @@ fi
 
 # check once again
 
-if _check redshift; then
-    if ! pgrep -x "redshift" > /dev/null; then
-    redshift-gtk &
-    fi
-fi
+# if _check redshift; then
+#     if ! pgrep -x "redshift" > /dev/null; then
+#     redshift-gtk &
+#     fi
+# fi
 
 # xset r rate 200 50
 
@@ -137,6 +137,7 @@ else
     xfce4-power-manager &
 fi
 
+# _check emacs && emacs -T emacs-server &
 
 _check mpc && mpc update &
 

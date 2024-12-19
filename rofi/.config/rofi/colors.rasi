@@ -2,9 +2,9 @@
  * Github : @adi1090x
  *
  * Author : Aditya Shakya (adi1090x)
- * 
+ *
  * Colors
- * 
+ *
  * Available Colors Schemes
  *
  * adapta    catppuccin    everforest    navy       paper
@@ -16,9 +16,9 @@
 /* Import color-scheme from `colors` directory */
 
 
-
 @import "~/.config/rofi/colors/black.rasi"
 /*
+@import "~/.config/rofi/colors/black.rasi"
 @import "~/.config/rofi/colors/or-black.rasi"
 @import "~/.config/rofi/colors/onedark.rasi"
 @import "~/.config/rofi/colors/paper.rasi"

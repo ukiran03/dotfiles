@@ -1,3 +1,11 @@
+;;; init-racket.el --- summary -*- lexical-binding: t -*-
+
+
+;;; Commentary:
+
+;;; Code:
+
+
 ;; SICP: <https://stackoverflow.com/questions/74169756/sicp-evaluate-racket-into-repl-with-emacs-and-geiser>
 (use-package geiser
   :ensure t
@@ -35,7 +43,11 @@
 
 (use-package racket-mode
   :config
+  ;; (set-face-attribute 'racket-xp-unused-face nil :strike-through nil)
   (custom-set-faces
    '(racket-repl-prompt ((t (:inherit font-lock-function-name-face))))))
 
 (provide 'init-racket)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-racket.el ends here

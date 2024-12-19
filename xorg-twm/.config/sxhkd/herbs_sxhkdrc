@@ -1,9 +1,9 @@
 # Rofi
 super + {a,s,w,y}
-    {rofi -show drun, \
+    {rofi -show drun -show-icons, \
     rofi -show run, \
-    rofi -show window, \
-    rofi -show filebrowser}
+    rofi -show window -show-icons, \
+    rofi -show filebrowser -show-icons}
 
 # Clipboard, rofi-greenclip
 super + grave
@@ -49,9 +49,9 @@ alt + Print
 
 # Browser, Chat
 super + {F9, F10, F11, F12}
-    {firefox, telegram-desktop, tor-browser, qbittorrent}
+    {zen-browser, telegram-desktop, tor-browser, qbittorrent}
 super + shift + F9
-    firefox --private-window
+    zen-browser --private-window
 
 # brightness
 super + bracket{left,right}

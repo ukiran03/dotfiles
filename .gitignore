@@ -42,15 +42,17 @@ emacs/.emacs.d/projects
 emacs/.emacs.d/recentf
 emacs/.emacs.d/history
 emacs/.emacs.d/transient/
+emacs/.emacs.d/eln-cache/
 emacs/.emacs.d/session*
 
 **/.config/gh/hosts.yml
 
 **/.config/libvirt
-
+**/.config/vlc
 **/.config/calibre/
 **/.config/liferea/
 **/.config/qbittorrent/
+**/.config/qBittorrent/
 qBittorrent
 
 term-apps/.urxvt
