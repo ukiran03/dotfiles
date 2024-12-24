@@ -2,6 +2,17 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 
 export ERRFILE="$XDG_CONFIG_HOME/X11/xsession-errors"
 
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_SCREENSHOTS_DIR="$HOME/Pictures/screenshots"
+
+# zsh
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
+export LD_LIBRARY_PATH=/usr/local/lib/
+export XAUTHORITY=$HOME/.Xauthority
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 source "$HOME"/.zshenv
 
@@ -23,3 +34,4 @@ fi
 if [ -d "$HOME"/.local/bin ]; then
     PATH=$PATH:"$HOME"/.local/bin
 fi
+#. "/home/ukiran/.local/share/cargo/env"

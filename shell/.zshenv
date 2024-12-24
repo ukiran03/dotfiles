@@ -26,6 +26,9 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_SCREENSHOTS_DIR="$HOME/Pictures/screenshots"
 
+# zsh
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
 # Dotfiles
 export DOTFILES="$HOME/dotfiles"
 
@@ -62,3 +65,5 @@ export GOPATH="$XDG_DATA_HOME"/go
 # set the localization
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+
+# . "/home/ukiran/.local/share/cargo/env"

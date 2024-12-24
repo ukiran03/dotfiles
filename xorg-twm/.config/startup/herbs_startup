@@ -60,6 +60,20 @@ then
 fi
 
 
+#### Pipewire
+
+if _check pipewire; then
+    if ! pgrep -x "pipewire" > /dev/null; then
+        /usr/bin/pipewire &
+    fi
+fi
+
+if _check pipewire-pulse; then
+    if ! pgrep -x "pipewire-pulse" > /dev/null; then
+        /usr/bin/pipewire-pulse &
+    fi
+fi
+
 # Start the display compositor, See picom(1)
 _check picom && picom --config "$HOME"/.config/picom/picom.conf &
 
@@ -151,4 +165,8 @@ _check thunar && thunar --daemon &
 
 
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &

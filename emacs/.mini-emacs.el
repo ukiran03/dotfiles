@@ -75,7 +75,7 @@
 (load-theme 'modus-vivendi t)
 
 (set-face-attribute 'default nil
-		            :family "Uosevka"
+		            :family "Iosevka Extended"
 		            :height 95
 		            :weight 'medium)
 ;; (set-frame-font "Iosevka Regular-12" nil t)

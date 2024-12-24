@@ -48,11 +48,12 @@ alt + Print
     /home/ukiran/.local/bin/screenshot.sh -w
 
 # Browser, Chat
-super + {F9, F10, F11, F12}
-    {zen-browser, telegram-desktop, tor-browser, qbittorrent}
+super + {F10, F11, F12}
+    {telegram-desktop, tor-browser, qbittorrent}
 super + shift + F9
-    zen-browser --private-window
-
+    ~/.Zen-browser/zen-bin --private-window
+super + F9
+    ~/.Zen-browser/zen-bin
 # brightness
 super + bracket{left,right}
     /home/ukiran/.local/bin/uk-bright {down,up}

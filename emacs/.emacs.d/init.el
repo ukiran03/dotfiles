@@ -57,7 +57,7 @@ Otherwise the startup will be slow."
 ;; (uk/set-face-font 'variable-pitch "Iosevka Aile")
 
 (set-face-attribute 'default nil
-		            :family "Uosevka"
+		            :family "Iosevka Extended"
 		            :height 100
 		            :weight 'medium)
 

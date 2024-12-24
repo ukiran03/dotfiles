@@ -2,7 +2,9 @@
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
 eval "$(zoxide init zsh)"	# zoxide
-eval "$(fzf --zsh)"		# history with fzf (C-r)
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 # eval "$(batman --export-env)"
 PROMPT="%B%F{014}[%f %F{012}%~%f %F{009}%?%f %F{014}]%f %F{011}∮%f%b "
 RPROMPT='%F{07}⎇ $vcs_info_msg_0_%f'
@@ -140,9 +142,11 @@ _comp_options+=(globdots)		# Include hidden files.
 
 #### Plugins
 # Load syntax highlighting; should be last.
-source $HOME/.local/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $HOME/.local/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOME/.local/share/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+#source $HOME/.local/share/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh
 
 ### Icons and Colors
 # ∮ ∯ ≎           󱑌(clock)
