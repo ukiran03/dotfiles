@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+# Check if paru is installed
+if command -v paru &> /dev/null; then
+    PKG_TOOL="paru"
+else
+    PKG_TOOL="yay"
+fi
+
+
+# Function to install packages
+function install_packages() {
+    yay -Slq | fzf -q "$1" -m --preview 'yay -Si {1}' | xargs -ro yay -S
+}
+
+# Function to remove installed packages
+function remove_packages() {
+    yay -Qq | fzf -q "$1" -m --preview 'yay -Qi {1}' | xargs -ro yay -Rns
+}
+
+# Function to show package info (remote pakages)
+function remote_pkg_info() {
+    yay -Slq | fzf -q "$1" -m --preview 'yay -Si {1}' | xargs -ro yay -Si
+}
+
+# Function to show package info (local packages)
+function local_pkg_info() {
+    yay -Qq | fzf -q "$1" -m --preview 'yay -Qi {1}' | xargs -ro yay -Si
+}
+
+# PKGBUILD of a package
+function pkg_build() {
+
+    # Use the chosen package manager
+    $PKG_TOOL -Qq | fzf -q "$1" -m --preview "$PKG_TOOL -Qi {1}" | xargs -ro $PKG_TOOL -Gp
+}
+
+# Check for argument
+if [ -z "$1" ]; then
+    echo "No argument provided. Please provide one of: in(intall), un(uninstall), ri(remote pkg info), li(local pkg info)."
+    exit 1
+fi
+
+# Run the appropriate function based on the argument
+case $1 in
+    in)
+        install_packages "$2"
+        ;;
+    un)
+        remove_packages "$2"
+        ;;
+    ri)
+        remote_pkg_info "$2"
+        ;;
+    li)
+        local_pkg_info "$2"
+        ;;
+    pb)
+        pkg_build "$2"
+        ;;
+    *)
+        echo "Invalid argument. Please provide one of: in(intall), un(uninstall), ri(remote pkg info), li(local pkg info)."
+        exit 1
+        ;;
+esac

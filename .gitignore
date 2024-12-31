@@ -83,5 +83,18 @@ xorg-twm/.config/herbstluftwm/assets/
 xorg-twm/.config/herbstluftwm/herbs-scripts-ghub/
 xorg-twm/.config/herbstluftwm/mod-scripts/
 
-**/.config/zsh/*_history
+**/.config/*/*_history
 **/.config/zsh/.zcompdump
+/emacs/.emacs.d/.emacs.desktop
+/emacs/.emacs.d/emacs-todo.org
+/emacs/.emacs.d/emasc-inst-pkgs.txt
+/emacs/.emacs.d/eshell/history
+/gui-apps/.config/archlinux-logout/
+/media/.config/mpv/watch_later/
+/personal/.config/gh-dash/
+/personal/.config/gh/
+/personal/.keys
+/scripts/.local/bin/greenclip
+/vim/.config/nvim/
+/xorg/.config/X11/xsession-errors
+*_history
