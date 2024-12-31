@@ -56,13 +56,22 @@ Otherwise the startup will be slow."
 ;; (uk/set-face-font 'fixed-pitch "Uosevka")
 ;; (uk/set-face-font 'variable-pitch "Iosevka Aile")
 
-(set-face-attribute 'default nil
-		            :family "Iosevka Extended"
-		            :height 100
-		            :weight 'medium)
+;; (set-face-attribute 'default nil
+;; 		            :family "Iosevka Extended"
+;; 		            :height 100
+;; 		            :weight 'medium)
+
+(set-frame-font "Iosevka Medium Extended-10" nil t)
+
+;; Set the default font to Iosevka Term Medium Extended, Weight: medium, Height: 100
+;; (set-frame-font "Iosevka Term Medium Extended-10" nil t)
 
 ;; Better defaults
 ;; (setq initial-scratch-message nil)
+(setq frame-inhibit-implied-resize nil ) ; prevents changing font, etc
+                                         ; triggering a resize of the
+                                         ; entire frame in non-tiling
+                                         ; setups
 ;; Misc
 (if (boundp 'use-short-answers)
     (setq use-short-answers t)

@@ -14,7 +14,7 @@ draw_bold_text_with_bright_colors = true
 size = 10
 
 [font.bold]
-family = "Iosevka Extended"
+family = "Iosevka Term Medium Extended"
 style = "Bold"
 
 [font.glyph_offset]
@@ -22,11 +22,11 @@ x = 0
 y = 0
 
 [font.italic]
-family = "Iosevka Extended"
+family = "Iosevka Term Medium Extended"
 style = "Italic"
 
 [font.normal]
-family = "Iosevka Extended"
+family = "Iosevka Term Medium Extended"
 style = "Medium"
 
 [font.offset]

@@ -2,24 +2,27 @@
 
 ;;; Commentary: Programming language setup
 
-;; (use-package emacs
-;;   :ensure nil
-;;   )
-
+                                        ; -- ephimeral langs
 (use-package sxhkdrc-mode)
+(use-package markdown-mode)
 
-(use-package kdl-ts-mode
-  :disabled
-  :load-path ("site-lisp/kdl-ts-mode/")
-  :config
-  (add-to-list 'auto-mode-alist '("\\.kdl\\'" . kdl-ts-mode)))
-
-(use-package kdl-mode
+;; -- Python
+(use-package python-mode
   :ensure nil
-  :demand t
-  :commands kdl-mode
-  :load-path ("site-lisp/kdl-mode/"))
+  :init
+  (use-package eglot
+    :config
+    (add-to-list 'eglot-server-programs
+                 '(python-mode . ("ruff" "server"))))
+  :hook ((python-mode . eglot-ensure)
+         (after-save-hook . eglot-format)
+         (python-mode . flymake-ruff-load)))
+
+;; -- Rust
+
+;; -- GO
+
+;; -- Bash
 
 (provide 'init-langs)
-
 ;;; init-langs.el ends here

@@ -8,3 +8,5 @@ Terminal=false
 Type=Application
 Categories=Utility;Graphics;
 MimeType=image/*
+Path=
+StartupNotify=false

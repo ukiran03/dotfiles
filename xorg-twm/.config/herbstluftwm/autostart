@@ -290,7 +290,7 @@ hc rule class=TelegramDesktop tag=9
 hc rule class=qBittorrent tag=9
 hc rule class=calibre tag=9
 hc rule class=Liferea tag=8
-hc rule class=thunderbird tag=8
+hc rule class=Thunderbird tag=8
 hc rule title='Tor Browser' tag=8
 
 hc rule class=Emacs title~'Emacs:emacs-everywhere' floating=on

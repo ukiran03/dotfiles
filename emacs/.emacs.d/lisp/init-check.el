@@ -35,7 +35,7 @@
 (use-package dictionary
   :ensure nil
   :init
-  (setq dictionary-server "localhost")
+  ;; (setq dictionary-server "localhost") -- setup dictd on void
   (add-to-list 'display-buffer-alist
                '("^\\*Dictionary\\*" display-buffer-in-side-window
                  (side . right)

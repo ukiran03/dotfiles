@@ -31,17 +31,41 @@
   (setq ef-themes-to-toggle '(ef-cyprus ef-day)))
 
 ;; `Fonts'
+;; (use-package fontaine
+;;   :config
+;;   (setq fontaine-presets
+;;         '((Iosevka
+;;            :default-family "Iosevka Nerd Font"
+;;            :default-height 110
+;;            :default-weight medium)
+;;           (Uosevka
+;;            :default-family "Uosevka"
+;;            :default-height 100
+;;            :default-weight medium))))
 (use-package fontaine
   :config
+  ;; https://typeof.net/Iosevka/
   (setq fontaine-presets
-        '((Iosevka
-           :default-family "Iosevka Nerd Font"
-           :default-height 110
-           :default-weight medium)
-          (Uosevka
-           :default-family "Uosevka"
+        '((regular
+           :default-family "Iosevka Extended"
+           :default-weight normal
            :default-height 100
-           :default-weight medium))))
+           :fixed-pitch-family "Iosevka Term"
+           :fixed-pitch-weight semi-light
+           :fixed-pitch-height 1.0
+           :variable-pitch-family "Iosevka Etoile"
+           :variable-pitch-weight semi-light
+           :variable-pitch-height 1.0
+           :bold-family nil ; use whatever the underlying face has
+           :bold-weight bold
+           :italic-family nil ; use whatever the underlying face has
+           :italic-slant italic
+           :line-spacing 1)
+          (large
+           :inherit regular
+           :default-height 150)))
+  (fontaine-set-preset 'regular)
+  (add-hook 'enable-theme-functions #'fontaine-apply-current-preset))
 
 ;; Nice writing
 (use-package olivetti

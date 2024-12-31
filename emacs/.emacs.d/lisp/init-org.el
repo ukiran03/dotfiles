@@ -43,6 +43,7 @@
   :init
   (global-org-modern-mode)
   (set-face-attribute 'org-modern-label nil
+                      :family "Iosevka Extended"
                       :height 95
                       :weight 'medium)
   :config

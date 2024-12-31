@@ -42,6 +42,30 @@
   :config
   (drag-stuff-define-keys))
 
+;; (use-package kiwix
+;;   :ensure t
+;;   :after org
+;;   :commands (kiwix-launch-server kiwix-at-point)
+;;   ;; :bind (:map document-prefix ("w" . kiwix-at-point))
+;;   :custom ((kiwix-server-type 'kiwix-serve-local)
+;;            (kiwix-server-url "http://192.168.1.2:8000")
+;;            (kiwix-server-port 8000)
+;;            (kiwix-zim-dir (expand-file-name "/home/ukiran/zims")
+;;                           ))
+;;   :hook (org-load . org-kiwix-setup-link)
+;;   :init (require 'org-kiwix)
+;;   :config (add-hook 'org-load-hook #'org-kiwix-setup-link))
+
+(use-package kiwix
+  :ensure t
+  :commands (kiwix-launch-server kiwix-at-point)
+  :config
+  (setq kiwix-server-type 'kiwix-server-local)
+  (setq kiwix-server-url "http://192.168.1.2:8000")
+  (setq kiwix-server-port 8000)
+  (setq kiwix-zim-dir (expand-file-name "/home/ukiran/zims")))
+
+
 
 (provide 'init-utils)
 
