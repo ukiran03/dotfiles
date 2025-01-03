@@ -66,4 +66,3 @@ export GOPATH="$XDG_DATA_HOME"/go
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# . "/home/ukiran/.local/share/cargo/env"

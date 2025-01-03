@@ -62,6 +62,7 @@ Otherwise the startup will be slow."
 ;; 		            :weight 'medium)
 
 (set-frame-font "Iosevka Medium Extended-10" nil t)
+;; (set-frame-font "Geist Mono Medium-10" nil t)
 
 ;; Set the default font to Iosevka Term Medium Extended, Weight: medium, Height: 100
 ;; (set-frame-font "Iosevka Term Medium Extended-10" nil t)

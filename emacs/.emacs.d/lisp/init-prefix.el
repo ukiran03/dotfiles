@@ -33,10 +33,30 @@
   "a"    #'save-some-buffers)
 (keymap-set global-map "H-s" saves-hyper-map)
 
-(defvar-keymap num-window-hyper-map
-  :doc "number window actions."
-  :name "Win Actions"
-  )
+;; (defvar-keymap num-window-hyper-map
+;;   :doc "number window actions."
+;;   :name "Win Actions"
+;;   )
+
+;; Karthinks: https://karthinks.com/software/it-bears-repeating/
+(defvar windmove-repeat-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "<left>") 'windmove-left)
+    (define-key map (kbd "S-<left>") 'windmove-swap-states-left)
+    (define-key map (kbd "<right>") 'windmove-right)
+    (define-key map (kbd "S-<right>") 'windmove-swap-states-right)
+    (define-key map (kbd "<up>") 'windmove-up)
+    (define-key map (kbd "S-<up>") 'windmove-swap-states-up)
+    (define-key map (kbd "<down>") 'windmove-down)
+    (define-key map (kbd "S-<down>") 'windmove-swap-states-down)
+    map))
+
+(map-keymap
+ (lambda (_key cmd)
+   (when (symbolp cmd)
+     (put cmd 'repeat-map 'windmove-repeat-map)))
+ windmove-repeat-map)
+
 
 (defvar-keymap buffer-hyper-map
   :doc "buffer actions."
