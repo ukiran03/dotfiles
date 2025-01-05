@@ -14,25 +14,29 @@ draw_bold_text_with_bright_colors = true
 [font]
 size = 10
 
-[font.bold]
-family = "Iosevka Term Medium Extended"
-style = "Bold"
+normal = { family = "Iosevka Term Medium Extended", style= "Medium"}
+bold = { family = "Iosevka Term Extended", style= "Bold"}
+italic = { family = "Iosevka Term Extended", style= "Italic"}
 
-[font.glyph_offset]
-x = 0
-y = 0
+# [font.bold]
+# family = "Iosevka Term Extended"
+# style = "Bold"
 
-[font.italic]
-family = "Iosevka Term Medium Extended"
-style = "Italic"
+# [font.glyph_offset]
+# x = 0
+# y = 0
 
-[font.normal]
-family = "Iosevka Term Medium Extended"
-style = "Medium"
+# [font.italic]
+# family = "Iosevka Term Extended"
+# style = "Italic"
 
-[font.offset]
-x = 0
-y = 0
+# [font.normal]
+# family = "Iosevka Term Medium Extended"
+# style = "Medium"
+
+# [font.offset]
+# x = 0
+# y = 0
 
 
 [mouse]
@@ -64,8 +68,8 @@ decorations = "none"
 # lines = 24
 
 [window.padding]
-x = 9
-y = 9
+x = 10
+y = 10
 
 [general]
 
