@@ -1,11 +1,7 @@
 #### Autoload
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
-eval "$(zoxide init zsh)"	# zoxide
 
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
-# eval "$(batman --export-env)"
 PROMPT="%B%F{014}[%f %F{012}%~%f %F{009}%?%f %F{014}]%f %F{011}∮%f%b "
 RPROMPT='%F{07}⎇ $vcs_info_msg_0_%f'
 
@@ -28,29 +24,9 @@ zstyle ':vcs_info:git*' stagedstr '+'
 # but can be slow on large repos
 zstyle ':vcs_info:*:*' check-for-changes true
 
-# export MANPAGER="most"
-export GROFF_NO_SGR=1
-export MANPAGER="less -R --use-color -Dd+r -Du+b"
-
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
-
-## fzf
-export FZF_CTRL_R_OPTS='--reverse --border=bold --border-label="Shell History" --prompt "Search: " --info inline-right'
-
-# Preview file content using bat (https://github.com/sharkdp/bat)
-export FZF_CTRL_T_OPTS="
-  --walker-skip .git,node_modules,target
-  --preview 'bat -n --color=always {}'
-  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
-
-# Print tree structure in the preview window
-export FZF_ALT_C_OPTS="
-  --walker-skip .git,node_modules,target
-  --preview 'tree -C {}'"
-
-export FZF_DEFAULT_OPTS='--reverse --height=75% --border=bold --prompt "Search: " --info inline-right'
 
 #### Options
 setopt autocd		             # Automatically cd into typed directory.
@@ -76,35 +52,6 @@ setopt HIST_EXPIRE_DUPS_FIRST    # Prioritize removing duplicate events over non
 setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
 setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
 
-export HISTCONTROL=ignoreboth:erasedups # Both `ignoredups` and `erasedups` options are enabled
-export HISTDUP=erase	   	     # Duplicate history entries should be erased from the history list
-export HISTSIZE=10000000
-export SAVEHIST=$HISTSIZE
-export HISTFILE="/home/ukiran/.config/zsh/zsh_history"
-
-export EDITOR='nvim'
-export VISUAL="emacsclient -c -a 'emacs'"
-export LANG=en_US.UTF-8
-
-#### Paths
-# all alias are in .config/shell/aliasrc
-if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] ;
-then source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
-fi
-
-if [ -d "$HOME/.bin" ] ;
-then PATH="$HOME/.bin:$PATH"
-fi
-
-if [ -d "$HOME/.local/bin" ] ;
-then PATH="$HOME/.local/bin:$PATH"
-fi
-
-### Functions
-backupthis ()
-{
-    cp -riv $1 ${1}-$(date +%Y%m%d%H%M).backup;
-}
 
 #### Keybinds
 bindkey -e
@@ -139,14 +86,38 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
+## Sources
+#### Paths
+# all alias are in .config/shell/aliasrc
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] ;
+then source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+fi
+
+if [ -d "$HOME/.bin" ] ;
+then PATH="$HOME/.bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/bin" ] ;
+then PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [[ -f $ZDOTDIR/zsh-exports ]]; then
+  source $ZDOTDIR/zsh-exports
+else
+  echo "zsh-exports file missing"
+fi
+
+# if [[ -f $ZDOTDIR/zsh-funcs ]]; then
+#   source $ZDOTDIR/zsh-funcs
+# else
+#   echo "zsh-funcs file missing"
+# fi
+
 
 #### Plugins
-# Load syntax highlighting; should be last.
+# should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-#source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-#source $HOME/.local/share/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh
 
 ### Icons and Colors
 # ∮ ∯ ≎           󱑌(clock)

@@ -1,38 +1,37 @@
 ### ALIASES ###
-# "Edit scripts on fly" from luke smith
-#
-#
-#
-alias bomb=":(){ :|:& };:"
-# ~/.scripts --> Personal scripts
-se() {
-	choice="$(find ~/.scripts/ -mindepth 1 -printf '%P\n' | fzf)"
-	[ -f "$HOME/.scripts/$choice" ] && $EDITOR "$HOME/.scripts/$choice"
+
+# alias bomb=":(){ :|:& };:"
+
+dbe() {
+	choice="$(find ~/.bin/ -mindepth 1 -printf '%P\n' | fzf)"
+	[ -f "$HOME/.bin/$choice" ] && $EDITOR "$HOME/.bin/$choice"
 	}
-# ~/.local/bin --> system scripts
+
 be() {
 	choice="$(find ~/.local/bin/ -mindepth 1 -printf '%P\n' | fzf)"
 	[ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
 	}
 
+backupthis () {
+    cp -riv $1 ${1}-$(date +%Y%m%d%H%M).backup;
+}
 
 # show the list of packages that need this package - depends mpv as example
-function_depends()  {
-    search=$(echo "$1")
-    sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
-    }
+# function_depends()  {
+#     search=$(echo "$1")
+#     sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
+#     }
 
 alias mod_swap='setxkbmap -option altwin:swap_lalt_lwin'
-
 alias hh="history info 0 | cut -c 8- | sort | uniq | fzf | tr -d '\n' | xclip -selection c"
 
-alias hx='helix'
 
-cd() {
-    [[ $# -eq 0 ]] && return
-    builtin cd "$@"
-    echo "$(pwd)"
-}
+# cd() {
+#     [[ $# -eq 0 ]] && return
+#     builtin cd "$@"
+#     echo "$(pwd)"
+# }
+
 # # ex = EXtractor for all kinds of archives
 # # usage: ex <file>
 ex ()
@@ -85,13 +84,6 @@ alias df='df -h'
 alias setlocale="sudo localectl set-locale LANG=en_US.UTF-8"
 alias setlocales="sudo localectl set-x11-keymap us && sudo localectl set-locale LANG=en_US.UTF-8"
 
-#pacman unlock
-alias unlock="sudo rm /var/lib/pacman/db.lck"
-alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
-
-#arcolinux logout unlock
-alias rmlogoutlock="sudo rm /tmp/arcologout.lock"
-
 #which graphical card is working
 alias whichvga="/usr/local/bin/arcolinux-which-vga"
 
@@ -107,16 +99,16 @@ alias userlist="cut -d: -f1 /etc/passwd | sort"
 #merge new settings
 alias merge="xrdb -merge ~/.Xresources"
 
-# Aliases for software managment
-# pacman or pm
-alias pacman='sudo pacman --color auto'
-alias update='sudo pacman -Syyu'
-alias upd='sudo pacman -Syyu'
+# # Aliases for software managment
+# # pacman or pm
+# alias pacman='sudo pacman --color auto'
+# alias update='sudo pacman -Syyu'
+# alias upd='sudo pacman -Syyu'
 
-# paru as aur helper - updates everything
-alias pksyua="paru -Syu --noconfirm"
-alias upall="paru -Syu --noconfirm"
-alias upa="paru -Syu --noconfirm"
+# # paru as aur helper - updates everything
+# alias pksyua="paru -Syu --noconfirm"
+# alias upall="paru -Syu --noconfirm"
+# alias upa="paru -Syu --noconfirm"
 
 #ps
 alias psa="ps auxf"
@@ -142,9 +134,9 @@ alias hw="hwinfo --short"
 alias audio="pactl info | grep 'Server Name'"
 
 #skip integrity check
-alias paruskip='paru -S --mflags --skipinteg'
-alias yayskip='yay -S --mflags --skipinteg'
-alias trizenskip='trizen -S --skipinteg'
+# alias paruskip='paru -S --mflags --skipinteg'
+# alias yayskip='yay -S --mflags --skipinteg'
+# alias trizenskip='trizen -S --skipinteg'
 
 #check vulnerabilities microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
@@ -160,15 +152,15 @@ alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
 alias ytv-b="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "
 
 #Recent Installed Packages
-alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
-alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
+# alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+# alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
 
 # This will generate a list of explicitly installed packages
-alias list="sudo pacman -Qqe"
+# alias list="sudo pacman -Qqe"
 #This will generate a list of explicitly installed packages without dependencies
-alias listt="sudo pacman -Qqet"
+# alias listt="sudo pacman -Qqet"
 # list of AUR packages
-alias listaur="sudo pacman -Qqem"
+# alias listaur="sudo pacman -Qqem"
 # add > list at the end to write to a file
 
 # install packages from list
@@ -181,16 +173,16 @@ alias clean="clear; seq 1 $(tput cols) | sort -R | sparklines | lolcat"
 alias rg="rg --sort path"
 
 #get the error messages from journalctl
-alias jctl="journalctl -p 3 -xb"
+# alias jctl="journalctl -p 3 -xb"
 
 #nano for important configuration files
 #know what you do in these files
 alias nmkinitcpio="sudo $EDITOR /etc/mkinitcpio.conf"
-alias nmirrorlist="sudo $EDITOR /etc/pacman.d/mirrorlist"
+# alias nmirrorlist="sudo $EDITOR /etc/pacman.d/mirrorlist"
 alias nfstab="sudo $EDITOR /etc/fstab"
 alias nnsswitch="sudo $EDITOR /etc/nsswitch.conf"
 alias nsamba="sudo $EDITOR /etc/samba/smb.conf"
-alias ngnupgconf="sudo $EDITOR /etc/pacman.d/gnupg/gpg.conf"
+# alias ngnupgconf="sudo $EDITOR /etc/pacman.d/gnupg/gpg.conf"
 alias nhosts="sudo $EDITOR /etc/hosts"
 alias nhostname="sudo $EDITOR /etc/hostname"
 alias nresolv="sudo $EDITOR /etc/resolv.conf"
@@ -215,16 +207,16 @@ alias fix-permissions="sudo chown -R $USER:$USER ~/.config ~/.local"
 
 
 #maintenance
-alias big="expac -H M '%m\t%n' | sort -h | nl"
-alias downgrada="sudo downgrade --ala-url https://ant.seedhost.eu/arcolinux/"
+# alias big="expac -H M '%m\t%n' | sort -h | nl"
+# alias downgrada="sudo downgrade --ala-url https://ant.seedhost.eu/arcolinux/"
 
 #hblock (stop tracking with hblock)
 #use unhblock to stop using hblock
-alias unhblock="hblock -S none -D none"
+# alias unhblock="hblock -S none -D none"
 
 #systeminfo
 alias probe="sudo -E hw-probe -all -upload"
-alias sysfailed="systemctl list-units --failed"
+# alias sysfailed="systemctl list-units --failed"
 
 #shutdown or reboot
 # alias ssn="sudo shutdown now"
@@ -241,10 +233,7 @@ alias xdw="ls /usr/share/wayland-sessions"
 alias rmgitcache="rm -r ~/.cache/git"
 alias grh="git reset --hard"
 
-#pamac
-alias pamac-unlock="sudo rm /var/tmp/pamac/dbs/db.lock"
-
-alias personal='cp -Rf /personal/* ~'
+# alias personal='cp -Rf /personal/* ~'
 
 #---- personal ----
 #
@@ -275,21 +264,21 @@ alias nv="nvim"
 
 #scripts
 #---------------
-alias script="cd ~/.scripts/"
+alias script="cd ~/.bin/"
 #---------------
 
 # protonVPN
-alias vpn="protonvpn-cli"
+# alias vpn="protonvpn-cli"
 
 # devour "window swallow"
-alias gzt="gobble zathura"
-alias gsx="gobble nsxiv"
-alias gpv="gobble mpv"
-alias g="gobble"
+# alias gzt="gobble zathura"
+# alias gsx="gobble nsxiv"
+# alias gpv="gobble mpv"
+# alias g="gobble"
 
 # wifi speed
-alias wifigraph="speedometer -r wlan0"
-alias wifispeed="speedtest-cli --simple"
+# alias wifigraph="speedometer -r wlan0"
+# alias wifispeed="speedtest-cli --simple"
 
 
 # plocate
@@ -325,7 +314,7 @@ rfv() (
 )
 
 # for emacs
-alias r~="rm -rf *~"
+# alias r~="rm -rf *~"
 alias emacsc="emacsclient -c"
 alias emacsn="emacsclient -nw"
 
@@ -341,6 +330,7 @@ alias fplay="ffplay -loglevel 8 -loop 0"
 
 alias rso="redshift -O"
 alias rsx="redshift -x"
+
 alias lsmount="mount | column -t"
 
 # For checking virtually
@@ -354,13 +344,9 @@ alias kX="killall Xephyr"
 #terminal-fun
 alias ttyc="tty-clock -cst"
 
-
-
 # Alt_R as Esc     -----     while using vim and right super
 # menu as Super
 alias exkeys="xmodmap -e 'keycode 135 = Super_R';xmodmap -e 'keycode 108 = Escape'"
-
-# alias yay="paru"
 
 alias ys="yay -Qs | grep"
 
