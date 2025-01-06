@@ -31,7 +31,8 @@ export GROFF_NO_SGR=1
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
 # default apps
-export EDITOR="nvim"
+# export EDITOR="nvim"
+export EDITOR="hx"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 export VISUAL="emacsclient -c -a 'emacs'"

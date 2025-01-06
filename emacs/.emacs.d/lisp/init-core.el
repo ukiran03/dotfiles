@@ -221,7 +221,7 @@
             (local-set-key (kbd "C-c C-b") #'eval-buffer)))
 
 (use-package which-key
-  ;; :hook (after-init . which-key-mode)
+  :hook (after-init . which-key-mode)
   :config
   (setq which-key-max-description-length 30
         which-key-lighter nil

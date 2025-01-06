@@ -118,12 +118,12 @@
   "p"    #'point-to-register)
 (keymap-set global-map "H-r" reg-and-bm-hyper-map)
 
-(defvar-keymap tab-hyper-map
-  :doc "tab-bar hyper map."
-  :name "Tabs"
-  :parent tab-prefix-map
-  "C-g" 'keyboard-quit)
-(keymap-set global-map "H-t" tab-hyper-map)
+;; (defvar-keymap tab-hyper-map
+;;   :doc "tab-bar hyper map."
+;;   :name "Tabs"
+;;   :parent tab-prefix-map
+;;   "C-g" 'keyboard-quit)
+;; (keymap-set global-map "H-t" tab-hyper-map)
 
 (defvar-keymap vc-hyper-map
   :doc "`vc' hyper map."
