@@ -87,6 +87,7 @@
 ;;   :bind (:map dired-mode-map ("C-o" . 'casual-dired-tmenu)))
 
 (use-package dired-preview
+  :ensure t
   :config
   ;; Default values for demo purposes
   (setq dired-preview-delay 0.7)

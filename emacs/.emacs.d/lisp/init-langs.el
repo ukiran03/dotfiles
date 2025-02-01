@@ -8,7 +8,7 @@
 
 ;; -- Python
 (use-package python-mode
-  :ensure nil
+  :ensure t
   :init
   (use-package eglot
     :config
@@ -23,6 +23,10 @@
 ;; -- GO
 
 ;; -- Bash
+(use-package haskell-mode
+  :config
+  (setq haskell-process-name "/usr/bin/ghci")
+  (use-package hindent))
 
 (provide 'init-langs)
 ;;; init-langs.el ends here

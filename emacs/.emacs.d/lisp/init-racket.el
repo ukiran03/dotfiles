@@ -45,7 +45,7 @@
   :config
   ;; (set-face-attribute 'racket-xp-unused-face nil :strike-through nil)
   (custom-set-faces
-   '(racket-repl-prompt ((t (:inherit font-lock-function-name-face))))))
+   '(racket-repl-prompt ((t (:inherit font-lock-function-name-face :weight bold))))))
 
 (provide 'init-racket)
 

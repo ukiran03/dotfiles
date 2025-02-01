@@ -37,7 +37,7 @@ xmodmap "$XDG_CONFIG_HOME/X11/xmodmap"
 # pertain to the window manager are defined in sxhkdrc_bspwm and
 # sxhkdrc_herbstluftwm, respectively.
 
-# _check sxhkd && sxhkd -c "$HOME"/.config/sxhkd/herbs_sxhkdrc &
+# _check sxhkd && sxhkd -c "$HOME"/.config/sxhkd/xmonad_sxhkdrc &
 
 # Check if tmux session 'Main' exists, and create it if it doesn't
 if ! tmux has-session -t 'Main' 2>/dev/null; then
@@ -55,11 +55,31 @@ fi
 #     nitrogen --restore
 # fi
 
+# --- Trayer (systray)
+# --- sudo xbps-install -S trayer-srg
+# Set up an icon tray
+# trayer --edge top --align right --SetDockType true --SetPartialStrut true \
+#  --expand true --width 10 --transparent true --tint 0x5f5f5f --height 18 &
+
 if _check feh
 then
     ~/.fehbg &
 fi
 
+
+#### Pipewire
+
+if _check pipewire; then
+    if ! pgrep -x "pipewire" > /dev/null; then
+        /usr/bin/pipewire &
+    fi
+fi
+
+if _check pipewire-pulse; then
+    if ! pgrep -x "pipewire-pulse" > /dev/null; then
+        /usr/bin/pipewire-pulse &
+    fi
+fi
 
 # Start the display compositor, See picom(1)
 _check picom && picom --config "$HOME"/.config/picom/picom.conf &
@@ -89,11 +109,10 @@ fi
 # _check xrdb && [ -f "$HOME"/.Xresources ] && xrdb -I "$HOME" -merge "$HOME"/.Xresources
 
 # PKG: network-manager-applet
-_check nm-applet && nm-applet &
+# _check nm-applet && nm-applet &
 
 # Dunst
 _check dunst && dunst &
-
 
 # chekc monitors
 # Check if HDMI-1-0 is connected
@@ -130,9 +149,18 @@ fi
 
 greenclip daemon &
 
+# # Check if trayer is already running
+if pgrep -f "trayer" > /dev/null
+then
+    echo "trayer is already running"
+else
+    echo "Starting Trayer"
+    trayer --edge top --align right --widthtype request --SetDockType true \
+           --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x171d23 --height 21 &
+fi
 
 if pgrep -f "xfce4-power-manager" > /dev/null
-then echo "xfce4-power-manager" is already running
+then echo "xfce4-power-manager is already running"
 else
     echo "starting xfce4-power-manager"
     xfce4-power-manager &
@@ -146,10 +174,17 @@ _check numlockx && numlockx on &
 
 _check thunar && thunar --daemon &
 
+# xmonad --restart
+
 #nmcli networking off &
 # bash internet &
 
 
 
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+### /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+/usr/libexec/polkit-gnome-authentication-agent-1 &
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &

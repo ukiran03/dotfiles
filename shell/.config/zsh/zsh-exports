@@ -32,10 +32,10 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
 # default apps
 # export EDITOR="nvim"
-export EDITOR="hx"
+export EDITOR="nvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
-export VISUAL="emacsclient -c -a 'emacs'"
+# export VISUAL="emacsclient -c -a 'emacs'"
 
 
 # zsh

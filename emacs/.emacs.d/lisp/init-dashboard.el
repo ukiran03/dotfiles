@@ -17,7 +17,7 @@
   (dashboard-items-face ((t (:weight normal))))
   (dashboard-no-items-face ((t (:weight normal))))
   :hook (dashboard-mode . (lambda ()
-			    ;; No title
+			                ;; No title
 			                (setq-local frame-title-format "GNU Emacs")
 			                ;; Enable `page-break-lines-mode'
 			                (when (fboundp 'page-break-lines-mode)
@@ -34,7 +34,7 @@
         dashboard-vertically-center-content nil ;;@
         dashboard-remove-missing-entry t
 	    dashboard-show-shortcuts t
-	    dashboard-items '((recents . 10)
+	    dashboard-items '((recents . 6)
                           ;; (bookmarks . 5)
                           ;; (registers . 3)
                           ;; (agenda . 3)
@@ -43,7 +43,7 @@
 	    dashboard-bookmarks-item-format "%s"
 	    dashboard-set-file-icons t
 	    dashboard-set-heading-icons t
-	    
+
         dashboard-startupify-list '(dashboard-insert-banner
                                     dashboard-insert-newline
                                     dashboard-insert-banner-title

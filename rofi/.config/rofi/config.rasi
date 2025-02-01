@@ -20,8 +20,8 @@ display-window: " ";
 /** drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]"; **/
 drun-display-format: "{name}";
 window-format:              "{w} · {c} · {t}";
-/** # window-command: "wmctrl -i -R {window}"; **/
-window-command: "herbstclient bring {window}";
+window-command: "wmctrl -i -R {window}";
+/** window-command: "herbstclient bring {window}"; **/
 window {
        hide-active-window: true;
        close-on-delete: false;
@@ -31,6 +31,10 @@ sort: true;
 sorting-method: "fzf";
 kb-accept-alt: "Shift+Return";
 kb-delete-entry: "Shift+Delete";
+kb-row-tab: "";
+kb-row-select: "Tab";
+kb-element-next: "";
+kb-element-prev: "";
 drun-match-fields: "name,generic,exec,categories,keywords";
 }
 

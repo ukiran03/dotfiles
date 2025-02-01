@@ -145,6 +145,7 @@ alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
 alias cpu="cpuid -i | grep uarch | head -n 1"
 
 #youtube download
+alias yt-dlp="yt-dlp --add-metadata"
 alias yta-aac="yt-dlp --extract-audio --audio-format aac "
 alias yta-b="yt-dlp --extract-audio --audio-format best "
 alias yta-flac="yt-dlp --extract-audio --audio-format flac "

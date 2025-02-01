@@ -1,3 +1,5 @@
+export TERM=xterm
+
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 export ERRFILE="$XDG_CONFIG_HOME/X11/xsession-errors"
@@ -14,7 +16,6 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export LD_LIBRARY_PATH=/usr/local/lib/
 export XAUTHORITY=$HOME/.Xauthority
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-source "$HOME"/.zshenv
 
 xrdb -load "$XDG_CONFIG_HOME/X11/xresources"
 
@@ -34,4 +35,7 @@ fi
 if [ -d "$HOME"/.local/bin ]; then
     PATH=$PATH:"$HOME"/.local/bin
 fi
+
+export PODMAN_IGNORE_CGROUPSV1_WARNING
+
 #. "/home/ukiran/.local/share/cargo/env"

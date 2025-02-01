@@ -18,10 +18,10 @@
         modus-themes-prompts '(extrabold))
 
   ;; ‘Mode-line’'
-  :custom
-  (modus-themes-common-palette-overrides
-   '((border-mode-line-active bg-mode-line-active)
-     (border-mode-line-inactive bg-mode-line-inactive)))
+  ;; :custom
+  ;; (modus-themes-common-palette-overrides
+  ;;  '((border-mode-line-active bg-mode-line-active)
+  ;;    (border-mode-line-inactive bg-mode-line-inactive)))
   :init
   (load-theme 'modus-vivendi :no-confirm))
 
@@ -48,7 +48,7 @@
   (interactive)
   (let ((font (completing-read
                "Choose a font: "
-               '("Iosevka Medium Extended-10" "Iosevka Medium-11")
+               '("Iosevka Medium Extended-9.5" "Iosevka Medium-11")
                nil t)))
     (set-frame-font font nil t)))
 
@@ -85,6 +85,14 @@
   (setq doom-modeline-time-icon nil)
   (setq doom-modeline-check-simple-format t)
   (setq doom-modeline-buffer-encoding nil))
+
+(use-package doom-themes
+  :ensure t
+  :config
+  (use-package solaire-mode
+    :ensure t
+    :config
+    (solaire-global-mode 1)))
 
 
 ;; ;; Frame transparence

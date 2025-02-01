@@ -2,8 +2,15 @@
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
 
-PROMPT="%B%F{014}[%f %F{012}%~%f %F{009}%?%f %F{014}]%f %F{011}∮%f%b "
-RPROMPT='%F{07}⎇ $vcs_info_msg_0_%f'
+# PROMPT="%B%F{014}[%f %F{012}%~%f %F{009}%?%f %F{014}]%f %F{011}∮%f%b "
+# RPROMPT='%F{07}⎇ $vcs_info_msg_0_%f'
+
+precmd() {
+  vcs_info
+  print -P '%B%F{blue}%n@%m%f%b %B%F{006}%~%f%b %F{007}$vcs_info_msg_0_%f'
+}
+
+PROMPT='%F{009}(%?)%f %B$ %b%'
 
 ### VC Info
 # Autoload zsh's `add-zsh-hook` and `vcs_info` functions
@@ -15,15 +22,7 @@ add-zsh-hook precmd vcs_info
 
 # Style the vcs_info message
 zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git*' formats '%b%u%c'
-# Format when the repo is in an action (merge, rebase, etc)
-zstyle ':vcs_info:git*' actionformats '%F{14} %*%f'
-zstyle ':vcs_info:git*' unstagedstr '*'
-zstyle ':vcs_info:git*' stagedstr '+'
-# This enables %u and %c (unstaged/staged changes) to work,
-# but can be slow on large repos
-zstyle ':vcs_info:*:*' check-for-changes true
-
+zstyle ':vcs_info:git*' formats '(%b)'
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return

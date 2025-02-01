@@ -65,6 +65,24 @@
   (setq kiwix-server-port 8000)
   (setq kiwix-zim-dir (expand-file-name "/home/ukiran/zims")))
 
+;; (package-vc-install '(ultra-scroll :vc-backend Git :url  "https://github.com/jdtsmith/ultra-scroll"))
+(use-package ultra-scroll
+  :ensure nil
+  :init
+  (setq scroll-conservatively 101 ; important!
+        scroll-margin 0)
+  :config
+  (ultra-scroll-mode 1))
+
+
+;; (package-vc-install '(stillness-mode :vc-backend Git :url  "https://github.com/neeasade/stillness-mode.el"))
+(use-package stillness-mode
+  :ensure nil
+  :config
+  (stillness-mode 1))
+
+(use-package keycast)
+
 
 
 (provide 'init-utils)

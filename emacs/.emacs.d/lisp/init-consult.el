@@ -46,7 +46,7 @@
          ("M-g i" . consult-imenu)
          ("M-g I" . consult-imenu-multi)
          ;; M-s bindings in `search-map'
-         ("M-s d" . consult-find)                  ;; Alternative: consult-fd
+         ("M-s d" . consult-fd)                  ;; Alternative: consult-fd
          ("M-s c" . consult-locate)
          ("M-s g" . consult-grep)
          ("M-s G" . consult-git-grep)
@@ -93,7 +93,7 @@
   (setq consult-preview-key nil)
 
   (consult-customize
-   consult-line consult-line-multi
+   consult-line consult-line-multi consult-imenu
    :preview-key 'any
    consult-ripgrep consult-git-grep consult-grep
    consult-goto-line consult-bookmark

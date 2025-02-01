@@ -178,7 +178,7 @@
   :config
   (dolist (keyword '("BUG" "DEFECT" "ISSUE"))
     (add-to-list 'hl-todo-keyword-faces `(,keyword . "#e45649")))
-  (dolist (keyword '("TRICK" "WORKAROUND"))
+  (dolist (keyword '("TRICK" "WORKAROUND" "TIP" "INSIGHT"))
     (add-to-list 'hl-todo-keyword-faces `(,keyword . "#d0bf8f")))
   (dolist (keyword '("DEBUG" "STUB"))
     (add-to-list 'hl-todo-keyword-faces `(,keyword . "#7cb8bb")))

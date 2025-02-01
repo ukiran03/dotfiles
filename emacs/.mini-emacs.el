@@ -74,11 +74,11 @@
 ;; (load-theme 'wombat t)
 (load-theme 'modus-vivendi t)
 
-(set-face-attribute 'default nil
-		            :family "Iosevka Extended"
-		            :height 95
-		            :weight 'medium)
-;; (set-frame-font "Iosevka Regular-12" nil t)
+;; (set-face-attribute 'default nil
+;; 		            :family "Iosevka Extended"
+;; 		            :height 95
+;; 		            :weight 'medium)
+(set-frame-font "Iosevka Medium Extended-10" nil t)
 
 ;; (unless (eq window-system 'ns)
 ;;   (menu-bar-mode -1))

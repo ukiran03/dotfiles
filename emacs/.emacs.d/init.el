@@ -55,13 +55,18 @@ Otherwise the startup will be slow."
 ;; (uk/set-face-font 'default "Uosevka")
 ;; (uk/set-face-font 'fixed-pitch "Uosevka")
 ;; (uk/set-face-font 'variable-pitch "Iosevka Aile")
+(set-face-attribute 'variable-pitch nil
+                    :family "Iosevka Aile")
 
 ;; (set-face-attribute 'default nil
 ;; 		            :family "Iosevka Extended"
-;; 		            :height 100
+;; 		            :height 95
 ;; 		            :weight 'medium)
 
+;; (set-frame-font "Iosevka Medium Extended-9.5" nil t)
 (set-frame-font "Iosevka Medium Extended-10" nil t)
+;; (set-frame-font "Iosevka Medium-11" nil t)
+
 ;; (set-frame-font "Geist Mono Medium-10" nil t)
 
 ;; Set the default font to Iosevka Term Medium Extended, Weight: medium, Height: 100

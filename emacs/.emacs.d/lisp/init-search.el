@@ -40,7 +40,9 @@
   (setq isearch-repeat-on-direction-change t))
 
 (use-package rg
-  :ensure t)
+  :ensure t
+  :bind (:map isearch-mode-map
+              ("M-s r" . rg-isearch-menu)))
 
 (use-package substitute
   :ensure t)

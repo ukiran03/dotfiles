@@ -10,7 +10,7 @@
   (use-package consult-denote)
 
   ;; Remember to check the doc strings of those variables.
-  (setq denote-directory (expand-file-name "~/Notes"))
+  (setq denote-directory (expand-file-name "~/Documents/Notes"))
   (setq denote-known-keywords '("meta" "system" "computers" "emacs"
 			                    "programming" "science" "books" "essay" "cinema" "music"))
   (setq denote-save-buffers nil)

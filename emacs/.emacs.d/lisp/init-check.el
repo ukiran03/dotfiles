@@ -15,6 +15,8 @@
         flymake-fringe-indicator-position 'right-fringe)
   (setq flymake-mode-line-lighter "FY"))
 
+(use-package flymake-ruff)
+
 (use-package jinx
   :ensure t
   :diminish
