@@ -7,16 +7,16 @@
 (use-package markdown-mode)
 
 ;; -- Python
-(use-package python-mode
-  :ensure t
-  :init
-  (use-package eglot
-    :config
-    (add-to-list 'eglot-server-programs
-                 '(python-mode . ("ruff" "server"))))
-  :hook ((python-mode . eglot-ensure)
-         (after-save-hook . eglot-format)
-         (python-mode . flymake-ruff-load)))
+;; (use-package python-mode
+;;   :ensure t
+;;   :init
+;;   (use-package eglot
+;;     :config
+;;     (add-to-list 'eglot-server-programs
+;;                  '(python-mode . ("ruff" "server"))))
+;;   :hook ((python-mode . eglot-ensure)
+;;          (after-save-hook . eglot-format)
+;;          (python-mode . flymake-ruff-load)))
 
 ;; -- Rust
 

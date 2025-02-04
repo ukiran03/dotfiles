@@ -79,7 +79,7 @@
         org-modern-timestamp nil
         org-modern-table nil
         org-modern-priority nil
-        org-modern-list nil
+        ;; org-modern-list nil
         org-modern-horizontal-rule t
         org-modern-todo nil
         org-modern-block-name nil

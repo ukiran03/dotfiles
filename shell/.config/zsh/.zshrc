@@ -10,7 +10,7 @@ precmd() {
   print -P '%B%F{blue}%n@%m%f%b %B%F{006}%~%f%b %F{007}$vcs_info_msg_0_%f'
 }
 
-PROMPT='%F{009}(%?)%f %B$ %b%'
+PROMPT='%B%F{009}(%?)%f%b %B$ %b%'
 
 ### VC Info
 # Autoload zsh's `add-zsh-hook` and `vcs_info` functions
@@ -23,6 +23,14 @@ add-zsh-hook precmd vcs_info
 # Style the vcs_info message
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git*' formats '(%b)'
+
+# zstyle ':vcs_info:git*' formats '%b%u%c'
+# zstyle ':vcs_info:git*' actionformats '%F{14} %*%f'
+# zstyle ':vcs_info:git*' unstagedstr '*'
+# zstyle ':vcs_info:git*' stagedstr '+'
+## This enables %u and %c (unstaged/staged changes) to work,
+## but can be slow on large repos
+# zstyle ':vcs_info:*:*' check-for-changes true
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return

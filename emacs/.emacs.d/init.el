@@ -27,7 +27,29 @@
                 (setq file-name-handler-alist
                       (delete-dups (append file-name-handler-alist old-value))))
               101)))
+
+(when (fboundp 'native-compile-async)
+  (setq comp-deferred-compilation t
+        comp-deferred-compilation-black-list '("/mu4e.*\\.el$")))
 
+(when (version= emacs-version "30.0.93")
+  (use-package emacs
+    :init
+    (setq-default mode-line-format
+                  '("%e" mode-line-front-space
+                    (:propertize
+                     ("" mode-line-mule-info
+                      mode-line-client
+                      mode-line-modified
+                      mode-line-remote
+                      mode-line-window-dedicated))
+                    mode-line-frame-identification mode-line-buffer-identification "   "
+                    mode-line-position (project-mode-line project-mode-line-format)
+                    mode-line-format-right-align
+                    (vc-mode vc-mode) "  "
+                    mode-line-modes "  " mode-line-misc-info " "
+                    mode-line-end-spaces))))
+
 ;; Load path
 ;; Optimize: Force "lisp" and "site-lisp" at the head to reduce the startup time
 (defun update-load-path (&rest _)
@@ -47,6 +69,7 @@ Otherwise the startup will be slow."
 (advice-add #'package-initialize :after #'add-subdirs-to-load-path)
 
 (update-load-path)
+
 
 ;; (defun uk/set-face-font (face family)
 ;;   (set-face-attribute
@@ -141,7 +164,7 @@ Otherwise the startup will be slow."
 (require 'init-prog)
 (require 'init-racket)
 (require 'init-tab-bar)
-(require 'init-modeline)
+;; (require 'init-modeline)
 (require 'init-dashboard)
 (require 'init-window)
 (require 'init-vc)

@@ -12,7 +12,7 @@
   :init
   (setq display-time-interval 1)
   (setq display-time-default-load-average nil)
-  (setq display-time-format "%a %d %b, %I:%M%p"))
+  (setq display-time-format "(%a %d %b, %I:%M%p)"))
 (display-time-mode)
 
 (use-package tab-bar
