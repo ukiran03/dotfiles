@@ -1,0 +1,37 @@
+Config { overrideRedirect = False
+       , font = "xft:Iosevka Nerd Font Mono:size=10:bold:antialias=true"
+       -- , additionalFonts = ["xft:Iosevka Nerd Font:weight=bold:pixelsize=10"]
+       , bgColor  = "#171d23"
+       , fgColor  = "#ffffff"
+       , position = TopW L 100
+       , lowerOnStart = True
+       , iconRoot = "/home/ukiran/.config/xmobar/xpm/"
+       , commands = [ Run BatteryP ["BAT1"]
+                       ["-t", "<fc=#6D8895>Bat:</fc> <acstatus><left> (<timeleft>)"
+                       , "-L", "20", "-H", "80"
+                       , "-l", "#ff6b55", "-h", "#88ca9f"
+                       , "--", "-O", "<fc=#88ca9f>CH+</fc> ", "-o", "<fc=#fec43f>DC-</fc> "
+                       , "-a", "dunstify -a ignore -u critical 'Battery running out!!'"
+                       , "-P", "%"
+                       , "-A", "20"] 100
+                    , Run Cpu
+                        ["-t", "<fc=#6D8895>Cpu:</fc> <total>%" -- <bar>
+                        , "-L", "3"
+                        , "-H", "50"
+                        , "--high"  , "#ff5f59"
+                        , "--normal", "#88ca9f"
+                        ] 50
+                    , Run Com "pamixer" ["--get-volume-human"] "vol" 30
+                    , Run Com "dunst-count.sh"[] "dunst" 50
+                    , Run Com "dis-bright.sh"[] "bright" 50
+                    -- , Run MPD ["-t", "<composer> <title> (<album>) <track>/<plength> <statei> [<flags>]", "--", "-P", ">>", "-Z", "|", "-S", "><"] 10
+                    --, Run Com "uname" ["-r"] "" 3600  --  <fc=#6D8895>%uname%</fc>
+                    , Run Memory ["--template", "<fc=#6D8895>Mem:</fc> <used> Mb"] 50
+                    , Run Date "%A, %d %b %Y ( %I:%M%p )" "date" 300
+                    , Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 20
+                    , Run XMonadLog
+                    ]
+       , sepChar  = "%"
+       , alignSep = "}{"
+       , template = " <icon=xmonad_xpm_haskell_20.xpm/> <fc=#6D8895>void</fc> <fc=#3c4449>|</fc> %XMonadLog% } %date% { <fc=#6D8895>Vol: </fc>%vol%  <fc=#6D8895>N:</fc>%dunst%  <fc=#6D8895>L:</fc>%bright% <fc=#3c4449>|</fc> %cpu% - %memory% <fc=#3c4449>|</fc> %battery% <fc=#3c4449>|</fc> %trayerpad%"
+       }

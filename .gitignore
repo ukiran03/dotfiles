@@ -83,6 +83,11 @@ xorg-twm/.config/herbstluftwm/assets/
 xorg-twm/.config/herbstluftwm/herbs-scripts-ghub/
 xorg-twm/.config/herbstluftwm/mod-scripts/
 
+xorg-twm/.config/xmonad/archive
+xorg-twm/.config/xmonad/.stack*
+xorg-twm/.config/xmonad/xmonad/
+xorg-twm/.config/xmonad/xmonad-contrib/
+
 **/.config/*/*_history
 **/.config/zsh/.zcompdump
 /emacs/.emacs.d/.emacs.desktop
