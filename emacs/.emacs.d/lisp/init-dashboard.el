@@ -23,7 +23,7 @@
 			                (when (fboundp 'page-break-lines-mode)
 			                  (page-break-lines-mode 1))))
   :init
-  (setq dashboard-banner-logo-title "It's always You vs You"
+  (setq dashboard-banner-logo-title "I am not the body"
         dashboard-banners-directory (expand-file-name "avatars/" user-emacs-directory)
 	    dashboard-startup-banner (concat dashboard-banners-directory "musashi1.jpg")
 

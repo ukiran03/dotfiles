@@ -34,7 +34,9 @@
 
 (when (version= emacs-version "30.0.93")
   (use-package emacs
+    :disabled
     :init
+    (setq mode-line-right-align-edge 'right-margin)
     (setq-default mode-line-format
                   '("%e" mode-line-front-space
                     (:propertize
@@ -86,8 +88,8 @@ Otherwise the startup will be slow."
 ;; 		            :height 95
 ;; 		            :weight 'medium)
 
-;; (set-frame-font "Iosevka Medium Extended-9.5" nil t)
-(set-frame-font "Iosevka Medium Extended-10" nil t)
+(set-frame-font "Iosevka Medium Extended-9.5" nil t)
+;; (set-frame-font "Iosevka Medium Extended-10" nil t)
 ;; (set-frame-font "Iosevka Medium-11" nil t)
 
 ;; (set-frame-font "Geist Mono Medium-10" nil t)

@@ -3,7 +3,6 @@ import Data.Ratio ((%))
 import XMonad
 import XMonad.Actions.CycleWS
 -- import XMonad.Hooks.ShowWName -- TEST IT
-
 import XMonad.Actions.EasyMotion (EasyMotionConfig (..), selectWindow, textSize)
 import XMonad.Actions.Minimize
 import XMonad.Hooks.DynamicLog
@@ -66,17 +65,7 @@ myConfig =
     `additionalKeysP` myKeys
     `removeKeysP` ["M-S-q"]
 
-numPadKeys =
-  [ xK_KP_End,
-    xK_KP_Down,
-    xK_KP_Page_Down, -- 1, 2, 3
-    xK_KP_Left,
-    xK_KP_Begin,
-    xK_KP_Right, -- 4, 5, 6
-    xK_KP_Home,
-    xK_KP_Up,
-    xK_KP_Page_Up -- 7, 8, 9
-  ]
+
 
 myKeys :: [(String, X ())]
 myKeys =
@@ -146,16 +135,6 @@ myKeys =
          ("M-S-k", BW.swapUp) -- %! Swap the focused window with the previous window
        ]
 
--- Makes setting the spacingRaw simpler to write.
--- The spacingRaw module adds a configurable amount of space around windows.
-mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
-mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
-
--- Below is a variation of the above except no borders are applied
--- if fewer than two windows. So a single window has no gaps.
-mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
-mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
-
 myLayout =
   showWName $
     avoidStruts $
@@ -209,7 +188,6 @@ myXmobarPP =
       ppTitleSanitize = xmobarStrip,
       ppCurrent = cyan . wrap ("[") ("]"),
       ppHidden = silver . wrap "+" "",
-      -- ppHiddenNoWindows = slategray  . \s -> "<fn=1>\xf111</fn>",
       ppHiddenNoWindows = slategray . wrap " " "",
       ppUrgent = red . wrap (yellow "!") (yellow "!"),
       ppLayout = wrap " " " " . lowWhite,
@@ -226,10 +204,8 @@ myXmobarPP =
     ppWindow :: String -> String
     ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 25
 
-    blue, lowWhite, magenta, red, white, yellow, fadeGray, blueGray :: String -> String
-    magenta = xmobarColor "#feacd0" ""
+    blue, lowWhite, red, yellow, fadeGray, blueGray :: String -> String
     blue = xmobarColor "#2fafff" ""
-    white = xmobarColor "#a6a6a6" ""
     yellow = xmobarColor "#d0bc00" ""
     red = xmobarColor "#ff5f59" ""
     lowWhite = xmobarColor "#d0d0d0" ""
