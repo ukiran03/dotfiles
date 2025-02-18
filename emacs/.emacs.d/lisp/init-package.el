@@ -45,9 +45,7 @@
 ;; <https://github.com/emacsmirror/diminish> More `useful/powerful' than you think
 
 (use-package diminish
-  :ensure t
-  :init
-  (diminish 'drag-stuff-mode " ⥮"))
+  :ensure t)
 
 (provide 'init-package)
 

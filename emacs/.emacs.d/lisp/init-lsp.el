@@ -27,34 +27,8 @@
 
 
 ;; ;; Emacs LSP booster
-;; (when (and emacs/>=29p (executable-find "emacs-lsp-booster"))
-;;   (unless (package-installed-p 'eglot-booster)
-;;     (and (fboundp #'package-vc-install)
-;;          (package-vc-install "https://github.com/jdtsmith/eglot-booster")))
-;;   (use-package eglot-booster
-;;     :ensure nil
-;;     :autoload eglot-booster-mode
-;;     :init (eglot-booster-mode 1)))
-
-;; (use-package eglot-booster
-;;   :ensure (:host github
-;;                  :repo "jdtsmith/eglot-booster")
-;;   :if (executable-find "emacs-lsp-booster")
-;;   :after eglot
-;;   :init (eglot-booster-mode))
-
-
-
-;; (use-package eglot-booster
-;;   :ensure t
-;;   :vc (:url "https://github.com/jdtsmith/eglot-booster")
-;;   :if (executable-find "emacs-lsp-booster")
-;;   :after eglot
-;;   :init (eglot-booster-mode))
-
-;; (use-package eglot-booster
-;;   :ensure (:host github :repo "jdtsmith/eglot-booster")
-;;   :defer)
+;; "https://github.com/jdtsmith/eglot-booster"
+;;   (use-package eglot-booster)
 
 (provide 'init-lsp)
 

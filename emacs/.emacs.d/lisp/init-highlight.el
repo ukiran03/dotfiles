@@ -116,7 +116,7 @@
 	     ([M-f3] . symbol-overlay-remove-all))
   :hook (((prog-mode yaml-mode) . symbol-overlay-mode)
 	     (iedit-mode            . turn-off-symbol-overlay)
-         (racket-mode           . turn-off-symbol-overlay)
+         ;; (racket-mode           . turn-off-symbol-overlay)
 	     (iedit-mode-end        . turn-on-symbol-overlay))
   :init (setq symbol-overlay-idle-time 0.1)
   :config
@@ -136,7 +136,7 @@
 
 (use-package colorful-mode
   :diminish
-  :hook (after-init . global-colorful-mode)
+  :hook (prog-mode . global-colorful-mode)
   :init (setq colorful-use-prefix t
               colorful-prefix-string "⬤")
   :config (dolist (mode '(html-mode php-mode help-mode helpful-mode))
@@ -159,10 +159,7 @@
    indent-bars-display-on-blank-lines nil)) ; or whichever modes you prefer
 
 (use-package hl-todo
-  :custom-face
-  (hl-todo ((t (:inherit default :height 0.9 :width condensed :weight bold :underline nil :inverse-video t))))
   :bind (:map hl-todo-mode-map
-              ([C-f3]    . hl-todo-occur)
               ("C-c t o" . hl-todo-occur)
               ("C-c t p" . hl-todo-previous)
               ("C-c t n" . hl-todo-next)
@@ -173,18 +170,24 @@
          (hl-todo-mode . (lambda ()
                            (add-hook 'flymake-diagnostic-functions
                                      #'hl-todo-flymake nil t))))
-  :init (setq hl-todo-require-punctuation nil ; t
-              hl-todo-highlight-punctuation ":")
+  :init
+  ;; Example: TODO: FIXME: BUG: HACK: TIP: REVIEW: CHECK: NOTE: INSIGHT: DEPRECATED:
+  (setq hl-todo-require-punctuation t
+        hl-todo-highlight-punctuation ":"
+        hl-todo-keyword-faces
+        `(("TODO"       warning bold)
+          ("FIXME"      error bold)
+          ("BUG"      error bold)
+          ("HACK"       font-lock-constant-face bold)
+          ("TIP"       font-lock-constant-face bold)
+          ("INSIGHT"       font-lock-constant-face bold)
+          ("REVIEW"     font-lock-keyword-face bold)
+          ("CHECK"     font-lock-keyword-face bold)
+          ("NOTE"       success bold)
+          ("DEPRECATED" font-lock-doc-face bold)))
   :config
-  (dolist (keyword '("BUG" "DEFECT" "ISSUE"))
-    (add-to-list 'hl-todo-keyword-faces `(,keyword . "#e45649")))
-  (dolist (keyword '("TRICK" "WORKAROUND" "TIP" "INSIGHT"))
-    (add-to-list 'hl-todo-keyword-faces `(,keyword . "#d0bf8f")))
-  (dolist (keyword '("DEBUG" "STUB"))
-    (add-to-list 'hl-todo-keyword-faces `(,keyword . "#7cb8bb")))
-
   (defun hl-todo-rg (regexp &optional files dir)
-    "Use `rg' to find all TODO or similar keywords."
+    "Use `rg' to find all TODO: or similar keywords."
     (interactive
      (progn
        (unless (require 'rg nil t)
@@ -201,7 +204,7 @@
       (error "`rg' is not installed"))
     (rg-project (replace-regexp-in-string "\\\\[<>]*" "" (hl-todo--regexp)) "everything")))
 
-(provide 'init-highlight)
 
+(provide 'init-highlight)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-highlight.el ends here

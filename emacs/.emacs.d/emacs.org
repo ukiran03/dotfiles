@@ -27,3 +27,22 @@ Only one step at a time
   (add-hook 'find-file-hook 'my-enable-minor-mode-if-in-directory)
 #+end_src
 ** Denote setup
+** Org-modern Font settings
+#+begin_src emacs-lisp
+  ;; (set-face-attribute 'org-modern-label nil
+  ;;                     ;; :family "Iosevka Extended"
+  ;;                     :height 95
+  ;;                     ;; :weight 'medium
+  ;;                     )
+#+end_src
+** org mode time format example
+#+begin_src emacs-lisp
+  ;; Learn about the ! and more by reading the relevant section of the
+  ;; Org manual.  Evaluate: (info "(org) Tracking TODO state changes")
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "WAIT(w!)" "|" "CANCEL(c!)" "DONE(d!)")))
+#+end_src
+* Emacs org-mode setups for inspiration
+https://redgreenrepeat.com/2021/04/09/org-mode-agenda-getting-started-scheduled-items-and-todos/ | org-mode Agenda - Getting Started: Scheduled Items and TODOs · Red Green Repeat
+https://karelvo.com/blog/orgmode | karelvo | My simple, effective org mode setup
+https://cachestocaches.com/2016/9/my-workflow-org-agenda/ | My Workflow with Org-Agenda

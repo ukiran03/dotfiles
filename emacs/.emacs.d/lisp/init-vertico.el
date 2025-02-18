@@ -1,6 +1,5 @@
 ;;; init-vertico.el --- summary -*- lexical-binding: t -*-
 
-
 ;;; Commentary:
 
 ;;; Code:
@@ -22,10 +21,8 @@
   (define-key vertico-map [S-down] #'vertico-next)
   (setq vertico-cycle t
         vertico-scroll-margin 2 ;; Different scroll margin 0 - 2
-        ;; vertico-count 20     ;; Show more candidates
         vertico-resize t)
   (use-package vertico-multiform
-    ;; :disabled
     :ensure nil
     :after vertico
     :init (vertico-multiform-mode 1)

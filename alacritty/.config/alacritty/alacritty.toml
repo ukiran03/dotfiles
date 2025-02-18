@@ -12,12 +12,13 @@ draw_bold_text_with_bright_colors = true
 #term = "xterm-256color"
 
 [font]
-size = 10
+size = 11.25
 
-normal = { family = "Iosevka Term Medium Extended", style= "Medium"}
-bold = { family = "Iosevka Term Extended", style= "Bold"}
-italic = { family = "Iosevka Term Extended", style= "Italic"}
-
+normal = { family = "Iosevka Term", style= "Medium"}
+bold = { family = "Iosevka Term", style= "Bold"}
+italic = { family = "Iosevka Term", style= "Italic"}
+offset = { x = 0, y = 0 }
+glyph_offset = { x = 0, y = 0 }
 # [font.bold]
 # family = "Iosevka Term Extended"
 # style = "Bold"
@@ -86,7 +87,6 @@ import = [
 # "~/.config/alacritty/themes/themes/solarized_osaka.toml"
 # "~/.config/alacritty/themes/themes/solarized_dark.toml"
 # "~/.config/alacritty/themes/themes/tomorrow_night.toml"
-# "~/.config/alacritty/themes/themes/citylights.toml"
 # "~/.config/alacritty/themes/themes/inferno.toml" #orange
 # "~/.config/alacritty/themes/themes/oceanic_next.toml" #orange
 
@@ -96,6 +96,8 @@ import = [
 # "~/.config/alacritty/themes/themes/solarized_light.toml"
 
 # "~/.config/alacritty/my-themes/kaolin-light.toml"
+	#"~/.config/alacritty/my-themes/kaolin-dark.toml"
 # "~/.config/alacritty/my-themes/modus-operandi-tinted.toml"
-"~/.config/alacritty/my-themes/modus-operandi.toml"
+	#"~/.config/alacritty/my-themes/modus-operandi.toml"
+	"~/.config/alacritty/themes/themes/citylights.toml"
 ]

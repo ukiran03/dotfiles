@@ -1,6 +1,5 @@
 ;;; init-search.el --- summary -*- lexical-binding: t -*-
 
-
 ;;; Commentary:
 
 ;;; Code:
@@ -42,7 +41,9 @@
 (use-package rg
   :ensure t
   :bind (:map isearch-mode-map
-              ("M-s r" . rg-isearch-menu)))
+              ("M-s r" . rg-isearch-menu))
+  :config
+  (setq rg-keymap-prefix "M-s R"))
 
 (use-package substitute
   :ensure t)
@@ -51,9 +52,6 @@
   :bind (("C-c l o" . link-hint-open-link)
          ("C-c l c" . link-hint-copy-link)))
 
-
-
 (provide 'init-search)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-search.el ends here

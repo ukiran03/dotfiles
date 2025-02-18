@@ -15,6 +15,15 @@
   :config
   (setq nerd-icons-ibuffer-icon-size 1.0))
 
+(use-package ibuffer-vc
+  :disabled
+  :init
+  (add-hook 'ibuffer-hook
+            (lambda ()
+              (ibuffer-vc-set-filter-groups-by-vc-root)
+              (unless (eq ibuffer-sorting-mode 'alphabetic)
+                (ibuffer-do-sort-by-alphabetic)))))
+
 (use-package ibuffer-project
   :hook (ibuffer . (lambda ()
                      "Group ibuffer's list by project."
@@ -28,20 +37,12 @@
     (if (and (stringp type) (> (length type) 0))
         (format "%s %s" type root)
       (format "%s" root)))
-  (if (icons-displayable-p)
-      (progn
-        (advice-add #'ibuffer-project-group-name :override #'my-ibuffer-project-group-name)
-        (setq ibuffer-project-root-functions
-              `((ibuffer-project-project-root . ,(nerd-icons-octicon "nf-oct-repo" :height 1.2 :face ibuffer-filter-group-name-face))
-                (file-remote-p . ,(nerd-icons-codicon "nf-cod-radio_tower" :height 1.2 :face ibuffer-filter-group-name-face)))))
-    (progn
-      (advice-remove #'ibuffer-project-group-name #'my-ibuffer-project-group-name)
-      (setq ibuffer-project-root-functions
-            '((ibuffer-project-project-root . "Project")
-              (file-remote-p . "Remote"))))))
-
+  (progn
+    (advice-remove #'ibuffer-project-group-name #'my-ibuffer-project-group-name)
+    (setq ibuffer-project-root-functions
+          '((ibuffer-project-project-root . "Project")
+            (file-remote-p . "Remote")))))
 
 (provide 'init-ibuffer)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-ibuffer.el ends here

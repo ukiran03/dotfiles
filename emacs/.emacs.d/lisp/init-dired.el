@@ -98,9 +98,8 @@
 		        "\\|gz\\|zst\\|tar\\|xz\\|rar\\|zip"
 		        "\\|.out\\|.o"
 		        "\\|iso\\|epub\\|pdf\\)"))
-  ;; Enable `dired-preview-mode' in a given Dired buffer or do it
-  ;; globally:
-  (dired-preview-global-mode -1))
+  ;; (dired-preview-global-mode -1)
+  )
 
 (use-package consult-dir
   :ensure t

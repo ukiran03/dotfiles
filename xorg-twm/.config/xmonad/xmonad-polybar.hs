@@ -9,11 +9,8 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.StatusBar
-import XMonad.Hooks.StatusBar.PP
 import qualified XMonad.Layout.BoringWindows as BW
 import XMonad.Layout.LayoutModifier
-import XMonad.Layout.Magnifier
 import XMonad.Layout.Maximize
 import XMonad.Layout.Minimize
 import XMonad.Layout.NoBorders
@@ -40,17 +37,8 @@ main =
   xmonad
     . ewmhFullscreen
     . ewmh
-    . withEasySB
-      ( statusBarProp
-          "xmobar ~/.config/xmobar/xmobarrc"
-          (pure myXmobarPP)
-      )
-      defToggleStrutsKey
     . docks
     $ myConfig
-  where
-    toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-    toggleStrutsKey XConfig {modMask = m} = (m, xK_b)
 
 myConfig =
   def
@@ -159,17 +147,9 @@ myLayout =
         onWorkspaces ["8", "9"] (tab ||| tiled) $
           tiled ||| tab
   where
-    threeCol =
-      smartBorders $
-        renamed [Replace "ThreeCol"] $
-          maximizeWithPadding 1 $
-            minimize $
-              magnifiercz' 1.3 $
-                ThreeColMid nmaster delta ratio
-    -- full = smartBorders $ renamed [Replace "Full"] $ minimize $ Full -- Not Compatible with BW
     full = smartBorders $ renamed [Replace "Full"] $ minimize $ Simplest
     mtile = renamed [Replace "MTall"] $ Mirror tiled
-    tab = smartBorders $ renamed [Replace "Tabbed"] $ noBorders (tabbed shrinkText myTabConfig)
+    tab = noBorders (tabbed shrinkText myTabConfig)
     tiled =
       smartBorders $
         renamed [Replace "Tall"] $
@@ -199,40 +179,6 @@ windowCount =
       . W.current
       . windowset
 
-myXmobarPP :: PP
-myXmobarPP =
-  def
-    { ppSep = fadeGray " | ",
-      ppTitleSanitize = xmobarStrip,
-      ppCurrent = cyan . wrap ("[") ("]"),
-      ppHidden = silver . wrap "+" "",
-      ppHiddenNoWindows = slategray . wrap " " "",
-      ppUrgent = red . wrap (yellow "!") (yellow "!"),
-      ppLayout = wrap " " " " . lowWhite,
-      ppOrder = \(ws : l : _ : ex) -> [ws, l] ++ ex,
-      ppExtras = [formattedWindowCount, logTitles formatFocused formatUnfocused]
-    }
-  where
-    formatFocused = wrap (blue "(") (blue ")") . blue . ppWindow
-    formatUnfocused = wrap (lowWhite "") (lowWhite "") . lowWhite . ppWindow
-
-    formattedWindowCount :: X (Maybe String)
-    formattedWindowCount = fmap (fmap $ lowWhite) windowCount
-
-    ppWindow :: String -> String
-    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 25
-
-    blue, lowWhite, red, yellow, fadeGray, blueGray :: String -> String
-    blue = xmobarColor "#2fafff" ""
-    yellow = xmobarColor "#d0bc00" ""
-    red = xmobarColor "#ff5f59" ""
-    lowWhite = xmobarColor "#d0d0d0" ""
-    cyan = xmobarColor "#00d3d0" ""
-    slategray = xmobarColor "#2F4F4F" ""
-    silver = xmobarColor "#C0C0C0" ""
-    fadeGray = xmobarColor "#3C4449" ""
-    blueGray = xmobarColor "#6D8895" ""
-
 myManageHook :: ManageHook
 myManageHook =
   composeAll
@@ -257,4 +203,5 @@ myManageHook =
 myStartupHook :: X ()
 myStartupHook = do
   spawnOnce "bash $HOME/.config/startup/xmonad_startup"
+  spawnOnce "bash $HOME/.local/bin/polybar-xmonad.sh"
   spawnOnce "sxhkd -c $HOME/.config/sxhkd/xmonad_sxhkdrc"

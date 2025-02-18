@@ -57,7 +57,7 @@
 ;;   :config (add-hook 'org-load-hook #'org-kiwix-setup-link))
 
 (use-package kiwix
-  :ensure t
+  :ensure nil
   :commands (kiwix-launch-server kiwix-at-point)
   :config
   (setq kiwix-server-type 'kiwix-server-local)

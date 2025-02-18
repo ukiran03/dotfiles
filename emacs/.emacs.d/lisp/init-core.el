@@ -1,6 +1,5 @@
 ;;; init-core.el --- summary -*- lexical-binding: t -*-
 
-
 ;;; Commentary:
 
 ;;; Code:
@@ -18,44 +17,25 @@
                  (side . right)
                  (window-width . 80))))
 
-;; (use-package man
-;;   :ensure nil
-;;   :init
-;;   (add-to-list 'display-buffer-alist
-;;                '("\\*Man"
-;;                  display-buffer-in-side-window
-;;                  (side . bottom)
-;;                  (window-width . 20))))
-
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (setq frame-title-format '("Emacs - %b")
       icon-title-format frame-title-format)
 
 (use-package fontaine
+  :disabled
   :ensure t
   :config
-  ;; https://typeof.net/Iosevka/
   (setq fontaine-presets
-        '((regular
+        '((IosevaExt
+           :default-family "Iosevka Extended"
+           :default-weight medium
+           :default-height 95)
+          (Iosevka
            :default-family "Iosevka"
-           :default-weight normal
-           :default-height 110
-           :fixed-pitch-family "Iosevka"
-           :fixed-pitch-weight semi-light
-           :fixed-pitch-height 1.0
-           :variable-pitch-family "Iosevka Etoile"
-           :variable-pitch-weight semi-light
-           :variable-pitch-height 1.0
-           :bold-family nil ; use whatever the underlying face has
-           :bold-weight bold
-           :italic-family nil ; use whatever the underlying face has
-           :italic-slant italic
-           :line-spacing 1)
-          (large
-           :inherit regular
-           :default-height 150)))
-  (fontaine-set-preset 'regular)
+           :default-weight medium
+           :default-height 100)))
+  ;; (fontaine-set-preset 'regular)
   (add-hook 'enable-theme-functions #'fontaine-apply-current-preset))
 
 (use-package repeat
@@ -74,7 +54,6 @@
   :diminish
   :hook (after-init . global-auto-revert-mode))
 
-
 ;; Redefine M-< and M-> for some modes
 (use-package beginend
   :diminish beginend-global-mode
@@ -82,7 +61,6 @@
   :config (mapc (lambda (pair)
                   (diminish (cdr pair)))
                 beginend-modes))
-
 
 (use-package visual-regexp)
 (use-package visual-regexp-steroids)
@@ -146,13 +124,6 @@
 ;; Save clipboard contents into kill-ring before replace them
 (setq save-interprogram-paste-before-kill t)
 
-;; Interactively insert and edit items from kill-ring
-;; (use-package browse-kill-ring
-;;   :bind ("M-Y" . browse-kill-ring)
-;;   :hook (after-init . browse-kill-ring-default-keybindings)
-;;   :init (setq browse-kill-ring-separator "────────────────"
-;;               browse-kill-ring-separator-face 'shadow))
-
 ;; History
 ;;; TODO: Read the `Regexp' chapter in Emacs manual
 (use-package recentf
@@ -168,7 +139,7 @@
                 (lambda (file) (file-in-directory-p file package-user-dir))))
   (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:")
   (add-to-list 'recentf-exclude
-               (concat (getenv "HOME") "/Org/*"))
+               (concat (getenv "HOME") "/Documents/org/*"))
   :config
   (push (expand-file-name recentf-save-file) recentf-exclude)
   (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
@@ -186,13 +157,9 @@
                                               extended-command-history)
               savehist-autosave-interval 300))
 
-
 ;; Basic modes
 (delete-selection-mode 1)
-
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
-
-
 (add-hook 'minibuffer-setup-hook #'subword-mode)
 
 ;; (set-face-attribute 'org-modern-symbol nil :family "Iosevka" :height 110)
@@ -254,12 +221,6 @@
 ;; <https://umarahmad.xyz/blog/quick-scratch-buffers/>
 (use-package persistent-scratch
   :diminish
-  ;; :bind (:map persistent-scratch-mode-map
-  ;;        ([remap kill-buffer] . (lambda (&rest _)
-  ;;                                 (interactive)
-  ;;                                 (user-error "Scratch buffer cannot be killed")))
-  ;;        ([remap revert-buffer] . persistent-scratch-restore)
-  ;;        ([remap revert-this-buffer] . persistent-scratch-restore))
   :hook ((after-init . persistent-scratch-autosave-mode)
          (lisp-interaction-mode . persistent-scratch-mode))
   :init (setq persistent-scratch-backup-file-name-format "%Y-%m-%d"
@@ -272,6 +233,7 @@
 
 ;; https://github.com/abo-abo/tiny
 ;; Quickly generate linear ranges in Emacs
+;; `example:' m5 10*xx|0x%x -> 0x19 0x24 0x31 0x40 0x51 0x64
 (use-package tiny :ensure nil :disabled)
 
 (use-package affe
@@ -279,22 +241,6 @@
   :config
   ;; Manual preview key for `affe-grep'
   (consult-customize affe-grep :preview-key "M-."))
-
-(use-package fzf
-  :disabled                           ; using `affe'
-  ;; :bind
-  ;; Don't forget to set keybinds!
-  :config
-  (setq fzf/args "-x --color bw --print-query --margin=1,0 --no-hscroll"
-        fzf/executable "fzf"
-        fzf/git-grep-args "-i --line-number %s"
-        ;; command used for `fzf-grep-*` functions
-        ;; example usage for ripgrep:
-        ;; fzf/grep-command "rg --no-heading -nH"
-        fzf/grep-command "grep -nrH"
-        ;; If nil, the fzf buffer will appear at the top of the window
-        fzf/position-bottom t
-        fzf/window-height 15))
 
 (use-package no-littering)
 
@@ -305,7 +251,6 @@
   :config
   (super-save-mode +1)
   (setq super-save-auto-save-when-idle t))
-
 
 (provide 'init-core)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

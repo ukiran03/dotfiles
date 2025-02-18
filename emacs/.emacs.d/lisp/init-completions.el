@@ -20,6 +20,12 @@
   ;; Enable indentation+completion using the TAB key.
   ;; `completion-at-point' is often bound to M-TAB.
   (setq tab-always-indent 'complete)
+
+  ;; Do not allow the cursor to move inside the minibuffer prompt.  I
+  ;; got this from the documentation of Daniel Mendler's Vertico
+  ;; package: <https://github.com/minad/vertico>.
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
   :init
   ;; TAB cycle if there are only few candidates
   (setq completion-cycle-threshold 3))
@@ -50,7 +56,6 @@
   (setq completion-category-defaults nil)
 
   ;; A non-exhaustve list of known completion categories:
-  ;;
   ;; - `bookmark'
   ;; - `buffer'
   ;; - `charset'
@@ -151,16 +156,10 @@
   (setq read-answer-short t) ; also check `use-short-answers' for Emacs28
   (setq echo-keystrokes 0.25)
   (setq kill-ring-max 60) ; Keep it small
-
-  ;; Do not allow the cursor to move inside the minibuffer prompt.  I
-  ;; got this from the documentation of Daniel Mendler's Vertico
-  ;; package: <https://github.com/minad/vertico>.
-  (setq minibuffer-prompt-properties
-        '(read-only t cursor-intangible t face minibuffer-prompt))
   (file-name-shadow-mode 1))
 
 
-;;; 3rd pkgs
+;;; 3rd party pkgs
 
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
@@ -185,60 +184,47 @@
 ;; <https://elpa.gnu.org/packages/doc/corfu.html>
 ;; <https://github.com/minad/corfu>
 
-;; (defun corfu-move-to-minibuffer ()
-;;   "Move completion to minibuffer instead of corfu."
-;;   (interactive)
-;;   (let ((completion-extra-properties corfu--extra)
-;;         completion-cycle-threshold completion-cycling)
-;;     (apply #'consult-completion-in-region completion-in-region--data)))
-;; (define-key corfu-map "\M-m" #'corfu-move-to-minibuffer)
-
-
 ;; Auto completion
 (use-package corfu
   :ensure t
   :custom
-  (corfu-auto nil)
-  (corfu-auto-delay 0.25)
-  (corfu-auto-prefix 2)
-  (corfu-quit-no-match 'separator) ;; or t
+  (corfu-cycle t)
+  (corfu-quit-no-match 'separator)
   (corfu-preview-current nil)
   (corfu-min-width 20)
-  (corfu-popupinfo-delay '(1.25 . 0.5)) ; prev : '(0.4 . 0.2)
   :custom-face
   (corfu-border ((t (:inherit region :background unspecified))))
-  :bind (:map corfu-map                 ; M-TAB `completion-at-point'
+  :bind (:map corfu-map
 	          ("M-SPC" . corfu-insert-separator)
 	          ("TAB"   . corfu-next)
-	          ([tab]   . corfu-next)
 	          ("S-TAB" . corfu-previous)
-	          ([backtab] . corfu-previous)
+              ("C-n" . corfu-next)
+              ("C-p" . corfu-previous)
 	          ("S-<return>" . corfu-insert)
-	          ("RET"   . nil)) ;; leave my enter alone
+	          ("RET"   . nil))
   :hook ((after-init . global-corfu-mode)
-         (global-corfu-mode . corfu-popupinfo-mode))
+         (global-corfu-mode . corfu-echo-mode))
   :config
   ;; Sort by input history (no need to modify `corfu-sort-function').
   (with-eval-after-load 'savehist
     (corfu-history-mode 1)
     (add-to-list 'savehist-additional-variables 'corfu-history)))
 
-(unless (display-graphic-p)
-  (use-package corfu-terminal
-    :hook (global-corfu-mode . corfu-terminal-mode)))
-
+;; (unless (display-graphic-p)
+;;   (use-package corfu-terminal
+;;     :hook (global-corfu-mode . corfu-terminal-mode)))
 
 ;; `cape.el': Completion At Point Extensions
 ;; <https://elpa.gnu.org/packages/doc/cape.html>
 ;; <https://github.com/minad/cape>
 ;; ;; Add extensions
 (use-package cape
+  :demand
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-elisp-block)
-  (add-to-list 'completion-at-point-functions #'cape-history)
-
+  ;; (add-to-list 'completion-at-point-functions #'cape-history)
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
 
 

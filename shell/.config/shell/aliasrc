@@ -354,7 +354,7 @@ alias ys="yay -Qs | grep"
 #alias lsl="ls -al"
 # Changing "ls" to "exa"
 # alias l='ls'
-alias ls='eza --icons --color=always --group-directories-first' # my preferred listing
+alias ls='eza --color=always --group-directories-first' # my preferred listing
 # alias lt.='eza -aT --color=always --group-directories-first' # tree listing include hidden
 # alias lt='eza -T --color=always --group-directories-first' # tree listing not include hidden
 alias l.='eza -a | grep -E "^\."'

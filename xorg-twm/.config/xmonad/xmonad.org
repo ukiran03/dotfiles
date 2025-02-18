@@ -38,3 +38,77 @@ myLayout = maximize (Tall 1 (3/100) (1/2)) ||| Full ||| etc..)
 
 [ ("M-u", withFocused (sendMessage . maximizeRestore)) ]
 #+end_src
+
+*** Scratchpads
+=Example configs=
+https://xmonad.org/configurations.html | User Configuration Files | xmonad - the tiling window manager that rocks
+https://github.com/geekosaur/xmonad.hs/blob/pyanfar/xmonad.hs | xmonad.hs/xmonad.hs at pyanfar · geekosaur/xmonad.hs
+https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Actions-CycleWS.html | XMonad.Actions.CycleWS
+https://hackage.haskell.org/package/xmonad-contrib-0.18.1/docs/XMonad-Util-NamedScratchpad.html | XMonad.Util.NamedScratchpad
+https://github.com/AtifChy/xmonad/blob/main/src/xmonad.hs | xmonad/src/xmonad.hs at main · AtifChy/xmonad
+https://github.com/TheMC47/dotfiles/blob/master/xmonad/.xmonad/xmonad.hs | dotfiles/xmonad/.xmonad/xmonad.hs at master · TheMC47/dotfiles
+https://github.com/xmonad/xmonad-contrib/issues/557 | copiesPP not working with my configuration · Issue #557 · xmonad/xmonad-contrib
+
+**** Config
+#+begin_src haskell
+  import XMonad.Util.NamedScratchpad
+  main :: IO ()
+  main =
+    xmonad
+      . ewmhFullscreen
+      . ewmh
+      . withEasySB
+        ( statusBarProp
+            "xmobar ~/.config/xmobar/xmobarrc"
+            (pure (filterOutWsPP [scratchpadWorkspaceTag] myXmobarPP))
+        )
+        defToggleStrutsKey
+      . docks
+      $ myConfig
+    where
+      toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
+      toggleStrutsKey XConfig {modMask = m} = (m, xK_b)
+
+
+      -- scratchpadWorkspaceTag = "S",
+      -- ("M-<End>", namedScratchpadAction scratchpads "scratch"),
+
+      -- scratchpads
+  scratchpads :: [NamedScratchpad]
+  scratchpads =
+    [ NS
+        "scratch"
+        "alacritty -T scratch -e tmux new-session -A -s 'scratch'"
+        (title =? "scratch")
+        (customFloating $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3))
+    ]
+    where
+      scratchpadWorkspaceTag = "S"
+
+  myManageHook :: ManageHook
+  myManageHook =
+    composeAll
+      [ className =? "Gimp" --> doFloat,
+        className =? "mpv" --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2)),
+        -- className =? "mpv" --> doCenterFloat,
+        className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat, -- Firefox pip
+        resource =? "desktop_window" --> doIgnore,
+        className =? "TelegramDesktop" --> viewShift (myWorkspaces !! 8),
+        className =? "Tor Browser" --> viewShift (myWorkspaces !! 8),
+        className =? "qBittorrent" --> viewShift (myWorkspaces !! 8),
+        className =? "calibre" --> viewShift (myWorkspaces !! 8),
+        className =? "Liferea" --> viewShift (myWorkspaces !! 7),
+        className =? "Thunderbird" --> viewShift (myWorkspaces !! 7),
+        isDialog --> doFloat,
+        isFullscreen --> doFullFloat,
+        checkDock --> doLower
+      ]
+      <+> namedScratchpadManageHook scratchpads
+    where
+      viewShift = doF . liftM2 (.) W.greedyView W.shift
+
+
+#+end_src
+
+**** Config links
+https://xiangji.me/2018/11/19/my-xmonad-configuration/

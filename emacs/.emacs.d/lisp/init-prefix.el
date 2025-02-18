@@ -93,9 +93,6 @@
   :doc "Narrow-map hyper actions."
   :name "Narrow"
   :parent narrow-map  ;; Change this if there's a specific parent map you want to use
-  "b" 'org-narrow-to-block
-  "e" 'org-narrow-to-element
-  "s" 'org-narrow-to-subtree
   "C-g" 'keyboard-quit)
 (keymap-set global-map "H-n" narrow-hyper-map)
 

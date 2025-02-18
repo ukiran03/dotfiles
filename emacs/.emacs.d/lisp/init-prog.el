@@ -5,6 +5,25 @@
 
 ;;; Code:
 
+(use-package pretty-hydra
+  :bind ("C-<f5>" . toggles-hydra/body)
+  :init
+  ;; Global toggles
+  (with-no-warnings
+    (pretty-hydra-define
+      toggles-hydra (:color amaranth :quit-key ("q" "C-g"))
+      ("Basic"
+       (("a" aggressive-indent-mode "Ag indent" :toggle t)
+        ("p" puni-mode "Puni" :toggle t)
+        ("c" colorful-mode "colorful" :toggle t))
+       "Highlight"
+       (("h s" symbol-overlay-mode "symbol OL" :toggle t)
+        ("h t" global-hl-todo-mode "todo" :toggle t))
+       "Program"
+       (("f" flymake-mode "flymake" :toggle t)
+        ("v" diff-hl-mode "diff-hl" :toggle t)
+        ("d" diff-hl-dired-mode "dired diff-hl" :toggle t))))))
+
 (use-package newcomment
   :ensure nil
   :bind ("H-;" . comment-line))
@@ -12,11 +31,7 @@
 (use-package subword
   :ensure nil
   :diminish subword-mode
-  :hook (prog-mode . subword-mode)
-  ;; :config
-  ;; (diminish 'subword-mode
-  ;; '(:propertize " SUBW" face '(:foreground "blue")))
-  )
+  :hook (prog-mode . subword-mode))
 
 (use-package page-break-lines
   :diminish
@@ -62,12 +77,13 @@
 ;;;; Setup Folding For Programming
 (use-package puni
   :ensure t
+  :init
+  (puni-global-mode)
   :hook (((calc-mode term-mode vterm-mode info-mode) . puni-disable-puni-mode)
-         ((prog-mode racket-repl-mode eval-expression-minibuffer-setup-hook) . puni-mode)
+         ;; ((prog-mode racket-repl-mode eval-expression-minibuffer-setup-hook) . puni-mode)
          (puni-mode  . electric-pair-local-mode))
   :bind (("C-c s" . puni-mode)
          :map puni-mode-map
-         ("C-c DEL"                 . jinx-correct)
          ([remap backward-sentence] . puni-end-of-sexp)
          ([remap forward-sentence]  . puni-beginning-of-sexp)
          ([remap forward-sexp]      . puni-forward-sexp-or-up-list)
@@ -91,7 +107,6 @@
          ("C-w" . kill-region))
   :config
   (setopt puni-blink-region-face 'show-paren-match))
-  ;; (puni-global-mode t))
 
 (use-package aggressive-indent
   :diminish

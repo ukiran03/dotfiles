@@ -10,7 +10,8 @@
 ;; Speed up startup
 
 ;; Defer garbage collection further back in the startup process
-(setq gc-cons-threshold most-positive-fixnum)
+;; (setq gc-cons-threshold most-positive-fixnum) ;; -- test memory issues
+(setq gc-cons-threshold 800000) ;; -- default
 
 ;; Don't pass case-insensitive to `auto-mode-alist'
 (setq auto-mode-case-fold nil)
@@ -88,9 +89,9 @@ Otherwise the startup will be slow."
 ;; 		            :height 95
 ;; 		            :weight 'medium)
 
-(set-frame-font "Iosevka Medium Extended-9.5" nil t)
+;; (set-frame-font "Iosevka Medium Extended-9.5" nil t)
 ;; (set-frame-font "Iosevka Medium Extended-10" nil t)
-;; (set-frame-font "Iosevka Medium-11" nil t)
+(set-frame-font "Iosevka Medium-11" nil t)
 
 ;; (set-frame-font "Geist Mono Medium-10" nil t)
 
@@ -100,13 +101,11 @@ Otherwise the startup will be slow."
 ;; Better defaults
 ;; (setq initial-scratch-message nil)
 (setq frame-inhibit-implied-resize nil ) ; prevents changing font, etc
-                                         ; triggering a resize of the
-                                         ; entire frame in non-tiling
-                                         ; setups
+                                        ; triggering a resize of the
+                                        ; entire frame in non-tiling
+                                        ; setups
 ;; Misc
-(if (boundp 'use-short-answers)
-    (setq use-short-answers t)
-  (fset 'yes-or-no-p 'y-or-n-p))
+(setq use-short-answers t)
 (setq visible-bell t)
 (setq inhibit-splash-screen t)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets) ; Show path if names are same

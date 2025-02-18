@@ -40,19 +40,6 @@ If the region is not active, `kill-whole-line' line at the point."
       (setq show-trailing-whitespace t)))
   :hook (find-file . my-show-trailing-whitespace))
 
-(use-package auto-read-only
-  :disabled
-  ;; :diminish
-  :config
-  (auto-read-only-mode 1)
-  (setq auto-read-only-mode-lighter " RO"))
-
-(use-package hardhat
-  :disabled
-  :init
-  (global-hardhat-mode 1))
-
-
 (use-package display-line-numbers
   :ensure nil
   :commands (uk-toggle-line-numbers)
@@ -82,8 +69,6 @@ these values mean."
                  (`t "normal")
                  (`nil "disabled")
                  (_ (symbol-name next)))))))
-
-
 
 (provide 'init-simple)
 

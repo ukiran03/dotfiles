@@ -23,7 +23,7 @@
 			                (when (fboundp 'page-break-lines-mode)
 			                  (page-break-lines-mode 1))))
   :init
-  (setq dashboard-banner-logo-title "I am not the body"
+  (setq dashboard-banner-logo-title "I am not this body"
         dashboard-banners-directory (expand-file-name "avatars/" user-emacs-directory)
 	    dashboard-startup-banner (concat dashboard-banners-directory "musashi1.jpg")
 
@@ -34,7 +34,8 @@
         dashboard-vertically-center-content nil ;;@
         dashboard-remove-missing-entry t
 	    dashboard-show-shortcuts t
-	    dashboard-items '((recents . 6)
+	    dashboard-items '(
+                          ;; (recents . 6)
                           ;; (bookmarks . 5)
                           ;; (registers . 3)
                           ;; (agenda . 3)

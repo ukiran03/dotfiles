@@ -16,6 +16,7 @@
         modus-themes-mixed-fonts nil
         modus-themes-completions '((t . (extrabold)))
         modus-themes-prompts '(extrabold))
+  (setq modus-themes-to-toggle '(modus-operandi modus-vivendi-tinted))
 
   ;; ‘Mode-line’'
   :custom
@@ -23,7 +24,7 @@
    '((border-mode-line-active bg-mode-line-active)
      (border-mode-line-inactive bg-mode-line-inactive)))
   :init
-  (load-theme 'modus-vivendi :no-confirm))
+  (load-theme 'modus-vivendi-tinted :no-confirm))
 
 (use-package ef-themes
   :ensure t
@@ -48,7 +49,7 @@
   (interactive)
   (let ((font (completing-read
                "Choose a font: "
-               '("Iosevka Medium Extended-9.5" "Iosevka Medium-11")
+               '("Iosevka Medium Extended-10" "Iosevka Medium-11")
                nil t)))
     (set-frame-font font nil t)))
 
@@ -70,7 +71,9 @@
 (use-package olivetti
   :diminish
   :bind ("<f7>" . olivetti-mode)
-  :config (setq olivetti-body-width 0.62))
+  :config
+  ;; (setq olivetti-body-width 0.62)
+  )
 
 (use-package doom-modeline
   :disabled

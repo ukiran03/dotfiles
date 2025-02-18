@@ -5,7 +5,7 @@
                                         ; -- ephimeral langs
 (use-package sxhkdrc-mode)
 (use-package markdown-mode)
-
+(use-package python-mode)
 ;; -- Python
 ;; (use-package python-mode
 ;;   :ensure t

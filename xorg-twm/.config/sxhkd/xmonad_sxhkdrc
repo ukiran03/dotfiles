@@ -57,4 +57,9 @@ super + F9
 super + bracket{left,right}
     /home/ukiran/.local/bin/uk-bright {down,up}
 
+super + y; {b, c, s}
+    {polybar-toggle, \
+    conky-toggle, \
+    pkill -USR1 -x sxhkd && dunstify -a ignore -i key_bindings "Reloaded key bindings"}
+
 # pkill -USR1 -x sxhkd && dunstify -a ignore -i key_bindings "Reloaded key bindings"

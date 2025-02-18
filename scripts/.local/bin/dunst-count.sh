@@ -8,7 +8,7 @@ else
 fi
 
 if [ "$notifs" -gt 0 ]; then
-    echo "$notifs"
+    echo " <fc=#6D8895>N:</fc>$notifs "
 else
-    echo "0"
+    echo ""
 fi
