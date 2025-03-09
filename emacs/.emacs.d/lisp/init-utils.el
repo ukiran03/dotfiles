@@ -23,7 +23,6 @@
         '(poster country genre runtime director imdb-id imdb-rating)))
 
 ;; #[clue.el:L13]
-
 (use-package clue
   :load-path ("site-lisp/clue/")
   :config
@@ -65,21 +64,17 @@
   (setq kiwix-server-port 8000)
   (setq kiwix-zim-dir (expand-file-name "/home/ukiran/zims")))
 
-;; (package-vc-install '(ultra-scroll :vc-backend Git :url  "https://github.com/jdtsmith/ultra-scroll"))
 (use-package ultra-scroll
-  :ensure nil
+  :vc (:url "https://github.com/jdtsmith/ultra-scroll")
   :init
   (setq scroll-conservatively 101 ; important!
         scroll-margin 0)
-  :config
-  (ultra-scroll-mode 1))
+  :hook (after-init . ultra-scroll-mode))
 
-
-;; (package-vc-install '(stillness-mode :vc-backend Git :url  "https://github.com/neeasade/stillness-mode.el"))
 (use-package stillness-mode
-  :ensure nil
-  :config
-  (stillness-mode 1))
+  :vc (:url "https://github.com/neeasade/stillness-mode.el")
+  :after minibuffer
+  :hook (after-init . stillness-mode))
 
 (use-package keycast)
 

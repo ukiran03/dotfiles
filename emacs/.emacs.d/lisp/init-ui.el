@@ -11,7 +11,7 @@
   :bind (("<f6>" . modus-themes-toggle)
          ("C-<f6>" . modus-themes-select))
   :config
-  (setq modus-themes-bold-constructs t
+  (setq modus-themes-bold-constructs nil
         modus-themes-italic-constructs t
         modus-themes-mixed-fonts nil
         modus-themes-completions '((t . (extrabold)))
@@ -23,6 +23,11 @@
   (modus-themes-common-palette-overrides
    '((border-mode-line-active bg-mode-line-active)
      (border-mode-line-inactive bg-mode-line-inactive)))
+  (modus-vivendi-tinted-palette-overrides
+   '((comment fg-dim)))
+  ;; (modus-vivendi-palette-overrides
+  ;;  '((bg-mode-line-active bg-blue-intense)
+  ;;    (bg-mode-line-inactive bg-blue-nuanced)))
   :init
   (load-theme 'modus-vivendi-tinted :no-confirm))
 
@@ -135,7 +140,9 @@
              (not (font-installed-p nerd-icons-font-family)))
     (nerd-icons-install-fonts t)))
 
-(use-package kaolin-themes)
+(use-package kaolin-themes
+  :config
+  (setq kaolin-themes-org-scale-headings nil))
 
 (provide 'init-ui)
 

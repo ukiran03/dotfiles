@@ -7,7 +7,7 @@
 
 (eval-when-compile
   (require 'init-funcs))
-  ;; (require 'init-custom))
+;; (require 'init-custom))
 
 
 (use-package dashboard
@@ -72,6 +72,23 @@
 	       (propertize ">" 'face 'dashboard-footer)))
   (dashboard-setup-startup-hook))
 
+;; (use-package welcome-dashboard
+;;   :vc (:url "https://github.com/konrad1977/welcome-dashboard")
+;;   ;; :ensure nil ;; when using local file and not straight nor use-package
+;;   :config
+;;   (setq welcome-dashboard-latitude 56.7365
+;;         welcome-dashboard-longitude 16.2981     ;; latitude and longitude must be set to show weather information
+;;         welcome-dashboard-use-nerd-icons t      ;; Use nerd icons instead of all-the-icons
+;;         welcome-dashboard-path-max-length 75
+;;         welcome-dashboard-show-file-path t      ;; Hide or show filepath
+;;         welcome-dashboard-use-fahrenheit nil    ;; show in celcius or fahrenheit.
+;;         welcome-dashboard-min-left-padding 10
+;;         welcome-dashboard-image-file (expand-file-name "avatars/musashi1.jpg" user-emacs-directory)
+;;         welcome-dashboard-image-width 200
+;;         welcome-dashboard-image-height 169
+;;         welcome-dashboard-max-number-of-todos 5
+;;         welcome-dashboard-title (concat "Welcome " user-full-name))
+;;   (welcome-dashboard-create-welcome-hook))
 
 (provide 'init-dashboard)
 

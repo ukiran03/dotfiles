@@ -7,7 +7,7 @@ autoload -U colors && colors	# Load colors
 
 precmd() {
   vcs_info
-  print -P '%B%F{blue}%n@%m%f%b %B%F{006}%~%f%b %F{007}$vcs_info_msg_0_%f'
+  print -P '%B%F{004}%n@%m%f%b %B%F{006}%~%f%b %F{007}$vcs_info_msg_0_%f'
 }
 
 PROMPT='%B%F{009}(%?)%f%b %B$ %b%'

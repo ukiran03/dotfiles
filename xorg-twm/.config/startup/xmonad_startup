@@ -30,7 +30,7 @@ _check () {
 #               -option 'altwin:menu_win' -option 'caps:none'
 # fi
 
-xmodmap "$XDG_CONFIG_HOME/X11/xmodmap"
+# xmodmap "$XDG_CONFIG_HOME/X11/xmodmap"
 
 # The hotkey daemon that handles all custom key bindings.  I split the
 # key chords into separate files, based on their scope.  The ones that
@@ -61,28 +61,28 @@ fi
 # trayer --edge top --align right --SetDockType true --SetPartialStrut true \
 #  --expand true --width 10 --transparent true --tint 0x5f5f5f --height 18 &
 
-if _check feh
-then
-    ~/.fehbg &
-fi
+# if _check feh
+# then
+#     ~/.fehbg &
+# fi
 
 
 #### Pipewire
 
-if _check pipewire; then
-    if ! pgrep -x "pipewire" > /dev/null; then
-        /usr/bin/pipewire &
-    fi
-fi
+# if _check pipewire; then
+#     if ! pgrep -x "pipewire" > /dev/null; then
+#         /usr/bin/pipewire &
+#     fi
+# fi
 
-if _check pipewire-pulse; then
-    if ! pgrep -x "pipewire-pulse" > /dev/null; then
-        /usr/bin/pipewire-pulse &
-    fi
-fi
+# if _check pipewire-pulse; then
+#     if ! pgrep -x "pipewire-pulse" > /dev/null; then
+#         /usr/bin/pipewire-pulse &
+#     fi
+# fi
 
 # Start the display compositor, See picom(1)
-_check picom && picom --config "$HOME"/.config/picom/picom.conf &
+# _check picom && picom --config "$HOME"/.config/picom/picom.conf &
 
 # Simple daemon for GTK settings, PKG: xsettingsd
 # _check xsettingsd && xsettingsd -c "$HOME"/.config/xsettingsd/xsettingsd.conf &
@@ -112,15 +112,15 @@ fi
 # _check nm-applet && nm-applet &
 
 # Dunst
-_check dunst && dunst &
+# _check dunst && dunst &
 
 # chekc monitors
 # Check if HDMI-1-0 is connected
 if xrandr | grep "HDMI-1-0 connected"; then
     # HDMI-1-0 is connected, set it as active and primary
-    xrandr --output HDMI-1-0 --auto --primary
+    # xrandr --output HDMI-1-0 --auto --primary
     # Turn off eDP-1 display
-    xrandr --output eDP-1 --off
+    # xrandr --output eDP-1 --off
     # Initial brightness for external monitor
     xrandr --output HDMI-1-0 --brightness 0.85
     brightness_file="/home/ukiran/.config/my_display/brightness"
@@ -133,9 +133,10 @@ if xrandr | grep "HDMI-1-0 connected"; then
     fi
 else
     # HDMI-1-0 is not connected, set eDP-1 as active and primary
-    xrandr --output eDP-1 --auto --primary
+    # xrandr --output eDP-1 --auto --primary
     # Turn off HDMI-1-0 display
-    xrandr --output HDMI-1-0 --off
+    # xrandr --output HDMI-1-0 --off
+    echo "nil"
     # setxkbmap -option altwin:swap_lalt_lwin ----------------------- back to normal for while
 fi
 
@@ -147,32 +148,32 @@ fi
 #     xfce4-clipman &
 # fi
 
-greenclip daemon &
+# greenclip daemon &
 
 # # Check if trayer is already running
-if pgrep -f "trayer" > /dev/null
-then
-    echo "trayer is already running"
-else
-    echo "Starting Trayer"
-    trayer --edge top --align right --widthtype request --SetDockType true \
-           --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x171d23 --height 21 &
-fi
+# if pgrep -f "trayer" > /dev/null
+# then
+#     echo "trayer is already running"
+# else
+#     echo "Starting Trayer"
+#     trayer --edge top --align right --widthtype request --SetDockType true \
+#            --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x171d23 --height 21 &
+# fi
 
-if pgrep -f "xfce4-power-manager" > /dev/null
-then echo "xfce4-power-manager is already running"
-else
-    echo "starting xfce4-power-manager"
-    xfce4-power-manager &
-fi
+# if pgrep -f "xfce4-power-manager" > /dev/null
+# then echo "xfce4-power-manager is already running"
+# else
+#     echo "starting xfce4-power-manager"
+#     xfce4-power-manager &
+# fi
 
 # _check emacs && emacs -T emacs-server &
 
 _check mpc && mpc update &
 
-_check numlockx && numlockx on &
+# _check numlockx && numlockx on &
 
-_check thunar && thunar --daemon &
+# _check thunar && thunar --daemon &
 
 # xmonad --restart
 
@@ -183,7 +184,7 @@ _check thunar && thunar --daemon &
 
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &
 ### /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-/usr/libexec/polkit-gnome-authentication-agent-1 &
+# /usr/libexec/polkit-gnome-authentication-agent-1 &
 #/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 #/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &

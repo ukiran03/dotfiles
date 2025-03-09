@@ -71,8 +71,8 @@
   :bind ("C-c a" . org-agenda)
   :config
   (setq calendar-week-start-day 0)
-  ;; (setq org-agenda-files '("~/Documents/org/tasks.org")) ; -- Original
-  (setq org-agenda-files '("~/Documents/org/demo.org")) ; -- Demo
+  (setq org-agenda-files '("~/Documents/org/tasks.org")) ; -- Original
+  ;; (setq org-agenda-files '("~/Documents/org/demo.org")) ; -- Demo
   ;; (setq org-agenda-files (list org-directory))
   )
 
@@ -83,7 +83,7 @@
   :config
   (setq org-capture-templates
         `(("u" "Unprocessed" entry
-           (file+headline "demo.org" "Unprocessed")
+           (file+headline "tasks.org" "Unprocessed")
            ,(concat "* %^{Title}\n"
                     ":PROPERTIES:\n"
                     ":CAPTURED: %U\n"
@@ -92,7 +92,7 @@
                     "%a\n%i%?")
            :empty-lines-after 1)
           ("w" "Wishlist" entry
-           (file+olp "demo.org" "All tasks" "Wishlist")
+           (file+olp "tasks.org" "All Tasks" "Wishlist")
            ,(concat "* %^{Title} %^g\n"
                     ":PROPERTIES:\n"
                     ":CAPTURED: %U\n"
@@ -101,7 +101,7 @@
                     "%a\n%?")
            :empty-lines-after 1)
           ("t" "Task to do" entry
-           (file+headline "demo.org" "All tasks")
+           (file+headline "tasks.org" "All Tasks")
            ,(concat "* TODO %^{Title} %^g\n"
                     ":PROPERTIES:\n"
                     ":CAPTURED: %U\n"

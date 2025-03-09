@@ -30,8 +30,7 @@ XF86Mail
 
 # terminal: zellij or tmux
 super + {_, shift + } Return
-        {alacritty -e tmux new-session -A -s 'Main', alacritty}
-    # {alacritty -T zellij -e zellij attach --create Main, alacritty}
+        {urxvtc -e tmux new-session -A -s 'Main', urxvtc}
 
 shift + KP_End
     thunar
@@ -53,6 +52,8 @@ super + shift + F9
     ~/.Zen-browser/zen-bin --private-window
 super + F9
     ~/.Zen-browser/zen-bin
+super + ctrl + F9
+    qutebrowser
 # brightness
 super + bracket{left,right}
     /home/ukiran/.local/bin/uk-bright {down,up}

@@ -3,6 +3,9 @@
 ;;; Commentry:
 ;; Best Note taking software
 
+(use-package consult-denote
+  :bind ("C-c n f" . consult-denote-find))
+
 (use-package denote
   :hook (dired-mode . denote-dired-mode)
   :bind

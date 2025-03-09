@@ -33,25 +33,6 @@
   (setq comp-deferred-compilation t
         comp-deferred-compilation-black-list '("/mu4e.*\\.el$")))
 
-(when (version= emacs-version "30.0.93")
-  (use-package emacs
-    :disabled
-    :init
-    (setq mode-line-right-align-edge 'right-margin)
-    (setq-default mode-line-format
-                  '("%e" mode-line-front-space
-                    (:propertize
-                     ("" mode-line-mule-info
-                      mode-line-client
-                      mode-line-modified
-                      mode-line-remote
-                      mode-line-window-dedicated))
-                    mode-line-frame-identification mode-line-buffer-identification "   "
-                    mode-line-position (project-mode-line project-mode-line-format)
-                    mode-line-format-right-align
-                    (vc-mode vc-mode) "  "
-                    mode-line-modes "  " mode-line-misc-info " "
-                    mode-line-end-spaces))))
 
 ;; Load path
 ;; Optimize: Force "lisp" and "site-lisp" at the head to reduce the startup time
@@ -73,30 +54,10 @@ Otherwise the startup will be slow."
 
 (update-load-path)
 
-
-;; (defun uk/set-face-font (face family)
-;;   (set-face-attribute
-;;    face nil
-;;    :family family :weight 'semibold :width 'expanded :height 100))
-;; (uk/set-face-font 'default "Uosevka")
-;; (uk/set-face-font 'fixed-pitch "Uosevka")
-;; (uk/set-face-font 'variable-pitch "Iosevka Aile")
+;; Fonts
 (set-face-attribute 'variable-pitch nil
                     :family "Iosevka Aile")
-
-;; (set-face-attribute 'default nil
-;; 		            :family "Iosevka Extended"
-;; 		            :height 95
-;; 		            :weight 'medium)
-
-;; (set-frame-font "Iosevka Medium Extended-9.5" nil t)
-;; (set-frame-font "Iosevka Medium Extended-10" nil t)
-(set-frame-font "Iosevka Medium-11" nil t)
-
-;; (set-frame-font "Geist Mono Medium-10" nil t)
-
-;; Set the default font to Iosevka Term Medium Extended, Weight: medium, Height: 100
-;; (set-frame-font "Iosevka Term Medium Extended-10" nil t)
+(set-frame-font "Iosevka Medium-11.25" nil t)
 
 ;; Better defaults
 ;; (setq initial-scratch-message nil)
@@ -170,13 +131,19 @@ Otherwise the startup will be slow."
 (require 'init-window)
 (require 'init-vc)
 (require 'init-check)
-
+(require 'init-llm)
 (require 'init-utils)
 (require 'init-eshell)
 (require 'init-project)
 (require 'init-icon)
 
-
+(defun mode-line-height ()
+  "Get the height of the mode-line."
+  (- (elt (window-pixel-edges) 3)
+     (elt (window-inside-pixel-edges) 3)
+     (if (bound-and-true-p window-divider-mode)
+         window-divider-default-bottom-width
+       0)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -184,3 +151,4 @@ Otherwise the startup will be slow."
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
+(put 'downcase-region 'disabled nil)

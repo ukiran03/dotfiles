@@ -1,45 +1,28 @@
 * Things to do
-** TODO Skip Min Windows
-skip the minimzed windows while shifting foucs, should only cycle
-through the visible windows
+** TODO DWM Styles Workspaces [0/3]
+*** TODO Looking multiple workspaces at the same time
+#+begin_example
+ (2) -> Terminal (8) -> Emacs
+ (2) > Terminal ++ Emacs{from 8}
+#+end_example
+*** TODO Mod + 0; Activates all tags
+making visible all the windows from all the tags
+*** TODO M-S-0; Sticky Windows
+- make the focused window sticky to =all tags=
+- make the focused window sticky only to =specified tags=
+
 ** TODO Titles to show
 - title1 :: current focused window, (appName, title)
 - title2 :: if Any minimized windows
-** TODO Manages
-- Workspace 9 :: Full ||| Tabbed
-** TODO Numpad Keys
-map NumberPad Keys to =switch=, =shift= windows
-** =toggleFullscreen= the current focused window
+** TODO Few more layouts
+- Centered Master (Three Col)
+** TODO Gaps on Fly
+** TODO Discuss on reddit about =FocusedWindow=
 
-*** Manual Method
-[[https://github.com/liskin/dotfiles/commit/659af2ec68c26044f9e6ddf11655856613285685#diff-f3bd9f70ef878f30362ff11bbea7fd1d0d6abde1b4befa44b18cce5a27456204R190][Github]] : Source
-
-#+begin_src Haskell
-import qualified Data.Map as M
-
-[ ("M-u", toggleFullscreen) ]
-
-toggleFullscreen :: X ()
-toggleFullscreen =
-  withWindowSet $ \ws ->
-    withFocused $ \w -> do
-      let fullRect = W.RationalRect 0 0 1 1
-      let isFullFloat = w `M.lookup` W.floating ws == Just fullRect
-      windows $ if isFullFloat then W.sink w else W.float w fullRect
-
-#+end_src
-
-*** Official Docs
-
-#+begin_src Haskell
-import XMonad.Layout.Maximize
-
-myLayout = maximize (Tall 1 (3/100) (1/2)) ||| Full ||| etc..)
-
-[ ("M-u", withFocused (sendMessage . maximizeRestore)) ]
-#+end_src
-
-*** Scratchpads
+* Scratchpads
+:LOGBOOK:
+- State "DONE"       from              [2025-02-21 Fri 11:24]
+:END:
 =Example configs=
 https://xmonad.org/configurations.html | User Configuration Files | xmonad - the tiling window manager that rocks
 https://github.com/geekosaur/xmonad.hs/blob/pyanfar/xmonad.hs | xmonad.hs/xmonad.hs at pyanfar · geekosaur/xmonad.hs
@@ -49,7 +32,7 @@ https://github.com/AtifChy/xmonad/blob/main/src/xmonad.hs | xmonad/src/xmonad.hs
 https://github.com/TheMC47/dotfiles/blob/master/xmonad/.xmonad/xmonad.hs | dotfiles/xmonad/.xmonad/xmonad.hs at master · TheMC47/dotfiles
 https://github.com/xmonad/xmonad-contrib/issues/557 | copiesPP not working with my configuration · Issue #557 · xmonad/xmonad-contrib
 
-**** Config
+* Config
 #+begin_src haskell
   import XMonad.Util.NamedScratchpad
   main :: IO ()
@@ -110,5 +93,60 @@ https://github.com/xmonad/xmonad-contrib/issues/557 | copiesPP not working with 
 
 #+end_src
 
-**** Config links
+* Config links
 https://xiangji.me/2018/11/19/my-xmonad-configuration/
+
+* Done or Cancled things
+** DONE Manages layouts
+CLOSED: [2025-02-21 Fri 11:24]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-02-21 Fri 11:24]
+:END:
+- Workspace 9 :: Full ||| Tabbed
+** CANCEL Numpad Keys navigation
+CLOSED: [2025-02-21 Fri 11:23]
+:LOGBOOK:
+- State "CANCEL"     from "TODO"       [2025-02-21 Fri 11:23]
+:END:
+map NumberPad Keys to =switch=, =shift= windows
+** DONE =toggleFullscreen= the current focused window
+CLOSED: [2025-02-21 Fri 11:23]
+:LOGBOOK:
+- State "DONE"       from              [2025-02-21 Fri 11:23]
+:END:
+=M-u= will Maximize focused client
+
+*** Manual Method
+[[https://github.com/liskin/dotfiles/commit/659af2ec68c26044f9e6ddf11655856613285685#diff-f3bd9f70ef878f30362ff11bbea7fd1d0d6abde1b4befa44b18cce5a27456204R190][Github]] : Source
+
+#+begin_src Haskell
+import qualified Data.Map as M
+
+[ ("M-u", toggleFullscreen) ]
+
+toggleFullscreen :: X ()
+toggleFullscreen =
+  withWindowSet $ \ws ->
+    withFocused $ \w -> do
+      let fullRect = W.RationalRect 0 0 1 1
+      let isFullFloat = w `M.lookup` W.floating ws == Just fullRect
+      windows $ if isFullFloat then W.sink w else W.float w fullRect
+
+#+end_src
+
+*** Official Docs
+
+#+begin_src Haskell
+import XMonad.Layout.Maximize
+
+myLayout = maximize (Tall 1 (3/100) (1/2)) ||| Full ||| etc..)
+
+[ ("M-u", withFocused (sendMessage . maximizeRestore)) ]
+#+end_src
+** DONE Skip Min Windows
+CLOSED: [2025-02-21 Fri 11:32]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-02-21 Fri 11:32]
+:END:
+skip the minimzed windows while shifting foucs, should only cycle
+through the visible windows

@@ -43,6 +43,10 @@
           '((ibuffer-project-project-root . "Project")
             (file-remote-p . "Remote")))))
 
+(use-package frog-jump-buffer
+  :bind (("H-b a" . frog-jump-buffer)
+         ("H-b 4 a" . frog-jump-buffer-other-window)))
+
 (provide 'init-ibuffer)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-ibuffer.el ends here

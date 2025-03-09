@@ -17,10 +17,11 @@
     (copy-region-as-kill (line-beginning-position) (line-end-position))
     (pulse-momentary-highlight-region (line-beginning-position) (line-end-position)))
 
-  (defun uk-kill-whole-line ()
+  (defun uk-kill-whole-line (&optional arg)
     "If the region is active, delete all whole lines under the region.
+With prefix ARG, act as normal `kill-whole-line'
 If the region is not active, `kill-whole-line' line at the point."
-    (interactive)
+    (interactive "p")
     (if (region-active-p)
         (let ((start (save-excursion
                        (goto-char (region-beginning))
@@ -29,16 +30,16 @@ If the region is not active, `kill-whole-line' line at the point."
                      (goto-char (region-end))
                      (line-end-position))))
           (kill-region start end))
-      (kill-whole-line))))
+      (kill-whole-line arg))))
 
-(use-package simple
-  :ensure nil
-  :config
-  (defun my-show-trailing-whitespace ()
-    "Enable trailing whitespace display when visiting a file."
-    (when buffer-file-name
-      (setq show-trailing-whitespace t)))
-  :hook (find-file . my-show-trailing-whitespace))
+  (use-package simple
+    :ensure nil
+    :config
+    (defun uk-toggle-show-trailing-whitespace ()
+      "toggles show-trailing-whitespace"
+      (interactive)
+      (if show-trailing-whitespace (setq show-trailing-whitespace nil)
+        (setq show-trailing-whitespace t))))
 
 (use-package display-line-numbers
   :ensure nil

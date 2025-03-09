@@ -354,7 +354,12 @@ alias ys="yay -Qs | grep"
 #alias lsl="ls -al"
 # Changing "ls" to "exa"
 # alias l='ls'
-alias ls='eza --color=always --group-directories-first' # my preferred listing
+alias ls='eza --color=always --group-directories-first -F'
+alias ll="eza --color=always --group-directories-first -lF"
+alias la="eza --color=always --group-directories-first -laF"
+lsd() {
+    eza --color=always -DF --show-symlinks "$@"
+}
 # alias lt.='eza -aT --color=always --group-directories-first' # tree listing include hidden
 # alias lt='eza -T --color=always --group-directories-first' # tree listing not include hidden
 alias l.='eza -a | grep -E "^\."'
@@ -375,6 +380,3 @@ alias mkdir="mkdir -pv"
 
 # LOCAL MANUALS
 alias rust-doc="rustup docs --book"
-
-alias ll="eza --color=always --group-directories-first -l"
-alias la="eza --color=always --group-directories-first -la"

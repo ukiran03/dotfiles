@@ -1,63 +1,188 @@
 ! -*- compile-command: "xrdb ~/.config/X11/xresources" -*-
+! -*- mode: conf-xdefaults -*-
+
 ! <https://wiki.archlinux.org/title/Cursor_themes>
 Xcursor.theme: Bibata-Modern-Ice
 Xcursor.size: 16
 
-! Base16 Default Dark
-! Scheme: Chris Kempson (http://chriskempson.com)
+!! City Lights Colors
+*.foreground: #ffffff
+*.background: #171d23
+*.cursorColor: #fafafa
+*.color0: #333f4a
+*.color1: #d95468
+*.color2: #8bd49c
+*.color3: #ebbf83
+*.color4: #539afc
+*.color5: #b62d65
+*.color6: #70e1e8
+*.color7: #b7c5d3
+*.color8: #41505e
+*.color9: #d95468
+*.color10: #8bd49c
+*.color11: #ebbf83
+*.color12: #5ec4ff
+*.color13: #e27e8d
+*.color14: #70e1e8
+*.color15: #ffffff
 
-#define base00 #181818
-#define base01 #282828
-#define base02 #383838
-#define base03 #585858
-#define base04 #b8b8b8
-#define base05 #d8d8d8
-#define base06 #e8e8e8
-#define base07 #f8f8f8
-#define base08 #ab4642
-#define base09 #dc9656
-#define base0A #f7ca88
-#define base0B #a1b56c
-#define base0C #86c1b9
-#define base0D #7cafc2
-#define base0E #ba8baf
-#define base0F #a16946
+!!! Kaolin Light
+! *.foreground: #353b3c
+! *.background: #EDEEEB
+! *.cursorColor: #208f10
+! *.color0: #e6e6e8
+! *.color1: #e84c58
+! *.color2: #1D5E5C
+! *.color3: #ee7042
+! *.color4: #3B84CC
+! *.color5: #a9779c
+! *.color6: #6Facb6
+! *.color7: #303035
+! *.color8:  #c8ccc3
+! *.color9:  #e84c58
+! *.color10: #317A56
+! *.color11: #C5882C
+! *.color12: #4C7A90
+! *.color13: #6D46E3
+! *.color14: #008b8b
+! *.color15: #353b3c
+! *.highlightColor: #dbe0c0
+! *.highlightTextColor: #393330
 
-*.foreground:   base05
-#ifdef background_opacity
-*.background:   [background_opacity]base00
-#else
-*.background:   base00
-#endif
-*.cursorColor:  base05
+!! xft fonts teaking
+Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+Xft.autohint:   true
+Xft.lcdfilter:  lcddefault
 
-*.color0:       base00
-*.color1:       base08
-*.color2:       base0B
-*.color3:       base0A
-*.color4:       base0D
-*.color5:       base0E
-*.color6:       base0C
-*.color7:       base05
+!! 
 
-*.color8:       base03
-*.color9:       base09
-*.color10:      base01
-*.color11:      base02
-*.color12:      base04
-*.color13:      base06
-*.color14:      base0F
-*.color15:      base07
+!! Resources
+!! https://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod
+!! https://smarttech101.com/urxvt-installation-color-scheme-fonts-resize-etc
 
-! Font settings (for programs that do not support fontconfig)
-! ===========================================================
-Xft*antialias: 1
-Xft*rgba: rgb
-Xft*autohint: 0
-Xft*hinting: 1
-Xft*hintstyle: hintslight
-Xft*lcdfilter: lcddefault
+!! -- URxvt Settings
 
+URxvt.font: xft:Iosevka Term:size=11.25:style=Semibold
+URxvt.boldFont: xft:Iosevka Term:size=11.25:style=Bold
+URxvt.italicFont: xft:Iosevka Term:size=11.25:style=Italic
+URxvt.boldItalicFont: xft:Iosevka Term:size=11.25:style=Bold Italic
+
+URxvt.letterSpace: 0
+URxvt.lineSpace: 0
+URxvt*geometry: 80x240+0+0
+URxvt.internalBorder: 10
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: false
+URxvt*saveLines: 16384
+
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false
+URxvt.scrollBar_floating: false
+URxvt.scrollstyle: rxvt
+URxvt.iso14755: false
+
+! -------------------------
+!!! City Lights
+! URxvt.foreground: #ffffff
+! URxvt.background: #171d23
+! URxvt.cursorColor: #5ec4ff
+! ! black
+! URxvt.color0: #333f4a
+! URxvt.color8: #41505e
+! ! red
+! URxvt.color1: #d95468
+! URxvt.color9: #d95468
+! ! green
+! URxvt.color2: #8bd49c
+! URxvt.color10: #8bd49c
+! ! yellow
+! URxvt.color3: #ebbf83
+! URxvt.color11: #ebbf83
+! ! blue
+! URxvt.color4: #539afc
+! URxvt.color12: #5ec4ff
+! ! magenta
+! URxvt.color5: #b62d65
+! URxvt.color13: #e27e8d
+! ! cyan
+! URxvt.color6: #70e1e8
+! URxvt.color14: #70e1e8
+! ! white
+! URxvt.color7: #b7c5d3
+! URxvt.color15: #ffffff
+
+!!! Kaolin Light
+! URxvt.foreground: #353b3c
+! URxvt.background: #EDEEEB
+! URxvt.cursorColor: #208f10
+! URxvt.color0: #e6e6e8
+! URxvt.color1: #e84c58
+! URxvt.color2: #1D5E5C
+! URxvt.color3: #ee7042
+! URxvt.color4: #3B84CC
+! URxvt.color5: #a9779c
+! URxvt.color6: #6Facb6
+! URxvt.color7: #303035
+! URxvt.color8:  #c8ccc3
+! URxvt.color9:  #e84c58
+! URxvt.color10: #317A56
+! URxvt.color11: #C5882C
+! URxvt.color12: #4C7A90
+! URxvt.color13: #6D46E3
+! URxvt.color14: #008b8b
+! URxvt.color15: #353b3c
+! URxvt.highlightColor: #dbe0c0
+! URxvt.highlightTextColor: #393330
+! -------------------------
+
+URxvt.fading: 10
+URxvt.depth: 32
+URxvt.intensityStyles: false
+URxvt.urgentOnBell: True
+
+!! Common Keybinds for Navigations
+URxvt.keysym.Shift-Up: command:\033]720;1\007
+URxvt.keysym.Shift-Down: command:\033]721;1\007
+URxvt.keysym.Control-Up: \033[1;5A
+URxvt.keysym.Control-Down: \033[1;5B
+URxvt.keysym.Control-Right: \033[1;5C
+URxvt.keysym.Control-Left: \033[1;5D
+
+URxvt.perl-ext-common: default,selection-to-clipboard,matcher,keyboard-select,resize-font
+! URxvt.perl-ext-common: default,selection-to-clipboard,matcher,keyboard-select,resize-font
+
+! keyboard-select
+URxvt.keysym.M-s: perl:keyboard-select:search
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+
+! matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+! Up, Down, Home, End -- keys for navigation
+! y - yank
+! o - open
+URxvt.keysym.M-u: perl:matcher:select
+
+URxvt.clipboard.copycmd: xclip -i -sel clip
+URxvt.clipboard.pastecmd: xclip -o -sel clip
+
+! Keybinds
+URxvt.keysym.C-C:          perl:clipboard:copy
+URxvt.keysym.C-V:          perl:clipboard:paste
+
+URxvt.keysym.C-minus:     resize-font:smaller
+URxvt.keysym.C-plus:      resize-font:bigger
+URxvt.keysym.C-equal:     resize-font:reset
+URxvt.keysym.C-question:  resize-font:show
+URxvt.resize-font.step: 2
+
+URxvt.perl-lib: /home/ukiran/.config/urxvt/ext
+
+!! 
 ! xterm
 ! =====
 
@@ -103,8 +228,8 @@ xterm*highlightTextColor: XtDefaultBackground
 
 
 ! Font settings
-xterm*faceName: Iosevka
-xterm*faceSize: 8
+xterm*faceName: xft:Iosevka Term:size=11.25:style=Semibold
+! xterm*faceSize: 8
 xterm*renderFont: true
 xterm*boldColors: false
 xterm*faceSize1: 10
@@ -132,7 +257,6 @@ xterm*ttyModes: erase ^?
 
 ! Key bindings.  Use C-S-{c,v} to copy/paste as in GNOME terminal.  The
 ! keys "Prior" and "Next" represent PgUp and PgDown respectively.
-
 
 xterm*selectToClipboard: true
 xterm*translations: #override \n\

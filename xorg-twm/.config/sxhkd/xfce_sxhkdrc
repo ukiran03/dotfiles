@@ -1,9 +1,8 @@
 # Rofi
-super + {a,s,w,y}
-    {rofi -show drun, \
+super + {a,s,w}
+    {rofi -show drun -show-icons, \
     rofi -show run, \
-    rofi -show window, \
-    rofi -show filebrowser}
+    rofi -show window -show-icons}
 
 # Clipboard, rofi-greenclip
 super + grave
@@ -42,3 +41,8 @@ super + bracket{left,right}
 ### XFCE
 super + space
     /usr/bin/xfce4-popup-whiskermenu
+
+super + y; {b, c, s}
+    {polybar-toggle, \
+    conky-toggle, \
+    pkill -USR1 -x sxhkd && dunstify -a ignore -i key_bindings "Reloaded key bindings"}

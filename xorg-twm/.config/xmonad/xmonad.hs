@@ -27,6 +27,7 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.Tabbed
 -- import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
+-- import XMonad.Layout.WindowNavigation
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeysP, removeKeysP)
 import XMonad.Util.Hacks (javaHack, trayAbovePanelEventHook, trayPaddingEventHook, trayPaddingXmobarEventHook, trayerAboveXmobarEventHook, trayerPaddingXmobarEventHook, windowedFullscreenFixEventHook)
@@ -76,7 +77,7 @@ myKeys =
     ("M-w", spawn "rofi -show window -show-icons"),
     ("M-s", spawn "rofi -show run"),
     ("M-e", spawn "emacsclient -c -a 'emacs'"),
-    ("M-<Return>", spawn "alacritty -e tmux new-session -A -s 'Main'")
+    ("M-<Return>", spawn "urxvtc -e tmux new-session -A -s 'Main'")
   ]
     ++ [ ("M-.", nextWS), -- %! Switch to Next WS
          ("M-,", prevWS), -- %! Switch to Prev WS
@@ -155,24 +156,24 @@ myTabConfig =
 myLayout =
   showWName $
     avoidStruts $
-      BW.boringWindows $ -- Diff b/w BW.boringWindows and BW.boringAuto ??
-        onWorkspaces ["8", "9"] (tab ||| tiled) $
-          tiled ||| tab
+        BW.boringWindows $ -- Diff b/w BW.boringWindows and BW.boringAuto ??
+          onWorkspaces ["8", "9"] (tab ||| tiled) $
+            tiled ||| tab
   where
     threeCol =
       smartBorders $
-        renamed [Replace "ThreeCol"] $
+        renamed [Replace "threecol"] $
           maximizeWithPadding 1 $
             minimize $
               magnifiercz' 1.3 $
                 ThreeColMid nmaster delta ratio
     -- full = smartBorders $ renamed [Replace "Full"] $ minimize $ Full -- Not Compatible with BW
-    full = smartBorders $ renamed [Replace "Full"] $ minimize $ Simplest
-    mtile = renamed [Replace "MTall"] $ Mirror tiled
-    tab = smartBorders $ renamed [Replace "Tabbed"] $ noBorders (tabbed shrinkText myTabConfig)
+    full = smartBorders $ renamed [Replace "full"] $ minimize $ Simplest
+    mtile = renamed [Replace "mtall"] $ Mirror tiled
+    tab = smartBorders $ renamed [Replace "tabs"] $ noBorders (tabbed shrinkText myTabConfig)
     tiled =
       smartBorders $
-        renamed [Replace "Tall"] $
+        renamed [Replace "tall"] $
           reflectHoriz $
             maximizeWithPadding 1 $
               minimize $
@@ -183,7 +184,7 @@ myLayout =
     delta = 3 / 100 -- Percent of screen to increment by when resizing panes
 
 myTerminal :: String
-myTerminal = "alacritty"
+myTerminal = "urxvtc"
 
 myWorkspaces = map show [1 .. 9 :: Int]
 
@@ -227,7 +228,7 @@ myXmobarPP =
     yellow = xmobarColor "#d0bc00" ""
     red = xmobarColor "#ff5f59" ""
     lowWhite = xmobarColor "#d0d0d0" ""
-    cyan = xmobarColor "#00d3d0" ""
+    cyan = xmobarColor "#00fcfc" ""
     slategray = xmobarColor "#2F4F4F" ""
     silver = xmobarColor "#C0C0C0" ""
     fadeGray = xmobarColor "#3C4449" ""
@@ -237,8 +238,8 @@ myManageHook :: ManageHook
 myManageHook =
   composeAll
     [ className =? "Gimp" --> doFloat,
+      title =? "World" --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2)),
       className =? "mpv" --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2)),
-      -- className =? "mpv" --> doCenterFloat,
       className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat, -- Firefox pip
       resource =? "desktop_window" --> doIgnore,
       className =? "TelegramDesktop" --> viewShift (myWorkspaces !! 8),
@@ -247,7 +248,7 @@ myManageHook =
       className =? "calibre" --> viewShift (myWorkspaces !! 8),
       className =? "Liferea" --> viewShift (myWorkspaces !! 7),
       className =? "Thunderbird" --> viewShift (myWorkspaces !! 7),
-      isDialog --> doFloat,
+      isDialog --> doCenterFloat,
       isFullscreen --> doFullFloat,
       checkDock --> doLower
     ]
@@ -256,5 +257,20 @@ myManageHook =
 
 myStartupHook :: X ()
 myStartupHook = do
+  spawnOnce "urxvtd -q &"
   spawnOnce "bash $HOME/.config/startup/xmonad_startup"
+  spawnOnce "~/.fehbg &"
+  spawnOnce "dunst &"
+  spawnOnce "greenclip daemon &"
+  spawnOnce "thunar --daemon &"
+  spawnOnce "nm-applet &"
+  spawnOnce "nmcli networking off &"
+  spawnOnce "numlockx on &"
+  spawnOnce "xmodmap $XDG_CONFIG_HOME/X11/xmodmap"
+  spawnOnce "xfce4-power-manager &"
+  spawnOnce "/usr/bin/pipewire-pulse &"
+  spawnOnce "/usr/bin/pipewire &"
+  spawnOnce "/usr/libexec/polkit-gnome-authentication-agent-1 &"
+  spawnOnce "trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x171d23 --height 21 &"
+  spawnOnce "{ xrandr | grep 'HDMI-1-0 connected' >/dev/null && xrandr --output HDMI-1-0 --auto --primary && xrandr --output eDP-1 --off ;} || { xrandr --output eDP-1 --auto --primary && xrandr --output HDMI-1-0 --off ;}"
   spawnOnce "sxhkd -c $HOME/.config/sxhkd/xmonad_sxhkdrc"

@@ -4,7 +4,7 @@ eval "$(zoxide init zsh)"
 ## Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 ## fzf
-export FZF_CTRL_R_OPTS='--reverse --border=bold --border-label="Shell History" --prompt "Search: " --info inline-right'
+export FZF_CTRL_R_OPTS='--prompt "Shell: " --info inline-right --height=35%'
 
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
@@ -15,9 +15,9 @@ export FZF_CTRL_T_OPTS="
 # Print tree structure in the preview window
 export FZF_ALT_C_OPTS="
   --walker-skip .git,node_modules,target
-  --preview 'tree -C {}'"
+  --preview 'ls --color=always --group-directories-first -F {}'"
 
-export FZF_DEFAULT_OPTS='--reverse --height=75% --border=bold --prompt "Search: " --info inline-right'
+export FZF_DEFAULT_OPTS='--reverse --color 16 --height=50% --border=bold --prompt "Search: " --info inline-right'
 
 
 # SHELL ZSH

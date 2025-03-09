@@ -78,7 +78,7 @@
 ;; 		            :family "Iosevka Extended"
 ;; 		            :height 95
 ;; 		            :weight 'medium)
-(set-frame-font "Iosevka Medium Extended-10" nil t)
+(set-frame-font "Iosevka Medium-11.25" nil t)
 
 ;; (unless (eq window-system 'ns)
 ;;   (menu-bar-mode -1))
@@ -106,7 +106,7 @@
     (save-place-mode 1)
   (require 'saveplace)
   (setq-default save-place t))
-
+(when (fboundp 'which-key-mode) (which-key-mode 1))
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
 (electric-pair-mode 1)
 

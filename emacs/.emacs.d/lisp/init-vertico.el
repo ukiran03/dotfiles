@@ -34,7 +34,6 @@
             (consult-recent-file grid)
             (consult-grep buffer)
             (consult-git-grep buffer)
-            (consult-theme grid)
             (fontaine-set-preset flat)
             (consult-imenu buffer indexed)
             (consult-ripgrep buffer)))))

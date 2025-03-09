@@ -11,58 +11,54 @@
 (use-package hl-line
   :ensure nil
   :hook ((after-init . global-hl-line-mode)
-         ((dashboard-mode eshell-mode shell-mode term-mode vterm-mode) .
+         ((dashboard-mode eshell-mode shell-mode term-mode eat-mode vterm-mode) .
           (lambda () (setq-local global-hl-line-mode nil)))))
 
-(use-package lin :ensure nil)                       ;by `Prot'
+(use-package lin :ensure nil)
 
-(use-package pulsar
-  :ensure t
-  :init
-  (pulsar-global-mode 1)
-  :config
-  (setq pulsar-pulse t)
-  (setq pulsar-delay 0.05)
-  (setq pulsar-iterations 10)
-  (setq pulsar-face 'pulsar-generic)
-  (setq pulsar-highlight-face 'pulsar-cyan)
-  (setq pulsar-pulse-on-window-change t)
-  ;; (advice-add #'kill-ring-save :before #'pulsar-pulse-region)
-  ;; (add-to-list 'kill-ring-save 'pulsar-pulse-functions)
-  (dolist (func '(
-                  avy-goto-char-2
-                  avy-goto-line
-                  avy-goto-word-1
-                  avy-goto-char-timer
-                  avy-copy-line
-                  avy-kill-whole-line
-                  uk-toggle-window-split
-                  aw-select
-                  ace-window
-                  keyboard-quit
-                  popper-toggle
-                  pop-to-mark-command
-                  pop-global-mark
-                  goto-last-change
-                  kill-ring-save        ; DEBUG
-                  exit-minibuffer
-                  abort-minibuffers))
-    (add-to-list 'pulsar-pulse-functions func))
-  :hook
-  ((next-error . pulsar-pulse-line)
-   (minibuffer-setup . pulsar-pulse-line-red)
-   (imenu-after-jump . pulsar-recenter-center)
-   (imenu-after-jump . pulsar-reveal-entry)
-   (consult-after-jump . pulsar-recenter-center)
-   (consult-after-jump . pulsar-reveal-entry))
-  :bind
-  (("C-c p p" . pulsar-pulse-line)   ; override `count-lines-page'
-   ("C-c p h" . pulsar-highlight-dwim)) ; or use `pulsar-highlight-line'
-  )
+(when (display-graphic-p)
+  (use-package pulsar
+    :ensure t
+    :init
+    (pulsar-global-mode 1)
+    :config
+    (setq pulsar-pulse t)
+    (setq pulsar-delay 0.03)
+    (setq pulsar-iterations 5)
+    (setq pulsar-face 'pulsar-generic)
+    (setq pulsar-highlight-face 'pulsar-cyan)
+    (setq pulsar-pulse-on-window-change t)
+    ;; (setq pulsar-pulse-region-functions 'region-funcs)
+    (dolist (region-funcs
+             '(easy-kill
+               yank kill-rectangle
+               kill-region kill-ring-save uk-kill-whole-line
+               transpose-words transpose-chars transpose-lines
+               yank-rectangle open-rectangle undo primitive-undo))
+      (add-to-list 'pulsar-pulse-region-functions region-funcs))
+    (dolist
+        (func
+         '(avy-goto-char-2
+           avy-goto-line avy-goto-word-1 avy-goto-char-timer
+           avy-copy-line avy-kill-whole-line
+           uk-toggle-window-split aw-select
+           ace-window keyboard-quit popper-toggle pop-to-mark-command pop-global-mark
+           goto-last-change
+           exit-minibuffer abort-minibuffers))
+      (add-to-list 'pulsar-pulse-functions func))
+    :hook
+    ((next-error . pulsar-pulse-line)
+     (imenu-after-jump . pulsar-recenter-center)
+     (imenu-after-jump . pulsar-reveal-entry)
+     (consult-after-jump . pulsar-recenter-center)
+     (consult-after-jump . pulsar-reveal-entry))
+    :bind
+    (("C-c p p" . pulsar-pulse-line)   ; override `count-lines-page'
+     ("C-c p h" . pulsar-highlight-dwim))))
 
 
 (use-package pulse
-  ;; :disabled                             ; using pulsar-pulse-region
+  :disabled                             ; using pulsar-pulse-region
   :ensure nil
   :config
   (defun re-uk-pulse-current-region (&rest _)
@@ -76,11 +72,12 @@
 
 ;; Pulse modified region
 (use-package goggles
+  :disabled
   :diminish
   :hook ((prog-mode text-mode) . goggles-mode)
   :config
   (setq-default goggles-pulse t)
-  (setq-default goggles-pulse-delay 0.05)) ;; set to nil to disable pulsing
+  (setq-default goggles-pulse-delay 0.09)) ;; set to nil to disable pulsing
 
 ;; Highlight matching parens
 (use-package paren
@@ -114,29 +111,12 @@
 	     ("M-P" . symbol-overlay-switch-backward)
 	     ("M-C" . symbol-overlay-remove-all)
 	     ([M-f3] . symbol-overlay-remove-all))
-  :hook (((prog-mode yaml-mode) . symbol-overlay-mode)
-	     (iedit-mode            . turn-off-symbol-overlay)
-         ;; (racket-mode           . turn-off-symbol-overlay)
-	     (iedit-mode-end        . turn-on-symbol-overlay))
   :init (setq symbol-overlay-idle-time 0.1)
-  :config
-  (with-no-warnings
-    ;; Disable symbol highlighting while selecting
-    (defun turn-off-symbol-overlay (&rest _)
-      "Turn off symbol highlighting."
-      (interactive)
-      (symbol-overlay-mode -1))
-    (advice-add #'set-mark :after #'turn-off-symbol-overlay)
-    (defun turn-on-symbol-overlay (&rest _)
-      "Turn on symbol highlighting."
-      (interactive)
-      (when (derived-mode-p 'prog-mode 'yaml-mode)
-	    (symbol-overlay-mode 1)))
-    (advice-add #'deactivate-mark :after #'turn-on-symbol-overlay)))
+  :hook (prog-mode . symbol-overlay-mode))
 
 (use-package colorful-mode
   :diminish
-  :hook (prog-mode . global-colorful-mode)
+  ;; :hook (prog-mode . global-colorful-mode)
   :init (setq colorful-use-prefix t
               colorful-prefix-string "⬤")
   :config (dolist (mode '(html-mode php-mode help-mode helpful-mode))

@@ -40,10 +40,12 @@
 
 (use-package rg
   :ensure t
-  :bind (:map isearch-mode-map
-              ("M-s r" . rg-isearch-menu))
-  :config
-  (setq rg-keymap-prefix "M-s R"))
+  :bind ((:map isearch-mode-map
+               ("M-s r" . rg-isearch-menu))
+         (:map global-map
+               ("M-s R" . rg-menu))))
+(use-package deadgrep
+  :bind ("M-s C-r" . deadgrep))
 
 (use-package substitute
   :ensure t)

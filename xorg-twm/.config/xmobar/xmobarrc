@@ -1,5 +1,5 @@
 Config { overrideRedirect = False
-       , font = "xft:Iosevka Nerd Font Mono:size=11:semibold:antialias=true"
+       , font = "xft:Iosevka:size=10.25:bold:antialias=true"
        -- , additionalFonts = ["xft:Iosevka Nerd Font:weight=bold:pixelsize=10"]
        , bgColor  = "#171d23"
        , fgColor  = "#ffffff"
@@ -8,9 +8,9 @@ Config { overrideRedirect = False
        , iconRoot = "/home/ukiran/.config/xmobar/xpm/"
        , commands = [ Run BatteryP ["BAT1"]
                        ["-t", "<fc=#6D8895>Bat:</fc> <acstatus><left>"
-                       , "-L", "20", "-H", "80"
-                       , "-l", "#ff6b55", "-h", "#88ca9f"
-                       , "--", "-O", "<fc=#88ca9f>CH+</fc> ", "-o", "<fc=#fec43f>DC-</fc> "
+                       , "-L", "20", "-H", "85"
+                       , "-l", "#ff6b55", "-h", "green"
+                       , "--", "-O", "<fc=green>C+</fc> ", "-o", "<fc=#FEC43F>D-</fc> "
                        , "-a", "dunstify -i '/usr/share/icons/Papirus-Dark/32x32@2x/panel/battery-000.svg' -u critical -r 2389 'Battery running out!!'"
                        , "-P", "%"
                        , "-A", "20"] 100
@@ -30,11 +30,11 @@ Config { overrideRedirect = False
                     -- , Run Com "dunst-count.sh"[] "dunst" 50
                     , Run Com "dis-bright.sh"[] "bright" 50
                     , Run Memory ["--template", "<fc=#6D8895>Mem:</fc> <usedratio>%"] 50
-                    , Run Date "%A, %d %b %Y ( %I:%M%p )" "date" 300
+                    , Run Date "%a, %d %b %Y, <fc=cyan>%I:%M %p</fc>" "date" 300
                     , Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 30
                     , Run XMonadLog
                     ]
        , sepChar  = "%"
        , alignSep = "}{"
-       , template = " <icon=xmonad_xpm_haskell_20.xpm/> <fc=#6D8895>void</fc> <fc=#3c4449>|</fc> %XMonadLog% } %date% { %cpu%  - %memory% <fc=#3c4449>|</fc> %bright% <fc=#3c4449>|</fc> <fc=#42A5F5>Vol: </fc>%vol%  %battery% <fc=#3c4449>|</fc> %trayerpad%"
+       , template = " <icon=xmonad_xpm_haskell_20.xpm/> <fc=#3c4449>|</fc> %XMonadLog% } %date% { %cpu%  - %memory% <fc=#3c4449>|</fc> %bright%  <fc=#42A5F5>Vol: </fc>%vol%  %battery% <fc=#3c4449>|</fc> %trayerpad%"
        }

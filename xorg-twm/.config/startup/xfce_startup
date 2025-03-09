@@ -13,11 +13,11 @@ _check () {
 # NOTE 2023-07-16: The -option used to accept a comma separated list.
 # Now it requires each option to be specified separately.
 
-if _check setxkbmap
-then
-    setxkbmap -option 'ctrl:nocaps' \
-              -option 'altwin:menu_win' -option 'caps:none'
-fi
+# if _check setxkbmap
+# then
+#     setxkbmap -option 'ctrl:nocaps' \
+#               -option 'altwin:menu_win' -option 'caps:none'
+# fi
 
 # The hotkey daemon that handles all custom key bindings.
 _check sxhkd && sxhkd -c "$HOME"/.config/sxhkd/xfce_sxhkdrc &
@@ -27,6 +27,9 @@ xmodmap "$XDG_CONFIG_HOME/X11/xmodmap"
 
 # Clipboard Manager
 greenclip daemon &
+
+# terminal: urxvt
+urxvtd -q &
 
 # Number Lock
 _check numlockx && numlockx on &

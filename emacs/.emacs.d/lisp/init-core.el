@@ -9,6 +9,10 @@
   :config
   (setq help-window-select t))
 
+;; C-v and M-v don't undo each other, because the point position isn't
+;; preservered. Fix that.
+(setq scroll-preserve-screen-position 'always)
+
 (use-package help
   :ensure nil
   :init
@@ -159,7 +163,12 @@
 
 ;; Basic modes
 (delete-selection-mode 1)
-(setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+
+;; Automatic parenthesis pairing
+(use-package elec-pair
+  :ensure nil
+  :hook (after-init . electric-pair-mode)
+  :init (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit))
 (add-hook 'minibuffer-setup-hook #'subword-mode)
 
 ;; (set-face-attribute 'org-modern-symbol nil :family "Iosevka" :height 110)

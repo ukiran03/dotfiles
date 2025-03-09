@@ -28,5 +28,13 @@
   (setq haskell-process-name "/usr/bin/ghci")
   (use-package hindent))
 
+;; -- Forth
+(use-package forth-mode
+  :init
+  (use-package forth-block-mode
+    :ensure nil)
+  (use-package forth-interaction-mode
+    :ensure nil))
+
 (provide 'init-langs)
 ;;; init-langs.el ends here

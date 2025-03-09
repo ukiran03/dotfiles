@@ -129,19 +129,26 @@
   "C-g" 'keyboard-quit)
 (keymap-set global-map "H-v" vc-hyper-map)
 
+;; (defvar-keymap window-hyper-map
+;;   :doc "`window' hyper map."
+;;   :name "Window"
+;;   "C-g" 'keyboard-quit
+;;   "o"    'ace-window
+;;   "-"    #'fit-window-to-buffer
+;;   "_"    #'shrink-window-if-larger-than-buffer
+;;   "="    #'balance-windows
+;;   "+"    #'balance-windows-area
+;;   "0"    #'delete-windows-on
+;;   "2"    #'split-root-window-below
+;;   "3"    #'split-root-window-right
+;;   "s"    #'window-toggle-side-windows)
+;; (keymap-set global-map "H-w" window-hyper-map)
+
 (defvar-keymap window-hyper-map
   :doc "`window' hyper map."
-  :name "Window"
-  "C-g" 'keyboard-quit
-  "o"    'ace-window
-  "-"    #'fit-window-to-buffer
-  "_"    #'shrink-window-if-larger-than-buffer
-  "="    #'balance-windows
-  "+"    #'balance-windows-area
-  "0"    #'delete-windows-on
-  "2"    #'split-root-window-below
-  "3"    #'split-root-window-right
-  "s"    #'window-toggle-side-windows)
+  :name "window"
+  :parent window-prefix-map
+  "C-g" 'keyboard-quit)
 (keymap-set global-map "H-w" window-hyper-map)
 
 ;; (keymap-set global-map "H-e" #'eval-last-sexp)

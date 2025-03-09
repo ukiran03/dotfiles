@@ -15,14 +15,22 @@
       ("Basic"
        (("a" aggressive-indent-mode "Ag indent" :toggle t)
         ("p" puni-mode "Puni" :toggle t)
-        ("c" colorful-mode "colorful" :toggle t))
+        ("F" format-all-mode "FMT" :toggle t))
        "Highlight"
        (("h s" symbol-overlay-mode "symbol OL" :toggle t)
-        ("h t" global-hl-todo-mode "todo" :toggle t))
+        ("h t" global-hl-todo-mode "todo" :toggle t)
+        ("c" colorful-mode "colorful" :toggle t))
        "Program"
        (("f" flymake-mode "flymake" :toggle t)
         ("v" diff-hl-mode "diff-hl" :toggle t)
         ("d" diff-hl-dired-mode "dired diff-hl" :toggle t))))))
+
+;; Emacs 30.1
+(use-package completion-preview
+  :ensure nil
+  :diminish
+  :hook
+  (prog-mode . completion-preview-mode))
 
 (use-package newcomment
   :ensure nil
@@ -77,11 +85,10 @@
 ;;;; Setup Folding For Programming
 (use-package puni
   :ensure t
-  :init
-  (puni-global-mode)
-  :hook (((calc-mode term-mode vterm-mode info-mode) . puni-disable-puni-mode)
-         ;; ((prog-mode racket-repl-mode eval-expression-minibuffer-setup-hook) . puni-mode)
-         (puni-mode  . electric-pair-local-mode))
+  :hook (((prog-mode racket-repl-mode eval-expression-minibuffer-setup-hook) . puni-mode)
+         ((calc-mode term-mode vterm-mode info-mode vertico-mode) . puni-disable-puni-mode)
+         ;; (puni-mode  . electric-pair-local-mode)
+         )
   :bind (("C-c s" . puni-mode)
          :map puni-mode-map
          ([remap backward-sentence] . puni-end-of-sexp)
