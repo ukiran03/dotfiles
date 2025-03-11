@@ -121,6 +121,24 @@
 ;; <https://github.com/mattiasb/dired-hide-dotfiles/blob/master/dired-hide-dotfiles.el>
 ;; <https://stackoverflow.com/questions/43628315/how-to-hide-one-dot-current-directory-in-dired-mode>
 
+(use-package dired
+  :ensure nil
+  :bind (:map dired-mode-map
+              ("C-S-o" . dired-view-file-ow))
+  :config
+  (defun dired-view-file-ow ()
+    "In Dired, examine a file in view mode on `other-window', returning to Dired when done.
+When file is a directory, show it in this buffer if it is inserted.
+Otherwise, display it in another buffer."
+    (interactive nil dired-mode)
+    (let ((file (dired-get-file-for-visit)))
+      (if (file-directory-p file)
+	      (or (and (cdr dired-subdir-alist)
+		           (dired-goto-subdir file))
+	          (dired file))
+        (view-file-other-window file)))))
+
+
 (provide 'init-dired)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
