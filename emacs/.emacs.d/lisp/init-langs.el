@@ -25,8 +25,15 @@
 ;; -- Bash
 (use-package haskell-mode
   :config
-  (setq haskell-process-name "/usr/bin/ghci")
-  (use-package hindent))
+  ;; (setq haskell-process-name "/usr/bin/ghci")
+  ;; (setq haskell-process-name "~/.ghcup/bin/ghci")
+  ;; (add-to-list 'load-path "/path/to/hindent/site-lisp")
+  (use-package hindent
+    :load-path ("site-lisp/hindent")
+    :hook (haskell-mode . hindent-mode))
+  (use-package hs-lint
+    :load-path ("site-lisp/hlint")
+    ))
 
 ;; -- Forth
 (use-package forth-mode

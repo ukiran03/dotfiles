@@ -39,3 +39,5 @@ fi
 export PODMAN_IGNORE_CGROUPSV1_WARNING
 
 #. "/home/ukiran/.local/share/cargo/env"
+
+[ -f "/home/ukiran/.ghcup/env" ] && . "/home/ukiran/.ghcup/env" # ghcup-env

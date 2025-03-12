@@ -24,7 +24,7 @@
     :config
     (setq pulsar-pulse t)
     (setq pulsar-delay 0.03)
-    (setq pulsar-iterations 5)
+    (setq pulsar-iterations 10)
     (setq pulsar-face 'pulsar-generic)
     (setq pulsar-highlight-face 'pulsar-cyan)
     (setq pulsar-pulse-on-window-change t)

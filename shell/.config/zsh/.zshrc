@@ -128,3 +128,5 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ### Icons and Colors
 # ∮ ∯ ≎           󱑌(clock)
+
+[ -f "/home/ukiran/.ghcup/env" ] && . "/home/ukiran/.ghcup/env" # ghcup-env
