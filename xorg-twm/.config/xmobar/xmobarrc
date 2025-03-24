@@ -1,40 +1,57 @@
-Config { overrideRedirect = False
-       , font = "xft:Iosevka:size=10.25:bold:antialias=true"
+Config
+  { overrideRedirect = False
+  , font = "xft:Iosevka:size=10.25:bold:antialias=true"
        -- , additionalFonts = ["xft:Iosevka Nerd Font:weight=bold:pixelsize=10"]
-       , bgColor  = "#171d23"
-       , fgColor  = "#ffffff"
-       , position = TopW L 100
-       , lowerOnStart = True
-       , iconRoot = "/home/ukiran/.config/xmobar/xpm/"
-       , commands = [ Run BatteryP ["BAT1"]
-                       ["-t", "<fc=#6D8895>Bat:</fc> <acstatus><left>"
-                       , "-L", "20", "-H", "85"
-                       , "-l", "#ff6b55", "-h", "green"
-                       , "--", "-O", "<fc=green>C+</fc> ", "-o", "<fc=#FEC43F>D-</fc> "
-                       , "-a", "dunstify -i '/usr/share/icons/Papirus-Dark/32x32@2x/panel/battery-000.svg' -u critical -r 2389 'Battery running out!!'"
-                       , "-P", "%"
-                       , "-A", "20"] 100
-                    , Run Cpu
-                        ["-t", "<fc=#6D8895>Cpu:</fc> <total>%" -- <bar>
-                        , "-L", "3"
-                        , "-H", "50"
-                        , "--high"  , "#ff5f59"
-                        , "--normal", "#88ca9f"
-                        ] 50
-                    , Run Com "pamixer" ["--get-volume-human"] "vol" 40
+  , bgColor = "#171d23"
+  , fgColor = "#ffffff"
+  , position = TopW L 100
+  , lowerOnStart = True
+  , iconRoot = "/home/ukiran/.config/xmobar/xpm/"
+  , commands =
+      [ Run
+          BatteryP
+          ["BAT1"]
+          [ "-t"
+          , "<fc=#6D8895>Bat:</fc> <acstatus><left>"
+          , "-L" , "20"
+          , "-H" , "85"
+          , "-l" , "#ff6b55"
+          , "-h" , "#88ca9f"
+          , "--"
+          , "-O" , "<fc=#88ca9f>C+</fc> "
+          , "-o" , "<fc=#FEC43F>D-</fc> "
+          , "-a" , "dunstify -i '/usr/share/icons/Papirus-Dark/32x32@2x/panel/battery-000.svg' -u critical -r 2389 'Battery running out!!'"
+          , "-P" , "%"
+          , "-A" , "20"
+          ]
+          100
+      , Run
+          Cpu
+          [ "-t"
+          , "<fc=#6D8895>Cpu:</fc> <total>%" -- <bar>
+          , "-L" , "3"
+          , "-H" , "50"
+          , "--high" , "#ff5f59"
+          , "--normal" , "#88ca9f"
+          ]
+          50
+      , Run Com "pamixer" ["--get-volume-human"] "vol" 40
                     -- , Run MultiCoreTemp ["-t", "<avg>°C",    -- %multicoretemp%
                     --                      "-L", "60", "-H", "80",
                     --                      "-l", "#88ca9f", "-n", "#fec43f", "-h", "ff6b55",
                     --                      "--", "--mintemp", "20", "--maxtemp", "80"] 50
                     -- , Run ThermalZone 0 ["-t","<id>: <temp>C"] 30
                     -- , Run Com "dunst-count.sh"[] "dunst" 50
-                    , Run Com "dis-bright.sh"[] "bright" 50
-                    , Run Memory ["--template", "<fc=#6D8895>Mem:</fc> <usedratio>%"] 50
-                    , Run Date "%a, %d %b %Y, <fc=cyan>%I:%M %p</fc>" "date" 300
-                    , Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 30
-                    , Run XMonadLog
-                    ]
-       , sepChar  = "%"
-       , alignSep = "}{"
-       , template = " <icon=xmonad_xpm_haskell_20.xpm/> <fc=#3c4449>|</fc> %XMonadLog% } %date% { %cpu%  - %memory% <fc=#3c4449>|</fc> %bright%  <fc=#42A5F5>Vol: </fc>%vol%  %battery% <fc=#3c4449>|</fc> %trayerpad%"
-       }
+      , Run Com "dis-bright.sh" [] "bright" 50
+      , Run DynNetwork [ "-t","<fc=#88ca9f><dev><up></fc>"] 10
+      -- , Run Network "emp4s0" ["--template", "Net: <tx>kB|<rx>kB", "-L","1000","-H","5000", "--low", "gray", "--normal","green","--high","red"] 10
+      , Run Memory ["--template", "<fc=#6D8895>Mem:</fc> <usedratio>%"] 50
+      , Run Date "%a, %d %b %Y, <fc=cyan>%I:%M %p</fc>" "date" 300
+      , Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 30
+      , Run XMonadLog
+      ]
+  , sepChar = "%"
+  , alignSep = "}{"
+  , template =
+      " <icon=xmonad_xpm_haskell_20.xpm/> <fc=#3c4449>|</fc> %XMonadLog% } %date% { %dynnetwork%  %cpu%  - %memory% <fc=#3c4449>|</fc> %bright%  <fc=#42A5F5>Vol: </fc>%vol%  %battery% <fc=#3c4449>|</fc> %trayerpad%"
+  }

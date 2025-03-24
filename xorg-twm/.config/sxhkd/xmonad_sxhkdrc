@@ -28,6 +28,8 @@ alt + F7
 XF86Mail
    thunderbird
 
+XF86Explorer
+    /home/ukiran/.local/bin/internet
 # terminal: zellij or tmux
 super + {_, shift + } Return
         {urxvtc -e tmux new-session -A -s 'Main', urxvtc}
@@ -35,6 +37,8 @@ super + {_, shift + } Return
 shift + KP_End
     thunar
 
+super + ctrl + 2
+    thunar
 # Screenshot using `maim'
 Print
    /home/ukiran/.local/bin/screenshot.sh
@@ -58,9 +62,10 @@ super + ctrl + F9
 super + bracket{left,right}
     /home/ukiran/.local/bin/uk-bright {down,up}
 
-super + y; {b, c, s}
+super + y; {b, c, p, s}
     {polybar-toggle, \
     conky-toggle, \
+    picom-toggle, \
     pkill -USR1 -x sxhkd && dunstify -a ignore -i key_bindings "Reloaded key bindings"}
 
 # pkill -USR1 -x sxhkd && dunstify -a ignore -i key_bindings "Reloaded key bindings"

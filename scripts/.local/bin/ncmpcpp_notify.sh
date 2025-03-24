@@ -4,10 +4,10 @@
 # execute_on_song_change must be set in ncmpcpp config
 
 # readonly MUSIC_DIR="${HOME}/Music/Library"
-readonly MUSIC_DIR="${HOME}/Music"
-readonly SONG_PATH="$(mpc --format '%file%' current)"
-readonly SONG_DIR="$(dirname "${SONG_PATH}")"
-readonly ALBUM_ART_PATH="${MUSIC_DIR}/${SONG_DIR}/cover.jpg"
+# readonly MUSIC_DIR="${HOME}/Music"
+# readonly SONG_PATH="$(mpc --format '%file%' current)"
+# readonly SONG_DIR="$(dirname "${SONG_PATH}")"
+# readonly ALBUM_ART_PATH="${MUSIC_DIR}/${SONG_DIR}/cover.jpg"
 
 # DUNST_ICON=""
 

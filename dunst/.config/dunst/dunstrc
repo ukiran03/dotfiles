@@ -124,8 +124,10 @@
 
     ### Text ###
 
-    font = Monospace 8
-    # font = Roboto Mono Nerd Font 9
+    # font = Monospace 8
+    # font = Iosevka Aile 10
+    font = Iosevka 9
+    # font = Roboto Mono Nerd Font 8
     # font = Iosevka Nerd Font 8
     # font = Iosevka Extended 8
 
@@ -168,7 +170,7 @@
     #   %%  Literal %
     # Markup is allowed
     # format = "<b>%s</b>\n%b"
-    format = "<span weight='bold' font='8.5'>%s</span>\n%b"
+    format = "<span weight='ultrabold' font='10.25'>%s</span>\n<span weight='bold'>%b</span>"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
@@ -321,7 +323,7 @@
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#24283b"
-    foreground = "#a9b1d6"
+    foreground = "#bcc3e3"
     frame_color = "#444B6A"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
@@ -329,7 +331,7 @@
 
 [urgency_normal]
     background = "#24283b"
-    foreground = "#a9b1d6"
+    foreground = "#bcc3e3"
     frame_color = "#444B6A"
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable

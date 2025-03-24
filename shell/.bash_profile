@@ -11,3 +11,5 @@ if [ -z "$XDG_RUNTIME_DIR" ]; then
 	mkdir -pm 0700 "$XDG_RUNTIME_DIR"
 	export XDG_RUNTIME_DIR
 fi
+
+source /home/ukiran/.config/broot/launcher/bash/br

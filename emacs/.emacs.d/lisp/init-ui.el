@@ -77,6 +77,7 @@
   :diminish
   :bind ("<f7>" . olivetti-mode)
   :config
+  (setq olivetti-style 'fancy)
   ;; (setq olivetti-body-width 0.62)
   )
 

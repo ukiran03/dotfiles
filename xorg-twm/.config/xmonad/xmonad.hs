@@ -1,22 +1,26 @@
+-- import XMonad.Layout.SimpleDecoration
 -- import XMonad.Layout.WindowNavigation
 -- import XMonad.Actions.WindowMenu
 -- import XMonad.Actions.ShowText
 -- import XMonad.Actions.SimpleDate
 -- import XMonad.Hooks.DynamicLog NOTE:
 -- NOTE:
--- import XMonad.Layout.Magnifier
 -- import XMonad.Layout.ShowWName (showWName)
 -- import qualified XMonad.Layout.BoringWindows (boringWindows, swapUp, swapDown, focusMaster, focusUp, focusDown, boringAuto)
 -- import XMonad.Layout.LayoutModifier
 -- import XMonad.Layout.Simplest
 -- TODO:
--- import XMonad.Layout.ThreeColumns
 -- import XMonad.Layout.DecorationMadness
 -- import XMonad.Layout.SimpleDecoration
 -- import XMonad.Layout.NoFrillsDecoration
+-- import XMonad.Util.WorkspaceCompare
+-- import XMonad.Layout.DecorationEx
+-- import XMonad.Layout.NoFrillsDecoration
 import Colors.CityLights
 import Control.Monad (liftM2)
+import qualified Data.Map as M
 import Data.Ratio ((%))
+import System.Exit
 import XMonad
 import XMonad.Actions.CopyWindow
   ( copiesPP
@@ -33,8 +37,12 @@ import XMonad.Actions.CycleWS
   , hiddenWS
   , ignoringWSs
   , moveTo
+  , nextScreen
   , nextWS
+  , prevScreen
   , prevWS
+  , shiftNextScreen
+  , shiftPrevScreen
   , shiftTo
   , shiftToNext
   , shiftToPrev
@@ -69,11 +77,16 @@ import XMonad.Hooks.StatusBar.PP
   , ppSep
   , shorten
   , wrap
+  , xmobarBorder
   , xmobarColor
   , xmobarRaw
   , xmobarStrip
   )
 import qualified XMonad.Layout.BoringWindows as BW
+import XMonad.Layout.LimitWindows (limitWindows)
+
+import XMonad.Layout.LayoutModifier (ModifiedLayout)
+import XMonad.Layout.Magnifier
 import XMonad.Layout.Maximize (maximizeRestore, maximizeWithPadding)
 import XMonad.Layout.Minimize (minimize)
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
@@ -83,8 +96,13 @@ import XMonad.Layout.Renamed (Rename(Replace), renamed)
 import XMonad.Layout.ResizableTile (MirrorResize(..), ResizableTall(..))
 import XMonad.Layout.Spacing (smartSpacing)
 import XMonad.Layout.Tabbed (Theme(..), shrinkText, tabbed)
+import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPane
 import XMonad.Prompt
+import XMonad.Prompt.ConfirmPrompt
+import XMonad.Prompt.Layout
+
+import XMonad.Prompt.Man
 import XMonad.Prompt.Window
 import XMonad.Prompt.Workspace
 import XMonad.Prompt.XMonad
@@ -103,7 +121,6 @@ import XMonad.Util.Loggers (logTitles)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.SpawnOnce (spawnOnce)
 
--- import XMonad.Util.WorkspaceCompare
 main :: IO ()
 main =
   xmonad
@@ -113,7 +130,9 @@ main =
     . withEasySB
         (statusBarProp
            "xmobar ~/.config/xmobar/xmobarrc"
-           (copiesPP (xmobarColor colorBlue "" . wrap (":") ("")) myXmobarPP)
+           (copiesPP (xmobarColor colorBlue "" . wrap (":") ("")) myXmobarPP
+           -- def
+            )
           -- (pure myXmobarPP)
          )
         defToggleStrutsKey
@@ -136,7 +155,7 @@ myConfig =
     , focusedBorderColor = colorActive
     }
     `additionalKeysP` myKeys
-    `removeKeysP` ["M-S-q", "M-p"]
+    `removeKeysP` ["M-S-q"]
 
 -- | Switch to a certain layout.
 switchToLayout :: String -> X ()
@@ -152,20 +171,37 @@ myKeys =
     , spawn
         "xmonad --recompile && xmonad --restart && dunstify -a ignore -i '/home/ukiran/.config/xmonad/icons/new_xmonad.png' 'Reloaded Xmonad'")
   , ("M-C-r", spawn "xmonad --restart")
+  , ( "M-C-S-<Escape>"
+    , confirmPrompt prompt "exit Xmonad" $ io (exitWith ExitSuccess))
+  , ("M-p l", layoutPrompt prompt)
+  , ("M-p m", manPrompt prompt)
   , ("M-a", spawn "rofi -show drun -show-icons")
   , ("M-w", spawn "rofi -show window -show-icons")
   , ("M-s", spawn "rofi -show run")
   , ("M-e", spawn "emacsclient -c -a 'emacs'")
   , ("M-<Return>", spawn "urxvtc -e tmux new-session -A -s 'Main'")
   , ("M-<Home>", namedScratchpadAction myScratchpads "htop")
-  , ("M-<End>", namedScratchpadAction myScratchpads "scratch")
+  , ("M-<End>", namedScratchpadAction myScratchpads "Main")
   ]
-    ++ [ ("M-.", moveTo Next nonNSP) -- nextWS
+    ++ [ ("M-<Right>", nextScreen)
+       , ("M-<Left>", prevScreen)
+       , ("M-S-<Right>", shiftNextScreen)
+       , ("M-S-<Left>", shiftPrevScreen)
+       , ("M-.", moveTo Next nonNSP) -- nextWS
        , ("M-,", moveTo Prev nonNSP) -- prevWS
+       -- Shift & Move to n/p WS
        , ("M-S-.", shiftTo Next nonNSP >> moveTo Next nonNSP)
        , ("M-S-,", shiftTo Prev nonNSP >> moveTo Prev nonNSP)
-       , ("M-C-.", shiftTo Next nonNSP)
-       , ("M-C-,", shiftTo Prev nonNSP)
+         -- Shift to n/p WS
+       , ("M-M1-.", shiftTo Next nonNSP)
+       , ("M-M1-,", shiftTo Prev nonNSP)
+       -- Move to n/p empty WS
+       , ( "M-C-."
+         , moveTo Next
+             $ hiddenWS :&: emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
+       , ( "M-C-,"
+         , moveTo Prev
+             $ hiddenWS :&: emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
        , ("M-<Backspace>", toggleWS' ["NSP"])
        , ( "M-'"
          , moveTo Next
@@ -183,6 +219,7 @@ myKeys =
        , ("M-l", sendMessage Shrink) -- %! Shrink the master area
        , ("M-h", sendMessage Expand) -- %! Expand the master area
        , ("M-t", withFocused $ windows . W.sink)
+       , ("M-C-t", withFocused toggleFloat)
        , ("M-S-t", sinkAll)
        , ("M-S-f", withFocused toggleFullFloat) -- fullScreen the win
        , ("M-S-x", killAll) -- kill all wins
@@ -193,7 +230,7 @@ myKeys =
          --                               Goto allApplications),
        , ("M-S-w", windowPrompt prompt BringCopy allWindows) -- brings a copy of window
          -- EasyMotion
-       , ( "M-o"
+       , ( "M-o o"
          , selectWindow
              def
                { txtCol = "Green"
@@ -202,7 +239,25 @@ myKeys =
                , overlayF = textSize
                }
              >>= (`whenJust` windows . W.focusWindow))
-       , ( "M-x"
+       , ( "M-o M-o"
+         , selectWindow
+             def
+               { txtCol = "Green"
+               , cancelKey = xK_Escape
+               , emFont = "xft:Iosevka:weight=bold:pixelsize=40:antialias=true"
+               , overlayF = textSize
+               }
+             >>= (`whenJust` windows . W.focusWindow))
+       , ( "M-o x"
+         , selectWindow
+             def
+               { txtCol = "Red"
+               , cancelKey = xK_Escape
+               , emFont = "xft:Iosevka:weight=bold:pixelsize=40:antialias=true"
+               , overlayF = textSize
+               }
+             >>= (`whenJust` killWindow))
+       , ( "M-o M-x"
          , selectWindow
              def
                { txtCol = "Red"
@@ -233,12 +288,19 @@ myKeys =
        , (f, m) <-
            [(W.view, ""), (W.shift, "S-"), (viewShift, "C-"), (copy, "c ")]
        ]
+    ++ [("M-p w", windowPrompt prompt BringCopy allWindows)]
     ++ [ ("M-c a", windows copyToAll)
        , ("M-c x", killAllOtherCopies)
        , ("M-c q", kill1)
        ]
   where
     nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
+    toggleFloat w =
+      windows
+        (\s ->
+           if M.member w (W.floating s)
+             then W.sink w s
+             else (W.float w (W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3)) s))
 
 -- where
 prompt :: XPConfig
@@ -278,6 +340,21 @@ myTabConfig =
     , fontName = "xft:Iosevka:weight=bold:pixelsize=13.25:antialias=true"
     }
 
+mySDConfig =
+  def
+    { activeColor = colorActive
+    , activeBorderColor = colorActive
+    , activeTextColor = colorWhite
+    , inactiveColor = colorNormal
+    , inactiveBorderColor = colorNormal
+    , inactiveTextColor = colorLowWhite
+    , urgentColor = colorRed
+    , urgentBorderColor = colorRed
+    , urgentTextColor = colorWhite
+    , decoHeight = 5
+    , fontName = "xft:Iosevka:weight=bold:pixelsize=1:antialias=true"
+    }
+
 mySWNConfig =
   def
     { swn_font = "xft:Iosevka:weight=bold:pixelsize=30:antialias=true"
@@ -286,55 +363,61 @@ mySWNConfig =
     , swn_fade = 1
     }
 
-myScratchpads
-    -- run htop in xterm, find it by title, use default floating window placement
- =
+myScratchpads =
   [ NS
       "htop"
       "xterm -e htop"
       (title =? "htop")
       (customFloating $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3))
   , NS
-      "scratch"
-      "urxvtc -name scratch"
-      (title =? "scratch")
-      (customFloating $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3))
+      "Main"
+      "urxvtc -name Main -e tmux new-session -A -s 'Main'"
+      (title =? "Main" <&&> appName =? "Main" <&&> resource =? "Main")
+      (doRectFloat $ W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3))
   ]
 
 myLayout =
   avoidStruts
     $ BW.boringWindows
-    $
       -- BW.boringAuto $ -- check what it does NOTE:
-     onWorkspaces ["8", "9"] (tab ||| tiled)
+    $ onWorkspaces ["8", "9"] (tab ||| tiled)
     $ tiled ||| tab ||| mtile
   where
-    -- threeCol =
-    --   smartBorders $
-    --     renamed [Replace "threecol"] $
-    --       maximizeWithPadding 1 $
-    --         minimize $
-    --           magnifiercz' 1.3 $
-    --             ThreeColMid nmaster delta ratio
+    threeCol =
+      setName "Threecol"
+        $ smartBorders
+        $ maximizeWithPadding 1
+        $ minimize
+        $ magnifiercz' 1.3
+        $ ThreeColMid nmaster delta ratio
     -- full = smartBorders $ renamed [Replace "Full"] $ minimize $ Full -- Not Compatible with BW
     -- full = smartBorders $ renamed [Replace "full"] $ minimize $ Simplest -- Better Option
-    mtile = renamed [Replace "mtall"] $ Mirror tiled
-    tab =
-      smartBorders
-        $ renamed [Replace "tabs"]
-        $ noBorders (tabbed shrinkText myTabConfig)
+    mtile = setName "Mtall" $ Mirror tiled
+    tab = setName "Tabs" $ smartBorders (tabbed shrinkText myTabConfig)
+    hacking =
+      setName "Hacking"
+        $ reflectHoriz . limitWindows 3 . magnify 1.3 (NoMaster 3) True
+        $ rTall 1 (3 % 100) (13 % 25)
     tiled =
-      smartBorders
-        $ renamed [Replace "tall"]
+      setName "Tall"
+        $ smartBorders
         $ reflectHoriz
         $ maximizeWithPadding 1
         $ minimize
         $ smartSpacing 2
         $ ResizableTall nmaster delta ratio []
-    twoPane = TwoPane (3 / 100) (1 / 2)
+    -- ntile = simpleDeco shrinkText mySDConfig (ResizableTall nmaster delta ratio [])
+    -- ntile = noFrillsDeco shrinkText mySDConfig (ResizableTall nmaster delta ratio [])
+    twoPane = setName "TwoPane" $ reflectHoriz $ TwoPane (3 / 100) (1 / 2)
     nmaster = 1 -- Default number of windows in the master pane
     ratio = 1 / 2 -- Default proportion of screen occupied by master pane
     delta = 3 / 100 -- Percent of screen to increment by when resizing panes
+
+setName :: String -> l a -> ModifiedLayout Rename l a
+setName n = renamed [Replace n]
+
+rTall :: Int -> Rational -> Rational -> ResizableTall l
+rTall m r c = ResizableTall m r c []
 
 myTerminal :: String
 myTerminal = "urxvtc"
@@ -359,10 +442,12 @@ myXmobarPP =
     $ def
         { ppSep = slategray " | "
         , ppTitleSanitize = xmobarStrip
-        , ppCurrent = cyan . wrap ("[") ("]")
-        , ppHidden = lowWhite . wrap "+" ""
+        , ppCurrent = cyan . wrap "[" "]" . xmobarBorder "Bottom" colorCyan 2
+        , ppVisible = yellow . wrap ("(") (")")
+        , ppHidden = wrap "+" ""
         , ppHiddenNoWindows = slategray . wrap " " ""
-        , ppUrgent = red . wrap (yellow "!") (yellow "!")
+        -- , ppHiddenNoWindows = slategray . const " -"
+        , ppUrgent = red . wrap ("{") ("}")
         , ppLayout = wrap " " " " . lowWhite
         , ppOrder = \(ws:l:_:ex) -> [ws, l] ++ ex
         , ppExtras =
@@ -403,10 +488,15 @@ myManageHook =
     , resource =? "desktop_window" --> doIgnore
     , className =? "TelegramDesktop" --> viewShift (myWorkspaces !! 8)
     , className =? "Tor Browser" --> viewShift (myWorkspaces !! 8)
-    , className =? "qBittorrent" --> viewShift (myWorkspaces !! 8)
     , className =? "calibre" --> viewShift (myWorkspaces !! 8)
     , className =? "Liferea" --> viewShift (myWorkspaces !! 7)
     , className =? "Thunderbird" --> viewShift (myWorkspaces !! 7)
+    , className =? "qBittorrent" --> viewShift (myWorkspaces !! 8)
+    , className
+        =? "qBittorrent"
+        <&&> title
+        =? "Open Torrent Files"
+        --> doRectFloat (W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3))
     , isDialog --> doCenterFloat
     , isFullscreen --> doFullFloat
     , checkDock --> doLower
@@ -423,7 +513,6 @@ myStartupHook = do
   spawnOnce "dunst &"
   spawnOnce "greenclip daemon &"
   spawnOnce "thunar --daemon &"
-  spawnOnce "nm-applet &"
   spawnOnce "nmcli networking off &"
   spawnOnce "numlockx on &"
   spawnOnce "xmodmap $XDG_CONFIG_HOME/X11/xmodmap"

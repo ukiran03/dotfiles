@@ -12,7 +12,7 @@
   :init
   (setq display-time-interval 1)
   (setq display-time-default-load-average nil)
-  (setq display-time-format "(%a %d %b, %I:%M%p)"))
+  (setq display-time-format "(%d %b, %I:%M%p)"))
 ;; (display-time-mode)
 
 (use-package tab-bar
@@ -45,10 +45,11 @@
                          tab-bar-format-history
                          tab-bar-format-tabs
                          tab-bar-separator
-                         tab-bar-format-add-tab
+                         ;; tab-bar-format-add-tab
                          tab-bar-format-align-right
                          tab-bar-format-global)
-        tab-bar-close-button-show nil))
+        tab-bar-close-button-show nil
+        tab-bar-new-button-show nil))
 
 (provide 'init-tab-bar)
 

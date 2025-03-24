@@ -39,6 +39,7 @@
 
 (use-package recursion-indicator
   :ensure t
+  :after minibuffer
   :demand t
   :config
   (recursion-indicator-mode))

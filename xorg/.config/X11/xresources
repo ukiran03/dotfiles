@@ -26,6 +26,53 @@ Xcursor.size: 16
 *.color14: #70e1e8
 *.color15: #ffffff
 
+!!! Operandi
+URxvt.foreground: #000000
+URxvt.background: #ffffff
+URxvt.cursorColor: #000000
+URxvt.color0: #e6e6e6
+URxvt.color1: #a60000
+URxvt.color2: #006800
+URxvt.color3: #6f5500
+URxvt.color4: #0031a9
+URxvt.color5: #721045
+URxvt.color6: #005e8b
+URxvt.color7: #595959
+URxvt.color8:  #c8c8c8
+URxvt.color9:  #a0132f
+URxvt.color10: #00663f
+URxvt.color11: #7a4f2f
+URxvt.color12: #0000b0
+URxvt.color13: #531ab6
+URxvt.color14: #005f5f
+URxvt.color15: #000000
+URxvt.highlightColor: #bdbdbd
+URxvt.highlightTextColor: #393330
+
+!! Vivendi
+! URxvt.foreground: #ffffff
+! URxvt.background: #000000
+! URxvt.cursorColor: #ffffff
+! URxvt.color0: #1e1e1e
+! URxvt.color1: #ff5f59
+! URxvt.color2: #44bc44
+! URxvt.color3: #d0bc00
+! URxvt.color4: #2fafff
+! URxvt.color5: #feacd0
+! URxvt.color6: #00d3d0
+! URxvt.color7: #ffffff
+! URxvt.color8: #535353
+! URxvt.color9: #ff7f9f
+! URxvt.color10: #00c06f
+! URxvt.color11: #dfaf7a
+! URxvt.color12: #00bcff
+! URxvt.color13: #b6a0ff
+! URxvt.color14: #6ae4b9
+! URxvt.color15: #989898
+! URxvt.highlightColor: #5a5a5a
+! URxvt.highlightTextColor: #ffffff
+
+
 !!! Kaolin Light
 ! *.foreground: #353b3c
 ! *.background: #EDEEEB

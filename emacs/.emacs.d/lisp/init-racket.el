@@ -21,7 +21,7 @@
   (setq geiser-scheme-implementation 'guile)
   :config
   (use-package geiser-guile))
-
+
 ;; There is also `lsp' support for racket-lang
 ;; NOTE: <https://github.com/jeapostrophe/racket-langserver>
 (use-package racket-mode

@@ -1,4 +1,4 @@
-# white 
+# white
 
 # set recolor
 # set recolor-lightcolor \#2f343f
@@ -40,7 +40,7 @@ set notification-bg "#90A959"
 set notification-fg "#151515"
 
 # -- themes (recolor) on opening
-# set recolor "true" 
+# set recolor "true"
 
 # DEFAULT THEME
 set default-bg "#2e3440"
@@ -48,11 +48,11 @@ set default-fg "#F7F7F6"
 
 # OFF-WHITE THEME
 set recolor-lightcolor "#f3eddf"  # bg
-set recolor-darkcolor "#000000"   # fg	
+set recolor-darkcolor "#000000"   # fg
 
 # GRAY THEME
-## set recolor-lightcolor "#2f343f"  # bg    
-# set recolor-lightcolor "#2e3440"  # bg    
+## set recolor-lightcolor "#2f343f"  # bg
+# set recolor-lightcolor "#2e3440"  # bg
 # set recolor-darkcolor "#ffffff"   # fg
 
 set recolor-reverse-video "true"
@@ -65,4 +65,3 @@ map L reload
 map r rotate rotate-ccw
 map , navigate previous
 map . navigate next
-

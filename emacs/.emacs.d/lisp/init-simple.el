@@ -9,7 +9,8 @@
   :ensure nil
   :bind (("C-S-w" . uk-simple-copy-line)
          ("C-S-<backspace>" . uk-kill-whole-line)
-         ("H-q" . read-only-mode))
+         ("H-q" . read-only-mode)
+         ("H-S-q" . view-mode))
   :config
   (defun uk-simple-copy-line ()
     "Copy the current line to the `kill-ring'."
