@@ -57,6 +57,17 @@
 ;;      (put cmd 'repeat-map 'windmove-repeat-map)))
 ;;  windmove-repeat-map)
 
+(defvar buffer-repeat-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "H-<left>") 'previous-buffer)
+    (define-key map (kbd "H-<right>") 'next-buffer)
+    map))
+
+(map-keymap
+ (lambda (_key cmd)
+   (when (symbolp cmd)
+     (put cmd 'repeat-map buffer-repeat-map)))
+ buffer-repeat-map)
 
 (defvar-keymap buffer-hyper-map
   :doc "buffer actions."
@@ -71,6 +82,14 @@
   "r"    #'rename-buffer
   "K"    #'kill-current-buffer)
 (keymap-set global-map "H-b" buffer-hyper-map)
+
+(defvar-keymap uk-buffer-repeat-map
+  :doc "Freq buffer actions"
+  :repeat t
+  "," #'previous-buffer
+  "<left>" #'previous-buffer
+  "." #'next-buffer
+  "<right>" #'next-buffer)
 
 (defvar-keymap other-window-hyper-map
   :doc "`other-window-prefix' actions."

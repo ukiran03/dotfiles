@@ -10,9 +10,10 @@
 
 ;;; Core
 (use-package emacs
-  :custom
+  :ensure nil
+  :init
   ;; Support opening new minibuffers from inside existing minibuffers.
-  (enable-recursive-minibuffers t)
+  (setq enable-recursive-minibuffers t)
   ;; Only list the commands of the current modes
   (setq read-extended-command-predicate
         #'command-completion-default-include-p)

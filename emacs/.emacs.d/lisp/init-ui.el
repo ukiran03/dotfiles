@@ -6,7 +6,7 @@
 ;;; Code:
 
 (use-package modus-themes
-  :ensure t
+  :ensure nil
   :demand t
   :bind (("<f6>" . modus-themes-toggle)
          ("C-<f6>" . modus-themes-select))
@@ -54,7 +54,7 @@
   (interactive)
   (let ((font (completing-read
                "Choose a font: "
-               '("Iosevka Medium Extended-10" "Iosevka Medium-11")
+               '("Iosevka Medium-11.25" "Iosevka Medium-14.25" "Iosevka Medium-17.25")
                nil t)))
     (set-frame-font font nil t)))
 

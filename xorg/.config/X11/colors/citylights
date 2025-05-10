@@ -1,0 +1,5 @@
+! -*- mode: conf-xdefaults -*-
+!! City Lights Colors
+
+URxvt.highlightColor: #41505e
+URxvt.highlightTextColor: #b7c5d3

@@ -15,7 +15,8 @@ visualizer_look 	   = ●●
 visualizer_type 	   = "ellipse"
 # visualizer_color = "33,39,63,75,81,99,117,153,189"
 ##
-execute_on_song_change = "/home/ukiran/.local/bin/ncmpcpp_notify.sh"
+execute_on_song_change = "ncmpcpp_notify.sh"
+# execute_on_song_change = "dunstify -a "ignore" -i mpi-symbolic "$(mpc --format '%title% - %album%' current)" "$(mpc --format '%artist%' current)" -t 2000 -r 9036"
 #
 ##
 ## Note: Custom command that will be executed each time player state

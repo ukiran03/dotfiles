@@ -1,3 +1,17 @@
+#### Paths
+# all alias are in .config/shell/aliasrc
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] ;
+then source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+fi
+
+if [ -d "$HOME/.bin" ] ;
+then PATH="$HOME/.bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/bin" ] ;
+then PATH="$HOME/.local/bin:$PATH"
+fi
+
 ## plugins: fzf, zoxide
 # zoxide
 eval "$(zoxide init zsh)"

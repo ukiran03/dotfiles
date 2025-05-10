@@ -9,6 +9,7 @@
 
 ;; Bookmark
 (use-package bookmark
+  ;; :disabled
   :ensure nil
   :config
   (with-no-warnings

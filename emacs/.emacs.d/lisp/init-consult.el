@@ -96,12 +96,13 @@
    consult-line consult-line-multi consult-imenu
    :preview-key 'any
    consult-ripgrep consult-git-grep consult-grep
-   consult-goto-line consult-bookmark
+   consult-goto-line consult-flymake consult-outline
    :preview-key '(:debounce 0.5 any)
    consult-buffer consult-project-buffer consult-buffer-other-tab
    consult-buffer-other-frame consult-buffer-other-window
+   consult-bookmark
    consult-recent-file consult-theme
-   :preview-key '(:debounce 1.0 any))
+   :preview-key '(:debounce 0.5 "M-."))
 
   ;; Toggle preview during active completion session
   (defvar-local consult-toggle-preview-orig nil)

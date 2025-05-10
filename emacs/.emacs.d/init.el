@@ -56,7 +56,7 @@ Otherwise the startup will be slow."
 
 ;; Fonts
 (set-face-attribute 'variable-pitch nil
-                    :family "Iosevka Aile")
+                    :family "Iosevka Slab")
 (set-frame-font "Iosevka Medium-11.25" nil t)
 
 ;; Better defaults

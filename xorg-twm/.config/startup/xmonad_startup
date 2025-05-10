@@ -140,47 +140,14 @@ else
     # setxkbmap -option altwin:swap_lalt_lwin ----------------------- back to normal for while
 fi
 
+uk-bright
+# _volume_pipe=/tmp/.volume-pipe
+# [[ -S $_volume_pipe ]] || mkfifo $_volume_pipe &
 
-# if pgrep -x "xfce4-clipman" > /dev/null
-# then echo "xfce4-clipman" is already running
-# else
-#     echo "starting xfce4-clipman"
-#     xfce4-clipman &
-# fi
-
-# greenclip daemon &
-
-# # Check if trayer is already running
-# if pgrep -f "trayer" > /dev/null
-# then
-#     echo "trayer is already running"
-# else
-#     echo "Starting Trayer"
-#     trayer --edge top --align right --widthtype request --SetDockType true \
-#            --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x171d23 --height 21 &
-# fi
-
-# if pgrep -f "xfce4-power-manager" > /dev/null
-# then echo "xfce4-power-manager is already running"
-# else
-#     echo "starting xfce4-power-manager"
-#     xfce4-power-manager &
-# fi
-
-# _check emacs && emacs -T emacs-server &
+# _brightness_pipe=/tmp/.brightness-pipe
+# [[ -S $_brightness_pipe ]] || mkfifo $_brightness_pipe
 
 _check mpc && mpc update &
-
-# _check numlockx && numlockx on &
-
-# _check thunar && thunar --daemon &
-
-# xmonad --restart
-
-#nmcli networking off &
-# bash internet &
-
-
 
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &
 ### /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &

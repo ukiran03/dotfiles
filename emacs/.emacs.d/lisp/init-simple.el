@@ -8,6 +8,7 @@
 (use-package simple
   :ensure nil
   :bind (("C-S-w" . uk-simple-copy-line)
+         ("C-w" . uk-kill-region)
          ("C-S-<backspace>" . uk-kill-whole-line)
          ("H-q" . read-only-mode)
          ("H-S-q" . view-mode))
@@ -31,16 +32,21 @@ If the region is not active, `kill-whole-line' line at the point."
                      (goto-char (region-end))
                      (line-end-position))))
           (kill-region start end))
-      (kill-whole-line arg))))
+      (kill-whole-line arg)))
 
-  (use-package simple
-    :ensure nil
-    :config
-    (defun uk-toggle-show-trailing-whitespace ()
-      "toggles show-trailing-whitespace"
-      (interactive)
-      (if show-trailing-whitespace (setq show-trailing-whitespace nil)
-        (setq show-trailing-whitespace t))))
+  (defun uk-kill-region ()
+    (interactive)
+    (when (use-region-p)
+      (kill-region (region-beginning) (region-end)))))
+
+(use-package simple
+  :ensure nil
+  :config
+  (defun uk-toggle-show-trailing-whitespace ()
+    "toggles show-trailing-whitespace"
+    (interactive)
+    (if show-trailing-whitespace (setq show-trailing-whitespace nil)
+      (setq show-trailing-whitespace t))))
 
 (use-package display-line-numbers
   :ensure nil

@@ -2,9 +2,9 @@
 
 while read -r file; do
     case "$1" in
-        "w") setbg-scale "$file" & ;;
-        "c") setbg-center "$file" & ;;
-        "t") setbg-tile "$file" & ;;
+        "s") setbg -s "$file" & ;;
+        "c") setbg -c "$file" & ;;
+        "t") setbg -t "$file" & ;;
 
         "d") trash "$file" && dunstify -a "ignore" "$file Image Trashed" & ;;
 

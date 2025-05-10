@@ -5,6 +5,13 @@
 
 ;;; Code:
 
+(add-to-list 'auto-mode-alist '("xresources\\'" . conf-xdefaults-mode))
+
+(use-package re-builder
+  :ensure nil
+  :config (setq reb-re-syntax 'rx)) ;I love using rx for regexps
+
+
 (use-package pretty-hydra
   :bind ("C-<f5>" . toggles-hydra/body)
   :init
@@ -62,7 +69,8 @@
   (setq format-all-formatters
         '(("C"     (astyle "--mode=c"))
           ("C" (astyle "--style=gnu"))
-          ("Shell" (shfmt "-i" "4" "-ci")))))
+          ("Shell" (shfmt "-i" "4" "-ci"))
+          ("Haskell" (hindent)))))
 
 (use-package apheleia
   :disabled
@@ -97,8 +105,8 @@
          ([remap backward-sexp]     . puni-backward-sexp-or-up-list)
          ([remap kill-line]        . puni-kill-line)
          ([remap mark-paragraph]    . puni-expand-region)
-         ([remap kill-sexp]        . puni-kill-thing-at-point)
-         ("M-k"                     . kill-sexp)
+         ;; ([remap kill-sexp]        . puni-kill-thing-at-point)
+         ("M-k"                     . puni-raise)
          ;; Remove outer pairs
          ("M-O"                     . puni-splice)
          ("C-)"                     . puni-slurp-forward)
@@ -138,6 +146,12 @@
   :bind (:map prog-mode-map
               ("<f5>" . revert-buffer)))
 
+(use-package sql
+  :ensure nil
+  :defer
+  :custom
+  (sql-sqlite-options '("-header" "-box"))
+  )
 
 (provide 'init-prog)
 

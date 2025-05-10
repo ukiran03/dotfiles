@@ -17,8 +17,6 @@
               ("DEL" . vertico-directory-delete-char)
               ("M-DEL" . vertico-directory-delete-word))
   :config
-  (define-key vertico-map [S-up] #'vertico-previous) ; consult-preview-keys
-  (define-key vertico-map [S-down] #'vertico-next)
   (setq vertico-cycle t
         vertico-scroll-margin 2 ;; Different scroll margin 0 - 2
         vertico-resize t)
@@ -27,16 +25,19 @@
     :after vertico
     :init (vertico-multiform-mode 1)
     :config
-    (add-to-list 'vertico-multiform-categories
-                 '(jinx grid (vertico-grid-annotate . 20)))
+    (setq vertico-multiform-categories
+          '((jinx grid (vertico-grid-annotate . 20))
+            (t reverse)))
     (setq vertico-multiform-commands
-          '((dired grid)
-            (consult-recent-file grid)
-            (consult-grep buffer)
+          '((consult-grep buffer)
             (consult-git-grep buffer)
-            (fontaine-set-preset flat)
+            (consult-ripgrep buffer)
+            (consult-locate buffer)
+            (consult-find buffer)
+            (consult-fd buffer)
+            (consult-outline buffer indexed)
             (consult-imenu buffer indexed)
-            (consult-ripgrep buffer)))))
+            (consult-buffer flat)))))
 
 ;; M-B -> `vertico-multiform-buffer'
 ;; M-F -> `vertico-multiform-flat'
@@ -59,7 +60,6 @@
 ;;                    #'consult-completion-in-region
 ;;                  #'completion--in-region)
 ;;                args)))
-
 
 (use-package marginalia
   :ensure t

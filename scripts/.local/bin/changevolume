@@ -1,6 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-# yay -S pamixer
 # Increment, decrement, or mute the volume and send a notification
 # of the current volume level.
 
@@ -8,17 +7,36 @@ _check () {
     command -v "$1" > /dev/null
 }
 
-if _check pamixer; then
-    # Do nothing if pamixer is installed
-    :
-else
-    echo "Install pamixer"
+if ! _check pamixer; then
+    echo "Error: pamixer is not installed. Please install it with: yay -S pamixer" >&2
+    exit 1
 fi
-
-
 
 up_icon="notification-audio-volume-high"
 down_icon="notification-audio-volume-medium"
+muted_icon="notification-audio-volume-muted"
+
+
+# Volume pipe for xmobar
+_volume_pipe="/tmp/.volume-pipe"
+
+# Create FIFO if it doesn't exist
+if [[ ! -p "$_volume_pipe" ]]; then
+    mkfifo "$_volume_pipe" 2>/dev/null || {
+        echo "Error: Failed to create FIFO at $_volume_pipe" >&2
+        exit 1
+    }
+fi
+
+# get_volume() {
+#     pamixer --get-volume-human | tee $_volume_pipe
+# }
+
+get_volume() {
+    local volume
+    volume=$(pamixer --get-volume-human)
+    echo "$volume" > "$_volume_pipe"
+}
 
 send_notification() {
 	volume=$(pamixer --get-volume)
@@ -49,3 +67,5 @@ mute)
 	fi
 	;;
 esac
+
+# get_volume

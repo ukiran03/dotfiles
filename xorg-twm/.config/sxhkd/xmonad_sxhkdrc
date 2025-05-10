@@ -37,8 +37,6 @@ super + {_, shift + } Return
 shift + KP_End
     thunar
 
-super + ctrl + 2
-    thunar
 # Screenshot using `maim'
 Print
    /home/ukiran/.local/bin/screenshot.sh

@@ -1,5 +1,5 @@
 export TERM=xterm
-
+export VOID_PACKAGES="$HOME/.local/share/void-packages/"
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 export ERRFILE="$XDG_CONFIG_HOME/X11/xsession-errors"

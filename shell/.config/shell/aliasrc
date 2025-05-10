@@ -1,3 +1,4 @@
+## -*- compile-command: "source ~/.config/shell/aliasrc" -*-
 ### ALIASES ###
 
 # alias bomb=":(){ :|:& };:"
@@ -360,10 +361,20 @@ alias la="eza --color=always --group-directories-first -laF"
 lsd() {
     eza --color=always -DF --show-symlinks "$@"
 }
+
+alias lt="eza --color=always -T"
 # alias lt.='eza -aT --color=always --group-directories-first' # tree listing include hidden
 # alias lt='eza -T --color=always --group-directories-first' # tree listing not include hidden
 alias l.='eza -a | grep -E "^\."'
 #------------------------------------------------------------------
+
+## Git Alias
+alias ,g='git'
+alias ,gs='git status'
+alias ,gl='git log --oneline --graph --all'
+alias ,gp='git pull'
+alias ,gcm='git commit'
+alias ,gcl='git clone'
 
 # source files
 alias src="source"
@@ -380,3 +391,7 @@ alias mkdir="mkdir -pv"
 
 # LOCAL MANUALS
 alias rust-doc="rustup docs --book"
+
+function mcdir () { mkdir -- "$1" && cd -- "$1"; }
+alias d='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index

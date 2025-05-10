@@ -1,25 +1,8 @@
--- import XMonad.Layout.SimpleDecoration
--- import XMonad.Layout.WindowNavigation
--- import XMonad.Actions.WindowMenu
--- import XMonad.Actions.ShowText
--- import XMonad.Actions.SimpleDate
--- import XMonad.Hooks.DynamicLog NOTE:
--- NOTE:
--- import XMonad.Layout.ShowWName (showWName)
--- import qualified XMonad.Layout.BoringWindows (boringWindows, swapUp, swapDown, focusMaster, focusUp, focusDown, boringAuto)
--- import XMonad.Layout.LayoutModifier
--- import XMonad.Layout.Simplest
--- TODO:
--- import XMonad.Layout.DecorationMadness
--- import XMonad.Layout.SimpleDecoration
--- import XMonad.Layout.NoFrillsDecoration
--- import XMonad.Util.WorkspaceCompare
--- import XMonad.Layout.DecorationEx
--- import XMonad.Layout.NoFrillsDecoration
-import Colors.CityLights
+import Colors.Current
 import Control.Monad (liftM2)
 import qualified Data.Map as M
 import Data.Ratio ((%))
+import Doc.Help
 import System.Exit
 import XMonad
 import XMonad.Actions.CopyWindow
@@ -53,11 +36,13 @@ import XMonad.Actions.Minimize
   ( maximizeWindowAndFocus
   , minimizeWindow
   , withLastMinimized
+  , withMinimized
   )
 import XMonad.Actions.ToggleFullFloat
   ( toggleFullFloat
   , toggleFullFloatEwmhFullscreen
   )
+import XMonad.Actions.UpdatePointer
 import XMonad.Actions.WithAll (killAll, killOthers, sinkAll)
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.ManageDocks (avoidStruts, checkDock, docks)
@@ -83,9 +68,9 @@ import XMonad.Hooks.StatusBar.PP
   , xmobarStrip
   )
 import qualified XMonad.Layout.BoringWindows as BW
-import XMonad.Layout.LimitWindows (limitWindows)
-
+import XMonad.Layout.Gaps
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
+import XMonad.Layout.LimitWindows (limitWindows)
 import XMonad.Layout.Magnifier
 import XMonad.Layout.Maximize (maximizeRestore, maximizeWithPadding)
 import XMonad.Layout.Minimize (minimize)
@@ -94,14 +79,13 @@ import XMonad.Layout.PerWorkspace (onWorkspaces)
 import XMonad.Layout.Reflect (reflectHoriz)
 import XMonad.Layout.Renamed (Rename(Replace), renamed)
 import XMonad.Layout.ResizableTile (MirrorResize(..), ResizableTall(..))
-import XMonad.Layout.Spacing (smartSpacing)
+import XMonad.Layout.Spacing
 import XMonad.Layout.Tabbed (Theme(..), shrinkText, tabbed)
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPane
 import XMonad.Prompt
 import XMonad.Prompt.ConfirmPrompt
 import XMonad.Prompt.Layout
-
 import XMonad.Prompt.Man
 import XMonad.Prompt.Window
 import XMonad.Prompt.Workspace
@@ -129,15 +113,14 @@ main =
     . ewmh
     . withEasySB
         (statusBarProp
-           "xmobar ~/.config/xmobar/xmobarrc"
-           (copiesPP (xmobarColor colorBlue "" . wrap (":") ("")) myXmobarPP
-           -- def
-            )
-          -- (pure myXmobarPP)
-         )
+           ("xmobar " ++ myXmobarConfig)
+           (copiesPP (xmobarColor colorBlue "" . wrap (":") ("")) myXmobarPP))
         defToggleStrutsKey
     . docks
     $ myConfig
+
+myXmobarConfig :: String
+myXmobarConfig = "~/.config/xmobar/xmobarrc"
 
 myConfig =
   def
@@ -149,7 +132,7 @@ myConfig =
     , startupHook = myStartupHook
     , workspaces = myWorkspaces
     , terminal = myTerminal
-    , logHook = showWNameLogHook mySWNConfig
+    , logHook = showWNameLogHook mySWNConfig >> updatePointer (0.5, 0.7) (0, 0)
     , borderWidth = 3
     , normalBorderColor = colorNormal
     , focusedBorderColor = colorActive
@@ -170,9 +153,10 @@ myKeys =
   [ ( "M-S-r"
     , spawn
         "xmonad --recompile && xmonad --restart && dunstify -a ignore -i '/home/ukiran/.config/xmonad/icons/new_xmonad.png' 'Reloaded Xmonad'")
-  , ("M-C-r", spawn "xmonad --restart")
+  , ("M-C-r", spawn "xmonad-restart.sh")
   , ( "M-C-S-<Escape>"
     , confirmPrompt prompt "exit Xmonad" $ io (exitWith ExitSuccess))
+  , ("M-S-/", xmessage myHelp)
   , ("M-p l", layoutPrompt prompt)
   , ("M-p m", manPrompt prompt)
   , ("M-a", spawn "rofi -show drun -show-icons")
@@ -189,13 +173,13 @@ myKeys =
        , ("M-S-<Left>", shiftPrevScreen)
        , ("M-.", moveTo Next nonNSP) -- nextWS
        , ("M-,", moveTo Prev nonNSP) -- prevWS
-       -- Shift & Move to n/p WS
+         -- Shift & Move to n/p WS
        , ("M-S-.", shiftTo Next nonNSP >> moveTo Next nonNSP)
        , ("M-S-,", shiftTo Prev nonNSP >> moveTo Prev nonNSP)
          -- Shift to n/p WS
        , ("M-M1-.", shiftTo Next nonNSP)
        , ("M-M1-,", shiftTo Prev nonNSP)
-       -- Move to n/p empty WS
+         -- Move to n/p empty WS
        , ( "M-C-."
          , moveTo Next
              $ hiddenWS :&: emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
@@ -270,10 +254,10 @@ myKeys =
        , ("M-q", kill1)
        , ("M-C-q", kill)
        , ("M-i", withFocused minimizeWindow)
-       , ("M-S-i", withLastMinimized maximizeWindowAndFocus)
+       , ("M-S-i", maximizeFocusedOrLastMinimized)
        , ("M-f", withFocused (sendMessage . maximizeRestore))
-       , ("M-j", sendMessage MirrorExpand)
-       , ("M-k", sendMessage MirrorShrink)
+       -- , ("M-j", sendMessage MirrorExpand)
+       -- , ("M-k", sendMessage MirrorShrink)
        , ("M-<Tab>", BW.focusDown)
        , ("M-S-<Tab>", BW.focusUp)
        , ("M-g", windows W.focusDown)
@@ -293,6 +277,10 @@ myKeys =
        , ("M-c x", killAllOtherCopies)
        , ("M-c q", kill1)
        ]
+    ++ [ ("M-S-[", decWindowSpacing 2)
+       , ("M-S-]", incWindowSpacing 2)
+       , ("M-C-<Space>", toggleWindowSpacingEnabled)
+       ]
   where
     nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
     toggleFloat w =
@@ -302,12 +290,19 @@ myKeys =
              then W.sink w s
              else (W.float w (W.RationalRect (1 / 6) (1 / 6) (2 / 3) (2 / 3)) s))
 
--- where
+maximizeFocusedOrLastMinimized :: X ()
+maximizeFocusedOrLastMinimized =
+  withFocused $ \w -> do
+    withMinimized $ \minimized ->
+      if w `elem` minimized
+        then maximizeWindowAndFocus w
+        else withLastMinimized maximizeWindowAndFocus
+
 prompt :: XPConfig
 prompt =
   def
-    { fgColor = colorWhite
-    , fgHLight = colorBlack
+    { fgColor = colorText
+    , fgHLight = colorHText
     , bgColor = colorNormal
     , bgHLight = colorCyan
     , font = "xft:Iosevka:weight=bold:pixelsize=13.25:antialias=true"
@@ -340,26 +335,11 @@ myTabConfig =
     , fontName = "xft:Iosevka:weight=bold:pixelsize=13.25:antialias=true"
     }
 
-mySDConfig =
-  def
-    { activeColor = colorActive
-    , activeBorderColor = colorActive
-    , activeTextColor = colorWhite
-    , inactiveColor = colorNormal
-    , inactiveBorderColor = colorNormal
-    , inactiveTextColor = colorLowWhite
-    , urgentColor = colorRed
-    , urgentBorderColor = colorRed
-    , urgentTextColor = colorWhite
-    , decoHeight = 5
-    , fontName = "xft:Iosevka:weight=bold:pixelsize=1:antialias=true"
-    }
-
 mySWNConfig =
   def
     { swn_font = "xft:Iosevka:weight=bold:pixelsize=30:antialias=true"
     , swn_bgcolor = colorActive
-    , swn_color = colorWhite
+    , swn_color = "#ffffff"
     , swn_fade = 1
     }
 
@@ -379,7 +359,7 @@ myScratchpads =
 myLayout =
   avoidStruts
     $ BW.boringWindows
-      -- BW.boringAuto $ -- check what it does NOTE:
+    -- BW.boringAuto $ -- check what it does NOTE:
     $ onWorkspaces ["8", "9"] (tab ||| tiled)
     $ tiled ||| tab ||| mtile
   where
@@ -404,7 +384,9 @@ myLayout =
         $ reflectHoriz
         $ maximizeWithPadding 1
         $ minimize
-        $ smartSpacing 2
+              -- \$ smartSpacing 2
+        $ mySpacing' 2
+                -- \$ magnifiercz' 1.2
         $ ResizableTall nmaster delta ratio []
     -- ntile = simpleDeco shrinkText mySDConfig (ResizableTall nmaster delta ratio [])
     -- ntile = noFrillsDeco shrinkText mySDConfig (ResizableTall nmaster delta ratio [])
@@ -412,6 +394,17 @@ myLayout =
     nmaster = 1 -- Default number of windows in the master pane
     ratio = 1 / 2 -- Default proportion of screen occupied by master pane
     delta = 3 / 100 -- Percent of screen to increment by when resizing panes
+
+-- Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
+mySpacing ::
+     Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
+
+-- Below is a variation of the above except no borders are applied
+-- if fewer than two windows. So a single window has no gaps.
+mySpacing' ::
+     Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
 setName :: String -> l a -> ModifiedLayout Rename l a
 setName n = renamed [Replace n]
@@ -425,16 +418,17 @@ myTerminal = "urxvtc"
 myWorkspaces = map show [1 .. 9 :: Int]
 
 windowCount :: X (Maybe String)
-windowCount =
-  gets
+windowCount = do
+  ws <- gets windowset
+  let currentWindows = W.integrate' (W.stack (W.workspace (W.current ws)))
+  minimizedWindows <- withMinimized return
+  let totalCount = length currentWindows
+      minimizedCount = length (filter (`elem` currentWindows) minimizedWindows)
+  return
     $ Just
-        . show
-        . length
-        . W.integrate'
-        . W.stack
-        . W.workspace
-        . W.current
-        . windowset
+    $ if minimizedCount > 0
+        then show (totalCount - minimizedCount) ++ "+" ++ show minimizedCount
+        else show totalCount
 
 myXmobarPP :: PP
 myXmobarPP =
@@ -442,20 +436,20 @@ myXmobarPP =
     $ def
         { ppSep = slategray " | "
         , ppTitleSanitize = xmobarStrip
-        , ppCurrent = cyan . wrap "[" "]" . xmobarBorder "Bottom" colorCyan 2
+        , ppCurrent = tagActive . wrap " " " "
         , ppVisible = yellow . wrap ("(") (")")
         , ppHidden = wrap "+" ""
-        , ppHiddenNoWindows = slategray . wrap " " ""
-        -- , ppHiddenNoWindows = slategray . const " -"
-        , ppUrgent = red . wrap ("{") ("}")
+        , ppHiddenNoWindows = gray . wrap " " ""
+        , ppUrgent = tagUrgent . wrap " " " "
         , ppLayout = wrap " " " " . lowWhite
         , ppOrder = \(ws:l:_:ex) -> [ws, l] ++ ex
         , ppExtras =
             [formattedWindowCount, logTitles formatFocused formatUnfocused]
         }
   where
-    formatFocused = wrap (blue "(") (blue ")") . blue . ppWindow
-    formatUnfocused = wrap (lowWhite "") (lowWhite "") . lowWhite . ppWindow
+    formatFocused =
+      xmobarColor colorBlue colorSlateGray . wrap " " " " . ppWindow
+    formatUnfocused = wrap (lowWhite "(") (lowWhite ")") . lowWhite . ppWindow
     formattedWindowCount :: X (Maybe String)
     formattedWindowCount = fmap (fmap $ lowWhite) windowCount
     ppWindow :: String -> String
@@ -466,13 +460,17 @@ myXmobarPP =
                then "untitled"
                else w)
         . shorten 25
-    blue, yellow, red, lowWhite, cyan, slategray :: String -> String
+    blue, yellow, red, lowWhite, cyan, slategray, gray :: String -> String
+    tagActive = xmobarColor colorWhite colorBlue
+    tagUrgent = xmobarColor colorWhite colorWhite
+    tagHidden = xmobarColor colorBlack colorGray
     blue = xmobarColor colorBlue ""
     yellow = xmobarColor colorYellow ""
     red = xmobarColor colorRed ""
     lowWhite = xmobarColor colorLowWhite ""
     cyan = xmobarColor colorCyan ""
-    slategray = xmobarColor colorGray ""
+    slategray = xmobarColor colorSlateGray ""
+    gray = xmobarColor colorGray ""
 
 myManageHook :: ManageHook
 myManageHook =
@@ -484,7 +482,7 @@ myManageHook =
     , className
         =? "mpv"
         --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
-    , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat -- Firefox pip
+    , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat
     , resource =? "desktop_window" --> doIgnore
     , className =? "TelegramDesktop" --> viewShift (myWorkspaces !! 8)
     , className =? "Tor Browser" --> viewShift (myWorkspaces !! 8)
@@ -520,8 +518,9 @@ myStartupHook = do
   spawnOnce "/usr/bin/pipewire-pulse &"
   spawnOnce "/usr/bin/pipewire &"
   spawnOnce "/usr/libexec/polkit-gnome-authentication-agent-1 &"
+  spawnOnce "sxhkd -c $HOME/.config/sxhkd/xmonad_sxhkdrc"
+  -- https://github.com/TheMC47/dotfiles/blob/974d07559b2df474797d7f7ac96341900f6ad6b4/xmonad/.xmonad/xmonad.hs#L544 --
   spawnOnce
     "trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x171d23 --height 21 &"
   spawnOnce
     "{ xrandr | grep 'HDMI-1-0 connected' >/dev/null && xrandr --output HDMI-1-0 --auto --primary && xrandr --output eDP-1 --off ;} || { xrandr --output eDP-1 --auto --primary && xrandr --output HDMI-1-0 --off ;}"
-  spawnOnce "sxhkd -c $HOME/.config/sxhkd/xmonad_sxhkdrc"

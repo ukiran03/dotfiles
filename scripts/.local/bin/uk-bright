@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 
 # icon="display-brightness"
 up_icon="/usr/share/icons/Papirus-Dark/32x32/panel/brightness-high-symbolic.svg"
@@ -18,9 +19,19 @@ else
     echo "Install bc calculator"
 fi
 
-
 default="0.85"
 config="/home/ukiran/.config/my_display/brightness"
+
+_brightness_pipe=/tmp/.brightness-pipe
+# Check if it's a FIFO (named pipe)
+if [[ ! -p $_brightness_pipe ]]; then
+    # If it's not a FIFO, create it
+    mkfifo $_brightness_pipe
+fi
+
+get_brightness() {
+    awk '{print $1 * 100}' $config | tee /tmp/.brightness-pipe
+}
 
 send_notification() {
     # Calculate percentage from $result
@@ -28,7 +39,7 @@ send_notification() {
     percentage=$(awk '{printf "%.0f", $1 * 100}' <<< "$result") #using awk
 
     # polybar-msg hook uk-bright 1 &  # Trigger Polybar hook to update uk-bright module
-    polybar-msg action uk-bright send ${percentage}
+    # polybar-msg action uk-bright send ${percentage}
 
     # Send notification with dunstify
     dunstify -a "ignore" -u low -r 4434 -h int:value:"$percentage" \
@@ -73,5 +84,5 @@ case $1 in
 	;;
 esac
 
+get_brightness
 read -r current < "$config"
-echo "The current value is: $current"

@@ -26,6 +26,7 @@
   (setq dashboard-banner-logo-title "I am not this body"
         dashboard-banners-directory (expand-file-name "avatars/" user-emacs-directory)
 	    dashboard-startup-banner (concat dashboard-banners-directory "musashi1.jpg")
+        ;; dashboard-startup-banner 'logo
 
 	    dashboard-projects-backend 'project-el
 	    dashboard-path-style 'truncate-middle

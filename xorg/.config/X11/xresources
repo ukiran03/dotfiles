@@ -1,11 +1,12 @@
 ! -*- compile-command: "xrdb ~/.config/X11/xresources" -*-
 ! -*- mode: conf-xdefaults -*-
 
+#include "active_theme"
 ! <https://wiki.archlinux.org/title/Cursor_themes>
 Xcursor.theme: Bibata-Modern-Ice
 Xcursor.size: 16
 
-!! City Lights Colors
+!! default colors
 *.foreground: #ffffff
 *.background: #171d23
 *.cursorColor: #fafafa
@@ -26,76 +27,6 @@ Xcursor.size: 16
 *.color14: #70e1e8
 *.color15: #ffffff
 
-!!! Operandi
-URxvt.foreground: #000000
-URxvt.background: #ffffff
-URxvt.cursorColor: #000000
-URxvt.color0: #e6e6e6
-URxvt.color1: #a60000
-URxvt.color2: #006800
-URxvt.color3: #6f5500
-URxvt.color4: #0031a9
-URxvt.color5: #721045
-URxvt.color6: #005e8b
-URxvt.color7: #595959
-URxvt.color8:  #c8c8c8
-URxvt.color9:  #a0132f
-URxvt.color10: #00663f
-URxvt.color11: #7a4f2f
-URxvt.color12: #0000b0
-URxvt.color13: #531ab6
-URxvt.color14: #005f5f
-URxvt.color15: #000000
-URxvt.highlightColor: #bdbdbd
-URxvt.highlightTextColor: #393330
-
-!! Vivendi
-! URxvt.foreground: #ffffff
-! URxvt.background: #000000
-! URxvt.cursorColor: #ffffff
-! URxvt.color0: #1e1e1e
-! URxvt.color1: #ff5f59
-! URxvt.color2: #44bc44
-! URxvt.color3: #d0bc00
-! URxvt.color4: #2fafff
-! URxvt.color5: #feacd0
-! URxvt.color6: #00d3d0
-! URxvt.color7: #ffffff
-! URxvt.color8: #535353
-! URxvt.color9: #ff7f9f
-! URxvt.color10: #00c06f
-! URxvt.color11: #dfaf7a
-! URxvt.color12: #00bcff
-! URxvt.color13: #b6a0ff
-! URxvt.color14: #6ae4b9
-! URxvt.color15: #989898
-! URxvt.highlightColor: #5a5a5a
-! URxvt.highlightTextColor: #ffffff
-
-
-!!! Kaolin Light
-! *.foreground: #353b3c
-! *.background: #EDEEEB
-! *.cursorColor: #208f10
-! *.color0: #e6e6e8
-! *.color1: #e84c58
-! *.color2: #1D5E5C
-! *.color3: #ee7042
-! *.color4: #3B84CC
-! *.color5: #a9779c
-! *.color6: #6Facb6
-! *.color7: #303035
-! *.color8:  #c8ccc3
-! *.color9:  #e84c58
-! *.color10: #317A56
-! *.color11: #C5882C
-! *.color12: #4C7A90
-! *.color13: #6D46E3
-! *.color14: #008b8b
-! *.color15: #353b3c
-! *.highlightColor: #dbe0c0
-! *.highlightTextColor: #393330
-
 !! xft fonts teaking
 Xft.dpi:        96
 Xft.antialias:  true
@@ -105,19 +36,14 @@ Xft.hintstyle:  hintslight
 Xft.autohint:   true
 Xft.lcdfilter:  lcddefault
 
-!! 
-
 !! Resources
 !! https://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod
 !! https://smarttech101.com/urxvt-installation-color-scheme-fonts-resize-etc
-
 !! -- URxvt Settings
-
-URxvt.font: xft:Iosevka Term:size=11.25:style=Semibold
+URxvt.font:xft:Iosevka Term:size=11.25:style=Semibold
 URxvt.boldFont: xft:Iosevka Term:size=11.25:style=Bold
 URxvt.italicFont: xft:Iosevka Term:size=11.25:style=Italic
 URxvt.boldItalicFont: xft:Iosevka Term:size=11.25:style=Bold Italic
-
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
 URxvt*geometry: 80x240+0+0
@@ -125,72 +51,15 @@ URxvt.internalBorder: 10
 URxvt.cursorBlink: true
 URxvt.cursorUnderline: false
 URxvt*saveLines: 16384
-
 URxvt.scrollBar: false
 URxvt.scrollBar_right: false
 URxvt.scrollBar_floating: false
 URxvt.scrollstyle: rxvt
 URxvt.iso14755: false
-
-! -------------------------
-!!! City Lights
-! URxvt.foreground: #ffffff
-! URxvt.background: #171d23
-! URxvt.cursorColor: #5ec4ff
-! ! black
-! URxvt.color0: #333f4a
-! URxvt.color8: #41505e
-! ! red
-! URxvt.color1: #d95468
-! URxvt.color9: #d95468
-! ! green
-! URxvt.color2: #8bd49c
-! URxvt.color10: #8bd49c
-! ! yellow
-! URxvt.color3: #ebbf83
-! URxvt.color11: #ebbf83
-! ! blue
-! URxvt.color4: #539afc
-! URxvt.color12: #5ec4ff
-! ! magenta
-! URxvt.color5: #b62d65
-! URxvt.color13: #e27e8d
-! ! cyan
-! URxvt.color6: #70e1e8
-! URxvt.color14: #70e1e8
-! ! white
-! URxvt.color7: #b7c5d3
-! URxvt.color15: #ffffff
-
-!!! Kaolin Light
-! URxvt.foreground: #353b3c
-! URxvt.background: #EDEEEB
-! URxvt.cursorColor: #208f10
-! URxvt.color0: #e6e6e8
-! URxvt.color1: #e84c58
-! URxvt.color2: #1D5E5C
-! URxvt.color3: #ee7042
-! URxvt.color4: #3B84CC
-! URxvt.color5: #a9779c
-! URxvt.color6: #6Facb6
-! URxvt.color7: #303035
-! URxvt.color8:  #c8ccc3
-! URxvt.color9:  #e84c58
-! URxvt.color10: #317A56
-! URxvt.color11: #C5882C
-! URxvt.color12: #4C7A90
-! URxvt.color13: #6D46E3
-! URxvt.color14: #008b8b
-! URxvt.color15: #353b3c
-! URxvt.highlightColor: #dbe0c0
-! URxvt.highlightTextColor: #393330
-! -------------------------
-
 URxvt.fading: 10
 URxvt.depth: 32
 URxvt.intensityStyles: false
 URxvt.urgentOnBell: True
-
 !! Common Keybinds for Navigations
 URxvt.keysym.Shift-Up: command:\033]720;1\007
 URxvt.keysym.Shift-Down: command:\033]721;1\007
@@ -198,14 +67,11 @@ URxvt.keysym.Control-Up: \033[1;5A
 URxvt.keysym.Control-Down: \033[1;5B
 URxvt.keysym.Control-Right: \033[1;5C
 URxvt.keysym.Control-Left: \033[1;5D
-
+!! Extensions
 URxvt.perl-ext-common: default,selection-to-clipboard,matcher,keyboard-select,resize-font
-! URxvt.perl-ext-common: default,selection-to-clipboard,matcher,keyboard-select,resize-font
-
 ! keyboard-select
 URxvt.keysym.M-s: perl:keyboard-select:search
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
-
 ! matcher
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
@@ -213,23 +79,18 @@ URxvt.matcher.button: 1
 ! y - yank
 ! o - open
 URxvt.keysym.M-u: perl:matcher:select
-
 URxvt.clipboard.copycmd: xclip -i -sel clip
 URxvt.clipboard.pastecmd: xclip -o -sel clip
-
 ! Keybinds
 URxvt.keysym.C-C:          perl:clipboard:copy
 URxvt.keysym.C-V:          perl:clipboard:paste
-
 URxvt.keysym.C-minus:     resize-font:smaller
 URxvt.keysym.C-plus:      resize-font:bigger
 URxvt.keysym.C-equal:     resize-font:reset
-URxvt.keysym.C-question:  resize-font:show
-URxvt.resize-font.step: 2
-
+! URxvt.keysym.C-question:  resize-font:show
+URxvt.resize-font.step: 0.5
 URxvt.perl-lib: /home/ukiran/.config/urxvt/ext
 
-!! 
 ! xterm
 ! =====
 

@@ -72,7 +72,7 @@
   :hook (after-init . ultra-scroll-mode))
 
 (use-package stillness-mode
-  :vc (:url "https://github.com/neeasade/stillness-mode.el")
+  ;;   :vc (:url "https://github.com/neeasade/stillness-mode.el")
   :after minibuffer
   :hook (after-init . stillness-mode))
 

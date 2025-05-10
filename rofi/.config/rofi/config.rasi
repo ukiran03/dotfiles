@@ -1,27 +1,13 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- *
- * Rofi Theme File
- * Rofi Version: 1.7.3
- * resource : <https://randomgeekery.org/config/linux/rofi/>
- *   	      <https://blog.wotw.pro/tag/rofi/>
- **/
-
-/*****----- Configuration -----*****/
 configuration {
-modi:                       "drun,run,filebrowser,window";
-show-icons:                 false;
+modi: "drun,run,filebrowser,window";
+show-icons: false;
 display-drun: " ";
 display-run: " ";
 display-filebrowser: " ";
 display-window: " ";
-/** drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]"; **/
 drun-display-format: "{name}";
-window-format:              "{w} · {c} · {t}";
+window-format: "{w} · {c} · {t}";
 window-command: "wmctrl -i -R {window}";
-/** window-command: "herbstclient bring {window}"; **/
 window {
        hide-active-window: true;
        close-on-delete: false;
@@ -38,7 +24,6 @@ kb-element-prev: "";
 drun-match-fields: "name,generic,exec,categories,keywords";
 }
 
-/*****----- Global Properties -----*****/
 @import                          "colors.rasi"
 @import                          "fonts.rasi"
 
@@ -123,7 +108,7 @@ inputbar {
     border-color:                @border-colour;
     background-color:            transparent;
     text-color:                  @foreground-colour;
-    children:                    ["textbox-prompt-colon", "entry", "prompt"];
+    children:                    ["textbox-prompt-colon", "entry", "prompt", "num-filtered-rows"];
 }
 
 prompt {
@@ -137,8 +122,8 @@ prompt {
     background-color:            @border-colour;
     foreground-colour:           @selected;
     text-color:                  @background;
+    }
 
-}
 textbox-prompt-colon {
     enabled:                     true;
     padding:                     5px 0px;
@@ -146,7 +131,8 @@ textbox-prompt-colon {
     str:                         " ";
     background-color:            inherit;
     text-color:                  inherit;
-}
+    }
+
 entry {
     enabled:                     true;
     padding:                     5px 0px;
@@ -155,31 +141,37 @@ entry {
     cursor:                      text;
     placeholder:                 "Search...";
     placeholder-color:           inherit;
-}
+    }
+
 num-filtered-rows {
     enabled:                     true;
+    padding:                     4px 0px;
     expand:                      false;
     background-color:            inherit;
+    font:                        "Iosevka Nerd Font SemiBold 10.25";
     text-color:                  inherit;
-}
+    }
+
 textbox-num-sep {
     enabled:                     true;
     expand:                      false;
     str:                         "/";
     background-color:            inherit;
     text-color:                  inherit;
-}
+    }
+
 num-rows {
     enabled:                     true;
     expand:                      false;
     background-color:            inherit;
     text-color:                  inherit;
-}
+    }
+
 case-indicator {
     enabled:                     true;
     background-color:            inherit;
     text-color:                  inherit;
-}
+    }
 
 /*****----- Listview -----*****/
 listview {
