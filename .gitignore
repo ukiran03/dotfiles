@@ -59,6 +59,9 @@ gui-apps/.config/calibre/*
 !gui-apps/.config/liferea
 gui-apps/.config/qBittorrent/*
 !gui-apps/.config/qBittorrent/qBittorrent.conf
+gui-apps/.config/qutebrowser/*
+!gui-apps/.config/qutebrowser/config.py
+
 
 ### Media
 media/.config/mpd/*

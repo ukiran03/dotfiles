@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Categories=GNOME;GTK;Network;WebBrowser;
+Icon=/home/ukiran/.Zen-browser/browser/chrome/icons/default/default128.png
+Exec=/home/ukiran/.Zen-browser/zen-bin %u
+Name=Zen Browser
+Comment=Custom definition for Zen Browser
+Actions=NewWindow;NewPrivateWindow;
+StartupNotify=true
+Terminal=false
+X-MultipleArgs=false
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
