@@ -1,0 +1,172 @@
+#!/usr/bin/env bash
+
+# xtwm_common -- Common settings for Xorg Tiling Window Managers
+
+### Commentary:
+#
+# Common settings used by my BSPWM and Herbstluftwm setups
+# (collectively referred to as "Xorg Tiling Window Managers").  I
+# configure those window managers to be similar.
+#
+# In all cases where a file is called, I assume it exists.
+
+
+#### Code
+
+_check () {
+    command -v "$1" > /dev/null
+}
+
+# Specify keyboard layout options.  See the setxkbmap(1) manual for
+# the command line arguments and the xkeyboard-config(7) manual for
+# the layout names and options.
+#
+# NOTE 2023-07-16: The -option used to accept a comma separated list.
+# Now it requires each option to be specified separately.
+
+# if _check setxkbmap
+# then
+#     setxkbmap -option 'ctrl:nocaps' \
+#               -option 'altwin:menu_win' -option 'caps:none'
+# fi
+
+xmodmap "$XDG_CONFIG_HOME/X11/xmodmap"
+
+# The hotkey daemon that handles all custom key bindings.  I split the
+# key chords into separate files, based on their scope.  The ones that
+# pertain to the window manager are defined in sxhkdrc_bspwm and
+# sxhkdrc_herbstluftwm, respectively.
+_check sxhkd && sxhkd -c "$HOME"/.config/sxhkd/herbs_sxhkdrc &
+
+# Check if tmux session 'Main' exists, and create it if it doesn't
+if ! tmux has-session -t 'Main' 2>/dev/null; then
+  tmux new-session -d -s 'Main'
+fi
+
+# Run the tool that sets the wallpaper.  A program could be used that
+# handles the desktop in general, including the option to set icons.
+# But this is enough for my case.  Here is a command I tested and which
+# works (using the Xfce desktop manager):
+# xfdesktop --sm-client-disable --disable-wm-check &
+
+# if _check nitrogen
+# then
+#     nitrogen --restore
+# fi
+
+if _check feh
+then
+    ~/.fehbg &
+fi
+
+
+#### Pipewire
+
+if _check pipewire; then
+    if ! pgrep -x "pipewire" > /dev/null; then
+        /usr/bin/pipewire &
+    fi
+fi
+
+if _check pipewire-pulse; then
+    if ! pgrep -x "pipewire-pulse" > /dev/null; then
+        /usr/bin/pipewire-pulse &
+    fi
+fi
+
+# Start the display compositor, See picom(1)
+_check picom && picom --config "$HOME"/.config/picom/picom.conf &
+
+# Simple daemon for GTK settings, PKG: xsettingsd
+# _check xsettingsd && xsettingsd -c "$HOME"/.config/xsettingsd/xsettingsd.conf &
+
+# Use the same cursor everywhere, PKG: extra/xorg-xsetroot
+if _check xsetroot
+then
+    xsetroot -cursor_name left_ptr & #cursor active at boot
+    xsetroot -solid '#5A8E3A' &
+fi
+
+# check once again
+
+# if _check redshift; then
+#     if ! pgrep -x "redshift" > /dev/null; then
+#     redshift-gtk &
+#     fi
+# fi
+
+# xset r rate 200 50
+
+# Load my Xresources
+# xrdb -load "$XDG_CONFIG_HOME/X11/xresources"
+# _check xrdb && [ -f "$HOME"/.Xresources ] && xrdb -I "$HOME" -merge "$HOME"/.Xresources
+
+# PKG: network-manager-applet
+_check nm-applet && nm-applet &
+
+# Dunst
+_check dunst && dunst &
+
+
+# chekc monitors
+# Check if HDMI-1-0 is connected
+if xrandr | grep "HDMI-1-0 connected"; then
+    # HDMI-1-0 is connected, set it as active and primary
+    xrandr --output HDMI-1-0 --auto --primary
+    # Turn off eDP-1 display
+    xrandr --output eDP-1 --off
+    # Initial brightness for external monitor
+    xrandr --output HDMI-1-0 --brightness 0.85
+    brightness_file="/home/ukiran/.config/my_display/brightness"
+    # Check if the file exists
+    if [ -f "$brightness_file" ]; then
+	echo "0.85" > "$brightness_file"
+    else
+	touch "$brightness_file"
+	echo "0.85" > "$brightness_file"
+    fi
+else
+    # HDMI-1-0 is not connected, set eDP-1 as active and primary
+    xrandr --output eDP-1 --auto --primary
+    # Turn off HDMI-1-0 display
+    xrandr --output HDMI-1-0 --off
+    # setxkbmap -option altwin:swap_lalt_lwin ----------------------- back to normal for while
+fi
+
+
+# if pgrep -x "xfce4-clipman" > /dev/null
+# then echo "xfce4-clipman" is already running
+# else
+#     echo "starting xfce4-clipman"
+#     xfce4-clipman &
+# fi
+
+greenclip daemon &
+
+
+if pgrep -f "xfce4-power-manager" > /dev/null
+then echo "xfce4-power-manager" is already running
+else
+    echo "starting xfce4-power-manager"
+    xfce4-power-manager &
+fi
+
+# _check emacs && emacs -T emacs-server &
+
+_check mpc && mpc update &
+
+_check numlockx && numlockx on &
+
+_check thunar && thunar --daemon &
+
+#nmcli networking off &
+# bash internet &
+
+
+
+# /usr/lib/xfce4/notifyd/xfce4-notifyd &
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &

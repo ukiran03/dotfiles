@@ -1,0 +1,10 @@
+#!/bin/bash
+
+CONFIG="${XDG_CONFIG_HOME}/conky/conky.conf"
+
+if pgrep -x "conky" > /dev/null
+then
+	killall conky && dunstify -a "ignore" "Conky OFF" -t 1000 -i conky -r 1596
+else
+	conky -c "$CONFIG" && dunstify -a "ignore" "Conky ON" -t 1000 -i conky -r 1596
+fi

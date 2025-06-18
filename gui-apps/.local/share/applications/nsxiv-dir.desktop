@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=nsxiv-dir
+Comment=Open image files in the current directory with nsxiv
+Exec=nsxiv .
+Icon=nsxiv
+Terminal=false
+Type=Application
+Categories=Utility;Graphics;
+MimeType=image/*
+Path=
+StartupNotify=false

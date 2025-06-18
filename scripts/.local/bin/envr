@@ -1,0 +1,25 @@
+#!/bin/bash
+# envr [PID] - print environment changes, recursively
+
+set -e
+
+penv() {
+	sort -z /proc/$1/environ 2>/dev/null || printf "%s\n" -
+}
+
+iter() {
+	local me=$1
+	local parent="$(ps -h -o ppid -p $me | tr -cd 0-9)"
+	if [ "$parent" -gt 0 ] && [ "$parent" -ne "$me" ]; then
+		iter $parent
+		echo
+		ps h -F -p $me
+		comm -13 -z <(penv $parent) <(penv $me) |
+			tr '\0' '\n' | sed 's/^/  /'
+	else
+		ps -F -p $me
+		penv $me | tr '\0' '\n' | sed 's/^/  /'
+	fi
+}
+
+iter ${1:-$$}

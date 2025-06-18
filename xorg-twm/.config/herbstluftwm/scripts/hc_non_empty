@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+hc() {
+    herbstclient "$@"
+}
+
+ASSETS="$HOME/.config/herbstluftwm/assets"
+current_tag=$(( $(hc attr tags.focus.index) + 1 ))
+my_tags=($(hc tag_status | grep -oP '[#\:\-\!]\K\d+'))
+length=${#my_tags[@]}
+
+notify() {
+    dunstify -a "ignore" -t 600 -r 234 -i "$ASSETS/$1.png" Tag
+}
+
+# Find the current tag's index once and use it in both functions
+current_tag_index=-1
+for i in "${!my_tags[@]}"; do
+    if [[ ${my_tags[i]} -eq $current_tag ]]; then
+        current_tag_index=$i
+        break
+    fi
+done
+
+# Move to the next tag, wrapping around if needed
+next_tag() {
+    # Calculate the next tag index, wrapping around
+    next_index=$(((current_tag_index + 1) % length))
+    tag=${my_tags[next_index]}
+    hc use $tag && notify $tag
+}
+
+# Move to the previous tag, wrapping around if needed
+prev_tag() {
+    # Calculate the previous tag index, wrapping around
+    prev_index=$(((current_tag_index - 1 + length) % length))
+    tag=${my_tags[prev_index]}
+    hc use $tag && notify $tag
+}
+
+# Check for argument
+if [ -z "$1" ]; then
+    echo "No argument provided. use 'prev' or 'next' as args"
+    exit 1
+fi
+
+# Run the appropriate function based on the argument
+case $1 in
+    next)
+        next_tag
+        ;;
+    prev)
+        prev_tag
+        ;;
+    *)
+        echo "Invalid argument. use 'prev' or 'next' as args"
+        exit 1
+        ;;
+esac

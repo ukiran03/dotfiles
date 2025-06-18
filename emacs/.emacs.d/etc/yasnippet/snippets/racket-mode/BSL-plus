@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: BSL+
+# key: BSL+
+# --
+#reader(lib "htdp-beginner-abbr-reader.ss" "lang")((modname `(file-name-sans-extension (file-name-nondirectory (buffer-file-name)))`) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+;; For
+;; DrRacket
+$0

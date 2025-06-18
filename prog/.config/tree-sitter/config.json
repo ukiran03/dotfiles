@@ -1,0 +1,59 @@
+{
+  "parser-directories": [
+    "/home/ukiran/github",
+    "/home/ukiran/src",
+    "/home/ukiran/source",
+    "/home/ukiran/projects",
+    "/home/ukiran/dev",
+    "/home/ukiran/git"
+  ],
+  "theme": {
+    "type.builtin": {
+      "bold": true,
+      "color": 23
+    },
+    "constructor": 136,
+    "variable.builtin": {
+      "bold": true
+    },
+    "keyword": 56,
+    "type": 23,
+    "property": 124,
+    "punctuation.delimiter": 239,
+    "tag": 18,
+    "constant": 94,
+    "operator": {
+      "bold": true,
+      "color": 239
+    },
+    "number": {
+      "bold": true,
+      "color": 94
+    },
+    "attribute": {
+      "color": 124,
+      "italic": true
+    },
+    "comment": {
+      "color": 245,
+      "italic": true
+    },
+    "string.special": 30,
+    "function.builtin": {
+      "color": 26,
+      "bold": true
+    },
+    "function": 26,
+    "punctuation.bracket": 239,
+    "embedded": null,
+    "variable.parameter": {
+      "underline": true
+    },
+    "constant.builtin": {
+      "bold": true,
+      "color": 94
+    },
+    "module": 136,
+    "string": 28
+  }
+}

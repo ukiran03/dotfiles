@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Store the output of the command in a variable
+notification_count=$(dunstctl count history)
+
+# Loop through the notification_count and run dunstctl history-pop
+for ((i=1; i<=notification_count; i++)); do
+    dunstctl history-pop
+done

@@ -1,0 +1,2 @@
+#!/bin/sh
+emacs --init-directory=~/Git/repos/OEmacs/centauremacs

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+CONFIG="${XDG_CONFIG_HOME}/picom/picom.conf"
+
+if pgrep -x "picom" > /dev/null
+then
+	killall picom && dunstify -a "ignore" "Picom OFF" -i picom -r 4566 -t 2000
+else
+    picom -b --config "$CONFIG" && dunstify -a "ignore" "Picom ON" -i picom -r 4566 -t 2000
+fi

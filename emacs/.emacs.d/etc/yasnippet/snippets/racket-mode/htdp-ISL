@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: ISL
+# key: Intermediate Student Language
+# --
+#lang htdp/isl
+
+$0

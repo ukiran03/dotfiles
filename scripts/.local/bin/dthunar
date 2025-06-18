@@ -1,0 +1,4 @@
+#!/bin/sh
+
+DIR=$(fd --strip-cwd-prefix . -t d 2> /dev/null | rofi -dmenu -i -p "thunar" -sort -sorting-method 'fzf')
+[ -z "$DIR" ] || thunar "$DIR"

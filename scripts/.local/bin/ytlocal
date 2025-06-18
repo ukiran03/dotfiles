@@ -1,0 +1,6 @@
+#!/bin/sh
+cd ~/Git/repos/yt-local/ || { echo "Failed to change directory to ~/repos/yt-local/"; exit 1; }
+. venv/bin/activate || { echo "Failed to activate virtual environment"; exit 1; }
+python server.py || { echo "Failed to start server.py"; exit 1; }
+
+

@@ -1,0 +1,3 @@
+#!/bin/sh
+_TB_APP_DIR_="/home/ukiran/Tor"
+"${_TB_APP_DIR_}/Browser/start-tor-browser" "${args[@]}"

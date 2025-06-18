@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: 2htdp-universe-lib
+# key: universe
+# --
+(require 2htdp/universe)
+$0

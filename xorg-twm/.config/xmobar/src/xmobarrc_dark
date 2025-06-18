@@ -1,0 +1,68 @@
+Config
+  { overrideRedirect = False
+  , font = "xft:Iosevka Nerd Font:pixelsize=13:bold:antialias=true;3"
+       -- , additionalFonts = ["xft:Iosevka Nerd Font:weight=bold:pixelsize=10"]
+  , additionalFonts = ["xft:Iosevka Nerd Font:pixelsize=14:bold:antialias=true","xft:FontAwesome:style=Regular:pixelsize=14"]
+  , bgColor = "#0d0e1c"
+  , fgColor = "#ffffff"
+  -- , position = TopSize C 100 30
+  , position = TopW L 100
+  , borderColor = "#3c4449"
+  , border = BottomB
+  , lowerOnStart = True
+  , iconRoot = "/home/ukiran/.config/xmobar/xpm/"
+  , commands =
+      [ Run
+          BatteryP
+          ["BAT1"]
+          [ "-t"
+          , "<fc=#6D8895>Bat:</fc> <acstatus><left>"
+          , "-L"
+          , "20"
+          , "-H"
+          , "85"
+          , "-l"
+          , "#ff6b55"
+          , "-h"
+          , "#88ca9f"
+          , "--"
+          , "-O" , "<fc=#88ca9f><fn=1> </fn></fc>"
+          , "-o"
+          , "<fc=#FEC43F></fc>"
+          , "-a"
+          , "dunstify -i '/usr/share/icons/Papirus-Dark/32x32@2x/panel/battery-000.svg' -u critical -r 2389 'Battery running out!!'"
+          , "-P"
+          , "%"
+          , "-A"
+          , "20"
+          ]
+          100
+      , Run
+          Cpu
+          [ "-t"
+          , "<fc=#6D8895>Cpu:</fc> <total>%" -- <bar>
+          , "-L"
+          , "3"
+          , "-H"
+          , "50"
+          , "--high"
+          , "#ff5f59"
+          , "--normal"
+          , "#88ca9f"
+          ]
+          50
+      , Run Com "pamixer" ["--get-volume-human"] "" 20
+      , Run PipeReader "/tmp/.volume-pipe" "vol_pipe"
+      , Run PipeReader "!:/tmp/.brightness-pipe" "bright_pipe"
+      , Run DynNetwork ["-t", "<fc=#88ca9f><dev><up></fc>"] 10
+      , Run Memory ["--template", "<fc=#6D8895>Mem:</fc> <usedratio>%"] 50
+      -- , Run Date "%a, %d %b %Y, <fc=#00eff0>%I:%M %p</fc>" "date" 300
+      , Run Date "<fc=#FFFFFF,#5f509f> %a, %d %b %Y, %I:%M %p </fc>" "date" 300
+      , Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 50
+      , Run XMonadLog
+      ]
+  , sepChar = "%"
+  , alignSep = "}{"
+  , template =
+    " <icon=xmonad_dark.xpm/> <fc=#3c4449>|</fc> %XMonadLog% }{ %dynnetwork%  <fc=#6D8895>br:</fc> %bright_pipe%  <fc=#42A5F5><fn=2>  </fn></fc>%pamixer%  %battery%  %date% %trayerpad%"
+  }

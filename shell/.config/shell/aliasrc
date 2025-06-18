@@ -1,0 +1,398 @@
+## -*- compile-command: "source ~/.config/shell/aliasrc" -*-
+### ALIASES ###
+
+# alias bomb=":(){ :|:& };:"
+
+dbe() {
+	choice="$(find ~/.bin/ -mindepth 1 -printf '%P\n' | fzf)"
+	[ -f "$HOME/.bin/$choice" ] && $EDITOR "$HOME/.bin/$choice"
+	}
+
+be() {
+	choice="$(find ~/.local/bin/ -mindepth 1 -printf '%P\n' | fzf)"
+	[ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
+	}
+
+backupthis () {
+    cp -riv $1 ${1}-$(date +%Y%m%d%H%M).backup;
+}
+
+# show the list of packages that need this package - depends mpv as example
+# function_depends()  {
+#     search=$(echo "$1")
+#     sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
+#     }
+
+alias mod_swap='setxkbmap -option altwin:swap_lalt_lwin'
+alias hh="history info 0 | cut -c 8- | sort | uniq | fzf | tr -d '\n' | xclip -selection c"
+
+
+# cd() {
+#     [[ $# -eq 0 ]] && return
+#     builtin cd "$@"
+#     echo "$(pwd)"
+# }
+
+# # ex = EXtractor for all kinds of archives
+# # usage: ex <file>
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1   ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *.deb)       ar x $1      ;;
+      *.tar.xz)    tar xf $1    ;;
+      *.tar.zst)   tar xf $1    ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+alias cdu='cdu -idh'
+
+# ascii-image-converter
+alias 2ascii='ascii-image-converter'
+# Transmission-cli
+alias tsmr='transmission-remote'
+
+alias depends='function_depends'
+
+#fix obvious typo's
+alias cd..='cd ..'
+
+## Colorize the grep command output for ease of use (good for log files)##
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+alias diff='diff --color'
+#readable output
+alias df='df -h'
+
+#setlocale
+alias setlocale="sudo localectl set-locale LANG=en_US.UTF-8"
+alias setlocales="sudo localectl set-x11-keymap us && sudo localectl set-locale LANG=en_US.UTF-8"
+
+#which graphical card is working
+alias whichvga="/usr/local/bin/arcolinux-which-vga"
+
+#free
+alias free="free -mt"
+
+#continue download
+alias wget="wget -c"
+
+#userlist
+alias userlist="cut -d: -f1 /etc/passwd | sort"
+
+#merge new settings
+alias merge="xrdb -merge ~/.Xresources"
+
+# # Aliases for software managment
+# # pacman or pm
+# alias pacman='sudo pacman --color auto'
+# alias update='sudo pacman -Syyu'
+# alias upd='sudo pacman -Syyu'
+
+# # paru as aur helper - updates everything
+# alias pksyua="paru -Syu --noconfirm"
+# alias upall="paru -Syu --noconfirm"
+# alias upa="paru -Syu --noconfirm"
+
+#ps
+alias psa="ps auxf"
+alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
+
+#add new fonts
+alias update-fc='sudo fc-cache -fv'
+
+#copy shell configs
+# alias cb='cp /etc/skel/.bashrc ~/.bashrc && exec bash'
+# alias cz='cp /etc/skel/.zshrc ~/.zshrc && echo "Copied."'
+# alias cf='cp /etc/skel/.config/fish/config.fish ~/.config/fish/config.fish && echo "Copied."'
+
+#switch between bash and zsh
+alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
+alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
+alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"
+
+#hardware info --short
+alias hw="hwinfo --short"
+
+#audio check pulseaudio or pipewire
+alias audio="pactl info | grep 'Server Name'"
+
+#skip integrity check
+# alias paruskip='paru -S --mflags --skipinteg'
+# alias yayskip='yay -S --mflags --skipinteg'
+# alias trizenskip='trizen -S --skipinteg'
+
+#check vulnerabilities microcode
+alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
+
+#check cpu
+alias cpu="cpuid -i | grep uarch | head -n 1"
+
+#youtube download
+alias yt-dlp="yt-dlp --add-metadata"
+alias yta-aac="yt-dlp --extract-audio --audio-format aac "
+alias yta-b="yt-dlp --extract-audio --audio-format best "
+alias yta-flac="yt-dlp --extract-audio --audio-format flac "
+alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
+alias ytv-b="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "
+
+#Recent Installed Packages
+# alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+# alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
+
+# This will generate a list of explicitly installed packages
+# alias list="sudo pacman -Qqe"
+#This will generate a list of explicitly installed packages without dependencies
+# alias listt="sudo pacman -Qqet"
+# list of AUR packages
+# alias listaur="sudo pacman -Qqem"
+# add > list at the end to write to a file
+
+# install packages from list
+# pacman -S --needed - < my-list-of-packages.txt
+
+#clear
+alias clean="clear; seq 1 $(tput cols) | sort -R | sparklines | lolcat"
+
+#search content with ripgrep
+alias rg="rg --sort path"
+
+#get the error messages from journalctl
+# alias jctl="journalctl -p 3 -xb"
+
+#nano for important configuration files
+#know what you do in these files
+alias nmkinitcpio="sudo $EDITOR /etc/mkinitcpio.conf"
+# alias nmirrorlist="sudo $EDITOR /etc/pacman.d/mirrorlist"
+alias nfstab="sudo $EDITOR /etc/fstab"
+alias nnsswitch="sudo $EDITOR /etc/nsswitch.conf"
+alias nsamba="sudo $EDITOR /etc/samba/smb.conf"
+# alias ngnupgconf="sudo $EDITOR /etc/pacman.d/gnupg/gpg.conf"
+alias nhosts="sudo $EDITOR /etc/hosts"
+alias nhostname="sudo $EDITOR /etc/hostname"
+alias nresolv="sudo $EDITOR /etc/resolv.conf"
+
+#reading logs with bat
+alias lcalamares="bat /var/log/Calamares.log"
+alias lpacman="bat /var/log/pacman.log"
+alias lxorg="bat /var/log/Xorg.0.log"
+alias lxorgo="bat /var/log/Xorg.0.log.old"
+
+#gpg
+#verify signature for isos
+alias gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
+alias fix-gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
+#receive the key of a developer
+alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
+alias fix-gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
+alias fix-keyserver="[ -d ~/.gnupg ] || mkdir ~/.gnupg ; cp /etc/pacman.d/gnupg/gpg.conf ~/.gnupg/ ; echo 'done'"
+
+#fixes
+alias fix-permissions="sudo chown -R $USER:$USER ~/.config ~/.local"
+
+
+#maintenance
+# alias big="expac -H M '%m\t%n' | sort -h | nl"
+# alias downgrada="sudo downgrade --ala-url https://ant.seedhost.eu/arcolinux/"
+
+#hblock (stop tracking with hblock)
+#use unhblock to stop using hblock
+# alias unhblock="hblock -S none -D none"
+
+#systeminfo
+alias probe="sudo -E hw-probe -all -upload"
+# alias sysfailed="systemctl list-units --failed"
+
+#shutdown or reboot
+# alias ssn="sudo shutdown now"
+
+#update betterlockscreen images
+alias bls="betterlockscreen -u ~/Pictures/wallpapers"
+
+#give the list of all installed desktops - xsessions desktops
+alias xd="ls /usr/share/xsessions"
+alias xdw="ls /usr/share/wayland-sessions"
+
+
+#git
+alias rmgitcache="rm -r ~/.cache/git"
+alias grh="git reset --hard"
+
+# alias personal='cp -Rf /personal/* ~'
+
+#---- personal ----
+#
+#
+#
+
+export EDITOR='nvim'
+export VISUAL='nvim'
+
+#------------------------------------------------------------------
+# USHAKIRAN personal alias
+alias xbh="xrandr --output HDMI-1-0 --brightness"
+alias scaps="setxkbmap -option"
+alias nocaps="setxkbmap -option ctrl:nocaps"
+alias keys="xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'"
+
+#tor-browser
+# alias torb="cd /home/ukiran/Tor/ && ./start-tor-browser.desktop"
+
+#edits
+alias vi="vim"
+alias nv="nvim"
+
+# cal -yc
+# alias cal="cal -yc "
+# alias cal4="cal -yc 4"
+# alias cal6="cal -yc 6"
+
+#scripts
+#---------------
+alias script="cd ~/.bin/"
+#---------------
+
+# protonVPN
+# alias vpn="protonvpn-cli"
+
+# devour "window swallow"
+# alias gzt="gobble zathura"
+# alias gsx="gobble nsxiv"
+# alias gpv="gobble mpv"
+# alias g="gobble"
+
+# wifi speed
+# alias wifigraph="speedometer -r wlan0"
+# alias wifispeed="speedtest-cli --simple"
+
+
+# plocate
+alias locate="plocate"
+
+# phone
+# alias phone="192.168.1.2 -p 8022"
+
+
+# dotfiles
+alias dots="cd ~/dotfiles/"
+
+hc() {
+    herbstclient "$@"
+}
+
+rfv() (
+  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+            vim {1} +{2}     # No selection. Open the current line in Vim.
+          else
+            vim +cw -q {+f}  # Build quickfix list for the selected items.
+          fi'
+  fzf --disabled --ansi --multi \
+      --bind "start:$RELOAD" --bind "change:$RELOAD" \
+      --bind "enter:become:$OPENER" \
+      --bind "ctrl-o:execute:$OPENER" \
+      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+      --delimiter : \
+      --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+      --preview-window '~4,+{2}+4/3,<80(up)' \
+      --query "$*"
+)
+
+# for emacs
+# alias r~="rm -rf *~"
+alias emacsc="emacsclient -c"
+alias emacsn="emacsclient -nw"
+
+# displays
+alias monmain="xrandr --output HDMI-1-0 --auto --primary & xrandr --output eDP-1 --off"
+alias lapmain="xrandr --output eDP-1 --auto --primary & xrandr --output HDMI-1-0 --off"
+alias 2heads="xrandr --output HDMI-1-0 --auto --primary --output eDP-1 --auto --left-of HDMI-1-0"
+#mpv fullscreen problem
+#alias mpv="mpv --fs"
+alias mplay="mpv --playlist=."
+
+alias fplay="ffplay -loglevel 8 -loop 0"
+
+alias rso="redshift -O"
+alias rsx="redshift -x"
+
+alias lsmount="mount | column -t"
+
+# For checking virtually
+alias Xep="Xephyr -br -ac -noreset -screen 1280x720 :1 &"
+# alias Xdis="export DISPLAY=:1"
+alias Xqt="DISPLAY=:1 qtile start"
+alias Xherb="DISPLAY=:1 herbstluftwm"
+alias kX="killall Xephyr"
+
+
+#terminal-fun
+alias ttyc="tty-clock -cst"
+
+# Alt_R as Esc     -----     while using vim and right super
+# menu as Super
+alias exkeys="xmodmap -e 'keycode 135 = Super_R';xmodmap -e 'keycode 108 = Escape'"
+
+alias ys="yay -Qs | grep"
+
+#alias lsl="ls -al"
+# Changing "ls" to "exa"
+# alias l='ls'
+alias ls='eza --color=always --group-directories-first -F'
+alias ll="eza --color=always --group-directories-first -lF"
+alias la="eza --color=always --group-directories-first -aF"
+alias lal="eza --color=always --group-directories-first -laF"
+lsd() {
+    eza --color=always -DF --show-symlinks "$@"
+}
+
+alias lt="eza --color=always -T"
+# alias lt.='eza -aT --color=always --group-directories-first' # tree listing include hidden
+# alias lt='eza -T --color=always --group-directories-first' # tree listing not include hidden
+alias l.='eza -a | grep -E "^\."'
+#------------------------------------------------------------------
+
+## Git Alias
+alias ,g='git'
+alias ,gs='git status'
+alias ,gl='git log --oneline --graph --all'
+alias ,gp='git pull'
+alias ,gcm='git commit'
+alias ,gcl='git clone'
+
+# source files
+alias src="source"
+
+alias mpvcc="mpvc -S ~/.config/mpv/socket"
+
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rm="rm -iv"
+alias mkdir="mkdir -pv"
+
+#terminal fun
+# alias matrix='unimatrix -s 96 -l k -c red'
+
+# LOCAL MANUALS
+alias rust-doc="rustup docs --book"
+
+function mcdir () { mkdir -- "$1" && cd -- "$1"; }
+alias d='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index

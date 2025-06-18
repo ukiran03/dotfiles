@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: 2htdp-image-lib
+# key: image
+# --
+(require 2htdp/image)
+$0

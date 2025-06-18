@@ -1,0 +1,52 @@
+#!/bin/bash
+
+bgloc="${XDG_DATA_HOME:-$HOME/.local/share}/bg"
+sets="--bg-fill"  # Default scaling mode
+
+while getopts "sct" opt; do
+  case $opt in
+    s)
+      sets="--bg-scale"
+      ;;
+    c)
+      sets="--bg-center"
+      ;;
+    t)
+      sets="--bg-tile"
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+if [ -z "$1" ]; then
+    dunstify -t 1500 -r 3455 -a "ignore" "Error" "No file or directory specified."
+    exit 1
+fi
+
+trueloc="$(readlink -f "$1")" || exit 1
+
+case "$(file --mime-type -b "$trueloc")" in
+    image/* )
+        ln -sf "$trueloc" "$bgloc" && dunstify -t 1500 -r 3455 -a "ignore" -i "$bgloc" "Changing wallpaper..."
+        ;;
+    inode/directory )
+        random_img=$(find "$trueloc" -iregex '.*\.\(jpg\|jpeg\|png\|gif\)' -type f | shuf -n 1)
+        if [ -n "$random_img" ]; then
+            ln -sf "$random_img" "$bgloc" && dunstify -t 1500 -r 3455 -a "ignore" -i "$bgloc" "Random Wallpaper chosen."
+        else
+            dunstify -t 1500 -r 3455 -a "ignore" "Error" "No valid images found in directory."
+            exit 1
+        fi
+        ;;
+    * )
+        dunstify -t 1500 -r 3455 -a "ignore" "Error" "Not a valid image or directory."
+        exit 1
+        ;;
+esac
+
+feh $sets "$bgloc"

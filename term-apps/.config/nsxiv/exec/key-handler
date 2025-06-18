@@ -1,0 +1,26 @@
+#!/bin/sh
+
+while read -r file; do
+    case "$1" in
+        "s") setbg -s "$file" & ;;
+        "c") setbg -c "$file" & ;;
+        "t") setbg -t "$file" & ;;
+
+        "d") trash "$file" && dunstify -a "ignore" "$file Image Trashed" & ;;
+
+        "r") magick -rotate 90 "$file" "$file" ;;
+        "R") magick -rotate -90 "$file" "$file" ;;
+        "f") magick -flop "$file" "$file" ;;
+
+        "y")
+            printf "%s" "$file" | tr -d '\n' | xclip -selection clipboard &&
+            dunstify -a "ignore" "$file copied to clipboard" & ;;
+
+        "Y")
+            readlink -f "$file" | tr -d '\n' | xclip -selection clipboard &&
+            dunstify -a "ignore" "$(readlink -f "$file") copied to clipboard" & ;;
+
+        "i")
+            dunstify -a "ignore" "File information" "$(mediainfo "$file" | sed "s/[ ]\+:/:/g;s/: /: <b>/;s/$/<\/b>/" | grep "<b>")" ;;
+    esac
+done

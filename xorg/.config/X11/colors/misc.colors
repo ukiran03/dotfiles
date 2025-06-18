@@ -1,0 +1,127 @@
+
+!! Kolin dark
+! URxvt.background: #18181B
+! URxvt.foreground: #E4E4E8
+! URxvt.cursorColor : #008b94
+! URxvt.color0: #222225
+! URxvt.color1: #cd5c60
+! URxvt.color2: #6fb593
+! URxvt.color3: #DBAC66
+! URxvt.color4: #49bdb0
+! URxvt.color5: #bc90d4
+! URxvt.color6: #0bc9cf
+! URxvt.color7: #f2f2f2
+! URxvt.color8: #383e3f
+! URxvt.color9: #c86d6d
+! URxvt.color10:#5D8272
+! URxvt.color11:#ffd7a5
+! URxvt.color12:#4d9391
+! URxvt.color13:#bc90d4
+! URxvt.color14:#57bfc2
+! URxvt.color15:#f2f2f2
+! URxvt.highlightColor: #2E403B
+! URxvt.highlightTextColor: #a7abb7
+
+
+!! Vivendi
+! URxvt.foreground: #ffffff
+! URxvt.background: #000000
+! URxvt.cursorColor: #ffffff
+! URxvt.color0: #1e1e1e
+! URxvt.color1: #ff5f59
+! URxvt.color2: #44bc44
+! URxvt.color3: #d0bc00
+! URxvt.color4: #2fafff
+! URxvt.color5: #feacd0
+! URxvt.color6: #00d3d0
+! URxvt.color7: #ffffff
+! URxvt.color8: #535353
+! URxvt.color9: #ff7f9f
+! URxvt.color10: #00c06f
+! URxvt.color11: #dfaf7a
+! URxvt.color12: #00bcff
+! URxvt.color13: #b6a0ff
+! URxvt.color14: #6ae4b9
+! URxvt.color15: #989898
+! URxvt.highlightColor: #5a5a5a
+! URxvt.highlightTextColor: #ffffff
+
+
+
+!!! Kaolin Light
+! *.foreground: #353b3c
+! *.background: #EDEEEB
+! *.cursorColor: #208f10
+! *.color0: #e6e6e8
+! *.color1: #e84c58
+! *.color2: #1D5E5C
+! *.color3: #ee7042
+! *.color4: #3B84CC
+! *.color5: #a9779c
+! *.color6: #6Facb6
+! *.color7: #303035
+! *.color8:  #c8ccc3
+! *.color9:  #e84c58
+! *.color10: #317A56
+! *.color11: #C5882C
+! *.color12: #4C7A90
+! *.color13: #6D46E3
+! *.color14: #008b8b
+! *.color15: #353b3c
+! *.highlightColor: #dbe0c0
+! *.highlightTextColor: #393330
+
+
+! -------------------------
+!!! City Lights
+! URxvt.foreground: #ffffff
+! URxvt.background: #171d23
+! URxvt.cursorColor: #5ec4ff
+! ! black
+! URxvt.color0: #333f4a
+! URxvt.color8: #41505e
+! ! red
+! URxvt.color1: #d95468
+! URxvt.color9: #d95468
+! ! green
+! URxvt.color2: #8bd49c
+! URxvt.color10: #8bd49c
+! ! yellow
+! URxvt.color3: #ebbf83
+! URxvt.color11: #ebbf83
+! ! blue
+! URxvt.color4: #539afc
+! URxvt.color12: #5ec4ff
+! ! magenta
+! URxvt.color5: #b62d65
+! URxvt.color13: #e27e8d
+! ! cyan
+! URxvt.color6: #70e1e8
+! URxvt.color14: #70e1e8
+! ! white
+! URxvt.color7: #b7c5d3
+! URxvt.color15: #ffffff
+
+!!! Kaolin Light
+! URxvt.foreground: #353b3c
+! URxvt.background: #EDEEEB
+! URxvt.cursorColor: #208f10
+! URxvt.color0: #e6e6e8
+! URxvt.color1: #e84c58
+! URxvt.color2: #1D5E5C
+! URxvt.color3: #ee7042
+! URxvt.color4: #3B84CC
+! URxvt.color5: #a9779c
+! URxvt.color6: #6Facb6
+! URxvt.color7: #303035
+! URxvt.color8:  #c8ccc3
+! URxvt.color9:  #e84c58
+! URxvt.color10: #317A56
+! URxvt.color11: #C5882C
+! URxvt.color12: #4C7A90
+! URxvt.color13: #6D46E3
+! URxvt.color14: #008b8b
+! URxvt.color15: #353b3c
+! URxvt.highlightColor: #dbe0c0
+! URxvt.highlightTextColor: #393330
+! -------------------------

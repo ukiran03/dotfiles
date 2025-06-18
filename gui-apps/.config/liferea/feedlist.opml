@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+  <head>
+    <title>Liferea Feed List Export</title>
+  </head>
+  <body>
+    <outline title="Unread" text="Unread" description="Unread" type="vfolder" id="xgvodyo" sortColumn="time" matchType="any" unreadOnly="false" collapsed="true">
+      <outline type="rule" text="Read status" rule="unread" value="" additive="true"/>
+    </outline>
+    <outline title="Important" text="Important" description="Important" type="vfolder" id="vljpwqo" sortColumn="time" matchType="any" unreadOnly="false" collapsed="true">
+      <outline type="rule" text="Flag status" rule="flagged" value="" additive="true"/>
+    </outline>
+    <outline title="Posts tagged 'emacs' by Christian Tietze" text="Posts tagged 'emacs' by Christian Tietze" description="Posts tagged 'emacs' by Christian Tietze" type="atom" id="mggkjfh" sortColumn="time" xmlUrl="/home/ukiran/.config/liferea/uk-feeds/ChristianTietze.atom" htmlUrl="https://christiantietze.de/" updateInterval="-1" collapsed="true"/>
+    <outline title="Xiang" text="Xiang" description="Xiang" type="atom" id="pytcycg" sortColumn="time" xmlUrl="https://xiangji.me/atom.xml" htmlUrl="http://www.xiangji.me/" updateInterval="-1" collapsed="true"/>
+    <outline title="SCMB XYZ" text="SCMB XYZ" description="SCMB XYZ" type="rss" id="lhhqkaf" sortColumn="time" xmlUrl="https://www.scmb.xyz/index.xml" htmlUrl="https://www.scmb.xyz/" updateInterval="-1" collapsed="true"/>
+    <outline title="Matt Marshall's Personal Site (en)" text="Matt Marshall's Personal Site (en)" description="Matt Marshall's Personal Site (en)" type="rss" id="nhrkndk" sortColumn="time" xmlUrl="https://mrshll.uk/rss.xml" htmlUrl="https://mrshll.uk/" updateInterval="-1" collapsed="true"/>
+    <outline title="onor.io: onor.io" text="onor.io: onor.io" description="onor.io: onor.io" type="rss" id="xacwklu" sortColumn="time" xmlUrl="https://onor.io/feeds/all.rss.xml" htmlUrl="https://onor.io/index.html" updateInterval="-1" collapsed="true"/>
+    <outline title="lambda.cx blog" text="lambda.cx blog" description="lambda.cx blog" type="rss" id="gclualh" sortColumn="time" xmlUrl="https://blog.lambda.cx/index.xml" htmlUrl="https://blog.lambda.cx/" updateInterval="-1" collapsed="true"/>
+    <outline title="The Library" text="The Library" description="The Library" type="rss" id="tqqhivw" sortColumn="time" xmlUrl="https://www.organism.earth/library/rss.xml" htmlUrl="http://www.organism.earth/library/" updateInterval="-1" collapsed="true"/>
+    <outline title="Sacha Chua - category - emacs-news" text="Sacha Chua - category - emacs-news" description="Sacha Chua - category - emacs-news" type="rss" id="ojhdmuy" sortColumn="time" xmlUrl="https://sachachua.com/blog/category/emacs-news/feed/index.xml" htmlUrl="https://sachachua.com/blog/category/emacs-news/feed/index.xml" updateInterval="-1" collapsed="true"/>
+    <outline title="olano.dev" text="olano.dev" description="olano.dev" type="atom" id="sgpbydi" sortColumn="time" xmlUrl="https://olano.dev/feed.xml" htmlUrl="https://olano.dev" updateInterval="-1" collapsed="true"/>
+    <outline title="Yejun Su" text="Yejun Su" description="Yejun Su" type="rss" id="iroqeku" sortColumn="time" xmlUrl="https://yejun.dev/index.xml" htmlUrl="https://yejun.dev/" updateInterval="-1" collapsed="true"/>
+    <outline title="Jen-Chieh's Website" text="Jen-Chieh's Website" description="Jen-Chieh's Website" type="rss" id="bnpkumw" sortColumn="time" xmlUrl="https://www.jcs-profile.com/index.xml" htmlUrl="https://www.jcs-profile.com/" updateInterval="-1" collapsed="true"/>
+    <outline title="Guowei Lv" text="Guowei Lv" description="Guowei Lv" type="html5" id="mhdoavq" sortColumn="time" xmlUrl="https://www.lvguowei.me/" htmlUrl="https://www.lvguowei.me/" updateInterval="-1" collapsed="true"/>
+    <outline title="Julia Evans" text="Julia Evans" description="Julia Evans" type="atom" id="lfpfqvw" sortColumn="time" xmlUrl="https://jvns.ca/atom.xml" htmlUrl="http://jvns.ca" updateInterval="-1" collapsed="true"/>
+    <outline title="Vishnu Bharathi" text="Vishnu Bharathi" description="Vishnu Bharathi" type="atom" id="yonujmm" sortColumn="time" xmlUrl="https://vishnubharathi.codes/atom.xml" htmlUrl="https://vishnubharathi.codes/" updateInterval="-1" collapsed="true"/>
+    <outline title="Aditya Telange" text="Aditya Telange" description="Aditya Telange" type="rss" id="krgxqdb" sortColumn="time" xmlUrl="https://adityatelange.in/index.xml" htmlUrl="https://adityatelange.in/" updateInterval="-1" collapsed="true"/>
+    <outline title="Take on Rules" text="Take on Rules" description="Take on Rules" type="rss" id="keoegda" sortColumn="time" xmlUrl="https://takeonrules.com/index.xml" htmlUrl="https://takeonrules.com/" updateInterval="-1" collapsed="true"/>
+    <outline title="Ben Hoyt's technical writing" text="Ben Hoyt's technical writing" description="Ben Hoyt's technical writing" type="rss" id="xypdjsb" sortColumn="time" xmlUrl="https://benhoyt.com/writings/rss.xml" htmlUrl="https://benhoyt.com/writings/" updateInterval="-1" collapsed="true"/>
+    <outline title="The Valuable Dev" text="The Valuable Dev" description="The Valuable Dev" type="rss" id="ldtsxqn" sortColumn="time" xmlUrl="https://thevaluable.dev/index.xml" htmlUrl="https://thevaluable.dev/" updateInterval="-1" collapsed="true"/>
+    <outline title="Youtube" text="Youtube" description="Youtube" type="folder" id="sjbfbgc" sortColumn="time" expanded="true">
+      <outline title="Kay Lack" text="Kay Lack" description="Kay Lack" type="atom" id="gthnvwg" sortColumn="time" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7UukP_hxrOsrwHrcHxOxxg" htmlUrl="https://www.youtube.com/channel/UC7UukP_hxrOsrwHrcHxOxxg" updateInterval="-1" collapsed="true"/>
+      <outline title="No Boilerplate" text="No Boilerplate" description="No Boilerplate" type="atom" id="muwyrfn" sortColumn="time" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUMwY9iS8oMyWDYIe6_RmoA" htmlUrl="https://www.youtube.com/channel/UCUMwY9iS8oMyWDYIe6_RmoA" updateInterval="-1" collapsed="true"/>
+      <outline title="Malloc" text="Malloc" description="Malloc" type="atom" id="ikvvymk" sortColumn="time" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0SNGrU20N1Q0SPWimGu7gQ" htmlUrl="https://www.youtube.com/channel/UC0SNGrU20N1Q0SPWimGu7gQ" updateInterval="-1" collapsed="true"/>
+      <outline title="Programming 2.0" text="Programming 2.0" description="Programming 2.0" type="atom" id="wyutkdn" sortColumn="time" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7GQQYu3vBIJ5ozVECn1Vsw" htmlUrl="https://www.youtube.com/channel/UC7GQQYu3vBIJ5ozVECn1Vsw" updateInterval="-1" collapsed="true"/>
+      <outline title="Core Dumped" text="Core Dumped" description="Core Dumped" type="atom" id="hrjytfl" sortColumn="time" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGKEMK3s-ZPbjVOIuAV8clQ" htmlUrl="https://www.youtube.com/channel/UCGKEMK3s-ZPbjVOIuAV8clQ" updateInterval="-1" collapsed="true"/>
+      <outline title="Nic Barker" text="Nic Barker" description="Nic Barker" type="atom" id="cdqxbwd" sortColumn="time" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCz-yrxeZYIYdpEZgHGvIydA" htmlUrl="https://www.youtube.com/channel/UCz-yrxeZYIYdpEZgHGvIydA" updateInterval="-1" collapsed="true"/>
+      <outline title="kimylamp" text="kimylamp" description="kimylamp" type="atom" id="fbpkmqk" sortColumn="time" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyb_ckNk0RIVBz1vW8wNo2Q" htmlUrl="https://www.youtube.com/channel/UCyb_ckNk0RIVBz1vW8wNo2Q" updateInterval="-1" collapsed="true"/>
+    </outline>
+  </body>
+</opml>

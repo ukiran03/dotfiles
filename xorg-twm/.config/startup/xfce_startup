@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+#### Code
+
+_check () {
+    command -v "$1" > /dev/null
+}
+
+# Specify keyboard layout options.  See the setxkbmap(1) manual for
+# the command line arguments and the xkeyboard-config(7) manual for
+# the layout names and options.
+#
+# NOTE 2023-07-16: The -option used to accept a comma separated list.
+# Now it requires each option to be specified separately.
+
+# if _check setxkbmap
+# then
+#     setxkbmap -option 'ctrl:nocaps' \
+#               -option 'altwin:menu_win' -option 'caps:none'
+# fi
+
+# The hotkey daemon that handles all custom key bindings.
+_check sxhkd && sxhkd -c "$HOME"/.config/sxhkd/xfce_sxhkdrc &
+
+# check once again
+xmodmap "$XDG_CONFIG_HOME/X11/xmodmap"
+
+# Clipboard Manager
+greenclip daemon &
+
+# terminal: urxvt
+urxvtd -q &
+
+# Number Lock
+_check numlockx && numlockx on &
+
+# Thunar FileManger
+_check thunar && thunar --daemon &
+
+######### # External Display and Brightness
+######### # chekc monitors
+######### # Check if HDMI-1-0 is connected
+######### if xrandr | grep "HDMI-1-0 connected"; then
+#########     # HDMI-1-0 is connected, set it as active and primary
+#########     xrandr --output HDMI-1-0 --auto --primary
+#########     # Turn off eDP-1 display
+#########     xrandr --output eDP-1 --off
+#########     # Initial brightness for external monitor
+#########     xrandr --output HDMI-1-0 --brightness 0.85
+#########     brightness_file="/home/ukiran/.config/my_display/brightness"
+#########     # Check if the file exists
+#########     if [ -f "$brightness_file" ]; then
+######### 	echo "0.85" > "$brightness_file"
+#########     else
+######### 	touch "$brightness_file"
+######### 	echo "0.85" > "$brightness_file"
+#########     fi
+######### else
+#########     # HDMI-1-0 is not connected, set eDP-1 as active and primary
+#########     xrandr --output eDP-1 --auto --primary
+#########     # Turn off HDMI-1-0 display
+#########     xrandr --output HDMI-1-0 --off
+#########     # setxkbmap -option altwin:swap_lalt_lwin ----------------------- back to normal for while
+######### fi
+#########

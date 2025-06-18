@@ -1,0 +1,119 @@
+### Emacs
+emacs/.emacs.d/*
+!emacs/.emacs.d/lisp/
+!emacs/.emacs.d/etc/
+!emacs/.emacs.d/init.el
+!emacs/.emacs.d/early-init.el
+!emacs/.mini-emacs.el
+
+### Xorg-twm
+# herbstluftwm
+xorg-twm/.config/herbstluftwm/*
+!xorg-twm/.config/herbstluftwm/scripts
+!xorg-twm/.config/herbstluftwm/sxhkd
+!xorg-twm/.config/herbstluftwm/autostart
+# xmobar
+xorg-twm/.config/xmobar/*
+!xorg-twm/.config/xmobar/src
+!xorg-twm/.config/xmobar/xpm
+!xorg-twm/.config/xmobar/trayer-padding-icon.sh
+# xmonad
+xorg-twm/.config/xmonad/*
+!xorg-twm/.config/xmonad/lib
+!xorg-twm/.config/xmonad/xmonad.hs
+
+### Display
+display/.config/*
+!display/.screenlayout
+!display/.config/redshift
+
+### Gtk
+gtk/.config/gtk-2.0/*
+gtk/.config/gtk-3.0/*
+gtk/.config/gtk-4.0/*
+!gtk/.config/gtk-2.0/settings.ini
+!gtk/.config/gtk-2.0/gtkrc
+!gtk/.config/gtk-3.0/settings.ini
+!gtk/.config/gtk-4.0/settings.ini
+!gtk/.config/xsettingsd/xsettingsd.conf
+!gtk/.gtkrc-2.0
+!gtk/.gtkrc-2.0.mine
+
+### Qt
+qt/.config/qt5ct/*
+!qt/.config/qt5ct/qt5ct.conf
+qt/.config/qt6ct/*
+!qt/.config/qt6ct/qt6ct.conf
+
+!dunst
+!picom
+!rofi
+!scripts
+!xorg
+
+shell/.config/zsh/plugins/*
+!shell/.config/zsh/
+
+### GUI Apps
+gui-apps/.config/calibre/*
+!gui-apps/.config/liferea
+gui-apps/.config/qBittorrent/*
+!gui-apps/.config/qBittorrent/qBittorrent.conf
+
+### Media
+media/.config/mpd/*
+!media/.config/mpd/mpd.conf
+media/.config/ncmpcpp/*
+!media/.config/ncmpcpp/bindings
+!media/.config/ncmpcpp/config
+media/.config/mpv/*
+!media/.config/mpv/scripts
+!media/.config/mpv/input.conf
+!media/.config/mpv/mpv.conf
+
+### Term Apps
+!term-apps/.config/conky
+!term-apps/.config/fastfetch
+!term-apps/.config/nsxiv
+!term-apps/.config/tmux
+!term-apps/.config/surfraw
+!term-apps/.config/tmux
+
+# TODO:
+term-apps/.config/zathura/*
+
+!term-apps/.config/trashrc
+!term-apps/.peaclock
+
+ # TODO:
+vim/*
+
+_install
+
+# TODO:
+personal/*
+
+*.directory
+*.log
+*.sql
+*.sqlite
+*.uuid
+*.png
+*.svg
+*.jpg
+*.bak
+/_archive/
+**/.config/*/*_history
+**/.config/zsh/.zcompdump
+*_history
+**/.config/my_display/brightness
+*/xorg/.config/X11/active_theme
+*/xorg/.config/X11/xsession-errors
+*.swo
+*.swp
+*~
+\#*#
+
+
+# TODO:
+xfce/*

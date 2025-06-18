@@ -1,0 +1,174 @@
+! -*- compile-command: "xrdb ~/.config/X11/xresources" -*-
+
+#include "active_theme"
+! <https://wiki.archlinux.org/title/Cursor_themes>
+Xcursor.theme: Bibata-Modern-Ice
+Xcursor.size: 16
+
+!! default colors
+*.foreground: #ffffff
+*.background: #171d23
+*.cursorColor: #fafafa
+*.color0: #333f4a
+*.color1: #d95468
+*.color2: #8bd49c
+*.color3: #ebbf83
+*.color4: #539afc
+*.color5: #b62d65
+*.color6: #70e1e8
+*.color7: #b7c5d3
+*.color8: #41505e
+*.color9: #d95468
+*.color10: #8bd49c
+*.color11: #ebbf83
+*.color12: #5ec4ff
+*.color13: #e27e8d
+*.color14: #70e1e8
+*.color15: #ffffff
+
+!! xft fonts teaking
+Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+Xft.autohint:   true
+Xft.lcdfilter:  lcddefault
+
+!! Resources
+!! https://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod
+!! https://smarttech101.com/urxvt-installation-color-scheme-fonts-resize-etc
+!! -- URxvt Settings
+URxvt.font:xft:Iosevka Term:size=11.25:style=Semibold
+URxvt.boldFont: xft:Iosevka Term:size=11.25:style=Bold
+URxvt.italicFont: xft:Iosevka Term:size=11.25:style=Italic
+URxvt.boldItalicFont: xft:Iosevka Term:size=11.25:style=Bold Italic
+URxvt.letterSpace: 0
+URxvt.lineSpace: 0
+URxvt*geometry: 80x240+0+0
+URxvt.internalBorder: 10
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: false
+URxvt*saveLines: 16384
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false
+URxvt.scrollBar_floating: false
+URxvt.scrollstyle: rxvt
+URxvt.iso14755: false
+URxvt.fading: 10
+URxvt.depth: 32
+URxvt.intensityStyles: false
+URxvt.urgentOnBell: True
+!! Common Keybinds for Navigations
+URxvt.keysym.Shift-Up: command:\033]720;1\007
+URxvt.keysym.Shift-Down: command:\033]721;1\007
+URxvt.keysym.Control-Up: \033[1;5A
+URxvt.keysym.Control-Down: \033[1;5B
+URxvt.keysym.Control-Right: \033[1;5C
+URxvt.keysym.Control-Left: \033[1;5D
+!! Extensions
+URxvt.perl-ext-common: default,selection-to-clipboard,matcher,keyboard-select,resize-font
+! keyboard-select
+URxvt.keysym.M-s: builtin-string:
+URxvt.keysym.C-Escape: perl:keyboard-select:search
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+! matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+! Up, Down, Home, End -- keys for navigation
+! y - yank
+! o - open
+URxvt.keysym.M-u: perl:matcher:select
+URxvt.clipboard.copycmd: xclip -i -sel clip
+URxvt.clipboard.pastecmd: xclip -o -sel clip
+! Keybinds
+URxvt.keysym.C-C:          perl:clipboard:copy
+URxvt.keysym.C-V:          perl:clipboard:paste
+URxvt.keysym.C-minus:     resize-font:smaller
+URxvt.keysym.C-plus:      resize-font:bigger
+URxvt.keysym.C-equal:     resize-font:reset
+URxvt.keysym.C-question:  builtin-string:  !! default: resize-font:show
+URxvt.resize-font.step: 0.5
+URxvt.perl-lib: /home/ukiran/.config/urxvt/ext
+! xterm
+! =====
+
+! Basic settings
+xterm*termName: xterm-256color
+xterm*locale: true
+xterm*utf8: 1
+xterm*utf8Fonts: always
+xterm*dynamicColors: true
+
+! UI components
+xterm*toolBar: false
+xterm*scrollBar: false
+xterm*geometry: 80x24
+xterm*internalBorder: 20
+xterm*borderWidth: 0
+
+! Cursor shape
+! Allowing the cursor to use the reverse colour of the background or
+! foreground avoids circumstances, such as in Vim, where the cursor can
+! be virtually impossible to see.  Note that this does not work when the
+! cursor is not a block character (cursorUnderLine: true).
+xterm*cursorColor: reverse
+xterm*cursorUnderLine: false
+xterm*pointerShape: XTerm
+
+! Cursor blink
+xterm*cursorBlink: true
+xterm*cursorOffTime: 600
+xterm*cursorOnTime: 1200
+
+! Bell
+xterm*bellIsUrgent: false
+xterm*bellSupressTime: 100
+xterm*marginBell: false
+xterm*visualBell: true
+
+! Text highlighting
+xterm*highlightColor: XtDefaultForeground
+xterm*highlightReverse: true
+xterm*highlightSelection: true
+xterm*highlightTextColor: XtDefaultBackground
+
+
+! Font settings
+xterm*faceName: xft:Iosevka Term:size=11.25:style=Semibold
+! xterm*faceSize: 8
+xterm*renderFont: true
+xterm*boldColors: false
+xterm*faceSize1: 10
+xterm*faceSize2: 12
+xterm*faceSize3: 15
+xterm*faceSize4: 18.25
+xterm*faceSize5: 20.5
+xterm*faceSize6: 25.5
+xterm*forceBoxChars: false
+xterm*limitFontsets: 5
+xterm*scaleHeight: 1.0
+
+! Scroll and output
+xterm*jumpScroll: true
+xterm*multiScroll: true
+xterm*saveLines: 9999
+xterm*scrollKey: true
+xterm*scrollTtyKeypress: true
+xterm*scrollTtyOutput: false
+
+! Backspace behaviour
+xterm*backarrowKey: false
+xterm*metaSendsEscape: true
+xterm*ttyModes: erase ^?
+
+! Key bindings.  Use C-S-{c,v} to copy/paste as in GNOME terminal.  The
+! keys "Prior" and "Next" represent PgUp and PgDown respectively.
+
+xterm*selectToClipboard: true
+xterm*translations: #override \n\
+    Ctrl Shift <KeyPress>C: select-end(SELECT, CLIPBOARD) \n\
+    Ctrl Shift <KeyPress>V: insert-selection(SELECT, CLIPBOARD) \n\
+    Ctrl Shift <KeyPress>Next: smaller-vt-font() \n\
+    Ctrl Shift <KeyPress>Prior: larger-vt-font() \n\
+    Ctrl Shift <KeyPress>Home: set-vt-font(d)

@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+# Volume control script for xmobar with pamixer
+# Install pamixer: yay -S pamixer
+
+# Check if command exists
+_check() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+if ! _check pamixer; then
+    echo "Error: pamixer is not installed. Please install it with: yay -S pamixer" >&2
+    exit 1
+fi
+
+# Icons for notifications
+up_icon="notification-audio-volume-high"
+down_icon="notification-audio-volume-medium"
+muted_icon="notification-audio-volume-muted"
+
+# Volume pipe for xmobar
+_volume_pipe="/tmp/.volume-pipe"
+
+# Create FIFO if it doesn't exist
+if [[ ! -p "$_volume_pipe" ]]; then
+    mkfifo "$_volume_pipe" 2>/dev/null || {
+        echo "Error: Failed to create FIFO at $_volume_pipe" >&2
+        exit 1
+    }
+fi
+
+# Get volume and write to pipe
+pipe_volume() {
+    local volume
+    volume=$(pamixer --get-volume-human)
+
+    local icon
+    if is_muted; then
+        icon="<fc=#ff5f59><fn=1>  </fn></fc>"
+    else
+        icon="<fc=#42A5F5><fn=1>  </fn></fc>"
+    fi
+
+    # Write to pipe
+    echo "$icon$volume" >"$_volume_pipe"
+
+    # If running interactively, also show in terminal
+    [[ -t 1 ]] && echo "$volume"
+}
+
+# "<fc=#42A5F5><fn=2>  </fn></fc> 1000" > /tmp/.volume-pipe
+
+is_muted() {
+    pamixer --get-mute | grep -q "true"
+}
+
+# Send desktop notification
+send_notification() {
+    local volume icon
+    volume=$(pamixer --get-volume)
+
+    case $1 in
+        up) icon="$up_icon" ;;
+        down) icon="$down_icon" ;;
+        mute) icon="$muted_icon" ;;
+        *) icon="" ;;
+    esac
+
+    dunstify -a "volume" -u low -r 9993 -h "int:value:$volume" \
+        -i "$icon" "Volume: ${volume}%" -t 2000
+}
+
+# Handle different commands
+case $1 in
+    up)
+        pamixer -u
+        pamixer -i 5 --allow-boost
+        send_notification up
+        ;;
+    down)
+        pamixer -u
+        pamixer -d 5 --allow-boost
+        send_notification down
+        ;;
+    mute)
+        pamixer -t
+        if is_muted; then
+            dunstify -a "ignore" -t 2000 -r 9993 -u low -i $muted_icon "Muted"
+        else
+            send_notification up
+        fi
+        ;;
+    # *)
+    #     echo "Usage: $0 {up|down|mute}"
+    #     exit 1
+    #     ;;
+esac
+
+# Always update the volume pipe
+pipe_volume

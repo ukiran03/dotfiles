@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Check if a word is passed as an argument
+if [ -z "$1" ]; then
+    echo "Usage: $0 <word>"
+    exit 1
+fi
+
+# Check if 'bat' is available as a pager, otherwise fall back to 'cat'
+_check() {
+    command -v "$1" > /dev/null 2>&1
+}
+
+# Determine which pager to use
+if _check bat; then
+    pager=bat
+elif _check glow; then
+        pager=glow
+else
+    pager=cat
+fi
+
+# Store the word to look up
+word="$1"
+
+# Use dict command (if installed) to fetch the definition, and pipe output to pager
+dict "$word" | "$pager"
+
