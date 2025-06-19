@@ -35,7 +35,7 @@ case $1 in
         cat $XMOBAR/src/xmobarrc_light > $XMOBAR/xmobarrc
         cat $XRESOURCES/colors/operandi > $XRESOURCES/active_theme
         cat $ROFI/colors/modus-operandi.rasi > $ROFI/colors.rasi
-        redshift -O 4500
+        # redshift -O 4500
         emacsclient -e "(when (and (functionp 'modus-themes--current-theme) (modus-themes--current-theme)) (modus-themes-load-theme 'modus-operandi))" > /dev/null
         # picom-toggle &
         ;;

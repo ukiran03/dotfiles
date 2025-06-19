@@ -64,5 +64,5 @@ Config
   , sepChar = "%"
   , alignSep = "}{"
   , template =
-    " <icon=xmonad_dark.xpm/> <fc=#3c4449>|</fc> %XMonadLog% }{ %dynnetwork%  <fc=#6D8895>br:</fc> %bright_pipe%  <fc=#42A5F5><fn=2>  </fn></fc>%pamixer%  %battery%  %date% %trayerpad%"
+    " <icon=xmonad_dark.xpm/> <fc=#3c4449>|</fc> %XMonadLog% }{ %dynnetwork%  <fc=#6D8895>br:</fc> %bright_pipe%  <fc=#42A5F5><fn=1>  </fn></fc>%pamixer%  %battery%  %date% %trayerpad%"
   }
