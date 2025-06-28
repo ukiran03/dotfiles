@@ -53,7 +53,14 @@ if status is-interactive
     export XDG_CACHE_HOME="$HOME/.cache"
     export XDG_SCREENSHOTS_DIR="$HOME/Pictures/screenshots"
     export XDG_DATA_DIRS="/usr/share:/usr/local/share:$HOME/.local/share"
-
+    export PRETTIERD_DEFAULT_CONFIG="~/.config/prettier/.prettierrc"
 
     zoxide init fish | source
 end
+
+# pnpm
+set -gx PNPM_HOME "/home/ukiran/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
