@@ -24,11 +24,12 @@
 
 ;; #[/home/ukiran/.emacs.d/site-lisp/clue/clue.el:L60]
 (use-package clue
+  :ensure nil
   :defer t
   :vc (:url "https://github.com/AmaiKinono/clue")
   :diminish (clue-mode " #")
-;;  :init
-;;  (add-hook 'find-file-hook #'clue-auto-enable-clue-mode)
+  ;;  :init
+  ;;  (add-hook 'find-file-hook #'clue-auto-enable-clue-mode)
   :config
   (setq
    ;; Set like this if you only want auto-enabling citre-mode to work
@@ -74,6 +75,7 @@
   (setq kiwix-zim-dir (expand-file-name "/home/ukiran/zims")))
 
 (use-package ultra-scroll
+  :ensure nil
   :vc (:url "https://github.com/jdtsmith/ultra-scroll")
   :init
   (setq scroll-conservatively 101 ; important!

@@ -144,7 +144,7 @@
 (use-package files
   :ensure nil
   :bind (:map prog-mode-map
-              ("<f5>" . revert-buffer)))
+              ("S-<f5>" . revert-buffer)))
 
 (use-package sql
   :ensure nil

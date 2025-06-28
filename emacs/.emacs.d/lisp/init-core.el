@@ -196,7 +196,7 @@
   (setq which-key-max-description-length 30
         which-key-lighter nil
         which-key-show-remaining-keys t
-        which-key-show-prefix 'top
+        which-key-show-prefix 'bottom
         which-key-popup-type 'minibuffer
         which-key-preserve-window-configuration t
         which-key-max-description-length 30
@@ -239,8 +239,13 @@
   ;; :disabled
   :defer 1
   :diminish super-save-mode
-  :config
+  :init
   (super-save-mode +1)
+  :config
+  (defun my/disable-super-save ()
+    (super-save-mode -1))
+  ;; (setq super-save-hook-triggers nil)
+  ;; (setq super-save-triggers nil)
   (setq super-save-auto-save-when-idle t))
 
 (provide 'init-core)

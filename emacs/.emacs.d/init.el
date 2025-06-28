@@ -133,6 +133,7 @@ Otherwise the startup will be slow."
 (require 'init-prog)
 (require 'init-racket)
 (require 'init-go)
+(require 'init-web)
 
 (require 'init-vc)
 (require 'init-check)

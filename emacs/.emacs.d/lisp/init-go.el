@@ -15,6 +15,7 @@
   :functions (go-install-tools exec-path-from-shell-copy-envs)
   :autoload godoc-gogetdoc
   :bind (:map go-mode-map
+              ("<f5>" . compile)
               ("<f1>" . godoc))
   ;; :hook ((godoc-mode . markdown-mode)
   ;;        (godoc-mode . view-mode))
