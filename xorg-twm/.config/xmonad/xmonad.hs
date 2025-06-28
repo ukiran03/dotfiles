@@ -3,7 +3,6 @@ import Colors.Current
 import Control.Monad -- (liftM2, unless)
 import qualified Data.Map as M
 import Data.Ratio ((%))
-
 import Doc.Help
 import System.Exit
 import XMonad
@@ -35,6 +34,7 @@ import XMonad.Actions.CycleWS
   , shiftToPrev
   , toggleWS'
   )
+import XMonad.Actions.CycleWindows
 import XMonad.Actions.EasyMotion (EasyMotionConfig(..), selectWindow, textSize)
 import XMonad.Actions.Minimize
   ( maximizeWindowAndFocus
@@ -42,6 +42,7 @@ import XMonad.Actions.Minimize
   , withLastMinimized
   , withMinimized
   )
+import XMonad.Actions.SwapWorkspaces
 import XMonad.Actions.ToggleFullFloat
   ( toggleFullFloat
   , toggleFullFloatEwmhFullscreen
@@ -77,9 +78,11 @@ import XMonad.Hooks.StatusBar.PP
 
 import qualified XMonad.Layout.BoringWindows as BW
 import XMonad.Layout.Gaps
+import XMonad.Layout.Grid
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.LimitWindows (limitWindows)
 import XMonad.Layout.Magnifier
+import XMonad.Layout.Master
 import XMonad.Layout.Maximize (maximizeRestore, maximizeWithPadding)
 import XMonad.Layout.Minimize (minimize)
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
@@ -89,7 +92,7 @@ import XMonad.Layout.PerWorkspace (onWorkspaces)
 import XMonad.Layout.Renamed (Rename(Replace), renamed)
 import XMonad.Layout.ResizableTile (MirrorResize(..), ResizableTall(..))
 import XMonad.Layout.Spacing
-import XMonad.Layout.Tabbed (Theme(..), shrinkText, tabbed)
+import XMonad.Layout.Tabbed -- (Theme(..), shrinkText, tabbed)
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPane
 
@@ -120,7 +123,6 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 -- ;;
 --  focusChangeHook
 -- ;;
-
 main :: IO ()
 main =
   xmonad
@@ -148,10 +150,11 @@ myConfig =
     , startupHook = myStartupHook
     , workspaces = myWorkspaces
     , terminal = myTerminal
-    , logHook = showWNameLogHook mySWNConfig
+    , logHook =
+        showWNameLogHook mySWNConfig
                 -- >> focusChangeHook
-                >> updatePointer (0.5, 0.7) (0, 0)
-    , borderWidth = 3
+          >> updatePointer (0.5, 0.7) (0, 0)
+    , borderWidth = 4
     , normalBorderColor = colorNormal
     , focusedBorderColor = colorActive
     }
@@ -213,8 +216,8 @@ mySWNConfig =
 myLayout =
   avoidStruts
     $ BW.boringWindows
-    $ onWorkspaces ["8", "9"] (tab ||| tiled)
-    $ tiled ||| tab ||| mtile
+    $ onWorkspaces ["8", "9"] (tabs ||| tiled)
+    $ tiled ||| masterTabs ||| tabs ||| mtile
   where
     threeCol =
       setName "Threecol"
@@ -224,22 +227,18 @@ myLayout =
         $ magnifiercz' 1.3
         $ ThreeColMid nmaster delta ratio
     mtile = setName "Mtall" $ Mirror tiled
-    tab = setName "Tabs" $ smartBorders (tabbed shrinkText myTabConfig)
-    -- |hacking =
-    --   setName "Hacking"
-    --   $ reflectHoriz . limitWindows 3 . magnify 1.3 (NoMaster 3) True
-    --   $ rTall 1 (3 % 100) (13 % 25)
+    tabs = setName "Tabs" $ smartBorders (tabbed shrinkText myTabConfig)
+    masterTabs =
+      setName "Tile Tabs"
+        $ mastered (1 / 100) (1 / 2)
+        $ smartBorders (tabbed shrinkText myTabConfig)
     tiled =
       setName "Tall"
         $ smartBorders
-        -- $ reflectHoriz  -- TODO:
         $ maximizeWithPadding 1
         $ minimize
-              -- \$ smartSpacing 2
         $ mySpacing' 2
-                -- \$ magnifiercz' 1.2
         $ ResizableTall nmaster delta ratio []
-    -- twoPane = setName "TwoPane" $ reflectHoriz $ TwoPane (3 / 100) (1 / 2)
     nmaster = 1
     ratio = 1 / 2
     delta = 3 / 100
@@ -425,17 +424,23 @@ myKeys =
        -- , ("M-k", sendMessage MirrorShrink)
        , ("M-<Tab>", BW.focusDown)
        , ("M-S-<Tab>", BW.focusUp)
-       , ("M-g", windows W.focusDown)
-       , ("M-S-g", windows W.focusUp)
+       -- , ("M-g", W.focusDown')
+       -- , ("M-S-g", W.focusUp')
        , ("M-m", BW.focusMaster)
        , ("M-S-m", windows W.swapMaster)
+       , ("M-C-m", windows W.shiftMaster)
        , ("M-S-j", BW.swapDown)
        , ("M-S-k", BW.swapUp)
        ]
     ++ [ ("M-" ++ m ++ k, windows $ f i)
        | (i, k) <- zip (myWorkspaces) (map show [1 :: Int ..])
        , (f, m) <-
-           [(W.view, ""), (W.shift, "S-"), (viewShift, "C-"), (copy, "c ")]
+           [ (W.view, "")
+           , (W.shift, "S-")
+           , (viewShift, "C-")
+           , (copy, "c ")
+           , (swapWithCurrent, "M1-")
+           ]
        ]
     ++ [("M-S-w", windowPrompt prompt BringCopy allWindows)]
     ++ [ ("M-c a", windows copyToAll)
@@ -519,17 +524,14 @@ myManageHook =
     -- TODO: , className =? "Emacs" <&&> title =? "Emacs Everywhere" --> doShift (myWorkspaces !! 8)
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat
     , resource =? "desktop_window" --> doIgnore
-
     , className =? "TelegramDesktop" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "Tor Browser" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "calibre" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "qBittorrent" --> viewShiftHook (myWorkspaces !! 8)
-
     , className =? "Liferea" --> viewShiftHook (myWorkspaces !! 7)
     , className =? "Thunderbird" --> viewShiftHook (myWorkspaces !! 7)
     , className =? "Blender" --> viewShiftHook (myWorkspaces !! 7)
     , className =? "Inkscape" --> viewShiftHook (myWorkspaces !! 7)
-
     , className
         =? "qBittorrent"
         <&&> title
