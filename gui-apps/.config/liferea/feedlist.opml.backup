@@ -7,12 +7,14 @@
     <outline title="Unread" text="Unread" description="Unread" type="vfolder" id="xgvodyo" sortColumn="time" matchType="any" unreadOnly="false" collapsed="true">
       <outline type="rule" text="Read status" rule="unread" value="" additive="true"/>
     </outline>
+    <outline title="Ersin's Blog" text="Ersin's Blog" description="Ersin's Blog" type="rss" id="fhcfbga" sortColumn="time" xmlUrl="https://www.ersin.nz/feed.xml" htmlUrl="" updateInterval="-1" collapsed="true"/>
     <outline title="Important" text="Important" description="Important" type="vfolder" id="vljpwqo" sortColumn="time" matchType="any" unreadOnly="false" collapsed="true">
       <outline type="rule" text="Flag status" rule="flagged" value="" additive="true"/>
     </outline>
     <outline title="Posts tagged 'emacs' by Christian Tietze" text="Posts tagged 'emacs' by Christian Tietze" description="Posts tagged 'emacs' by Christian Tietze" type="atom" id="mggkjfh" sortColumn="time" xmlUrl="/home/ukiran/.config/liferea/uk-feeds/ChristianTietze.atom" htmlUrl="https://christiantietze.de/" updateInterval="-1" collapsed="true"/>
     <outline title="Xiang" text="Xiang" description="Xiang" type="atom" id="pytcycg" sortColumn="time" xmlUrl="https://xiangji.me/atom.xml" htmlUrl="http://www.xiangji.me/" updateInterval="-1" collapsed="true"/>
     <outline title="SCMB XYZ" text="SCMB XYZ" description="SCMB XYZ" type="rss" id="lhhqkaf" sortColumn="time" xmlUrl="https://www.scmb.xyz/index.xml" htmlUrl="https://www.scmb.xyz/" updateInterval="-1" collapsed="true"/>
+    <outline title="Matt Marshall's Personal Site (en)" text="Matt Marshall's Personal Site (en)" description="Matt Marshall's Personal Site (en)" type="rss" id="nhrkndk" sortColumn="time" xmlUrl="https://mrshll.uk/rss.xml" htmlUrl="https://mrshll.uk/" updateInterval="-1" collapsed="true"/>
     <outline title="onor.io: onor.io" text="onor.io: onor.io" description="onor.io: onor.io" type="rss" id="xacwklu" sortColumn="time" xmlUrl="https://onor.io/feeds/all.rss.xml" htmlUrl="https://onor.io/index.html" updateInterval="-1" collapsed="true"/>
     <outline title="lambda.cx blog" text="lambda.cx blog" description="lambda.cx blog" type="rss" id="gclualh" sortColumn="time" xmlUrl="https://blog.lambda.cx/index.xml" htmlUrl="https://blog.lambda.cx/" updateInterval="-1" collapsed="true"/>
     <outline title="The Library" text="The Library" description="The Library" type="rss" id="tqqhivw" sortColumn="time" xmlUrl="https://www.organism.earth/library/rss.xml" htmlUrl="http://www.organism.earth/library/" updateInterval="-1" collapsed="true"/>

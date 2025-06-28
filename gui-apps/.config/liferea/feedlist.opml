@@ -7,6 +7,7 @@
     <outline title="Unread" text="Unread" description="Unread" type="vfolder" id="xgvodyo" sortColumn="time" matchType="any" unreadOnly="false" collapsed="true">
       <outline type="rule" text="Read status" rule="unread" value="" additive="true"/>
     </outline>
+    <outline title="Ersin's Blog" text="Ersin's Blog" description="Ersin's Blog" type="rss" id="fhcfbga" sortColumn="time" xmlUrl="https://www.ersin.nz/feed.xml" htmlUrl="" updateInterval="-1" collapsed="true"/>
     <outline title="Important" text="Important" description="Important" type="vfolder" id="vljpwqo" sortColumn="time" matchType="any" unreadOnly="false" collapsed="true">
       <outline type="rule" text="Flag status" rule="flagged" value="" additive="true"/>
     </outline>
