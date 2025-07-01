@@ -6,7 +6,8 @@
 (use-package dired
   :ensure nil
   :bind (:map dired-mode-map
-              ("C-c C-p" . wdired-change-to-wdired-mode))
+              ("C-c C-p" . wdired-change-to-wdired-mode)
+              ("_" . dired-create-empty-file))
   :config
   (setq dired-auto-revert-buffer #'dired-directory-changed-p)
 
