@@ -15,6 +15,8 @@ if status is-interactive
     abbr rm "rm -iv"
     abbr mkdir "mkdir -pv"
 
+    abbr less 'less -JMR --use-color -Dd+r -Du+b'
+
     alias ls='eza --color=always --group-directories-first -F'
     alias ll="eza --color=always --group-directories-first -lF"
     alias la="eza --color=always --group-directories-first -aF"
@@ -44,16 +46,16 @@ if status is-interactive
 
     abbr scaps "setxkbmap -option"
     abbr nocaps "setxkbmap -option ctrl:nocaps"
+    abbr adb 'HOME="$XDG_DATA_HOME"/android adb'
+    abbr nvidia-settings 'nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings'
+    abbr wget "wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
 
     export MANPAGER="less -JMR --use-color -Dd+r -Du+b"
+    export EDITOR='nvim'
     export FZF_DEFAULT_OPTS='--reverse --color 16 --height=50% --border=bold --prompt "Search: " --info inline-right'
-    export XDG_CONFIG_HOME="$HOME/.config"
-    export XDG_DATA_HOME="$HOME/.local/share"
-    export XDG_STATE_HOME="$HOME/.local/state"
-    export XDG_CACHE_HOME="$HOME/.cache"
-    export XDG_SCREENSHOTS_DIR="$HOME/Pictures/screenshots"
-    export XDG_DATA_DIRS="/usr/share:/usr/local/share:$HOME/.local/share"
-    export PRETTIERD_DEFAULT_CONFIG="~/.config/prettier/.prettierrc"
+
+    bind alt-p history-search-backward # emacs style
+    bind alt-n history-search-forward
 
     zoxide init fish | source
 end

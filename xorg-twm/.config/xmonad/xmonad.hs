@@ -326,6 +326,7 @@ myKeys =
   , ("M-S-<F9>", spawn "~/.Zen-browser/zen-bin --private-window")
   -- , ("M-S-<F9>", spawnOn "6" "firefox")
   , ("M-p m", manPrompt prompt)
+  , ("M-p p", spawn "rofi-pass")
   , ("M-a", spawn "rofi -show drun -show-icons")
   , ("M-w", spawn "rofi -show window -show-icons")
   , ("M-s", spawn "rofi -show run")

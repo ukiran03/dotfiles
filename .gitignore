@@ -40,16 +40,23 @@ gtk/.config/gtk-4.0/*
 !gtk/.gtkrc-2.0.mine
 
 ### Qt
-qt/.config/qt5ct/*
 !qt/.config/qt5ct/qt5ct.conf
-qt/.config/qt6ct/*
+qt/.config/qt5ct/*
+
 !qt/.config/qt6ct/qt6ct.conf
+qt/.config/qt6ct/*
 
 !dunst
 !picom
-!rofi
+
+!rofi/.config/rofi/*
+rofi/.config/rofi/colors.rasi
+
+!xorg/.config/X11/*
+xorg/.config/X11/active_theme
+
 !scripts
-!xorg
+
 
 shell/.config/zsh/plugins/*
 !shell/.config/zsh/

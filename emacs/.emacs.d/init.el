@@ -17,23 +17,21 @@
 (setq auto-mode-case-fold nil)
 
 (unless (or (daemonp) noninteractive init-file-debug)
-  ;; Suppress file handlers operations at startup
-  ;; `file-name-handler-alist' is consulted on each call to `require' and `load'
-  (let ((old-value file-name-handler-alist))
+  ;; Temporarily suppress file-handler processing to speed up startup
+  (let ((default-handlers file-name-handler-alist))
     (setq file-name-handler-alist nil)
-    (set-default-toplevel-value 'file-name-handler-alist file-name-handler-alist)
+    ;; Recover handlers after startup
     (add-hook 'emacs-startup-hook
               (lambda ()
-                "Recover file name handlers."
                 (setq file-name-handler-alist
-                      (delete-dups (append file-name-handler-alist old-value))))
+                      (delete-dups (append file-name-handler-alist default-handlers))))
               101)))
+
 
 (when (fboundp 'native-compile-async)
   (setq comp-deferred-compilation t
         comp-deferred-compilation-black-list '("/mu4e.*\\.el$")))
 
-
 ;; Load path
 ;; Optimize: Force "lisp" and "site-lisp" at the head to reduce the startup time
 (defun update-load-path (&rest _)
@@ -41,11 +39,11 @@
   (dolist (dir '("site-lisp" "lisp" "my-lisp"))
     (push (expand-file-name dir user-emacs-directory) load-path)))
 
+;; Add subdirectories inside "site-lisp" to `load-path`
 (defun add-subdirs-to-load-path (&rest _)
-  "Add subdirs to `load-path'.
+  "Recursively add subdirectories in `site-lisp` to `load-path`.
 
-Don't put large files in `site-lisp' directory, eg. EAF.
-Otherwise the startup will be slow."
+Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
   (let ((default-directory (expand-file-name "site-lisp" user-emacs-directory)))
     (normal-top-level-add-subdirs-to-load-path)))
 
@@ -59,42 +57,8 @@ Otherwise the startup will be slow."
                     :family "Iosevka Slab")
 (set-frame-font "Iosevka Medium-11.25" nil t)
 
-;; Better defaults
-;; (setq initial-scratch-message nil)
-(setq frame-inhibit-implied-resize nil ) ; prevents changing font, etc
-                                        ; triggering a resize of the
-                                        ; entire frame in non-tiling
-                                        ; setups
-;; Misc
-(setq use-short-answers t)
-(setq visible-bell t)
-(setq inhibit-splash-screen t)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets) ; Show path if names are same
-(setq adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*")
-(setq adaptive-fill-first-line-regexp "^* *$")
-(setq delete-by-moving-to-trash t)         ; Deleting files go to OS's trash folder
-(setq set-mark-command-repeat-pop t)       ; Repeating C-SPC after popping mark pops it again
-;; (setq kill-whole-line t)                   ; Kill line including '\n'
-
-(setq make-backup-files t)
-(setq auto-save-default t)
-;; check init-clean.el
-
-;; Move this in its own thing
-;; (setq
-;;  create-lockfiles nil
-;;  delete-old-versions t
-;;  kept-new-versions 6
-;;  kept-old-versions 2
-;;  version-control t)
-
-(setq-default major-mode 'text-mode)
-
-;; Quitting emacs via `C-x C-c` or the GUI 'X' button
-(setq confirm-kill-emacs #'y-or-n-p)
-
 (require 'init-custom)
-
+(require 'init-funcs)
 ;; Packages
 ;; Without this comment Emacs25 adds (package-initialize) here
 (require 'init-package)
@@ -107,7 +71,7 @@ Otherwise the startup will be slow."
 (require 'init-completions)
 (require 'init-dired)
 (require 'init-consult)
-(require 'init-funcs)
+
 (require 'init-filetree)
 (require 'init-highlight)
 (require 'init-simple)
@@ -134,11 +98,19 @@ Otherwise the startup will be slow."
 (require 'init-racket)
 (require 'init-go)
 (require 'init-web)
-
+(require 'init-mail)
 (require 'init-vc)
 (require 'init-check)
 (require 'init-project)
 
+;;;;; Prot
+;; (setq find-library-include-other-files nil) ; Emacs 29
+;; (setq kill-do-not-save-duplicates t)
+;; (setq mode-require-final-newline 'visit-save)
+;; (setq next-error-recenter '(4)) ; center of the window
+;; (setq scroll-error-top-bottom t)
+;; (setq trusted-content '("~/Git/Projects/")) ; Emacs 30
+;; (setq-default truncate-partial-width-windows nil)
 
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)

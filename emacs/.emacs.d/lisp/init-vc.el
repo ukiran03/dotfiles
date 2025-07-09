@@ -51,12 +51,13 @@
   :config
   ;;   ;; Highlight on-the-fly
   ;;   (diff-hl-flydiff-mode 1)
-
   ;;   ;; Set fringe style
   (setq-default fringes-outside-margins t))
 
 
-
+(use-package vc
+  :custom-face
+  (vc-edited-state ((t (:inherit font-lock-warning-face :slant italic)))))
 
 (provide 'init-vc)
 

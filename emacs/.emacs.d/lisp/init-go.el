@@ -19,6 +19,7 @@
               ("<f1>" . godoc))
   ;; :hook ((godoc-mode . markdown-mode)
   ;;        (godoc-mode . view-mode))
+  :hook ((go-mode . (lambda () (super-save-mode -1))))
   :init
   (setq godoc-at-point-function #'godoc-gogetdoc)
   (setq gofmt-command "goimports")

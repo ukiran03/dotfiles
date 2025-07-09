@@ -95,6 +95,8 @@
     (interactive "P")
     (zoxide-open-with nil (lambda (file) (dired-jump other-window file)) t)))
 
+(use-package ztree)
+
 (provide 'init-utils)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

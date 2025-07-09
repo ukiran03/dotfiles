@@ -1,3 +1,5 @@
+module Colors.Current where
+import XMonad
 
 colorScheme = "dark"
 

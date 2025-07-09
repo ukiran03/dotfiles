@@ -1,9 +1,0 @@
-
-* {
-    background:         #ffffffff;
-    background-alt:     #e0e0e0ff;
-    foreground:         #000000ff;
-    selected:           #1f1fceff;
-    urgent:             #a60000ff;
-    active:             #008899ff;
-}

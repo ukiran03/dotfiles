@@ -4,6 +4,40 @@
 
 ;;; Code:
 
+
+;; Better defaults
+;; (setq initial-scratch-message nil)
+(setq frame-inhibit-implied-resize nil)
+;; prevents changing font, etc triggering a resize of the entire frame
+;; in non-tiling setups Misc
+
+(setq use-short-answers t)
+(setq visible-bell t)
+(setq inhibit-splash-screen t)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets) ; Show path if names are same
+(setq adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*")
+(setq adaptive-fill-first-line-regexp "^* *$")
+(setq delete-by-moving-to-trash t)         ; Deleting files go to OS's trash folder
+(setq set-mark-command-repeat-pop t)       ; Repeating C-SPC after popping mark pops it again
+;; (setq kill-whole-line t)                   ; Kill line including '\n'
+
+(setq make-backup-files t)
+(setq auto-save-default t)
+;; check init-clean.el
+
+;; Move this in its own thing
+;; (setq
+;;  create-lockfiles nil
+;;  delete-old-versions t
+;;  kept-new-versions 6
+;;  kept-old-versions 2
+;;  version-control t)
+
+(setq-default major-mode 'text-mode)
+
+;; Quitting emacs via `C-x C-c` or the GUI 'X' button
+(setq confirm-kill-emacs #'y-or-n-p)
+
 (use-package emacs
   :ensure nil
   :config
