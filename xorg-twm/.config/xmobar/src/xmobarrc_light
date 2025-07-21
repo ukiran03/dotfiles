@@ -1,6 +1,7 @@
 Config
   { overrideRedirect = False
-  , font = "xft:Iosevka:pixelsize=13.5:bold:antialias=true;3"
+  -- , font = "xft:Iosevka:pixelsize=13.5:bold:antialias=true;3"
+  , font = "xft:Iosevka Nerd Font:pixelsize=13:bold:antialias=true;3"
     , additionalFonts = ["xft:Iosevka Nerd Font:pixelsize=14:bold:antialias=true","xft:FontAwesome:style=Regular:pixelsize=14"]
   -- , font = "xft:Iosevka:pixelsize=13:bold:antialias=true;3"
   -- , font = "xft:Iosevka,Iosevka Nerd Font:style=Bold,Memory:pixelsize=13:antialias=true:hinting=true"
@@ -55,20 +56,22 @@ Config
           ]
           50
       -- , Run PipeReader "!:/tmp/.volume-pipe" "vol_pipe"
-      , Run Com "pamixer" ["--get-volume-human"] "" 20
+
       , Run PipeReader "!:/tmp/.brightness-pipe" "bright_pipe"
       , Run PipeReader " :/tmp/.record-pipe" "record_pipe" -- %record_pipe%
       , Run DynNetwork ["-t", "<fc=#006800><dev><up></fc>"] 10
-      , Run Memory ["--template", "<fc=#6D8895>Mem:</fc> <usedratio>%"] 50
+      , Run Memory [ "-t", "<fc=#6D8895>Mem:</fc> <used>", "-d", "1", "--", "--scale", "1024"] 50
       -- , Run Date "%a, %d %b %Y, <fc=#3f578f>%I:%M %p</fc>" "date" 300
       , Run Date "<fc=#FFFFFF,#3f578f> %a, %d %b %Y, %I:%M %p </fc>" "date" 300
       , Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 30
-       -- MPD
+      , Run Com "pamixer" ["--get-volume-human"] "" 20
+      , Run Volume "default" "Master" ["-t", "<status>","--", "-O", "<fc=#0031a9><fn=1> </fn></fc>", "-o", "<fc=#a60000><fn=1> </fn></fc>"] 20
+      -- MPD
       , Run MPD ["-t", "<state>: <artist> - <track>"] 10
       , Run XMonadLog
       ]
   , sepChar = "%"
   , alignSep = "}{"
   , template =
-        " <icon=xmonad_light.xpm/> <fc=#e0e0e0>|</fc> %XMonadLog% }{ %dynnetwork%  <fc=#6D8895>br:</fc> %bright_pipe%  <fc=#0031a9><fn=1>  </fn></fc>%pamixer%  %battery%  %date% %trayerpad%"
+        " <icon=xmonad_light.xpm/> <fc=#e0e0e0>|</fc> %XMonadLog% }{ %dynnetwork%  <fc=#6D8895>L: </fc>%bright_pipe%  <fc=#6D8895>(</fc>%cpu% - %memory%<fc=#6D8895>GB)</fc>  %default:Master% %pamixer%  %battery%  %date% %trayerpad%"
   }

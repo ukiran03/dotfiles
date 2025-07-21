@@ -48,7 +48,7 @@
   ;; Shows icons
   (use-package nerd-icons-dired
     ;; :disabled
-    :diminish
+    :blackout
     ;; :if (featurep 'all-the-icons)
     :when (icons-displayable-p)
     :custom-face
