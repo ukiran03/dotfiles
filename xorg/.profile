@@ -19,6 +19,9 @@ export LD_LIBRARY_PATH=/usr/local/lib/
 export XAUTHORITY=$HOME/.Xauthority
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
+# Dotfiles
+export DOTFILES="$HOME/dotfiles"
+
 # GOPATH :Go
 export GOPATH="$XDG_DATA_HOME"/go
 export GOBIN="$GOPATH"/bin
@@ -71,3 +74,10 @@ export PODMAN_IGNORE_CGROUPSV1_WARNING
 #. "/home/ukiran/.local/share/cargo/env"
 
 [ -f "/home/ukiran/.ghcup/env" ] && . "/home/ukiran/.ghcup/env" # ghcup-env
+
+# pnpm
+export PNPM_HOME="/home/ukiran/.local/share/pnpm"
+if [[ -d "$PNPM_HOME" && ! ":$PATH:" == *":$PNPM_HOME:"* ]]; then
+  export PATH="$PNPM_HOME:$PATH"
+fi
+# pnpm end

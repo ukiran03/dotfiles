@@ -149,6 +149,7 @@ uk-bright
 
 _check mpc && mpc update &
 
+xfsettingsd --daemon --disable-wm-check --sm-client-disable &
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &
 ### /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 # /usr/libexec/polkit-gnome-authentication-agent-1 &

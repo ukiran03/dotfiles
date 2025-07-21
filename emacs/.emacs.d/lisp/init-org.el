@@ -65,6 +65,8 @@
         org-modern-internal-target nil
         org-modern-radio-target nil))
 
+(use-package org-appear)
+
 
 ;;  `Org-Agenda'
 (use-package org

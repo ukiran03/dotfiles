@@ -72,7 +72,7 @@
 ;; Pulse modified region
 (use-package goggles
   :disabled
-  :diminish
+  :blackout
   :hook ((prog-mode text-mode) . goggles-mode)
   :config
   (setq-default goggles-pulse t)
@@ -103,7 +103,7 @@
   :ensure t
   ;; :hook ((prog-mode . symbol-overlay-mode)
   ;; (racket-mode . (setq-local symbol-overlay-mode nil)))
-  :diminish
+  :blackout
   :bind (:map symbol-overlay-mode-map
               ("M-i" . symbol-overlay-put)
 	          ("M-n" . symbol-overlay-jump-next)
@@ -115,7 +115,7 @@
   :init (setq symbol-overlay-idle-time 0.1))
 
 (use-package colorful-mode
-  :diminish
+  :blackout
   ;; :hook (prog-mode . global-colorful-mode)
   :init (setq colorful-use-prefix nil   ; t
               colorful-prefix-string "⬤")
