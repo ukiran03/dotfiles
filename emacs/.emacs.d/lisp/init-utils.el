@@ -14,18 +14,6 @@
   (setq trashed-sort-key '("Date deleted" . t))
   (setq trashed-date-format "%Y-%m-%d %H:%M:%S"))
 
-(use-package blackout
-  :config
-  (dolist (mode '((lisp-interaction-mode . "λ")
-                  (python-mode . "Py")
-                  (emacs-lisp-mode . "Eλ")
-                  (sh-mode . "SH")
-                  (js-jsx-mode . "Js +JSX")
-                  (js-mode . "Js")
-                  (racket-mode . "RKT")
-                  (scheme-mode . "λSCM")))
-    (blackout (car mode) (cdr mode))))
-
 (use-package orgmdb
   :ensure t
   :config
@@ -39,7 +27,7 @@
   :ensure nil
   :defer t
   :vc (:url "https://github.com/AmaiKinono/clue")
-  :blackout (clue-mode . " #")
+  :diminish (clue-mode " #")
   ;;  :init
   ;;  (add-hook 'find-file-hook #'clue-auto-enable-clue-mode)
   :config
@@ -94,13 +82,10 @@
         scroll-margin 0)
   :hook (after-init . ultra-scroll-mode))
 
-(use-package sinister
-  :disabled
-  :vc (:url "https://github.com/positron-solutions/sinister")
-  :config
-  (sinister-stillness-mode 1)
-  (sinister-misc-settings)
-  (setq sinister-stillness-margin 10))
+(use-package stillness-mode
+  ;;   :vc (:url "https://github.com/neeasade/stillness-mode.el")
+  :after minibuffer
+  :hook (after-init . stillness-mode))
 
 (use-package keycast)
 

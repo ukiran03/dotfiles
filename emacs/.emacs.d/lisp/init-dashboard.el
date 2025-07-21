@@ -11,6 +11,7 @@
 
 
 (use-package dashboard
+  :diminish dashboard-mode
   :custom-face
   (dashboard-heading ((t (:weight bold))))
   (dashboard-items-face ((t (:weight normal))))

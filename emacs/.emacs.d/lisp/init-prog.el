@@ -35,7 +35,7 @@
 ;; Emacs 30.1
 (use-package completion-preview
   :ensure nil
-  :blackout
+  :diminish
   :hook
   (prog-mode . completion-preview-mode))
 
@@ -45,25 +45,26 @@
 
 (use-package subword
   :ensure nil
-  :blackout subword-mode
+  :diminish subword-mode
   :hook (prog-mode . subword-mode))
 
 (use-package page-break-lines
-  :blackout
+  :diminish
   :ensure t
   :hook (prog-mode . page-break-lines-mode))
 
 (use-package eldoc
   :ensure nil
-  :blackout eldoc-mode
+  :diminish eldoc-mode
   :config
   (setq eldoc-echo-area-use-multiline-p t))
 
 ;;  `C': <https://astyle.sourceforge.net/astyle.html>
 (use-package format-all
-  :disabled
-  :blackout
+  ;; :disabled
+  :diminish
   :commands format-all-mode
+  ;; :hook (prog-mode . format-all-mode)
   :config
   (setq format-all-formatters
         '(("C"     (astyle "--mode=c"))
@@ -72,8 +73,8 @@
           ("Haskell" (hindent)))))
 
 (use-package apheleia
+  :disabled
   :config
-  (setq apheleia-mode-lighter " ;")
   (setf (alist-get 'clang-format apheleia-formatters)
         '("clang-format" "--style={IndentWidth: 4}")))
 
@@ -99,48 +100,36 @@
   :bind (("C-c s" . puni-mode)
          :map puni-mode-map
          ([remap backward-sentence] . puni-end-of-sexp)
-         ([remap forward-sentence] . puni-beginning-of-sexp)
-         ([remap forward-sexp] . puni-forward-sexp-or-up-list)
-         ([remap backward-sexp] . puni-backward-sexp-or-up-list)
-         ([remap kill-line] . puni-kill-line)
-         ([remap mark-paragraph] . puni-expand-region)
-         ;; ([remap kill-sexp] . puni-kill-thing-at-point)
-         ("M-k" . puni-raise)
+         ([remap forward-sentence]  . puni-beginning-of-sexp)
+         ([remap forward-sexp]      . puni-forward-sexp-or-up-list)
+         ([remap backward-sexp]     . puni-backward-sexp-or-up-list)
+         ([remap kill-line]        . puni-kill-line)
+         ([remap mark-paragraph]    . puni-expand-region)
+         ;; ([remap kill-sexp]        . puni-kill-thing-at-point)
+         ("M-k"                     . puni-raise)
          ;; Remove outer pairs
-         ("M-O" . puni-splice)
-         ("C-)" . puni-slurp-forward)
-         ("C-(" . puni-slurp-backward)
-         ("C-}" . puni-barf-forward)
-         ("C-{" . puni-barf-backward)
-         ("M-(" . puni-wrap-round)
-         ("M-C" . puni-clone-thing-at-point)
-         ("C-M-t" . puni-transpose)
-         ("C-M-?" . puni-convolute)
-         ("C-M-z" . puni-squeeze)
-         ("M-<backspace>" . backward-kill-word)
+         ("M-O"                     . puni-splice)
+         ("C-)"                     . puni-slurp-forward)
+         ("C-("                     . puni-slurp-backward)
+         ("C-}"                     . puni-barf-forward)
+         ("C-{"                     . puni-barf-backward)
+         ("M-("                     . puni-wrap-round)
+         ("M-C"                     . puni-clone-thing-at-point)
+         ("C-M-t"                   . puni-transpose)
+         ("C-M-?"                   . puni-convolute)
+         ("C-M-z"                   . puni-squeeze)
+         ("M-<backspace>"           . backward-kill-word)
          ("C-w" . kill-region))
   :config
   (setopt puni-blink-region-face 'show-paren-match))
 
 (use-package aggressive-indent
-  :blackout
+  :diminish
   :ensure t
   :hook ((emacs-lisp-mode
           lisp-interaction-mode
           racket-mode
           scheme-mode) . aggressive-indent-mode))
-
-(use-package indent-bars
-  :config
-  (setq
-   indent-bars-color '(highlight :face-bg t :blend 0.2)
-   indent-bars-pattern "."
-   indent-bars-width-frac 0.1
-   indent-bars-pad-frac 0.1
-   indent-bars-zigzag nil
-   indent-bars-color-by-depth nil
-   indent-bars-highlight-current-depth nil
-   indent-bars-display-on-blank-lines nil))
 
 (use-package emacs
   :ensure nil
@@ -162,8 +151,7 @@
   :defer
   :custom
   (sql-sqlite-options '("-header" "-box"))
-  (setq sql-postgres-login-params
-        '((server :default "localhost"))))
+  )
 
 (provide 'init-prog)
 

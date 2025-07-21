@@ -14,8 +14,7 @@
               ("C-c a" . eglot-code-actions)
               ("C-c r" . eglot-rename))
   :config
-  (setq eglot-menu-string "eglot" ;; ✭►⋙
-        eglot-report-progress t
+  (setq eglot-menu-string "•" ;; ✭►⋙
         read-process-output-max (* 1024 1024) ; 1MB
         eglot-autoshutdown t                   ; default: nil
         eglot-events-buffer-size 0             ; default: 2000000

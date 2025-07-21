@@ -46,19 +46,18 @@
 
 ;; Nice writing
 (use-package olivetti
-  :blackout
+  :diminish
   :bind ("<f7>" . olivetti-mode)
   :config
   ;; (setq olivetti-body-width 0.62)
   (setq olivetti-style 'fancy))
 
 (use-package doom-modeline
-  ;; :disabled
+  :disabled
   ;; :init (doom-modeline-mode 1)
   :config
   (setq doom-modeline-minor-modes t)
   (setq doom-modeline-bar-width 4)
-  ;; (setq doom-modeline-height 9)
   (setq doom-modeline-hud nil)
   (setq doom-modeline-icon t)
   (setq doom-modeline-height 3)

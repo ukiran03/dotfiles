@@ -19,7 +19,7 @@
 
 (use-package jinx
   :ensure t
-  :blackout
+  :diminish
   ;; :hook
   ;; ((prog-mode-hook
   ;;   conf-mode-hook
@@ -45,7 +45,7 @@
 
 (use-package sideline-flymake
   :ensure t
-  :blackout sideline-mode
+  :diminish sideline-mode
   :custom-face
   (sideline-flymake-error ((t (:height 0.85 :italic t))))
   (sideline-flymake-warning ((t (:height 0.85 :italic t))))

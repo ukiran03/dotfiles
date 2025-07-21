@@ -10,7 +10,7 @@
     (python-mode . "Py")
     (emacs-lisp-mode . "Eλ")
     (sh-mode . "SH")
-    (js-jsx-mode . "Js +JSX")
+    (puni-mode . "⟮⟯")
     (racket-mode . "RKT")
     (scheme-mode . "λSCM"))
   "Alist for `clean-mode-line'.

@@ -8,7 +8,7 @@
 
 ;; Yet another snippet extension
 (use-package yasnippet
-  :blackout yas-minor-mode
+  :diminish yas-minor-mode
   :hook (prog-mode . yas-minor-mode))   ; instead of `yas-global-mode'
 
 ;; Collection of yasnippet snippets

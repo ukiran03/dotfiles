@@ -28,7 +28,7 @@
           (mark " " name))))
 
 (use-package nerd-icons-dired
-  :blackout
+  :diminish
   :when (icons-displayable-p)
   :custom-face
   (nerd-icons-dired-dir-face ((t (:inherit nerd-icons-dsilver :foreground unspecified))))

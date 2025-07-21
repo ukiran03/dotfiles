@@ -51,19 +51,18 @@ Config
           , "#88ca9f"
           ]
           50
+      , Run Com "pamixer" ["--get-volume-human"] "" 20
       , Run PipeReader "/tmp/.volume-pipe" "vol_pipe"
       , Run PipeReader "!:/tmp/.brightness-pipe" "bright_pipe"
       , Run DynNetwork ["-t", "<fc=#88ca9f><dev><up></fc>"] 10
-      , Run Memory [ "-t", "<fc=#6D8895>Mem:</fc> <used>", "-d", "1", "--", "--scale", "1024"] 20
+      , Run Memory ["--template", "<fc=#6D8895>Mem:</fc> <usedratio>%"] 50
       -- , Run Date "%a, %d %b %Y, <fc=#00eff0>%I:%M %p</fc>" "date" 300
       , Run Date "<fc=#FFFFFF,#5f509f> %a, %d %b %Y, %I:%M %p </fc>" "date" 300
       , Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 50
-      , Run Com "pamixer" ["--get-volume-human"] "" 20
-      , Run Volume "default" "Master" ["-t", "<status>","--", "-O", "<fc=#42A5F5><fn=1> </fn></fc>", "-o", "<fc=#d95468><fn=1> </fn></fc>"] 20
       , Run XMonadLog
       ]
   , sepChar = "%"
   , alignSep = "}{"
   , template =
-   " <icon=xmonad_dark.xpm/> <fc=#3c4449>|</fc> %XMonadLog% }{ %dynnetwork%  <fc=#6D8895>L: </fc>%bright_pipe%  <fc=#6D8895>(</fc>%cpu% - %memory%<fc=#6D8895>GB)</fc>  %default:Master% %pamixer%  %battery%  %date% %trayerpad%"
+    " <icon=xmonad_dark.xpm/> <fc=#3c4449>|</fc> %XMonadLog% }{ %dynnetwork%  <fc=#6D8895>br:</fc> %bright_pipe%  <fc=#42A5F5><fn=1>  </fn></fc>%pamixer%  %battery%  %date% %trayerpad%"
   }

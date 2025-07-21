@@ -89,12 +89,12 @@
 ;; Automatically reload files was modified by external program
 (use-package autorevert
   :ensure nil
-  :blackout
+  :diminish
   :hook (after-init . global-auto-revert-mode))
 
 ;; Redefine M-< and M-> for some modes
 (use-package beginend
-  :blackout beginend-global-mode
+  :diminish beginend-global-mode
   :hook (after-init . beginend-global-mode)
   :config (mapc (lambda (pair)
                   (diminish (cdr pair)))
@@ -216,7 +216,7 @@
 
 (use-package abbrev
   :ensure nil
-  :blackout abbrev-mode)
+  :diminish abbrev-mode)
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
@@ -250,7 +250,7 @@
 ;; <https://github.com/Fanael/persistent-scratch>
 ;; <https://umarahmad.xyz/blog/quick-scratch-buffers/>
 (use-package persistent-scratch
-  :blackout
+  :diminish
   :hook ((after-init . persistent-scratch-autosave-mode)
          (lisp-interaction-mode . persistent-scratch-mode))
   :init (setq persistent-scratch-backup-file-name-format "%Y-%m-%d"
@@ -272,7 +272,7 @@
 (use-package super-save
   ;; :disabled
   :defer 1
-  :blackout super-save-mode
+  :diminish super-save-mode
   :init
   (super-save-mode +1)
   :config

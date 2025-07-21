@@ -3,7 +3,7 @@
 (use-package js
   :ensure nil
   :mode (("\\.js\\'" . js-jsx-mode))
-  :hook ((js-jsx-mode . apheleia-mode)
+  :hook ((js-jsx-mode . prettier-js-mode)
          (js-jsx-mode . emmet-mode)
          (js-jsx-mode . (lambda () (super-save-mode -1))))
   :config
@@ -13,12 +13,12 @@
 ;; Emmet for JSX/HTML expansion
 (use-package emmet-mode
   :hook (js-jsx-mode . emmet-mode)
-  :blackout (emmet-mode . " </>")
+  :diminish (emmet-mode " </>")
   :config
   (setq emmet-expand-jsx-className? t))
 
 (use-package prettier-js
-  :blackout (prettier-js-mode . " ;")
+  :diminish (prettier-js-mode " ;")
   :config
   (setq prettier-js-args '(
                            "--trailing-comma" "all"
@@ -28,17 +28,6 @@
                            "--semi" "true"
                            "--singleQuote" "true"
                            )))
-
-;; JS/JSX Setup
-(use-package typescript-mode
-  :ensure nil
-  :mode (("\\.ts\\'" . tsx-ts-mode))
-  :hook ((tsx-ts-mode . apheleia-mode)
-         (tsx-ts-mode . emmet-mode)
-         (tsx-ts-mode . (lambda () (super-save-mode -1))))
-  :config
-  (add-to-list 'interpreter-mode-alist '("node" . tsx-ts-mode)))
-
 
 ;;;;; Not Yet/Working
 

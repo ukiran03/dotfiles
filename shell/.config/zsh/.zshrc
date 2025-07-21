@@ -2,34 +2,27 @@
 # Enable colors and change prompt:
 autoload -U colors && colors # Load colors
 
-function get_status_color() {
-    local exit_status=$? # <--- CRUCIAL: Capture $? immediately
-    [[ $exit_status == 0 ]] && echo "%B%F{002}● $%f%b" || echo "%F{009}($exit_status) $%f"
-}
-
+### Prompt
 NEWLINE=$'\n'
-STATUS=$'$get_status_color'
-USER=$'%B%F{012}%n@%F{015}%m%f%f%b'
-UPWD=$'%B%F{006}%K%~%k%f%b'
-
-PROMPT='${USER} ${UPWD} %F{007}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
+GIT_INFO=$'%F{007}$vcs_info_msg_0_%f'
+PROMPT="%B%F{004}%n@%m%f%b %B%F{006}%K%~%k%f%b ${GIT_INFO}${NEWLINE}%B%F{009}(%?)%f%b %B$ %b"
 
 # export REPORTTIME=3
 TIMEFMT="'$fg[green]%J$reset_color' time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
 
 function preexec() {
-    timer=${timer:-$SECONDS}
+	timer=${timer:-$SECONDS}
 }
 function precmd() {
-    if [ $timer ]; then
-        timer_show=$(($SECONDS - $timer))
-        if [ $timer_show -ge 3 ]; then
-            RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
-        else
-            RPROMPT=""
-        fi
-        unset timer
-    fi
+	if [ $timer ]; then
+		timer_show=$(($SECONDS - $timer))
+		if [ $timer_show -ge 3 ]; then
+			RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
+		else
+			RPROMPT=""
+		fi
+		unset timer
+	fi
 }
 
 ### VC Info
@@ -60,7 +53,7 @@ setopt NO_CASE_GLOB # Modifies the behavior of filename globbing
 setopt COMPLETE_ALIASES # Perform command completion for aliases
 setopt GLOB_DOTS        # Include hidden files when performing file globbing
 setopt SHARE_HISTORY    # Share history between all sessions.
-setopt PROMPT_SUBST     # Enables prompt substitution
+setopt prompt_subst     # Enables prompt substitution
 setopt always_to_end    # Ensures the cursor moves to the end of the command line
 setopt APPEND_HISTORY   # Preserving the commands from all sessions
 
@@ -118,9 +111,9 @@ _comp_options+=(globdots) # Include hidden files.
 ## Sources
 
 if [[ -f $ZDOTDIR/exports.zsh ]]; then
-    source $ZDOTDIR/exports.zsh
+	source $ZDOTDIR/exports.zsh
 else
-    echo "zsh-exports file missing"
+	echo "zsh-exports file missing"
 fi
 
 # if [[ -f $ZDOTDIR/zsh-funcs ]]; then
@@ -131,12 +124,12 @@ fi
 
 # Rename the current tmux pane to the current working directory
 rename_tmux_pane_to_cwd() {
-    if [[ -n "$TMUX" ]]; then
-        # Get the current pane's working directory and rename the pane
-        tmux rename-window "$(basename "$PWD")"
-    else
-        echo "Not in a tmux session."
-    fi
+	if [[ -n "$TMUX" ]]; then
+		# Get the current pane's working directory and rename the pane
+		tmux rename-window "$(basename "$PWD")"
+	else
+		echo "Not in a tmux session."
+	fi
 }
 
 #### Plugins
