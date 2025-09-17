@@ -1,23 +1,69 @@
-
-;; JS/JSX Setup
+;; Base JS mode (for shared hooks)
 (use-package js
-  :ensure nil
-  :mode (("\\.js\\'" . js-jsx-mode))
-  :hook ((js-jsx-mode . apheleia-mode)
-         (js-jsx-mode . emmet-mode)
-         (js-jsx-mode . (lambda () (super-save-mode -1))))
+  :ensure nil ;; built-in
+  :hook ((js-base-mode . apheleia-mode)
+         (js-base-mode . symbol-overlay-mode))
+  :custom
+  (js-indent-level 2)
   :config
-  (setq js-indent-level 2)
-  (add-to-list 'interpreter-mode-alist '("node" . js-jsx-mode)))
+  (add-to-list 'interpreter-mode-alist '("node" . js-base-mode)))
 
-;; Emmet for JSX/HTML expansion
+;; JS (tree-sitter) mode for .js/.mjs files
+(use-package js-ts-mode
+  :ensure nil
+  :mode ("\\.m?js\\'" . js-ts-mode)
+  :custom
+  (js-ts-indent-offset 2))
+
+;; JSX mode for .jsx files
+(use-package js-jsx-mode
+  :ensure nil
+  :mode ("\\.jsx\\'" . js-jsx-mode)
+  :custom
+  (js-indent-level 2))
+
+(use-package typescript-ts-base-mode
+  :ensure nil
+  :hook ((typescript-ts-base-mode . apheleia-mode)
+         (typescript-ts-base-mode . symbol-overlay-mode))
+  :custom
+  (typescript-ts-mode-indent-offset 2))
+
+(use-package typescript-ts-mode
+  :ensure nil
+  :mode ("\\.ts\\'" . typescript-ts-mode)
+  :custom
+  (typescript-ts-mode-indent-offset 2))
+
+(use-package tsx-ts-mode
+  :ensure nil
+  :mode ("\\.tsx\\'" . tsx-ts-mode)
+  :custom
+  (typescript-ts-mode-indent-offset 2))
+
+;; Emmet for JSX/TSX
 (use-package emmet-mode
-  :hook (js-jsx-mode . emmet-mode)
+  :hook ((js-jsx-mode . emmet-mode)
+         (tsx-ts-mode . emmet-mode)
+         (web-mode   . emmet-mode))
   :blackout (emmet-mode . " </>")
+  :bind
+  (:map emmet-mode-keymap
+        ("C-<return>" . nil))
   :config
   (setq emmet-expand-jsx-className? t))
+                                        ; Web-Mode
+(use-package web-mode
+  :mode "\\.html\\'"
+  :hook ((web-mode . emmet-mode)
+         (web-mode . apheleia-mode))
+  :config
+  (setq web-mode-markup-indent-offset 2
+        web-mode-code-indent-offset 2))
 
+;; Prettier-Js
 (use-package prettier-js
+  :disabled
   :blackout (prettier-js-mode . " ;")
   :config
   (setq prettier-js-args '(
@@ -28,34 +74,5 @@
                            "--semi" "true"
                            "--singleQuote" "true"
                            )))
-
-;; JS/JSX Setup
-(use-package typescript-mode
-  :ensure nil
-  :mode (("\\.ts\\'" . tsx-ts-mode))
-  :hook ((tsx-ts-mode . apheleia-mode)
-         (tsx-ts-mode . emmet-mode)
-         (tsx-ts-mode . (lambda () (super-save-mode -1))))
-  :config
-  (add-to-list 'interpreter-mode-alist '("node" . tsx-ts-mode)))
-
-
-;;;;; Not Yet/Working
-
-(use-package web-mode
-  :disabled
-  :mode (("\\.jsx?\\'" . web-mode))
-  :hook (web-mode . emmet-mode)
-  :config
-  (setq web-mode-markup-indent-offset 2
-        web-mode-code-indent-offset 2
-        set-web-mode-content-type "jsx"))
-
-(use-package js2-mode
-  :disabled
-  :mode (("\\.js\\'" . js2-mode))
-  :config
-  (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode)))
-(use-package typescript-mode)
 
 (provide 'init-web)

@@ -20,8 +20,16 @@
   (advice-add 'project-mode-line-format :filter-return
               (lambda (s) (when s (concat s " "))))
   (setq project-vc-extra-root-markers '(".project"))  ; Emacs 29
-  (add-to-list 'project-switch-commands
-               '(project-view-file "View File" "F"))
+
+  (setq project-switch-commands
+        '((project-view-file "View File" "F")
+          (project-find-file "Find file")
+          (project-dired "Dired" "<return>")
+          (project-find-dir "Find directory")
+          (rg-project "Ripgrep" "r")
+          (project-eshell "Eshell")
+          (magit-project-status "Magit" "g")
+          (project-any-command "Other")))
 
   (defun project-view-file (&optional arg)
     "Open a file in view-mode using project-find-file.

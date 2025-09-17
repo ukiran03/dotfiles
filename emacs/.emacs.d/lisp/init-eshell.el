@@ -11,8 +11,13 @@
     (setq eshell-highlight-prompt nil
           eshell-prompt-function 'epe-theme-lambda)))
 
-(setq-default explicit-shell-file-name "/usr/bin/bash")
-(setq shell-file-name "bash")
+(use-package emacs
+  :ensure nil
+  :init
+  (setq comint-process-echoes t))
+
+;; (setq-default explicit-shell-file-name "/usr/bin/bash")
+;; (setq shell-file-name "bash")
 
 ;; (setq explicit-zsh-args '("--login" "--interactive"))
 ;; (defun zsh-shell-mode-setup ()

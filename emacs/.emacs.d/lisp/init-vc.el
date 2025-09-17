@@ -21,8 +21,6 @@
 (use-package magit :ensure t)
 (use-package forge :ensure nil)
 
-(use-package diff-hl)
-
 (use-package magit
   :ensure t
   :bind ("H-g" . magit-status)
@@ -38,7 +36,6 @@
   (setq git-commit-style-convention-checks '(non-empty-second-line))
 
   (setq magit-diff-refine-hunk t))
-
 
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl

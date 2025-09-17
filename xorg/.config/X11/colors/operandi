@@ -1,5 +1,8 @@
 ! -*- mode: conf-xdefaults -*-
 !!! Operandi
+! Xcursor.theme: Bibata-Modern-Classic
+! Xcursor.size: 18
+
 
 URxvt.foreground: #000000
 URxvt.background: #ffffff

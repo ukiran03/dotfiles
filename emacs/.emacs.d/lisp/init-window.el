@@ -131,15 +131,18 @@
 	     ("C-M-`" . popper-toggle-type))
   :init
   (setq popper-mode-line
-        '(:eval (let ((face 'mode-line-emphasis))  ; Bind the face variable
-		          (format " %s "
-			              (nerd-icons-octicon "nf-oct-pin" :face face)))))
+        (if (display-graphic-p)
+            '(:eval (let ((face 'mode-line-emphasis))
+                      (format " %s "
+			                  (nerd-icons-octicon "nf-oct-pin" :face face))))
+          '(:eval (propertize " POP" 'face 'mode-line-emphasis))))
 
   (setq popper-reference-buffers
 	    '("\\*Messages\\*"
 	      "Output\\*$"
 	      "\\*Dictionary\\*"
 	      "^\\*eldoc.*\\*$"
+          "\\*apheleia-.*-log\\*"
 	      "\\*Async Shell Command\\*"
           racket-repl-mode
 	      help-mode

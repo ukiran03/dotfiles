@@ -1,9 +1,5 @@
-;;; init-consult.el --- summary -*- lexical-binding: t -*-
+;; init-consult.el --- summary -*- lexical-binding: t -*-
 
-
-;;; Commentary:
-
-;;; Code:
 (use-package consult
   :ensure t
   ;; Replace bindings. Lazily loaded by `use-package'.
@@ -127,11 +123,9 @@
   ;; Optionally make narrowing help available in the minibuffer.
   ;; You may want to use `embark-prefix-help-command' or which-key instead.
   ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
+
+  ;; History
+  (add-to-list 'consult-mode-histories '(eat-mode))
   )
 
-;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)
-
 (provide 'init-consult)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-consult.el ends here

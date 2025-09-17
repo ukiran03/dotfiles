@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+CONFIG_FILE="/home/ukiran/.config/my_display/redshift"
+
+# Read current temperature or exit on error
+read -r current_temp <"$CONFIG_FILE" || {
+    echo "Error: Could not read from config file $CONFIG_FILE" >&2
+    exit 1
+}
+
+# If no arguments, set to current temperature and display it
+if [[ $# -eq 0 ]]; then
+    redshift -O "$current_temp"
+    echo "$current_temp"  # Fixed: removed quotes to output variable value
+    exit 0
+fi
+
+# With argument, set new temperature and save to config
+redshift -O "$1"
+echo "$1" > "$CONFIG_FILE"

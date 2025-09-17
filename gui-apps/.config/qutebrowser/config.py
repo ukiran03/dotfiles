@@ -4,9 +4,11 @@
 # unbind at least the conflicting keybindings like this:
 config.unbind('<Ctrl-x>')
 
-# config.set("colors.webpage.darkmode.enabled", True)
-config.set("colors.webpage.darkmode.enabled", False)
+config.set("colors.webpage.darkmode.enabled", True)
+# config.set("colors.webpage.darkmode.enabled", False)
 # config.source('themes/qute-city-lights/city-lights-theme.py')
+
+config.bind('<Ctrl-x>T', 'config-cycle colors.webpage.darkmode.enabled false true')
 
 config.load_autoconfig(False)
 

@@ -1,10 +1,22 @@
 ### Emacs
-emacs/.emacs.d/*
-!emacs/.emacs.d/lisp/
-!emacs/.emacs.d/etc/
-!emacs/.emacs.d/init.el
-!emacs/.emacs.d/early-init.el
-!emacs/.mini-emacs.el
+*.swo
+*.swp
+*~
+\#*#
+emacs/.emacs.d/docs/
+emacs/.emacs.d/eln-cache/
+emacs/.emacs.d/elpa/
+emacs/.emacs.d/data/
+emacs/.emacs.d/site-lisp/
+emacs/.emacs.d/var/
+emacs/.emacs.d/places
+emacs/.emacs.d/recentf
+emacs/.emacs.d/history
+emacs/.emacs.d/.project
+emacs/.emacs.d/custom.el
+
+
+
 
 ### Xorg-twm
 # herbstluftwm

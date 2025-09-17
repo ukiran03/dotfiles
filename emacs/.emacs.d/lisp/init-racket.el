@@ -7,20 +7,13 @@
 
 
 ;; SICP: <https://stackoverflow.com/questions/74169756/sicp-evaluate-racket-into-repl-with-emacs-and-geiser>
-(use-package geiser
-  :ensure t
-  :config
-  ;; Set up Geiser for Racket
-  (setq geiser-active-implementations '(racket))
-  (setq geiser-mode-start-repl-p t))
+;; (use-package geiser
+;;   :init
+;;   ;; (setq geiser-active-implementations '(guile))
+;;   (setq geiser-scheme-implementation 'guile)
+;;   :config
+;;   (use-package geiser-guile))
 
-;; (setq geiser-scheme-implementation '(guile))
-(use-package geiser
-  :init
-  ;; (setq geiser-active-implementations '(guile))
-  (setq geiser-scheme-implementation 'guile)
-  :config
-  (use-package geiser-guile))
 
 ;; There is also `lsp' support for racket-lang
 ;; NOTE: <https://github.com/jeapostrophe/racket-langserver>
@@ -47,19 +40,20 @@
   (custom-set-faces
    '(racket-repl-prompt ((t (:inherit font-lock-function-name-face :weight bold)))))
   ;; (setq racket-repl-buffer-name-function
-  ;;       #'racket-repl-buffer-name-project)
+  ;;       #'racket-repl-buffer-name-project) TODO:
   )
 
-(use-package consult
-  :ensure nil
-  :config
-  (add-to-list 'consult-mode-histories '(racket-repl-mode)))
-
+;; TODO:
 ;; (use-package consult
 ;;   :ensure nil
 ;;   :config
 ;;   (with-eval-after-load 'consult
 ;;     (add-to-list 'consult-mode-histories 'racket-repl-mode)))
+
+(use-package racket-fmt-format
+  :load-path ("site-lisp/racket-fmt-format")
+  :config
+  (add-to-list 'auto-mode-alist '("\\.rkt\\'" . (lambda () (racket-mode) (racket-fmt-format-on-save-mode)))))
 
 
 (provide 'init-racket)

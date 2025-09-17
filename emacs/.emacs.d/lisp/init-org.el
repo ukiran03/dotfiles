@@ -14,6 +14,11 @@
         org-imenu-depth 7)
   (add-to-list 'safe-local-variable-values '(org-hide-leading-stars . t))
   (add-to-list 'safe-local-variable-values '(org-hide-macro-markers . t))
+  :bind
+  (:map org-mode-map
+        ("M-." . org-edit-special)
+        :map org-src-mode-map
+        ("M-," . org-edit-src-exit))
   :config
   (setq org-structure-template-alist
         '(("s" . "src")
@@ -21,6 +26,7 @@
           ("c" . "src C")
           ("e" . "src emacs-lisp")
           ("h" . "src haskell")
+          ("v" . "src verb")
           ("E" . "src emacs-lisp :results value code :lexical t")
           ("t" . "src emacs-lisp :tangle FILENAME")
           ("T" . "src emacs-lisp :tangle FILENAME :mkdirp yes")
@@ -33,15 +39,15 @@
         org-pretty-entities nil
         org-hide-emphasis-markers t))
 
-  (use-package org
-    :ensure nil ; do not try to install it as it is built-in
-    :config
-    (setq org-M-RET-may-split-line '((default . nil)))
-    (setq org-insert-heading-respect-content t)
-    (setq org-log-done 'time)
-    (setq org-log-into-drawer t)
-    (setq org-todo-keywords
-          '((sequence "TODO(t)" "WAIT(w!)" "|" "CANCEL(c!)" "DONE(d!)"))))
+(use-package org
+  :ensure nil ; do not try to install it as it is built-in
+  :config
+  (setq org-M-RET-may-split-line '((default . nil)))
+  (setq org-insert-heading-respect-content t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "WAIT(w!)" "|" "CANCEL(c!)" "DONE(d!)"))))
 
 (use-package org-modern
   :after org
@@ -67,6 +73,18 @@
 
 (use-package org-appear)
 
+;;;; code blocks
+(use-package org
+  :ensure nil
+  :config
+  (setq org-confirm-babel-evaluate nil)
+  (setq org-src-window-setup 'current-window)
+  (setq org-edit-src-persistent-message nil)
+  (setq org-src-fontify-natively t)
+  (setq org-src-preserve-indentation t)
+  (setq org-src-tab-acts-natively t)
+  (setq org-edit-src-content-indentation 0))
+
 
 ;;  `Org-Agenda'
 (use-package org
@@ -74,10 +92,7 @@
   :bind ("C-c a" . org-agenda)
   :config
   (setq calendar-week-start-day 0)
-  (setq org-agenda-files '("~/Documents/org/tasks.org")) ; -- Original
-  ;; (setq org-agenda-files '("~/Documents/org/demo.org")) ; -- Demo
-  ;; (setq org-agenda-files (list org-directory))
-  )
+  (setq org-agenda-files '("~/Documents/org/tasks.org")))
 
 ;; `Org-Capture'
 (use-package org
@@ -95,7 +110,7 @@
                     "%a\n%i%?")
            :empty-lines-after 1)
           ("w" "Wishlist" entry
-           (file+olp "tasks.org" "All Tasks" "Wishlist")
+           (file+headline "tasks.org" "Wishlist")
            ,(concat "* %^{Title} %^g\n"
                     ":PROPERTIES:\n"
                     ":CAPTURED: %U\n"

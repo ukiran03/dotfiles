@@ -149,7 +149,10 @@ uk-bright
 
 _check mpc && mpc update &
 
+# _check xscreensaver && xscreensaver --no-splash &
+
 xfsettingsd --daemon --disable-wm-check --sm-client-disable &
+
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &
 ### /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 # /usr/libexec/polkit-gnome-authentication-agent-1 &

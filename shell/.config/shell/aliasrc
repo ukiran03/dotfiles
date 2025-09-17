@@ -315,6 +315,10 @@ rfv() (
       --query "$*"
 )
 
+# bat
+alias lsblc="lsblk | bat -l conf -p"
+alias batc="bat -l conf -p"
+
 # for emacs
 # alias r~="rm -rf *~"
 alias emacsc="emacsclient -c"
@@ -330,7 +334,7 @@ alias mplay="mpv --playlist=."
 
 alias fplay="ffplay -loglevel 8 -loop 0"
 
-alias rso="redshift -O"
+# alias rso="redshift -O"
 alias rsx="redshift -x"
 
 alias lsmount="mount | column -t"
@@ -356,9 +360,10 @@ alias ys="yay -Qs | grep"
 # Changing "ls" to "exa"
 # alias l='ls'
 alias ls='eza --color=always --group-directories-first -F'
-alias ll="eza --color=always --group-directories-first -lF"
+alias l='eza --color=always --group-directories-first -F'
+alias ll="eza --color=always --group-directories-first -lF --git"
 alias la="eza --color=always --group-directories-first -aF"
-alias lal="eza --color=always --group-directories-first -laF"
+alias lal="eza --color=always --group-directories-first -laF --git"
 lsd() {
     eza --color=always -DF --show-symlinks "$@"
 }

@@ -12,6 +12,7 @@
         ;; notmuch-hello-sections '(notmuch-hello-insert-saved-searches)
         ;; notmuch-show-all-tags-list t
         )
+  (setq notmuch-search-oldest-first nil)
   (setq notmuch-hello-sections '(
                                  ;; notmuch-hello-insert-header
                                  notmuch-hello-insert-saved-searches

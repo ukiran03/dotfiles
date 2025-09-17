@@ -13,3 +13,4 @@ if [ -z "$XDG_RUNTIME_DIR" ]; then
 fi
 
 source /home/ukiran/.config/broot/launcher/bash/br
+#. "/home/ukiran/.deno/env"

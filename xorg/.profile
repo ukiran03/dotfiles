@@ -28,6 +28,7 @@ export GOBIN="$GOPATH"/bin
 export PATH=$PATH:$GOPATH/bin
 
 xrdb -load "$XDG_CONFIG_HOME/X11/xresources"
+# BUG:
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -81,3 +82,9 @@ if [[ -d "$PNPM_HOME" && ! ":$PATH:" == *":$PNPM_HOME:"* ]]; then
   export PATH="$PNPM_HOME:$PATH"
 fi
 # pnpm end
+#. "/home/ukiran/.deno/env"
+# eval "$(~/.local/bin/mise activate)"
+
+#[ -f "/home/ukiran/.ghcup/env" ] && . "/home/ukiran/.ghcup/env" # ghcup-env
+
+#eval "$(mise activate zsh)"

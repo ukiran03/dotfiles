@@ -53,10 +53,37 @@
 ;;https://github.com/hlissner/dotfiles/blob/master/config/bspwm/bspwmrc#L31
 ;;bspc rule -a 'Emacs:emacs-everywhere' state=floating sticky=on
 (use-package emacs-everywhere
+  :init
+  (setq emacs-everywhere-frame-name-format "EEverywhere")
   :config
   (setq emacs-everywhere-major-mode-function 'markdown-mode)
   :bind (:map emacs-everywhere-mode-map
               ("C-c C-c" . emacs-everywhere-finish)))
+
+;; (use-package tinee
+;;   :vc (:url "https://codeberg.org/tusharhero/tinee.git")
+;;   ;; uncomment to make tinee automatically copy and insert text area contents.
+;;   ;; :hook (tinee-before-make-frame-hook . tinee-x11-copy)
+;;   ;; :hook (tinee-after-make-frame-hook . (lambda () (insert (or (gui-selection-value) ""))))
+
+;;   ;; default values, change them if you would like to.
+;;   :custom
+;;   ((tinee-send-text-function 'tinee-x11-write) ; or 'tinee-paste or 'tinee-paste-c-v
+;;    (tinee-frame-name "tinee"))
+;;   :config
+;;   (defun tinee-x11-write (string)
+;;     "Simulate key press using xdotool to paste STRING."
+;;     (start-process "tinee-x11-write" nil
+;;                    "xdotool" "key" "--clearmodifiers" "Shift+Insert" string))
+;;   (defun tinee-x11-write (string)
+;;     "Simulate key press using xdotool to paste STRING."
+;;     (start-process "tinee-write" nil
+;;                    "xdotool" "type" "--clearmodifiers" string))
+;;   (defun tinee-x11-copy ()
+;;     "Copy STRING from X11 window text area."
+;;     (start-process "tinee-x11-copy" nil
+;;                    "xclip" "-selection" "clipboard" "%f")
+;;     (sleep-for 1)))
 
 (use-package drag-stuff
   :ensure t
@@ -111,6 +138,66 @@
     (zoxide-open-with nil (lambda (file) (dired-jump other-window file)) t)))
 
 (use-package ztree)
+
+(use-package cursory
+  ;; :disabled
+  :ensure t
+  :demand t
+  :if (display-graphic-p)
+  :config
+  (setq cursory-presets
+        '((box
+           :cursor-color success ; will typically be green
+           :blink-cursor-interval 1.2)
+          (box-no-blink
+           :inherit box
+           :blink-cursor-mode -1)
+          (bar
+           :cursor-type (bar . 2)
+           :cursor-color error ; will typically be red
+           :blink-cursor-interval 0.8)
+          (bar-no-other-window
+           :inherit bar
+           :cursor-in-non-selected-windows nil)
+          (bar-no-blink
+           :inherit bar
+           :blink-cursor-mode -1)
+          (underscore
+           :cursor-color warning ; will typically be yellow
+           :cursor-type (hbar . 3)
+           :blink-cursor-interval 0.3
+           :blink-cursor-blinks 50)
+          (underscore-no-other-window
+           :inherit underscore
+           :cursor-in-non-selected-windows nil)
+          (underscore-thick
+           :inherit underscore
+           :cursor-type (hbar . 8)
+           :cursor-in-non-selected-windows (hbar . 3))
+          (t ; the default values
+           :cursor-color unspecified ; use the theme's original
+           :cursor-type box
+           :cursor-in-non-selected-windows hollow
+           :blink-cursor-mode 1
+           :blink-cursor-blinks 10
+           :blink-cursor-interval 0.2
+           :blink-cursor-delay 0.2)))
+  ;; I am using the default value of `cursory-latest-state-file'.
+
+  ;; Set last preset or fall back to desired style from
+  ;; `cursory-presets'.  Alternatively, use the function
+  ;; `cursory-set-last-or-fallback' (can be added to the
+  ;; `after-init-hook'.
+  (cursory-set-preset (or (cursory-restore-latest-preset) 'box))
+
+  ;; Persist configurations between Emacs sessions.  Also apply the
+  ;; :cursor-color again when swithcing to another theme.
+  (cursory-mode 1)
+  :bind
+  ;; We have to use the "point" mnemonic, because C-c c is often the
+  ;; suggested binding for `org-capture' and is the one I use as well.
+  ("C-c p c" . cursory-set-preset))
+
 
 (provide 'init-utils)
 

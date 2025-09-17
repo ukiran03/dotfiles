@@ -72,10 +72,22 @@
           ("Haskell" (hindent)))))
 
 (use-package apheleia
+  :ensure t
   :config
+  ;; Lighter in modeline
   (setq apheleia-mode-lighter " ;")
+  ;; Custom formatters
   (setf (alist-get 'clang-format apheleia-formatters)
-        '("clang-format" "--style={IndentWidth: 4}")))
+        '("clang-format" "--style={IndentWidth: 4}"))
+  (setf (alist-get 'hindent apheleia-formatters)
+        '("hindent"))
+  (setf (alist-get 'goimports apheleia-formatters)
+        '("goimports"))
+  ;; Mode associations
+  (setf (alist-get 'haskell-mode apheleia-mode-alist) '(hindent))
+  (setf (alist-get 'elm-mode apheleia-mode-alist) '(elm-format))
+  (setf (alist-get 'go-mode apheleia-mode-alist) '(goimports))
+  (setf (alist-get 'go-ts-mode apheleia-mode-alist) '(goimports)))
 
 ;; Similar to format-all
 ;; checkout: <https://github.com/purcell/emacs-reformatter>
@@ -152,11 +164,23 @@
   :ensure t
   :mode (("\\.http\\'" . restclient-mode)))
 
+(use-package verb
+  :ensure t
+  :config
+  (setq verb-auto-kill-response-buffers t))
+
+;; (use-package org
+;;   :mode ("\\.org\\'" . org-mode)
+;;   :config
+;;   (with-eval-after-load 'org
+;;     (define-key org-mode-map (kbd "H-c H-r") verb-command-map)))
+
 (use-package files
   :ensure nil
   :bind (:map prog-mode-map
               ("S-<f5>" . revert-buffer)))
 
+;; <https://arjanvandergaag.nl/blog/using-emacs-as-a-database-client.html>
 (use-package sql
   :ensure nil
   :defer
@@ -164,6 +188,17 @@
   (sql-sqlite-options '("-header" "-box"))
   (setq sql-postgres-login-params
         '((server :default "localhost"))))
+
+(use-package compile
+  :config
+  (progn
+    ;; Apply ANSI terminal color escape codes. <http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html>
+    (require 'ansi-color)
+    (defun endless/colorize-compilation ()
+      "Colorize from `compilation-filter-start' to `point'."
+      (let ((inhibit-read-only t))
+        (ansi-color-apply-on-region compilation-filter-start (point))))
+    (add-hook 'compilation-filter-hook #'endless/colorize-compilation)))
 
 (provide 'init-prog)
 

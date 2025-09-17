@@ -9,6 +9,18 @@
         (dired-do-async-shell-command "du -hc" nil (list current-dir))
       (message "The current point is not a directory"))))
 
+;; TODO:
+(defun uk-zap ()
+  "Activate mark and start isearch for deletion."
+  (interactive)
+  (set-mark-command nil)
+  (isearch-forward)
+  (progn
+    (delete-region (region-beginning) (region-end))
+    (deactivate-mark)
+    (message "Region deleted")))
+
+
 
 ;;;; Packages:
 
@@ -33,4 +45,3 @@
 ;; superfast navigation and remote control for Emacs source code
 ;; buffers (based on Emacs occur-mode)
 ;; <https://github.com/alphapapa/navi>
-

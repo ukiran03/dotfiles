@@ -1,7 +1,7 @@
 Config
   { overrideRedirect = False
   -- , font = "xft:Iosevka:pixelsize=13.5:bold:antialias=true;3"
-  , font = "xft:Iosevka Nerd Font:pixelsize=13:bold:antialias=true;3"
+  , font = "xft:Iosevka Nerd Font:size=10:bold:antialias=true;3"
     , additionalFonts = ["xft:Iosevka Nerd Font:pixelsize=14:bold:antialias=true","xft:FontAwesome:style=Regular:pixelsize=14"]
   -- , font = "xft:Iosevka:pixelsize=13:bold:antialias=true;3"
   -- , font = "xft:Iosevka,Iosevka Nerd Font:style=Bold,Memory:pixelsize=13:antialias=true:hinting=true"

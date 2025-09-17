@@ -13,6 +13,7 @@
   :ensure nil
   :bind (("C-S-w" . uk-simple-copy-line)
          ("C-w" . uk-kill-region)
+         ("C-<return>" . dwim-new-line)
          ("C-S-<backspace>" . uk-kill-whole-line)
          ("H-q" . read-only-mode)
          ("H-Q" . view-mode))
@@ -22,6 +23,20 @@
     (interactive)
     (copy-region-as-kill (line-beginning-position) (line-end-position))
     (pulse-momentary-highlight-region (line-beginning-position) (line-end-position)))
+
+  (defun dwim-new-line (&optional arg)
+    "Insert newline(s) at end of line.
+With ARG > 0, insert ARG newlines after current line.
+With ARG < 0, insert |ARG| newlines after previous line.
+If ARG is nil, insert one newline after current line."
+    (interactive "P")
+    ;; Default to 1 if no arg given
+    (let ((n (prefix-numeric-value arg)))
+      (when (< n 0)
+        (forward-line -1)
+        (setq n (- n)))
+      (end-of-line)
+      (newline n t)))
 
   (defun uk-kill-whole-line (&optional arg)
     "If the region is active, delete all whole lines under the region.

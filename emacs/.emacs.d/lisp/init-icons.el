@@ -1,0 +1,71 @@
+;;; init-icon.el --- summary -*- lexical-binding: t no-byte-compile: t -*-
+
+;;; Icons
+(use-package nerd-icons
+  :ensure t)
+
+(use-package nerd-icons-completion
+  :ensure t
+  :if (display-graphic-p)
+  :after marginalia
+  ;; FIXME 2024-09-01: For some reason this stopped working because it
+  ;; macroexpands to `marginalia-mode' instead of
+  ;; `marginalia-mode-hook'.  What is more puzzling is that this does
+  ;; not happen in the next :hook...
+  ;; :hook (marginalia-mode . nerd-icons-completion-marginalia-setup))
+  :config
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
+
+  ;; By default, icons are shown in all sorts of completion prompts.
+  ;; When those have different kinds of candidates, like files and
+  ;; folders, the icons are helpful.  If all the candidates have the
+  ;; same icon though, I prefer not to see any icon.
+  (setq nerd-icons-completion-category-icons nil))
+
+(use-package nerd-icons-corfu
+  :ensure t
+  :if (display-graphic-p)
+  :after corfu
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
+(use-package nerd-icons-dired
+  :ensure t
+  :if (display-graphic-p)
+  :blackout
+  ;; :custom-face
+  ;; (nerd-icons-dired-dir-face ((t (:inherit nerd-icons-dsilver :foreground unspecified))))
+  :hook
+  (dired-mode . nerd-icons-dired-mode))
+
+(use-package nerd-icons-ibuffer
+  :if (display-graphic-p)
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
+  :init
+  (setq nerd-icons-ibuffer-icon-size 0.8)
+  (setq nerd-icons-ibuffer-formats
+        '((mark " " (icon 2 2)
+                " " (name 20 20 :left :elide)
+                " " modified read-only locked
+                " " (size-h 7 -1 :right)
+                " " (mode+ 16 16 :left :elide)
+                " " filename-and-process+)
+          (mark " " name))))
+
+(use-package nerd-icons-xref
+  :ensure t
+  :if (display-graphic-p)
+  :after xref
+  :config
+  (nerd-icons-xref-mode 1))
+
+(use-package nerd-icons-grep
+  :ensure t
+  :if (display-graphic-p)
+  :after grep
+  :config
+  (when grep-use-headings
+    (nerd-icons-grep-mode 1)))
+
+(provide 'init-icons)
+;;; init-icons.el ends here

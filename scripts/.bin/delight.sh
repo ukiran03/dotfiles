@@ -23,6 +23,10 @@ case $1 in
         cat $ROFI/colors/modus-vivendi.rasi > $ROFI/colors.rasi
         cat $ZATHURA/src/zathurarc-dark > $ZATHURA/zathurarc
         emacsclient -e "(when (and (functionp 'modus-themes--current-theme) (modus-themes--current-theme)) (modus-themes-load-theme 'modus-vivendi-tinted))"  > /dev/null
+        # Xfce
+        xfconf-query -c xsettings -p /Net/ThemeName -s "Nordic-darker"
+        xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
+        # xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "Bibata-Modern-Ice"
         ;;
     -l)
         echo "Light Mode"
@@ -37,6 +41,10 @@ case $1 in
         # redshift -O 4500
         emacsclient -e "(when (and (functionp 'modus-themes--current-theme) (modus-themes--current-theme)) (modus-themes-load-theme 'modus-operandi))" > /dev/null
         # picom-toggle &
+        # Xfce
+        xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita"
+        xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Light"
+        # xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "Bibata-Modern-Classic"
         ;;
     *)
         echo "Invalid option. Usage: $0 {-d: Dark|-l: Light}"

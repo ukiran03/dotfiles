@@ -4,6 +4,11 @@
 
 ;;; Code:
 
+;;;###autoload
+(defun prot-common-truncate-lines-silently ()
+  "Toggle line truncation without printing messages."
+  (let ((inhibit-message t))
+    (toggle-truncate-lines t)))
 
 ;; Better defaults
 ;; (setq initial-scratch-message nil)
@@ -177,7 +182,7 @@
                 (lambda (file) (file-in-directory-p file package-user-dir))))
   (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:")
   (add-to-list 'recentf-exclude
-               (concat (getenv "HOME") "/Documents/org/*"))
+               (lambda (file) (file-in-directory-p file org-directory)))
   :config
   (push (expand-file-name recentf-save-file) recentf-exclude)
   (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
@@ -225,7 +230,7 @@
             (local-set-key (kbd "C-c C-b") #'eval-buffer)))
 
 (use-package which-key
-  :hook (after-init . which-key-mode)
+  ;; :hook (after-init . which-key-mode)
   :config
   (setq which-key-max-description-length 30
         which-key-lighter nil
@@ -261,14 +266,6 @@
 ;; discover elisp functions that do what you want
 (use-package suggest)
 
-(use-package affe
-  :ensure t
-  :config
-  ;; Manual preview key for `affe-grep'
-  (consult-customize affe-grep :preview-key "M-."))
-
-(use-package no-littering)
-
 (use-package super-save
   ;; :disabled
   :defer 1
@@ -282,6 +279,6 @@
   ;; (setq super-save-triggers nil)
   (setq super-save-auto-save-when-idle t))
 
+;; (setq use-package-compute-statistics t) NOTE:
+
 (provide 'init-core)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-core.el ends here

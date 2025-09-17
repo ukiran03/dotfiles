@@ -55,20 +55,24 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 ;; Fonts
 (set-face-attribute 'variable-pitch nil
                     :family "Iosevka Slab")
-(set-frame-font "Iosevka Medium-11.25" nil t)
+;; (set-frame-font "Iosevka Medium-13" nil t)
+;; (set-frame-font "Iosevka Medium-11.25" nil t)
+(set-face-attribute 'default nil
+                    :family "Iosevka"
+                    :weight 'medium
+                    :height 115)
 
 (require 'init-custom)
 (require 'init-funcs)
 ;; Packages
 ;; Without this comment Emacs25 adds (package-initialize) here
 (require 'init-package)
-
+(require 'init-completions)
 (require 'init-clean)
 (require 'init-vertico)
 (require 'init-prefix)
 (require 'init-core)
-(require 'init-bookmark)
-(require 'init-completions)
+
 (require 'init-dired)
 (require 'init-consult)
 
@@ -81,11 +85,11 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-ui)
 (require 'init-org)
 (require 'init-denote)
-
+(require 'init-treesit)
 (require 'init-tab-bar)
 (require 'init-dashboard)
 (require 'init-window)
-(require 'init-icon)
+(require 'init-icons)
 (require 'init-llm)
 (require 'init-utils)
 (require 'init-eshell)
@@ -98,6 +102,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-racket)
 (require 'init-go)
 (require 'init-web)
+(require 'init-elixir)
 (require 'init-mail)
 (require 'init-vc)
 (require 'init-check)

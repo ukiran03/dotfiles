@@ -1,88 +1,87 @@
 #!/usr/bin/env bash
 
-
-# icon="display-brightness"
 up_icon="/usr/share/icons/Papirus-Dark/32x32/panel/brightness-high-symbolic.svg"
 down_icon="/usr/share/icons/Papirus-Dark/32x32/panel/brightness-symbolic.svg"
 reset_icon="/usr/share/icons/Papirus-Dark/32x32/panel/weather-clear.svg"
-# HDMI check
-# xrandr | grep HDMI
 
-_check () {
-    command -v "$1" > /dev/null
+_check() {
+    command -v "$1" >/dev/null
 }
 
-if _check bc; then
-    # Do nothing if pamixer is installed
-    :
-else
-    echo "Install bc calculator"
-fi
+DEFAULT_BRIGHTNESS="0.85"
+CONFIG_FILE="/home/ukiran/.config/my_display/brightness"
+PIPE_FILE="/tmp/.brightness-pipe"
+DISPLAY_OUTPUT="HDMI-1-0"
 
-default="0.85"
-config="/home/ukiran/.config/my_display/brightness"
-
-_brightness_pipe=/tmp/.brightness-pipe
-# Check if it's a FIFO (named pipe)
-if [[ ! -p $_brightness_pipe ]]; then
-    # If it's not a FIFO, create it
-    mkfifo $_brightness_pipe
+if [[ ! -p $PIPE_FILE ]]; then
+    mkfifo "$PIPE_FILE" || {
+        echo "Error: Could not create pipe $PIPE_FILE" >&2
+        exit 1
+    }
 fi
 
 get_brightness() {
-    awk '{print $1 * 100}' $config | tee /tmp/.brightness-pipe
+    awk '{print $1 * 100}' $CONFIG_FILE | tee /tmp/.brightness-pipe
 }
 
 send_notification() {
-    # Calculate percentage from $result
-    # percentage=$(echo "scale=0; ($result * 100) / 1" | bc)      #using bc
-    percentage=$(awk '{printf "%.0f", $1 * 100}' <<< "$result") #using awk
+    local percentage=$1
+    local icon_path=$2
 
-    # polybar-msg hook uk-bright 1 &  # Trigger Polybar hook to update uk-bright module
-    # polybar-msg action uk-bright send ${percentage}
-
-    # Send notification with dunstify
     dunstify -a "ignore" -u low -r 4434 -h int:value:"$percentage" \
-             -i "$icon" "Brightness: ${percentage}%" -t 2000
+        -i "$icon_path" "Brightness: ${percentage}%" -t 2000
 }
 
-if [[ ! -f "$config" ]]; then
-    echo "Config not found: $config"
+if [[ ! -f "$CONFIG_FILE" ]]; then
+    echo "Config not found: $CONFIG_FILE" >&2
     exit 1
 fi
 
-# Read the first line of the file into a variable
-read -r current < "$config"
-# current=$(<"$config")
+# Read the current brightness value from the config file
+read -r current_brightness < "$CONFIG_FILE" || {
+    echo "Error: Could not read from config file $CONFIG_FILE" >&2
+    exit 1
+}
 
-case $1 in
+# if [[ $# -eq 0 ]]; then
+#     xrandr --output "$DISPLAY_OUTPUT" --brightness "$current_brightness"
+#     echo "$current_brightness"
+#     exit 0
+# fi
+
+case "$1" in
     up)
-	icon="$up_icon"
-	if [ "$(echo "$current != 1.0" | bc -l)" -eq 1 ]; then
-	result=$(echo "$current + 0.05" | bc)
-	echo "$result" > "$config"
-	send_notification "$1"
-	xrandr --output HDMI-1-0 --brightness "$result"
-	fi
-	;;
+        if (( $(echo "$current_brightness < 1.0" | bc -l) )); then
+            new_brightness=$(echo "$current_brightness + 0.05" | bc -l)
+            if (( $(echo "$new_brightness > 1.0" | bc -l) )); then
+                new_brightness="1.0"
+            fi
+            echo "$new_brightness" > "$CONFIG_FILE"
+            xrandr --output "$DISPLAY_OUTPUT" --brightness "$new_brightness"
+            percentage=$(awk '{printf "%.0f", $1 * 100}' <<< "$new_brightness")
+            send_notification "$percentage" "$up_icon"
+        fi
+        ;;
     down)
-	icon="$down_icon"
-	if [ "$(echo "$current != 0.3" | bc -l)" -eq 1 ]; then
-	result=$(echo "$current - 0.05" | bc)
-	echo "$result" > "$config"
-	send_notification "$1"
-	xrandr --output HDMI-1-0 --brightness "$result"
-	fi
-	;;
+        if (( $(echo "$current_brightness > 0.1" | bc -l) )); then
+            new_brightness=$(echo "$current_brightness - 0.05" | bc -l)
+            if (( $(echo "$new_brightness < 0.1" | bc -l) )); then
+                new_brightness="0.1"
+            fi
+            echo "$new_brightness" > "$CONFIG_FILE"
+            xrandr --output "$DISPLAY_OUTPUT" --brightness "$new_brightness"
+            percentage=$(awk '{printf "%.0f", $1 * 100}' <<< "$new_brightness")
+            send_notification "$percentage" "$down_icon"
+        fi
+        ;;
     reset)
-	icon="up_icon"
-	result="$default"
-    echo "$default" > "$config"
-	# xrandr --output HDMI-1-0 --brightness 0.85
-    send_notification "$1"
-	xrandr --output HDMI-1-0 --brightness "$result"
-	;;
+        new_brightness="$DEFAULT_BRIGHTNESS"
+        echo "$new_brightness" > "$CONFIG_FILE"
+        xrandr --output "$DISPLAY_OUTPUT" --brightness "$new_brightness"
+        percentage=$(awk '{printf "%.0f", $1 * 100}' <<< "$new_brightness")
+        send_notification "$percentage" "$reset_icon"
+        ;;
 esac
 
+# Update the pipe with the new brightness value
 get_brightness
-read -r current < "$config"

@@ -28,7 +28,7 @@ export FZF_ALT_C_OPTS="
   --walker-skip .git,node_modules,target
   --preview 'ls --color=always --group-directories-first -F {}'"
 
-export FZF_DEFAULT_OPTS='--reverse --color 16 --height=~40% --border=bold --prompt "Search: " --info inline-right'
+export FZF_DEFAULT_OPTS='--cycle --reverse --color 16 --height=~40% --border=bold --prompt "Search: " --info inline-right'
 
 # SHELL ZSH
 export HISTCONTROL=ignoreboth:erasedups # Both `ignoredups` and `erasedups` options are enabled
@@ -42,7 +42,8 @@ export MANPAGER="less -JMR --use-color -Dd+r -Du+b"
 
 # default apps
 # export EDITOR="nvim"
-export EDITOR="nvim"
+# export EDITOR="emacsclient -nw -a 'emacs'"
+export EDITOR="emacs -q --load ~/.mini-emacs.el -nw 2>&1"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 # export VISUAL="emacsclient -c -a 'emacs'"

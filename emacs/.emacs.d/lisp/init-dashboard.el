@@ -38,7 +38,7 @@
                           ;; (recents . 6)
                           ;; (bookmarks . 5)
                           ;; (registers . 3)
-                          ;; (agenda . 3)
+                          (agenda . 3)
 		                  (projects . 6))
 	    dashboard-bookmarks-show-base t
 	    dashboard-bookmarks-item-format "%s"

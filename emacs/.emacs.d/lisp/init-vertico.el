@@ -4,13 +4,6 @@
 
 ;;; Code:
 
-;; `Library:' vertico-directory, vertico-unobtrusive
-;; vertico-autoloads.el vertico-buffer.el vertico-directory.el
-;; vertico-flat.el vertico-grid.el vertico-indexed.el vertico-mouse.el
-;; vertico-multiform.el vertico-quick.el vertico-repeat.el
-;; vertico-reverse.el vertico-sort.el vertico-suspend.el
-;; vertico-unobtrusive.el vertico.el
-
 (use-package vertico
   :ensure t
   :after minibuffer
@@ -25,6 +18,7 @@
   :config
   (setq vertico-cycle t
         vertico-scroll-margin 2
+        vertico-count 6
         vertico-group-format nil
         vertico-resize t)
   (use-package vertico-multiform
@@ -36,7 +30,9 @@
           '((jinx grid (vertico-grid-annotate . 20))
             (t reverse)))
     (setq vertico-multiform-commands
-          '((consult-grep buffer)
+          '(
+            ;; (find-file grid reverse) ;; checkout `lusty-explorer'
+            (consult-grep buffer)
             (consult-git-grep buffer)
             (consult-ripgrep buffer)
             (consult-locate buffer)

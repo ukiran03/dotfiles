@@ -2,6 +2,9 @@
 
 ;; Commentry
 ;; `DIRctoryEDitor' configs
+(use-package emacs
+  :ensure nil
+  :bind ("H-j" . dired-jump))
 
 (use-package dired
   :ensure nil
@@ -45,16 +48,6 @@
     :disabled
     :hook (dired-mode . diredfl-mode))
 
-  ;; Shows icons
-  (use-package nerd-icons-dired
-    ;; :disabled
-    :blackout
-    ;; :if (featurep 'all-the-icons)
-    :when (icons-displayable-p)
-    :custom-face
-    (nerd-icons-dired-dir-face ((t (:inherit nerd-icons-dsilver :foreground unspecified))))
-    :hook (dired-mode . nerd-icons-dired-mode))
-
   ;; Extra Dired functionality
   (use-package dired-aux :ensure nil)
   (use-package dired-x
@@ -75,6 +68,13 @@
     (setq dired-omit-files
           (concat dired-omit-files
                   "\\|^.DS_Store$\\|^.projectile$\\|^.git*\\|^.svn$\\|^.vscode$\\|\\.js\\.meta$\\|\\.meta$\\|\\.elc$\\|^.emacs.*"))))
+
+(use-package dired
+  :ensure nil
+  :hook (dired-mode . dired-omit-mode)
+  :bind (:map dired-mode-map
+              ( "."     . dired-omit-mode))
+  :custom (dired-omit-files (rx (seq bol "."))))
 
 ;; (use-package dired-hist
 ;;   :after dired

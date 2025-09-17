@@ -83,7 +83,8 @@ alternative_header_second_line_format = {$b{$2%a$9}{ - $7%b$9}{ ($2%y$9)}}|{%D}
 # song_list_format 		 = "  %t $R%a %l  "
 # song_library_format 	 = {{%a - %t} (%b)}|{%f}
 # song_columns_list_format = "(53)[white]{tr} (45)[blue]{a}"
-# ### Window ###
+### Window ###
+enable_window_title = no
 # song_window_title_format = "{%a - }{%t}|{%f}"
 # statusbar_visibility 	 = "no"
 # header_visibility 		 = "no"

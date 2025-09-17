@@ -1,13 +1,21 @@
-;;; init-completions.el --- summary -*- lexical-binding: t -*-
+;; init-completions.el --- summary -*- lexical-binding: t -*-
 
+;;; Embark
+(use-package embark
+  :ensure t
+  :hook ((embark-collect-mode . prot-common-truncate-lines-silently)
+         (embark-collect-mode . consult-preview-at-point-mode))
+  :bind
+  ( :map minibuffer-local-map
+    ("C-c C-c" . embark-collect)
+    ("C-c C-e" . embark-export)))
 
-;;; Commentary:
+;; Needed for correct exporting while using Embark with Consult
+;; commands.
+(use-package embark-consult
+  :ensure t
+  :after (embark consult))
 
-;; A few more useful configurations...
-
-;;; Code:
-
-
 ;;; Core
 (use-package emacs
   :ensure nil
@@ -171,8 +179,9 @@
   :config
   ;; Remember to check my `completion-styles' and the
   ;; `completion-category-overrides'.
-  (setq orderless-matching-styles
-        '(orderless-prefixes orderless-regexp))
+  (setq orderless-matching-styles '(orderless-prefixes orderless-regexp))
+  (setq orderless-smart-case nil)
+
   ;; SPC should never complete: use it for `orderless' groups.
   ;; The `?' is a regexp construct.
   :bind ( :map minibuffer-local-completion-map
@@ -229,58 +238,11 @@
   ;; (add-to-list 'completion-at-point-functions #'cape-history)
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
 
-
-`Embark'
-(use-package embark
+;; Affe
+(use-package affe
   :ensure t
-  :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("M-." . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-  :init
-  ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
-
-  ;; Show the Embark target at point via Eldoc. You may adjust the
-  ;; Eldoc strategy, if you want to see the documentation from
-  ;; multiple providers. Beware that using this can be a little
-  ;; jarring since the message shown in the minibuffer can be more
-  ;; than one line, causing the modeline to move up and down:
-
-  ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
-
   :config
-
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
-
-;; Consult users will also want the embark-consult package.
-(use-package embark-consult
-  :ensure t ; only need to install it, embark loads it after consult if found
-  :bind (:map minibuffer-mode-map
-              ("C-c C-o" . embark-export))
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode)
-  ;; :config
-  ;; ;; Hide the mode line of the Embark live/completions buffers
-  ;; (add-to-list 'display-buffer-alist
-  ;;              '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-  ;;                nil
-  ;;                (window-parameters (mode-line-format . none))))
-  )
-
-;; `tempel.el': Simple templates for Emacs
-;; <https://github.com/minad/tempel>
-(use-package tempel :ensure nil)
-(use-package tempel-collection :ensure nil)
-(use-package eglot-tempel :ensure nil)
-
+  ;; Manual preview key for `affe-grep'
+  (consult-customize affe-grep :preview-key "M-."))
 
 (provide 'init-completions)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-completions.el ends here

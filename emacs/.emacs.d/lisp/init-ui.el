@@ -26,7 +26,8 @@
   (modus-vivendi-tinted-palette-overrides
    '((comment fg-dim)))
   :init
-  (load-theme 'modus-vivendi-tinted :no-confirm))
+  (load-theme 'modus-vivendi-tinted :no-confirm)
+  )
 
 (use-package ef-themes
   :ensure t
@@ -39,7 +40,9 @@
   (let ((font (completing-read
                "Choose a font: "
                '("Iosevka Medium-11.25"
+                 "Iosevka Medium-13"
                  "Iosevka Medium-14.25"
+                 "Iosevka Medium-15.5"
                  "Iosevka Medium-17.25")
                nil t)))
     (set-frame-font font nil t)))
@@ -90,13 +93,6 @@
     "Enable `breadcrumb-local-mode' if the buffer is visiting a file."
     (when buffer-file-name
       (breadcrumb-local-mode 1))))
-
-;; Icons
-(use-package nerd-icons
-  :config
-  (when (and (display-graphic-p)
-             (not (font-installed-p nerd-icons-font-family)))
-    (nerd-icons-install-fonts t)))
 
 (use-package kaolin-themes
   :config

@@ -3,7 +3,7 @@
 #include "active_theme"
 ! <https://wiki.archlinux.org/title/Cursor_themes>
 Xcursor.theme: Bibata-Modern-Ice
-Xcursor.size: 16
+Xcursor.size: 18
 
 !! default colors
 *.foreground: #ffffff
@@ -39,10 +39,17 @@ Xft.lcdfilter:  lcddefault
 !! https://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod
 !! https://smarttech101.com/urxvt-installation-color-scheme-fonts-resize-etc
 !! -- URxvt Settings
+
+! URxvt.font: xft:Iosevka Term:size=13:style=Medium
+! URxvt.boldFont: xft:Iosevka Term:size=13:style=Bold
+! URxvt.italicFont: xft:Iosevka Term:size=13:style=Italic
+! URxvt.boldItalicFont: xft:Iosevka Term:size=13:style=Bold Italic
+
 URxvt.font:xft:Iosevka Term:size=11.25:style=Semibold
 URxvt.boldFont: xft:Iosevka Term:size=11.25:style=Bold
 URxvt.italicFont: xft:Iosevka Term:size=11.25:style=Italic
 URxvt.boldItalicFont: xft:Iosevka Term:size=11.25:style=Bold Italic
+
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
 URxvt*geometry: 80x240+0+0
@@ -87,8 +94,10 @@ URxvt.keysym.C-V:          perl:clipboard:paste
 URxvt.keysym.C-minus:     resize-font:smaller
 URxvt.keysym.C-plus:      resize-font:bigger
 URxvt.keysym.C-equal:     resize-font:reset
-URxvt.keysym.C-question:  builtin-string:  !! default: resize-font:show
-URxvt.resize-font.step: 0.5
+! URxvt.keysym.C-question:  builtin-string:  !! default: resize-font:show
+URxvt.keysym.C-question: resize-font:show
+! URxvt.resize-font.step: 0.5
+URxvt.resize-font.step: 0.25
 URxvt.perl-lib: /home/ukiran/.config/urxvt/ext
 ! xterm
 ! =====

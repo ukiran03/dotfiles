@@ -1,37 +1,39 @@
 #### Autoload
-# Enable colors and change prompt:
-autoload -U colors && colors # Load colors
-
+autoload -U colors && colors
 function get_status_color() {
-    local exit_status=$? # <--- CRUCIAL: Capture $? immediately
-    [[ $exit_status == 0 ]] && echo "%B%F{002}● $%f%b" || echo "%F{009}($exit_status) $%f"
+	local exit_status=$? # <--- CRUCIAL: Capture $? immediately
+	[[ $exit_status == 0 ]] && echo "%B%F{002}● $%f%b" || echo "%F{009}($exit_status) $%f"
 }
 
 NEWLINE=$'\n'
 STATUS=$'$get_status_color'
-USER=$'%B%F{012}%n@%F{015}%m%f%f%b'
+USER=$'%B%F{012}%n@%m%f%b'
 UPWD=$'%B%F{006}%K%~%k%f%b'
-
-PROMPT='${USER} ${UPWD} %F{007}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
-
+PUPWD=$':: %B%F{006}%~%f%b'
 # export REPORTTIME=3
 TIMEFMT="'$fg[green]%J$reset_color' time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
-
 function preexec() {
-    timer=${timer:-$SECONDS}
+	timer=${timer:-$SECONDS}
 }
 function precmd() {
-    if [ $timer ]; then
-        timer_show=$(($SECONDS - $timer))
-        if [ $timer_show -ge 3 ]; then
-            RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
-        else
-            RPROMPT=""
-        fi
-        unset timer
-    fi
+	if [ $timer ]; then
+		timer_show=$(($SECONDS - $timer))
+		if [ $timer_show -ge 3 ]; then
+			RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
+		else
+			RPROMPT=""
+		fi
+		unset timer
+	fi
 }
 
+if (($+TMUX)) || [[ $TERM == rxvt-unicode-256color ]]; then
+	PROMPT='${USER} ${UPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
+else
+	PROMPT='${USER} ${PUPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
+fi
+
+# PROMPT='${USER} ${PUPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
 ### VC Info
 # Autoload zsh's `add-zsh-hook` and `vcs_info` functions
 # (-U autoload w/o substition, -z use zsh style)
@@ -81,7 +83,7 @@ setopt HIST_IGNORE_DUPS       # Do not record an event that was just recorded ag
 setopt AUTO_PUSHD        # Push the current directory visited on the stack.
 setopt PUSHD_IGNORE_DUPS # Do not store duplicates in the stack.
 setopt PUSHD_SILENT      # Do not print the directory stack after pushd or popd.
-
+setopt CORRECT
 #### Keybinds
 bindkey -e
 bindkey "^[[3~" delete-char
@@ -106,6 +108,9 @@ zle -N edit-command-line
 bindkey '^xe' edit-command-line
 bindkey '^x^e' edit-command-line
 
+## Words deletion
+export WORDCHARS='*?_[]~=&;!#$%^(){}<>' ## removed: -./
+
 #### Completions
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' # case insenitive
 # Basic auto/tab complete:
@@ -118,9 +123,9 @@ _comp_options+=(globdots) # Include hidden files.
 ## Sources
 
 if [[ -f $ZDOTDIR/exports.zsh ]]; then
-    source $ZDOTDIR/exports.zsh
+	source $ZDOTDIR/exports.zsh
 else
-    echo "zsh-exports file missing"
+	echo "zsh-exports file missing"
 fi
 
 # if [[ -f $ZDOTDIR/zsh-funcs ]]; then
@@ -131,12 +136,32 @@ fi
 
 # Rename the current tmux pane to the current working directory
 rename_tmux_pane_to_cwd() {
-    if [[ -n "$TMUX" ]]; then
-        # Get the current pane's working directory and rename the pane
-        tmux rename-window "$(basename "$PWD")"
-    else
-        echo "Not in a tmux session."
-    fi
+	if [[ -n "$TMUX" ]]; then
+		# Get the current pane's working directory and rename the pane
+		tmux rename-window "$(basename "$PWD")"
+	else
+		echo "Not in a tmux session."
+	fi
+}
+
+## Trash-Cli
+alias rm="trash-put"
+# alias rm="gtrash put"
+
+## only for zsh
+compdef ,g=git
+
+function access_granted() {
+	local o='\e[0m\e[1;41m'
+	local i='\e[0;5;33m'
+	local n=''
+	echo -e $o' '$n'                                                                 '$n'  \e[0m'
+	echo -e $o' '$i'   _   ___ ___ ___ ___ ___    ___ ___    _   _  _ _____ ___ ___  '$o'  \e[0m'
+	echo -e $o' '$i'  /_\ / __/ __| __/ __/ __|  / __| _ \  /_\ | \| |_   _| __|   \ '$o'  \e[0m'
+	echo -e $o' '$i' / _ \ (_| (__| _|\__ \__ \ | (_ |   / / _ \| .` | | | | _|| |) |'$o'  \e[0m'
+	echo -e $o' '$i'/_/ \_\___\___|___|___/___/  \___|_|_\/_/ \_\_|\_| |_| |___|___/ '$o'  \e[0m'
+	echo -e $o' '$i'                                                                 '$o'  \e[0m'
+	echo -e $o' '$n'                                                                 '$n'  \e[0m'
 }
 
 #### Plugins
@@ -151,5 +176,5 @@ autopair-init
 # Jump back to a specific directory
 source /home/ukiran/.config/zsh/plugins/bd/bd.zsh
 
-[ -f "/home/ukiran/.ghcup/env" ] && . "/home/ukiran/.ghcup/env" # ghcup-env
 source /home/ukiran/.config/broot/launcher/bash/br
+#. "/home/ukiran/.deno/env"

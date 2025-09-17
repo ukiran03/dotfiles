@@ -1,5 +1,5 @@
 configuration {
-modi: "drun,run,filebrowser,window";
+modi: "drun,run,filebrowser,window,ssh";
 show-icons: false;
 display-drun: " ";
 display-run: " ";
@@ -14,7 +14,7 @@ window {
        sort: false;
 }
 sort: true;
-sorting-method: "fzf";
+sorting-method: "levenshtein";
 kb-accept-alt: "Shift+Return";
 kb-delete-entry: "Shift+Delete";
 kb-row-tab: "";
@@ -22,6 +22,7 @@ kb-row-select: "Tab";
 kb-element-next: "";
 kb-element-prev: "";
 drun-match-fields: "name,generic,exec,categories,keywords";
+matching: "regex";
 }
 
 @import                          "colors.rasi"

@@ -9,12 +9,6 @@
   :bind ("C-x C-b" . ibuffer)
   :init (setq ibuffer-filter-group-name-face '(:inherit (font-lock-string-face bold))))
 
-;; Display icons for buffers
-(use-package nerd-icons-ibuffer
-  :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
-  :config
-  (setq nerd-icons-ibuffer-icon-size 1.0))
-
 (use-package ibuffer-vc
   :disabled
   :init
