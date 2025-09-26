@@ -80,6 +80,7 @@ import XMonad.Hooks.StatusBar.PP
   , xmobarStrip
   )
 
+import XMonad.Actions.RotSlaves
 import qualified XMonad.Layout.BoringWindows as BW
 import XMonad.Layout.Gaps
 import XMonad.Layout.Grid
@@ -91,7 +92,7 @@ import XMonad.Layout.Maximize (maximizeRestore, maximizeWithPadding)
 import XMonad.Layout.Minimize (minimize)
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
 import XMonad.Layout.PerWorkspace (onWorkspaces)
-import XMonad.Actions.RotSlaves
+
 -- import XMonad.Layout.Reflect (reflectHoriz) -- TODO:
 import XMonad.Layout.Renamed (Rename(Replace), renamed)
 import XMonad.Layout.ResizableTile (MirrorResize(..), ResizableTall(..))
@@ -168,7 +169,7 @@ myTerminal = "urxvtc"
 -- Define browser variables
 -- "~/.Zen-browser/zen-bin"
 browser :: String
-browser = "firefox"
+browser = "~/.Zen-browser/zen-bin"
 
 privateBrowser :: String
 privateBrowser = "firefox --private-window"
@@ -311,7 +312,8 @@ windowCount = do
   return
     $ Just
     $ if minimizedCount > 0
-        then show (totalCount - minimizedCount) ++ "+" ++ show minimizedCount
+        then show (totalCount - minimizedCount) ++ "," ++ show minimizedCount
+        -- then show "(" ++ (totalCount - minimizedCount) ++ "," ++ show minimizedCount ++ ")"
         else show totalCount
 
 myScratchpads =
@@ -508,7 +510,7 @@ myXmobarPP =
   filterOutWsPP [scratchpadWorkspaceTag]
     $ def
         { ppSep = slategray " | "
-        -- , ppTitleSanitize = xmobarStrip
+        , ppTitleSanitize = xmobarStrip
         , ppCurrent = tagActive . wrap " " " "
         , ppVisible = yellow . wrap ("(") (")")
         , ppHidden = wrap "+" ""
@@ -534,7 +536,7 @@ myXmobarPP =
              if null w
                then "untitled"
                else w)
-        . shorten 25
+        . shorten 30
     blue, yellow, red, lowWhite, cyan, slategray, gray :: String -> String
     tagActive = xmobarColor colorWhite colorBlue
     tagUrgent = xmobarColor colorWhite colorWhite

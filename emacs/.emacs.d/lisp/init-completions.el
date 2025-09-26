@@ -8,6 +8,7 @@
   :bind
   ( :map minibuffer-local-map
     ("C-c C-c" . embark-collect)
+    ("C-c C-." . embark-act)
     ("C-c C-e" . embark-export)))
 
 ;; Needed for correct exporting while using Embark with Consult

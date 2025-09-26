@@ -10,7 +10,7 @@ window-format: "{w} · {c} · {t}";
 window-command: "wmctrl -i -R {window}";
 window {
        hide-active-window: true;
-       close-on-delete: false;
+       close-on-delete: true;
        sort: false;
 }
 sort: true;
@@ -21,8 +21,9 @@ kb-row-tab: "";
 kb-row-select: "Tab";
 kb-element-next: "";
 kb-element-prev: "";
-drun-match-fields: "name,generic,exec,categories,keywords";
-matching: "regex";
+drun-match-fields: "name,generic";
+window-match-fields: "class,desktop";
+matching: "prefix,regex";
 }
 
 @import                          "colors.rasi"
@@ -61,7 +62,7 @@ window {
     location:                    Center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       450px;
+    width:                       500px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -75,14 +76,7 @@ window {
     cursor:                      "default";
     /* Backgroud Colors */
     background-color:            @background-colour;
-    /* Backgroud Image */
-    //background-image:          url("/home/ukiran/.local/share/bg", none);
-    /* Simple Linear Gradient */
-    //background-image:          linear-gradient(red, orange, pink, purple);
-    /* Directional Linear Gradient */
-    //background-image:          linear-gradient(to bottom, pink, yellow, magenta);
-    /* Angle Linear Gradient */
-    //background-image:          linear-gradient(45, cyan, purple, indigo);
+
 }
 
 /*****----- Main Box -----*****/
@@ -242,7 +236,7 @@ element selected.active {
     text-color:                  var(selected-active-foreground);
 }
 element alternate.normal {
-    background-color:            @background-color;
+    background-color:            @background-alt;
     text-color:                  var(alternate-normal-foreground);
 }
 element alternate.urgent {

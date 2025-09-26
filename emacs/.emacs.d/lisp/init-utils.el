@@ -36,6 +36,7 @@
 
 ;; #[/home/ukiran/.emacs.d/site-lisp/clue/clue.el:L60]
 (use-package clue
+  :disabled
   :ensure nil
   :defer t
   :vc (:url "https://github.com/AmaiKinono/clue")
@@ -115,7 +116,8 @@
 
 (use-package ultra-scroll
   :ensure nil
-  :vc (:url "https://github.com/jdtsmith/ultra-scroll")
+  :load-path "~/.emacs.d/elpa/ultra-scroll/"
+  ;; :vc (:url "https://github.com/jdtsmith/ultra-scroll")
   :init
   (setq scroll-conservatively 101 ; important!
         scroll-margin 0)

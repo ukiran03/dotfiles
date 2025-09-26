@@ -80,6 +80,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-highlight)
 (require 'init-simple)
 (require 'init-search)
+(require 'init-rg)
 (require 'init-ibuffer)
 
 (require 'init-ui)

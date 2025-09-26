@@ -34,8 +34,10 @@
   ;; always in check.  When I exceed the limit, it is for a good
   ;; reason.
   (setq git-commit-style-convention-checks '(non-empty-second-line))
-
   (setq magit-diff-refine-hunk t))
+
+(use-package forge
+  :after magit)
 
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl

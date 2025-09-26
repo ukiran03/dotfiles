@@ -139,3 +139,5 @@ personal/*
 
 # TODO:
 xfce/*
+/gui-apps/.local/share/applications/*.desktop
+/scripts/.local/bin/*.1

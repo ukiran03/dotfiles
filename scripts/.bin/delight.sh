@@ -27,6 +27,8 @@ case $1 in
         xfconf-query -c xsettings -p /Net/ThemeName -s "Nordic-darker"
         xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
         # xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "Bibata-Modern-Ice"
+        ## wallpaper
+        setbg -s $(find ~/Pictures/walls/dark/ -type f | shuf -n 1) &
         ;;
     -l)
         echo "Light Mode"
@@ -45,6 +47,8 @@ case $1 in
         xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita"
         xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Light"
         # xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "Bibata-Modern-Classic"
+        ## wallpaper
+        setbg -s $(find ~/Pictures/walls/light/ -type f | shuf -n 1) &
         ;;
     *)
         echo "Invalid option. Usage: $0 {-d: Dark|-l: Light}"

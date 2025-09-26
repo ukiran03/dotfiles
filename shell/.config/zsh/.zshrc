@@ -112,13 +112,15 @@ bindkey '^x^e' edit-command-line
 export WORDCHARS='*?_[]~=&;!#$%^(){}<>' ## removed: -./
 
 #### Completions
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' # case insenitive
+# zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' # case insenitive  ## prezto
 # Basic auto/tab complete:
 autoload -U compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots) # Include hidden files.
+# set list-colors to enable filename colorizing
+# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 ## Sources
 
@@ -151,18 +153,11 @@ alias rm="trash-put"
 ## only for zsh
 compdef ,g=git
 
-function access_granted() {
-	local o='\e[0m\e[1;41m'
-	local i='\e[0;5;33m'
-	local n=''
-	echo -e $o' '$n'                                                                 '$n'  \e[0m'
-	echo -e $o' '$i'   _   ___ ___ ___ ___ ___    ___ ___    _   _  _ _____ ___ ___  '$o'  \e[0m'
-	echo -e $o' '$i'  /_\ / __/ __| __/ __/ __|  / __| _ \  /_\ | \| |_   _| __|   \ '$o'  \e[0m'
-	echo -e $o' '$i' / _ \ (_| (__| _|\__ \__ \ | (_ |   / / _ \| .` | | | | _|| |) |'$o'  \e[0m'
-	echo -e $o' '$i'/_/ \_\___\___|___|___/___/  \___|_|_\/_/ \_\_|\_| |_| |___|___/ '$o'  \e[0m'
-	echo -e $o' '$i'                                                                 '$o'  \e[0m'
-	echo -e $o' '$n'                                                                 '$n'  \e[0m'
-}
+## https://superuser.com/questions/649635/zsh-says-no-matches-found-when-trying-to-download-video-with-youtube-dl
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
 
 #### Plugins
 # should be last.
@@ -173,8 +168,4 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /home/ukiran/.config/zsh/plugins/zsh-autopair/autopair.zsh
 autopair-init
 
-# Jump back to a specific directory
-source /home/ukiran/.config/zsh/plugins/bd/bd.zsh
-
-source /home/ukiran/.config/broot/launcher/bash/br
-#. "/home/ukiran/.deno/env"
+source ~/.config/zsh/prezto-completions.zsh

@@ -11,6 +11,13 @@
   :ensure nil
   :config (setq reb-re-syntax 'rx)) ;I love using rx for regexps
 
+(use-package emacs
+  :ensure nil
+  :config
+  (defun my-compile-goto-error-recenter (&rest _args)
+    "Recenter window after `compile-goto-error`."
+    (recenter-top-bottom))
+  (advice-add 'compile-goto-error :after #'my-compile-goto-error-recenter))
 
 (use-package pretty-hydra
   :bind ("C-<f5>" . toggles-hydra/body)

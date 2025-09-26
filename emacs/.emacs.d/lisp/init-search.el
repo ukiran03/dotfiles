@@ -38,15 +38,6 @@
   (setq isearch-wrap-pause t) ; `no-ding' makes keyboard macros never quit
   (setq isearch-repeat-on-direction-change t))
 
-(use-package rg
-  :ensure t
-  :bind ((:map isearch-mode-map
-               ("M-s r" . rg-isearch-menu))
-         (:map global-map
-               ("M-s R" . rg-menu))))
-(use-package deadgrep
-  :bind ("M-s C-r" . deadgrep))
-
 (use-package substitute
   :ensure t)
 
