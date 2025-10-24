@@ -141,3 +141,4 @@ personal/*
 xfce/*
 /gui-apps/.local/share/applications/*.desktop
 /scripts/.local/bin/*.1
+/emacs/.emacs.d/_archive-lisp/

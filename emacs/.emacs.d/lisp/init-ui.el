@@ -56,6 +56,7 @@
   (setq olivetti-style 'fancy))
 
 (use-package doom-modeline
+  :ensure nil
   ;; :disabled
   ;; :init (doom-modeline-mode 1)
   :config

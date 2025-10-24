@@ -1,0 +1,50 @@
+* init-archive
+#+begin_src emacs-lisp
+
+;; https://github.com/abo-abo/tiny
+;; Quickly generate linear ranges in Emacs
+;; `example:' m5 10*xx|0x%x -> 0x19 0x24 0x31 0x40 0x51 0x64
+(use-package tiny :ensure nil :disabled)
+
+
+;; Interactive macro expander
+(use-package macrostep
+  :bind (:map emacs-lisp-mode-map
+              ("C-c e" . macrostep-expand)
+              :map lisp-interaction-mode-map
+              ("C-c e" . macrostep-expand)))
+
+
+(use-package gdb-mi
+  :ensure nil
+  :config
+  (setq gdb-many-windows t)
+  (setq gdb-show-main t))
+#+end_src
+
+* init-check
+#+begin_src emacs-lisp
+
+(use-package sideline-flymake
+  :ensure t
+  :blackout sideline-mode
+  :custom-face
+  (sideline-flymake-error ((t (:height 0.85 :italic t))))
+  (sideline-flymake-warning ((t (:height 0.85 :italic t))))
+  (sideline-flymake-success ((t (:height 0.85 :italic t))))
+  ;; :hook (flymake-mode . sideline-mode) ; Heavy Overload
+  :init (setq sideline-flymake-display-mode 'point
+              sideline-backends-right '(sideline-flymake)))
+
+#+end_src
+
+* Snippets
+#+begin_src emacs-lisp
+
+;; `tempel.el': Simple templates for Emacs
+;; <https://github.com/minad/tempel>
+(use-package tempel :ensure nil)
+(use-package tempel-collection :ensure nil)
+(use-package eglot-tempel :ensure nil)
+
+#+end_src

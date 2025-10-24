@@ -163,7 +163,7 @@
   (setq dired-recursive-deletes 'always
         dired-recursive-copies 'always)
 
-  (add-hook 'dired-mode-hook #'hl-line-mode)
+  ;; (add-hook 'dired-mode-hook #'hl-line-mode)
   (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 
   ;; Show directory first

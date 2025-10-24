@@ -56,10 +56,20 @@
 (use-package web-mode
   :mode "\\.html\\'"
   :hook ((web-mode . emmet-mode)
-         (web-mode . apheleia-mode))
+         ;; (web-mode . apheleia-mode)
+         )
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-code-indent-offset 2))
+
+(use-package web-mode
+  :mode "\\.tmpl\\'"
+  :hook ((web-mode . emmet-mode))
+  :config
+  (setq web-mode-markup-indent-offset 2
+        web-mode-code-indent-offset 2))
+
+
 
 ;; Prettier-Js
 (use-package prettier-js

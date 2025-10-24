@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# Usage: ls-summary [DIRECTORY|FILE]...
+#
+# Summarizes the contents of the given DIRECTORY or FILE arguments.
+# If no arguments are given, then it assumes the current directory.
+#
+# Written in 2014 by Suraj N. Kurapati <https://github.com/sunaku>
+
+test $# -eq 0 && set -- "$PWD"
+for argument; do
+  echo -n "$argument: "
+  ls -1F "$argument" | awk '
+    /\/$/        { folders++     }
+    /[^*/=>@|]$/ { files++       }
+    /@$/         { symlinks++    }
+    /\*$/        { executables++ }
+    /=$/         { sockets++     }
+    />$/         { whiteouts++   }
+    /\|$/        { pipes++       }
+    END {
+      summary=NR" total"
+      if (folders)     { summary=summary", "folders" folders"         }
+      if (files)       { summary=summary", "files" files"             }
+      if (symlinks)    { summary=summary", "symlinks" symlinks"       }
+      if (executables) { summary=summary", "executables" executables" }
+      if (sockets)     { summary=summary", "sockets" sockets"         }
+      if (whiteouts)   { summary=summary", "whiteouts" whiteouts"     }
+      if (pipes)       { summary=summary", "pipes" pipes"             }
+      print summary
+    }
+  '
+done

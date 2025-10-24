@@ -16,6 +16,6 @@ fi
 
 alias ls='eza --color -F --group-directories-first'
 
-source /home/ukiran/.config/broot/launcher/bash/br
-eval "$(mise activate bash)"
+# source /home/ukiran/.config/broot/launcher/bash/br
+# eval "$(mise activate bash)"
 #. "/home/ukiran/.deno/env"

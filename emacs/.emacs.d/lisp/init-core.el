@@ -279,6 +279,11 @@
   ;; (setq super-save-triggers nil)
   (setq super-save-auto-save-when-idle t))
 
+(use-package exec-path-from-shell
+  :commands exec-path-from-shell-initialize
+  :custom (exec-path-from-shell-arguments '("-l"))
+  :init (exec-path-from-shell-initialize))
+
 ;; (setq use-package-compute-statistics t) NOTE:
 
 (provide 'init-core)

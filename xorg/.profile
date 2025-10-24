@@ -47,9 +47,22 @@ export NODE_REPL_HISTORY="$XDG_STATE_HOME"/node_repl_history
 export PSQL_HISTORY="$XDG_STATE_HOME/psql_history"
 export PYTHON_HISTORY="$XDG_STATE_HOME/python_history"
 export SQLITE_HISTORY="$XDG_STATE_HOME"/sqlite_history
+export HISTFILE="${XDG_STATE_HOME}"/bash/history
+export CALCHISTFILE="$XDG_CACHE_HOME"/calc_history
 
-# export STACK_ROOT="$XDG_DATA_HOME"/stack
-# export STACK_XDG=1
+export ELM_HOME="$XDG_CONFIG_HOME"/elm
+
+export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
+alias adb='HOME="$XDG_DATA_HOME"/android adb'
+
+eval $(dircolors "$XDG_CONFIG_HOME"/dircolors)
+
+export TERMINFO="$XDG_DATA_HOME"/terminfo
+export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
+
+# [stack]: /home/ukiran/.stack
+export STACK_ROOT="$XDG_DATA_HOME"/stack
+export STACK_XDG=1
 
 export PROFILE_CHECK="!!.profile has been sourced!!"
 
@@ -76,6 +89,22 @@ export PODMAN_IGNORE_CGROUPSV1_WARNING
 
 [ -f "/home/ukiran/.ghcup/env" ] && . "/home/ukiran/.ghcup/env" # ghcup-env
 
+## cargo
+export PATH="$HOME/.local/share/cargo/bin:$PATH"
+
+# parallel
+export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
+
+# ruby bundler: /home/ukiran/.bundle
+export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME"/bundle
+export BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle
+export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
+
+
+# npm
+export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
+export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
+export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
 # pnpm
 export PNPM_HOME="/home/ukiran/.local/share/pnpm"
 if [[ -d "$PNPM_HOME" && ! ":$PATH:" == *":$PNPM_HOME:"* ]]; then
@@ -88,3 +117,7 @@ fi
 #[ -f "/home/ukiran/.ghcup/env" ] && . "/home/ukiran/.ghcup/env" # ghcup-env
 
 #eval "$(mise activate zsh)"
+
+## mpd for xmobar
+export MPD_HOST="127.0.0.1"
+export MPD_PORT="6600"

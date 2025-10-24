@@ -150,7 +150,7 @@ uk-bright
 _check mpc && mpc update &
 
 # _check xscreensaver && xscreensaver --no-splash &
-
+# _check xmobar && xmobar &
 xfsettingsd --daemon --disable-wm-check --sm-client-disable &
 
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &

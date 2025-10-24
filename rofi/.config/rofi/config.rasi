@@ -13,7 +13,7 @@ window {
        close-on-delete: true;
        sort: false;
 }
-sort: true;
+sort: false;
 sorting-method: "levenshtein";
 kb-accept-alt: "Shift+Return";
 kb-delete-entry: "Shift+Delete";

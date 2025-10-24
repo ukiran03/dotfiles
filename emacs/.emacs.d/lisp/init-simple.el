@@ -34,6 +34,8 @@ If ARG is nil, insert one newline after current line."
     (let ((n (prefix-numeric-value arg)))
       (when (< n 0)
         (forward-line -1)
+        ;; (beginning-of-line)
+        ;; (open-line 0)
         (setq n (- n)))
       (end-of-line)
       (newline n t)))

@@ -53,14 +53,16 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (update-load-path)
 
 ;; Fonts
-(set-face-attribute 'variable-pitch nil
-                    :family "Iosevka Slab")
-;; (set-frame-font "Iosevka Medium-13" nil t)
-;; (set-frame-font "Iosevka Medium-11.25" nil t)
 (set-face-attribute 'default nil
                     :family "Iosevka"
                     :weight 'medium
                     :height 115)
+(set-face-attribute 'fixed-pitch nil
+                    :family "Iosevka"
+                    :weight 'medium
+                    :height 115)
+(set-face-attribute 'variable-pitch nil
+                    :family "Iosevka Slab")
 
 (require 'init-custom)
 (require 'init-funcs)
@@ -85,6 +87,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 
 (require 'init-ui)
 (require 'init-org)
+(require 'init-hugo)
 (require 'init-denote)
 (require 'init-treesit)
 (require 'init-tab-bar)
@@ -96,6 +99,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-eshell)
 
 ;; Programming
+(require 'init-leet)
 (require 'init-snippets)
 (require 'init-lsp)
 (require 'init-langs)

@@ -8,6 +8,7 @@
 
 ;; Yet another snippet extension
 (use-package yasnippet
+  :disabled
   :blackout yas-minor-mode
   :hook (prog-mode . yas-minor-mode))   ; instead of `yas-global-mode'
 
@@ -16,51 +17,42 @@
 
 
 (use-package consult-yasnippet
+  :disabled
   :bind ("M-g y" . consult-yasnippet))
 
 ;; Yasnippet Completion At Point Function
 (use-package yasnippet-capf
+  :disabled
   :init (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
 ;; Configure Tempel
 (use-package tempel
   ;; Require trigger prefix before template name when completing.
-  ;; :custom
-  ;; (tempel-trigger-prefix "<")
-
+  ;; :custom (tempel-trigger-prefix "<")
   :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
-         ("M-*" . tempel-insert))
-
-  :init
-  ;; Setup completion at point
-  (defun tempel-setup-capf ()
-    ;; Add the Tempel Capf to `completion-at-point-functions'.
-    ;; `tempel-expand' only triggers on exact matches. Alternatively use
-    ;; `tempel-complete' if you want to see all matches, but then you
-    ;; should also configure `tempel-trigger-prefix', such that Tempel
-    ;; does not trigger too often when you don't expect it. NOTE: We add
-    ;; `tempel-expand' *before* the main programming mode Capf, such
-    ;; that it will be tried first.
-    (setq-local completion-at-point-functions
-                (cons #'tempel-expand
-                      completion-at-point-functions)))
-  (add-hook 'conf-mode-hook 'tempel-setup-capf)
-  (add-hook 'prog-mode-hook 'tempel-setup-capf)
-  (add-hook 'text-mode-hook 'tempel-setup-capf)
-  ;; Optionally make the Tempel templates available to Abbrev,
-  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
-  ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
-  ;; (global-tempel-abbrev-mode)
-  )
+         ("M-*" . tempel-insert)))
 
 ;; Optional: Add tempel-collection.
 ;; The package is young and doesn't have comprehensive coverage.
-(use-package tempel-collection)
+;; (use-package tempel-collection)
 
-;; Optional: Use the Corfu completion UI
-;; (use-package corfu
+;;;;; using compile-hook compile-command
+;; (use-package tempo
+;;   :ensure nil
+;;   :config
+;;   (tempo-define-template "go-compile"
+;;                          `("// -*- compile-command: \"go run "
+;;                            (file-name-nondirectory buffer-file-name) "\" -*-" n n)
+;;                          nil
+;;                          "Insert Go compile-command header"))
+
+;; (use-package auto-insert
+;;   :ensure nil
 ;;   :init
-;;   (global-corfu-mode))
+;;   (auto-insert-mode 1)
+;;   :config
+;;   (define-auto-insert 'go-mode #'tempo-template-go-compile))
+
 
 
 (provide 'init-snippets)

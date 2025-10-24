@@ -2,7 +2,7 @@
 autoload -U colors && colors
 function get_status_color() {
 	local exit_status=$? # <--- CRUCIAL: Capture $? immediately
-	[[ $exit_status == 0 ]] && echo "%B%F{002}● $%f%b" || echo "%F{009}($exit_status) $%f"
+	[[ $exit_status == 0 ]] && echo "%B%F{002}$%f%b" || echo "%F{009}($exit_status) $%f"
 }
 
 NEWLINE=$'\n'
@@ -65,7 +65,7 @@ setopt SHARE_HISTORY    # Share history between all sessions.
 setopt PROMPT_SUBST     # Enables prompt substitution
 setopt always_to_end    # Ensures the cursor moves to the end of the command line
 setopt APPEND_HISTORY   # Preserving the commands from all sessions
-
+setopt INTERACTIVE_COMMENTS
 setopt auto_menu          # Automatically displays a menu of possible completions
 setopt complete_in_word   # Attempt to complete the word at the cursor position
 setopt hist_verify        # Re-evaluate the modified command line before executing it
@@ -147,23 +147,23 @@ rename_tmux_pane_to_cwd() {
 }
 
 ## Trash-Cli
-alias rm="trash-put"
+alias rm="trash-put -v"
 # alias rm="gtrash put"
 
 ## only for zsh
 compdef ,g=git
 
 ## https://superuser.com/questions/649635/zsh-says-no-matches-found-when-trying-to-download-video-with-youtube-dl
-autoload -Uz bracketed-paste-magic
-zle -N bracketed-paste bracketed-paste-magic
-autoload -Uz url-quote-magic
-zle -N self-insert url-quote-magic
+# autoload -Uz bracketed-paste-magic
+# zle -N bracketed-paste bracketed-paste-magic
+# autoload -Uz url-quote-magic
+# zle -N self-insert url-quote-magic
+
 
 #### Plugins
 # should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 # ZSH AutoPair Plugin
 source /home/ukiran/.config/zsh/plugins/zsh-autopair/autopair.zsh
 autopair-init

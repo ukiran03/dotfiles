@@ -18,7 +18,7 @@
   :config
   (setq vertico-cycle t
         vertico-scroll-margin 2
-        vertico-count 6
+        vertico-count 3
         vertico-group-format nil
         vertico-resize t)
   (use-package vertico-multiform

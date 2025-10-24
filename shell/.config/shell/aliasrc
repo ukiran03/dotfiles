@@ -146,12 +146,12 @@ alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
 alias cpu="cpuid -i | grep uarch | head -n 1"
 
 #youtube download
-alias yt-dlp="yt-dlp --add-metadata"
-alias yta-aac="yt-dlp --extract-audio --audio-format aac "
-alias yta-b="yt-dlp --extract-audio --audio-format best "
-alias yta-flac="yt-dlp --extract-audio --audio-format flac "
-alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
-alias ytv-b="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "
+alias yt-dlp="noglob yt-dlp --add-metadata"
+alias yta-aac="noglob yt-dlp --extract-audio --audio-format aac "
+alias yta-b="noglob yt-dlp --extract-audio --audio-format best "
+alias yta-flac="noglob yt-dlp --extract-audio --audio-format flac "
+alias yta-mp3="noglob yt-dlp --extract-audio --audio-format mp3 "
+alias ytv-b="noglob yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "
 
 #Recent Installed Packages
 # alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
@@ -364,9 +364,10 @@ alias l='eza --color=always --group-directories-first -F'
 alias ll="eza --color=always --group-directories-first -lF --git"
 alias la="eza --color=always --group-directories-first -aF"
 alias lal="eza --color=always --group-directories-first -laF --git"
-lsd() {
-    eza --color=always -DF --show-symlinks "$@"
-}
+
+# lsd() {
+#     eza --color=always -DF --show-symlinks "$@"
+# }
 
 alias lt="eza --color=always -T"
 # alias lt.='eza -aT --color=always --group-directories-first' # tree listing include hidden
@@ -392,6 +393,10 @@ alias mv="mv -iv"
 alias rm="rm -iv"
 alias mkdir="mkdir -pv"
 
+# ffmpeg recording
+alias webcam-record="ffmpeg -y -i /dev/video0 webcam.mkv"
+alias screen-record="ffmpeg -f x11grab -i :0.0 screen.mkv"
+
 #terminal fun
 # alias matrix='unimatrix -s 96 -l k -c red'
 
@@ -401,3 +406,4 @@ alias rust-doc="rustup docs --book"
 function mcdir () { mkdir -- "$1" && cd -- "$1"; }
 alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
+alias onefetch='onefetch --no-color-palette --no-art --no-title -d churn authors' 

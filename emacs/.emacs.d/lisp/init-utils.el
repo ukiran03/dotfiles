@@ -114,14 +114,12 @@
   (setq kiwix-server-port 8000)
   (setq kiwix-zim-dir (expand-file-name "/home/ukiran/zims")))
 
-(use-package ultra-scroll
-  :ensure nil
-  :load-path "~/.emacs.d/elpa/ultra-scroll/"
-  ;; :vc (:url "https://github.com/jdtsmith/ultra-scroll")
-  :init
-  (setq scroll-conservatively 101 ; important!
-        scroll-margin 0)
-  :hook (after-init . ultra-scroll-mode))
+;; Smooth scrolling
+;; (use-package ultra-scroll
+;;   :ensure nil
+;;   :init (unless (package-installed-p 'ultra-scroll)
+;;           (package-vc-install "https://github.com/jdtsmith/ultra-scroll"))
+;;   :hook (after-init . ultra-scroll-mode))
 
 (use-package sinister
   :disabled
@@ -199,6 +197,12 @@
   ;; We have to use the "point" mnemonic, because C-c c is often the
   ;; suggested binding for `org-capture' and is the one I use as well.
   ("C-c p c" . cursory-set-preset))
+
+;; (use-package leetcode
+;;   :load-path ("site-lisp/leetcode")
+;;   :config
+;;   (setq leetcode-language "go")
+;;   :commands (leetcode))  ; Add autoload for the main function if desired
 
 
 (provide 'init-utils)

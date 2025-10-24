@@ -81,7 +81,6 @@
 (use-package apheleia
   :ensure t
   :config
-  ;; Lighter in modeline
   (setq apheleia-mode-lighter " ;")
   ;; Custom formatters
   (setf (alist-get 'clang-format apheleia-formatters)
@@ -104,6 +103,15 @@
   :ensure nil
   :hook ((text-mode . goto-address-mode)
          (prog-mode . goto-address-prog-mode)))
+
+;; Abbreviations with abbrev.el
+(use-package abbrev
+  :ensure nil
+  :hook((text-mode . abbrev-mode)
+        (prog-mode . abbrev-mode))
+  :config
+  (define-abbrev prog-mode-abbrev-table "tmc" "time complexity:")
+  (define-abbrev prog-mode-abbrev-table "spc" "space complexity:"))
 
 ;; ‘Animated-Guide’ : <http://danmidwood.com/content/2014/11/21/animated-paredit.html>
 (use-package paredit :ensure nil)
@@ -198,14 +206,22 @@
 
 (use-package compile
   :config
-  (progn
-    ;; Apply ANSI terminal color escape codes. <http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html>
-    (require 'ansi-color)
+  ;; http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html
+  (with-eval-after-load 'ansi-color
     (defun endless/colorize-compilation ()
       "Colorize from `compilation-filter-start' to `point'."
       (let ((inhibit-read-only t))
         (ansi-color-apply-on-region compilation-filter-start (point))))
     (add-hook 'compilation-filter-hook #'endless/colorize-compilation)))
+
+(use-package compile
+  :ensure nil
+  :config
+  (defun set-go-compile-command ()
+    (setq-local compile-command
+                (format "go run %s" (file-name-nondirectory buffer-file-name))))
+  :hook ((go-mode . set-go-compile-command)
+         (go-ts-mode . set-go-compile-command)))
 
 (provide 'init-prog)
 

@@ -2,8 +2,10 @@
 Encoding=UTF-8
 Type=Application
 Categories=GNOME;GTK;Network;WebBrowser;
-Icon=/home/ukiran/.Zen-browser/browser/chrome/icons/default/default128.png
-Exec=/home/ukiran/.Zen-browser/zen-bin %u
+# Icon=/home/ukiran/.Zen-browser/browser/chrome/icons/default/default128.png
+Icon=/home/ukiran/.Apps/zen-browser/browser/chrome/icons/default/default128.png
+# Exec=/home/ukiran/.Zen-browser/zen-bin %u
+Exec=/home/ukiran/.Apps/zen-browser/zen-bin %u
 Name=Zen Browser
 Comment=Custom definition for Zen Browser
 Actions=NewWindow;NewPrivateWindow;
