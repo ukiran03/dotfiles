@@ -11,6 +11,22 @@
   :ensure nil
   :config (setq reb-re-syntax 'rx)) ;I love using rx for regexps
 
+(when (uk/treesit-available-p)
+  ;; Automatic Tree-sitter grammar management
+  (use-package treesit-auto
+    :hook (after-init . global-treesit-auto-mode)
+    :init (setq treesit-auto-install 'prompt))
+
+  ;; Code folding indicators using Tree-sitter
+  (use-package treesit-fold-indicators
+    :ensure treesit-fold
+    :hook (after-init . global-treesit-fold-indicators-mode)
+    :init (setq treesit-fold-indicators-priority -1)))
+
+;; dtrt (atuo find indend setting)
+(use-package dtrt-indent
+  :config (dtrt-indent-global-mode))
+
 (use-package emacs
   :ensure nil
   :config

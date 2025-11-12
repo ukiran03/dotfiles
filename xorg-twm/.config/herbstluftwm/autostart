@@ -20,8 +20,8 @@ Mod1=Mod1    # Use alt as the main modifier
 Mod=Mod4   # Use the super key as the main modifier
 
 # tags
-tag_names=( {1..9} )
-# tag_names=( one two three four five six seven eight nine ten )
+# tag_names=( {1..9} )
+tag_names=( one two three four five six seven eight nine ten )
 tag_keys=( {1..9} 0 )
 
 hc rename default "${tag_names[0]}" || true
@@ -224,7 +224,7 @@ hc set frame_gap 2
 hc attr theme.title_align center
 hc attr theme.title_height 13
 hc attr theme.title_when one_tab # only with the max layout
-hc attr theme.title_font 'Iosevka Extended:pixelsize=12:weight=semibold'  # example using Xft
+hc attr theme.title_font 'Iosevka:pixelsize=12:weight=semibold'  # example using Xft
 # hc attr theme.title_font '-*-fixed-medium-r-*-*-13-*-*-*-*-*-*-*'
 hc attr theme.title_depth 1  # space below the title's baseline
 
@@ -333,6 +333,8 @@ for monitor in $(hc list_monitors | cut -d: -f1) ; do
     # start it on each monitor
     "$panel" "$monitor" &
 done
+
+
 
 # http://thedarnedestthing.com/hooked%20on%20herbstluftwm
 # layout icons: 󰓩  󰠵 

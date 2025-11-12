@@ -38,8 +38,9 @@
             (consult-locate buffer)
             (consult-find buffer)
             (consult-fd buffer)
-            (consult-outline buffer indexed)
-            (consult-imenu buffer indexed)))))
+            ;; (consult-outline buffer indexed)
+            ;; (consult-imenu buffer indexed)
+            ))))
 
 ;; M-B -> `vertico-multiform-buffer'
 ;; M-F -> `vertico-multiform-flat'

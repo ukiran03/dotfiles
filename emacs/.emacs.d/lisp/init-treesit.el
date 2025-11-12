@@ -1,5 +1,5 @@
 (use-package treesit
-  :enusre nil
+  :ensure nil
   :mode (("\\.tsx\\'" . tsx-ts-mode))
   :config
   (defun mp-setup-install-grammars ()

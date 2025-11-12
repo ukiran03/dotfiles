@@ -77,6 +77,7 @@
 (use-package org
   :ensure nil
   :config
+  (add-to-list 'org-src-lang-modes '("go" . go-ts)) ; golang
   (setq org-confirm-babel-evaluate nil)
   (setq org-src-window-setup 'current-window)
   (setq org-edit-src-persistent-message nil)
@@ -157,6 +158,14 @@ See `org-capture-templates' for more information."
                    ;; symlink pointing to the actual location of all-posts.org!
                    (file+olp "~/.tmp/hugo/quickstart/content-org/all-posts.org" "Test Post")
                    (function org-hugo-new-subtree-post-capture-template)))))
+
+;;; Babel
+(use-package org
+  :ensure nil
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((emacs-lisp . t)
+                               (go . t))))
 
 
 (provide 'init-org)

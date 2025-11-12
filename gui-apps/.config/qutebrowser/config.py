@@ -12,6 +12,11 @@ config.bind('<Ctrl-x>T', 'config-cycle colors.webpage.darkmode.enabled false tru
 
 config.load_autoconfig(False)
 
+# tabs
+config.set("tabs.show", "never")
+# :bind xt config-cycle tabs.show always switching
+config.bind ("xt", "config-cycle tabs.show always switching")
+
 config.set("auto_save.session", True)
 c.fonts.default_family = 'Iosevka Medium'
 c.fonts.default_size = '11.25pt'

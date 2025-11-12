@@ -7,7 +7,7 @@ function get_status_color() {
 
 NEWLINE=$'\n'
 STATUS=$'$get_status_color'
-USER=$'%B%F{012}%n@%m%f%b'
+USERP=$'%B%F{012}%n@%m%f%b'
 UPWD=$'%B%F{006}%K%~%k%f%b'
 PUPWD=$':: %B%F{006}%~%f%b'
 # export REPORTTIME=3
@@ -28,12 +28,12 @@ function precmd() {
 }
 
 if (($+TMUX)) || [[ $TERM == rxvt-unicode-256color ]]; then
-	PROMPT='${USER} ${UPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
+	PROMPT='${USERP} ${UPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
 else
-	PROMPT='${USER} ${PUPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
+	PROMPT='${USERP} ${PUPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
 fi
 
-# PROMPT='${USER} ${PUPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
+# PROMPT='${USERP} ${PUPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
 ### VC Info
 # Autoload zsh's `add-zsh-hook` and `vcs_info` functions
 # (-U autoload w/o substition, -z use zsh style)

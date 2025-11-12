@@ -91,15 +91,16 @@
   (consult-customize
    consult-line consult-line-multi consult-imenu
    :preview-key 'any
-   consult-ripgrep consult-git-grep consult-grep
-   consult-goto-line consult-flymake consult-outline
+
    consult-theme
    :preview-key '(:debounce 0.5 any)
+
+   consult-ripgrep consult-git-grep consult-grep
+   consult-goto-line consult-flymake consult-outline
    consult-buffer consult-project-buffer consult-buffer-other-tab
    consult-buffer-other-frame consult-buffer-other-window
-   consult-bookmark
-   consult-recent-file
-   :preview-key '(:debounce 0.5 "M-."))
+   consult-bookmark consult-recent-file
+   :preview-key '("C-."))
 
   ;; Toggle preview during active completion session
   (defvar-local consult-toggle-preview-orig nil)

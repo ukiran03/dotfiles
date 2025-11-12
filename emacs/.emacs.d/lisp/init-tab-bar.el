@@ -37,7 +37,7 @@
     `((menu-bar menu-item (propertize " 𝝺 " 'face 'tab-bar-tab-inactive)
                 tab-bar-menu-bar :help "Menu Bar")))
   (setq  tab-bar-close-last-tab-choice 'tab-bar-mode-disable
-         tab-bar-show                   (when (version< "28.0" emacs-version) 1)
+         tab-bar-show nil
          tab-bar-tab-name-truncated-max 24
          tab-bar-tab-name-function #'tab-bar-tab-name-current-with-count
          tab-bar-new-tab-choice 'ibuffer)

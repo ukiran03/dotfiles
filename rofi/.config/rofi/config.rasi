@@ -1,16 +1,22 @@
 configuration {
-modi: "drun,run,filebrowser,window,ssh";
+modi: "drun,run,filebrowser,window,windowcd,ssh";
 show-icons: false;
 display-drun: " ";
 display-run: " ";
 display-filebrowser: " ";
 display-window: " ";
+display-windowcd: "Curr  ";
 drun-display-format: "{name}";
 window-format: "{w} · {c} · {t}";
 window-command: "wmctrl -i -R {window}";
 window {
        hide-active-window: true;
-       close-on-delete: true;
+       close-on-delete: false;
+       sort: false;
+}
+windowcd {
+       hide-active-window: true;
+       close-on-delete: false;
        sort: false;
 }
 sort: false;
@@ -23,7 +29,7 @@ kb-element-next: "";
 kb-element-prev: "";
 drun-match-fields: "name,generic";
 window-match-fields: "class,desktop";
-matching: "prefix,regex";
+matching: "prefix,fuzzy,regex";
 }
 
 @import                          "colors.rasi"

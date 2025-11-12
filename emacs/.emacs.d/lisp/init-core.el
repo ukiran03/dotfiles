@@ -207,7 +207,28 @@
 (use-package elec-pair
   :ensure nil
   :hook (after-init . electric-pair-mode)
-  :init (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit))
+  :init (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+  :config
+  (defun uk/electric-pair-conservative-inhibit (char)
+    "https://www.reddit.com/r/emacs/comments/1hwf46n/comment/m63mddk
+This ensures multiple quotes are not added at the beginning or end of a
+word"
+    (or
+     ;; I find it more often preferable not to pair when the
+     ;; same char is next.
+     (eq char (char-after))
+     ;; Don't pair up when we insert the second of "" or of ((.
+     (and (eq char (char-before))
+          (eq char (char-before (1- (point)))))
+     ;; I also find it often preferable not to pair next to a word.
+     (eq (char-syntax (following-char)) ?w)
+     ;; Don't pair at the end of a word, unless parens.
+     (and
+      (eq (char-syntax (char-before (1- (point)))) ?w)
+      (eq (preceding-char) char)
+      (not (eq (char-syntax (preceding-char)) ?\()))))
+  (setq electric-pair-inhibit-predicate 'uk/electric-pair-conservative-inhibit))
+
 (add-hook 'minibuffer-setup-hook #'subword-mode)
 
 ;; (set-face-attribute 'org-modern-symbol nil :family "Iosevka" :height 110)

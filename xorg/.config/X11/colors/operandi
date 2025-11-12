@@ -15,7 +15,10 @@ URxvt.color4: #0031a9
 URxvt.color5: #721045
 URxvt.color6: #005e8b
 URxvt.color7: #595959
+
+! bg-mode-line-active
 URxvt.color8:  #c8c8c8
+
 URxvt.color9:  #a0132f
 URxvt.color10: #00663f
 URxvt.color11: #7a4f2f

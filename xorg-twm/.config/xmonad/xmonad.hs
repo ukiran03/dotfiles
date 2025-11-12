@@ -86,22 +86,23 @@ import XMonad.Layout.Gaps
 import XMonad.Layout.Grid
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.LimitWindows (limitWindows)
+import XMonad.Layout.LimitWindows (limitWindows)
 import XMonad.Layout.Magnifier
 import XMonad.Layout.Master
 import XMonad.Layout.Maximize (maximizeRestore, maximizeWithPadding)
 import XMonad.Layout.Minimize (minimize)
-import XMonad.Layout.NoBorders (noBorders, smartBorders)
+import XMonad.Layout.NoBorders (noBorders, smartBorders, lessBorders)
+import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.PerWorkspace (onWorkspaces)
 
 -- import XMonad.Layout.Reflect (reflectHoriz) -- TODO:
 import XMonad.Layout.Renamed (Rename(Replace), renamed)
 import XMonad.Layout.ResizableTile (MirrorResize(..), ResizableTall(..))
 import XMonad.Layout.Spacing
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.TabBarDecoration
 import XMonad.Layout.Tabbed -- (Theme(..), shrinkText, tabbed)
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.NoFrillsDecoration
-import XMonad.Layout.TabBarDecoration
-import XMonad.Layout.SubLayouts
 import XMonad.Layout.TwoPane
 import XMonad.Layout.TwoPanePersistent
 
@@ -125,19 +126,28 @@ import XMonad.Util.Hacks
   , trayerPaddingXmobarEventHook
   , windowedFullscreenFixEventHook
   )
-import XMonad.Util.Loggers (logTitles)
+import XMonad.Util.Loggers (logTitle, logTitles)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.SpawnOnce (spawnOnce)
---
-import XMonad.Layout.TwoPane
-import XMonad.Layout.Gaps
-import XMonad.Layout.WindowNavigation
+
 import XMonad.Layout.Decoration
+import XMonad.Layout.Gaps
 import XMonad.Layout.SimpleDecoration
+
+import XMonad.Actions.Prefix
+  ( PrefixArgument(Raw)
+  , orIfPrefixed
+  , usePrefixArgument
+  , withPrefixArgument
+  )
+import XMonad.Layout.TwoPane
+import XMonad.Layout.WindowNavigation
+
 main :: IO ()
 main =
   xmonad
     . toggleFullFloatEwmhFullscreen
+    . usePrefixArgument "M-u"
     . ewmhFullscreen
     . ewmh
     . withEasySB
@@ -167,8 +177,8 @@ myConfig =
         showWNameLogHook mySWNConfig
           >> refocusLastLogHook
           >> updatePointer (0.5, 0.7) (0, 0)
-    , borderWidth = 4
-    , normalBorderColor = colorNormal
+    , borderWidth = 5
+    , normalBorderColor = colorInactive
     , focusedBorderColor = colorActive
     }
     `additionalKeysP` myKeys
@@ -178,11 +188,11 @@ myTerminal :: String
 myTerminal = "urxvtc"
 
 -- Define browser variables
--- "~/.Zen-browser/zen-bin"
 browser :: String
 browser = "~/.Apps/zen-browser/zen-bin"
 
 privateBrowser :: String
+-- privateBrowser = browser ++ " --private-window"
 privateBrowser = "firefox --private-window"
 
 myWorkspaces = map show [1 .. 9 :: Int]
@@ -191,9 +201,9 @@ prompt :: XPConfig
 prompt =
   def
     { fgColor = colorText
-    , fgHLight = colorHText
-    , bgColor = colorNormal
-    , bgHLight = colorCyan
+    , fgHLight = colorText
+    , bgColor = colorInactive
+    , bgHLight = colorBgCompletion
     , font = "xft:Iosevka:weight=bold:size=11.25:antialias=true"
     , alwaysHighlight = True
     , height = 25
@@ -211,41 +221,26 @@ prompt =
     , prevCompletionKey = (controlMask, xK_p)
     }
 
-myTabConfig =
-  def
-    { activeColor = colorActive
-    , activeBorderColor = colorActive
-    , activeTextColor = colorWhite
-    , inactiveColor = colorNormal
-    , inactiveBorderColor = colorNormal
-    , inactiveTextColor = colorLowWhite
-    , urgentColor = colorRed
-    , urgentBorderColor = colorRed
-    , urgentTextColor = colorWhite
-    , decoHeight = 20
-    , fontName = "xft:Iosevka:weight=bold:size=11.25:antialias=true"
-    }
-
 topBarConfig =
   def
     { activeColor = colorActive
     , activeBorderColor = colorActive
-    , activeTextColor = colorWhite
-    , inactiveColor = colorNormal
-    , inactiveBorderColor = colorNormal
-    , inactiveTextColor = colorLowWhite
+    , activeTextColor = colorText
+    , inactiveColor = colorInactive
+    , inactiveBorderColor = colorInactive
+    , inactiveTextColor = colorFgInactive
     , urgentColor = colorRed
     , urgentBorderColor = colorRed
     , urgentTextColor = colorWhite
-    , decoHeight = 10
-    , fontName = "xft:Iosevka:weight=bold:size=11.25:antialias=true"
+    , decoHeight = 16
+    , fontName = "xft:Iosevka:weight=bold:size=10:antialias=true"
     }
 
 mySWNConfig =
   def
     { swn_font = "xft:Iosevka:weight=bold:size=31.25:antialias=true"
     , swn_bgcolor = colorActive
-    , swn_color = "#ffffff"
+    , swn_color = colorText
     , swn_fade = 1
     }
 
@@ -253,7 +248,7 @@ myLayout =
   avoidStruts
     $ BW.boringWindows
     $ onWorkspaces ["8", "9"] (tabs ||| tiled)
-    $ tiled ||| avoidStruts (masterTabbedStd) ||| tabs ||| mtile
+    $ tiled ||| tabs ||| hacking
   where
     threeCol =
       setName "Threecol"
@@ -263,34 +258,41 @@ myLayout =
         $ magnifiercz' 1.3
         $ ThreeColMid nmaster delta ratio
     mtile = setName "Mtall" $ Mirror tiled
-    topBared = noFrillsDeco shrinkText topBarConfig $ tiled
-    tabs = setName "Tabs" $ smartBorders (tabbed shrinkText myTabConfig)
-    -- twoPane = addTabs shrinkText myTabConfig $ subLayout [0] (TwoPanePersistent Nothing (3/100) (1/2))
+    tabs = setName "Tabs" $ smartBorders (tabbed shrinkText topBarConfig)
+    -- twoPane = addTabs shrinkText topBarConfig $ subLayout [0] (TwoPanePersistent Nothing (3/100) (1/2))
     -- twoPane = setName "2Pane"
     --     $ avoidStruts
     --     $ windowNavigation
-    --     $ noFrillsDeco shrinkText myTabConfig (TwoPanePersistent Nothing delta ratio)
-
-    masterTabbedStd = setName "Master-Tabbed"
-        $ mySpacing 2
-        $ mastered delta ratio
-        $ tabbed shrinkText myTabConfig
+    --     $ noFrillsDeco shrinkText topBarConfig (TwoPanePersistent Nothing delta ratio)
+    --  avoidStruts (masterTabbedStd)
+    -- masterTabbedStd = setName "Master-Tabbed"
+    --     $ mySpacing 2
+    --     $ mastered delta ratio
+    --     $ tabbed shrinkText topBarConfig
  -- masterTabs =
     --   setName "Tile Tabs"
     --     $ mastered (1 / 100) (1 / 2)
     --     $ mySpacing' 2
-    --     $ (tabbed shrinkText myTabConfig)
+    --     $ (tabbed shrinkText topBarConfig)
+    hacking = setName "Hacking" . magnify 1.1 (NoMaster 3) True $ tiled
+    topBared =
+      setName "NTall"
+        $ noFrillsDeco shrinkText topBarConfig
+        $ smartBorders
+        $ maximizeWithPadding 1
+        $ minimize
+        $ ResizableTall nmaster delta ratio []
     tiled =
       setName "Tall"
         $ smartBorders
         $ maximizeWithPadding 1
         $ minimize
-        $ mySpacing' 2
+        -- $ mySpacing' 2
+        $ myScreenSpacing 3
         $ ResizableTall nmaster delta ratio []
     nmaster = 1
     ratio = 1 / 2
     delta = 3 / 100
-
 
 mySpacing ::
      Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -301,6 +303,10 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 mySpacing' ::
      Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
+
+myScreenSpacing ::
+     Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+myScreenSpacing i = spacingRaw True (Border i i i i) True (Border 0 0 0 0) False
 
 setName :: String -> l a -> ModifiedLayout Rename l a
 setName n = renamed [Replace n]
@@ -345,16 +351,22 @@ windowCount :: X (Maybe String)
 windowCount = do
   ws <- gets windowset
   let currentWindows = W.integrate' (W.stack (W.workspace (W.current ws)))
+  -- Get minimized windows
   minimizedWindows <- withMinimized return
   let totalCount = length currentWindows
       minimizedCount = length (filter (`elem` currentWindows) minimizedWindows)
   return
     $ Just
-    $ if minimizedCount > 0
-        then show (totalCount - minimizedCount) ++ "," ++ show minimizedCount
-        else if totalCount > 0
-                then show totalCount
-                     else ""
+    $ case minimizedCount of
+        0 ->
+          if totalCount > 0
+            then show totalCount
+            else ""
+        _ ->
+          let visibleCount = totalCount - minimizedCount
+           in if visibleCount > 0
+                then show visibleCount ++ ", -" ++ show minimizedCount
+                else "-" ++ show minimizedCount
 
 myScratchpads =
   [ NS
@@ -379,15 +391,20 @@ myKeys =
   , ( "M-C-S-<Escape>"
     , confirmPrompt prompt "exit Xmonad" $ io (exitWith ExitSuccess))
   -- , ("M-S-/", xmessage myHelp)
-      -- , ("M-p l", layoutPrompt prompt)
-      -- , ("M-C-p", switchToLayout "threeCol")
+  -- , ("M-p l", layoutPrompt prompt)
+  -- , ("M-C-p", switchToLayout "threeCol")
   , ("M-<F9>", spawn browser)
   , ("M-S-<F9>", spawn privateBrowser)
       -- , ("M-S-<F9>", spawnOn "6" "firefox")
   , ("M-p m", manPrompt prompt)
   , ("M-p p", spawn "rofi-pass")
   , ("M-a", spawn "rofi -show drun -show-icons")
-  , ("M-w", spawn "rofi -show window -show-icons")
+  , ( "M-w"
+    , withPrefixArgument $ \prefix -> do
+        case prefix of
+          Raw _ -> spawn "rofi -show windowcd" -- With prefix argument
+          _ -> spawn "rofi -show window -show-icons" -- Without prefix argument
+     )
   , ("M-s", spawn "rofi -show run")
   , ("M-e", spawn "emacsclient -c -a 'emacs'")
   -- , ("M-C-e", spawn "emacsclient --eval '(emacs-everywhere)'")
@@ -488,8 +505,8 @@ myKeys =
        , ("M-S-<Tab>", BW.focusUp)
        , ("M-j", BW.focusDown)
        , ("M-k", BW.focusUp)
-             -- , ("M-g", W.focusDown')
-             -- , ("M-S-g", W.focusUp')
+       -- , ("M-g", W.focusDown')
+       -- , ("M-S-g", W.focusUp')
        -- , ("M-m", BW.focusMaster)
        , ("M-m", myFocusMaster)
        , ("M-S-m", windows W.swapMaster)
@@ -573,23 +590,22 @@ myXmobarPP =
         , ppTitleSanitize = xmobarStrip
         , ppCurrent = tagActive . wrap " " " "
         , ppVisible = yellow . wrap ("(") (")")
-        , ppHidden = wrap "+" ""
-        -- , ppHiddenNoWindows = gray . const " -"
+        , ppHidden = wrap " " " "
         , ppHiddenNoWindows = gray . const ""
         -- ∎⏹■◾
         , ppUrgent = tagUrgent . wrap " " " "
         , ppLayout = wrap " " " " . lowWhite
         , ppOrder = \(ws:l:_:ex) -> [ws, l] ++ ex
         , ppExtras =
-            [ minimizeIndicator
-            , formattedWindowCount
+            [ formattedWindowCount
+            -- , minimizeIndicator
             , logTitles formatFocused formatUnfocused
             ]
         }
   where
-    formatFocused = tagActive . wrap " " " " . ppWindow
-    formatUnfocused =
-      xmobarColor colorBlue colorSlateGray . wrap " " " " . ppWindow
+    formatFocused = wrap " " " " . ppWindow
+    -- formatUnfocused = xmobarColor colorBlue colorInactive . wrap " " " " . ppWindow
+    formatUnfocused = const ""
     formattedWindowCount :: X (Maybe String)
     formattedWindowCount = fmap (fmap $ lowWhite) windowCount
     ppWindow :: String -> String
@@ -599,18 +615,19 @@ myXmobarPP =
              if null w
                then "untitled"
                else w)
-        . shorten 30
+        . shorten 50
     blue, yellow, red, lowWhite, cyan, slategray, gray :: String -> String
-    tagActive = xmobarColor colorWhite colorBlue
+    tagActive = xmobarColor colorWhite colorActive
     tagUrgent = xmobarColor colorWhite colorWhite
-    tagHidden = xmobarColor colorBlack colorGray
+    tagHidden = xmobarColor colorBlack colorInactive
     blue = xmobarColor colorBlue ""
     yellow = xmobarColor colorYellow ""
     red = xmobarColor colorRed ""
-    lowWhite = xmobarColor colorLowWhite ""
+    white = xmobarColor colorWhite ""
+    lowWhite = xmobarColor colorFgInactive ""
     cyan = xmobarColor colorCyan ""
-    slategray = xmobarColor colorSlateGray ""
-    gray = xmobarColor colorGray ""
+    slategray = xmobarColor colorFgDim ""
+    gray = xmobarColor colorInactive ""
 
 myManageHook :: ManageHook
 myManageHook =

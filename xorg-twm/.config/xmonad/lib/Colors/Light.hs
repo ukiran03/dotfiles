@@ -1,22 +1,25 @@
 module Colors.Current where
 import XMonad
 
-colorScheme = "light"
+colorScheme = "Operandi"
 
--- | Base colours to be used.
-colorActive :: String = "#0000ff"
-colorNormal :: String = "#c8c8c8"
+colorActive :: String = "#531ab6" -- magenta-cooler
+colorInactive :: String = "#e0e0e0" -- bg-inactive
+colorFgDim :: String = "#e0e0e0"
 
-colorBlue :: String = "#531ab6" -- 1
-colorCyan :: String = "#005f5f"
-colorLowWhite :: String = "#595959"
-colorSlateGray :: String = "#e0e0e0"
-colorGray :: String = "#bdbdbd"
-colorRed :: String = "#a60000"
-colorYellow :: String = "#6f5500"
-colorWhite :: String = "#FFFFFF"
 colorBlack :: String = "#000000"
-colorText :: String = "#000000"
-colorHText :: String = "#FFFFFF"
+colorRed :: String = "#a60000"
+colorGreen :: String = "#006800"
+colorYellow :: String = "#6f5500"
+colorBlue :: String = "#0031a9"
+colorMagenta :: String = "#531ab6" -- magenta-cooler
+colorCyan :: String = "#005e8b"
+colorWhite :: String = "#ffffff"
+
+colorFgInactive :: String = "#000000" -- fg-inactive
+colorBgCompletion :: String = "#c0deff"
+
+colorText :: String = "#FFFFFF"
+
 colorTrayer :: String
-colorTrayer = "--tint 0xffffff"
+colorTrayer = "--tint 0xFFFFFFFF"

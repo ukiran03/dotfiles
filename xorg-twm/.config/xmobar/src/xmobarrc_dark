@@ -61,10 +61,11 @@ Config
         , "--", "-P", "", "-Z", "", "-S", ""
         , "--host", "127.0.0.1" , "--port", "6600"
         ] 10
-      -- , Run Date "%a, %d %b %Y, <fc=#00eff0>%I:%M %p</fc>" "date" 300
-      , Run Date "<fc=#FFFFFF,#5f509f> %a, %d %b %Y, %I:%M %p </fc>" "date" 300
+      , Run Date "%a, %d %b %Y, <fc=#00eff0>%I:%M %p</fc>" "date" 300
+      -- , Run Date "<fc=#FFFFFF,#5f509f> %a, %d %b %Y, %I:%M %p </fc>" "date" 300
       , Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 50
-      -- , Run Com "pamixer" ["--get-volume-human"] "" 20
+      , Run Com ".config/xmobar/xbps-updates.sh" [] "xbps" 3600
+    -- , Run Com "pamixer" ["--get-volume-human"] "" 20
       , Run Alsa "default" "Master" ["-t", "<status> <volume>%","--", "-O", "<fc=#42A5F5><fn=1> </fn></fc>", "-o", "<fc=#d95468><fn=1> </fn></fc>"]
       -- , Run Volume "default" "Master" ["-t", "<status>","--", "-O", "<fc=#42A5F5><fn=1> </fn></fc>", "-o", "<fc=#d95468><fn=1> </fn></fc>"] 20
       , Run XMonadLog
@@ -72,5 +73,5 @@ Config
   , sepChar = "%"
   , alignSep = "}{"
   , template =
-   " <icon=xmonad_dark.xpm/> <fc=#3c4449>|</fc> %XMonadLog% }{ %dynnetwork%  <fc=#6D8895>L: </fc>%bright_pipe%  <fc=#6D8895>(</fc>%cpu% - %memory%<fc=#6D8895>GB)</fc>  %alsa:default:Master% %pamixer%  %battery%  %date% %trayerpad%"
+   " <icon=xmonad_dark.xpm/> <fc=#3c4449>|</fc> %XMonadLog% } %date% { %dynnetwork% %xbps% <fc=#6D8895>L: </fc>%bright_pipe%  <fc=#6D8895>(</fc>%cpu% - %memory%<fc=#6D8895>GB)</fc>  %alsa:default:Master% %pamixer%  %battery%  %trayerpad%"
   }

@@ -3,20 +3,23 @@ import XMonad
 
 colorScheme = "dark"
 
--- | Base colours to be used.
-colorActive :: String = "#0080FF"
-colorNormal :: String = "#171D23"
-colorBlue :: String = "#2fafff" -- 1 #c6daff
--- colorBlue :: String = "#0080FF"
-colorCyan :: String = "#00fcfc"
-colorLowWhite :: String = "#d0d0d0"
-colorGray :: String = "#2F4F4F"
-colorSlateGray :: String = "#1f3838"
-colorRed :: String = "#ff5f59"
-colorYellow :: String = "#ebbf83"
+colorActive :: String = "#2fafff"
+colorInactive :: String = "#171D23"
+colorFgDim :: String = "#3c4449"
+
 colorBlack :: String = "#FFFFFF"
+colorRed :: String = "#ff5f59"
+colorGreen :: String = ""
+colorYellow :: String = "#ebbf83"
+colorBlue :: String = "#2fafff"
+colorMagenta :: String = ""
+colorCyan :: String = "#00fcfc"
 colorWhite :: String = "#000000"
-colorText :: String = "#FFFFFF"
-colorHText :: String = "#000000"
+
+colorFgInactive :: String = "#d0d0d0"
+colorBgCompletion :: String = "#483d8a"
+
+colorText :: String = "#000000"
+
 colorTrayer :: String
 colorTrayer = "--tint 0x282c34"
