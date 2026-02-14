@@ -1,59 +1,5 @@
 #### Autoload
 autoload -U colors && colors
-function get_status_color() {
-	local exit_status=$? # <--- CRUCIAL: Capture $? immediately
-	[[ $exit_status == 0 ]] && echo "%B%F{002}$%f%b" || echo "%F{009}($exit_status) $%f"
-}
-
-NEWLINE=$'\n'
-STATUS=$'$get_status_color'
-USERP=$'%B%F{012}%n@%m%f%b'
-UPWD=$'%B%F{006}%K%~%k%f%b'
-PUPWD=$':: %B%F{006}%~%f%b'
-# export REPORTTIME=3
-TIMEFMT="'$fg[green]%J$reset_color' time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
-function preexec() {
-	timer=${timer:-$SECONDS}
-}
-function precmd() {
-	if [ $timer ]; then
-		timer_show=$(($SECONDS - $timer))
-		if [ $timer_show -ge 3 ]; then
-			RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
-		else
-			RPROMPT=""
-		fi
-		unset timer
-	fi
-}
-
-if (($+TMUX)) || [[ $TERM == rxvt-unicode-256color ]]; then
-	PROMPT='${USERP} ${UPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
-else
-	PROMPT='${USERP} ${PUPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
-fi
-
-# PROMPT='${USERP} ${PUPWD} %F{008}$vcs_info_msg_0_%f ${NEWLINE}$(get_status_color) '
-### VC Info
-# Autoload zsh's `add-zsh-hook` and `vcs_info` functions
-# (-U autoload w/o substition, -z use zsh style)
-autoload -Uz add-zsh-hook vcs_info
-
-# Run the `vcs_info` hook to grab git info before displaying the prompt
-add-zsh-hook precmd vcs_info
-
-# Style the vcs_info message
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git*' formats '(%b%u%c)'
-
-zstyle ':vcs_info:git*' unstagedstr ' %F{009}*%f'
-zstyle ':vcs_info:git*' stagedstr '%F{010}+%f'
-## This enables %u and %c (unstaged/staged changes) to work,
-## but can be slow on large repos
-zstyle ':vcs_info:*:*' check-for-changes false # true
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
 #### Options
 setopt autocd       # Automatically cd into typed directory.
@@ -78,7 +24,7 @@ setopt HIST_SAVE_NO_DUPS    # Do not write a duplicate event to the history file
 setopt HIST_EXPIRE_DUPS_FIRST # Prioritize removing duplicate events over non-duplicate ones
 setopt HIST_FIND_NO_DUPS      # Do not display a previously found event.
 setopt HIST_IGNORE_DUPS       # Do not record an event that was just recorded again.
-
+setopt EXTENDED_GLOB          # Globing
 # Zsh Directory Stack
 setopt AUTO_PUSHD        # Push the current directory visited on the stack.
 setopt PUSHD_IGNORE_DUPS # Do not store duplicates in the stack.
@@ -159,6 +105,20 @@ compdef ,g=git
 # autoload -Uz url-quote-magic
 # zle -N self-insert url-quote-magic
 
+# https://www.jefftk.com/p/logging-shell-history-in-zsh
+precmd() {
+	echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" \
+		>>~/.local/.full_history
+}
+
+function histgrep {
+  local n_lines=10
+  if [[ "$1" =~ ^[0-9]*$ ]]; then
+    n_lines="$1"
+    shift
+  fi
+  grep "$@" ~/.full_history | tail -n "$n_lines"
+}
 
 #### Plugins
 # should be last.
@@ -168,4 +128,21 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /home/ukiran/.config/zsh/plugins/zsh-autopair/autopair.zsh
 autopair-init
 
-source ~/.config/zsh/prezto-completions.zsh
+source ~/.config/zsh/plugins/prezto-completions.zsh
+
+### It have kubens, kubectx
+# fpath=(~/.config/zsh/completions $fpath)
+# autoload -U compinit && compinit
+
+# . "$HOME/.atuin/bin/env"
+# eval "$(atuin init zsh)"
+
+cowsay "Learning by doing!"
+
+eval "$(direnv hook zsh)"
+
+source /home/ukiran/dotfiles/shell/.config/zsh/completions/_kubectl
+
+#### Prompt
+# source /home/ukiran/.config/zsh/prompt.zsh # Custom Prompt
+eval "$(starship init zsh)" # Starship Prompt

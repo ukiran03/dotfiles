@@ -14,3 +14,5 @@ fi
 
 source /home/ukiran/.config/broot/launcher/bash/br
 #. "/home/ukiran/.deno/env"
+
+. "$HOME/.atuin/bin/env"

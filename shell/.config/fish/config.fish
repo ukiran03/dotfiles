@@ -58,7 +58,7 @@ if status is-interactive
     bind alt-n history-search-forward
 
     zoxide init fish | source
-end
+    atuin init fish | sourceend
 
 # pnpm
 set -gx PNPM_HOME "/home/ukiran/.local/share/pnpm"

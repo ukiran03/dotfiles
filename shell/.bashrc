@@ -19,3 +19,8 @@ alias ls='eza --color -F --group-directories-first'
 # source /home/ukiran/.config/broot/launcher/bash/br
 # eval "$(mise activate bash)"
 #. "/home/ukiran/.deno/env"
+
+. "$HOME/.atuin/bin/env"
+
+[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+eval "$(atuin init bash)"

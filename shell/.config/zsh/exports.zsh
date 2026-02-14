@@ -17,6 +17,7 @@ fi
 # export FZF_CTRL_R_OPTS='--prompt "Shell: " --info inline-right --height=35%'
 export FZF_CTRL_R_OPTS=' --prompt "Search History: " --bind "enter:become:if [ -z {} ]; then echo {q}; else echo {}; fi"'
 
+
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
   --walker-skip .git,node_modules,target

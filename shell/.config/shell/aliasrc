@@ -1,7 +1,16 @@
+## -*- mode: bash-ts-mode -*-
 ## -*- compile-command: "source ~/.config/shell/aliasrc" -*-
 ### ALIASES ###
 
 # alias bomb=":(){ :|:& };:"
+
+# cd
+alias -- -='cd -'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 
 dbe() {
 	choice="$(find ~/.bin/ -mindepth 1 -printf '%P\n' | fzf)"
@@ -350,7 +359,6 @@ alias kX="killall Xephyr"
 #terminal-fun
 alias ttyc="tty-clock -cst"
 
-# Alt_R as Esc     -----     while using vim and right super
 # menu as Super
 alias exkeys="xmodmap -e 'keycode 135 = Super_R';xmodmap -e 'keycode 108 = Escape'"
 
@@ -360,6 +368,7 @@ alias ys="yay -Qs | grep"
 # Changing "ls" to "exa"
 # alias l='ls'
 alias ls='eza --color=always --group-directories-first -F'
+alias l.='eza --color=always --group-directories-first -F -d .[^.]*'
 alias l='eza --color=always --group-directories-first -F'
 alias ll="eza --color=always --group-directories-first -lF --git"
 alias la="eza --color=always --group-directories-first -aF"
@@ -372,7 +381,7 @@ alias lal="eza --color=always --group-directories-first -laF --git"
 alias lt="eza --color=always -T"
 # alias lt.='eza -aT --color=always --group-directories-first' # tree listing include hidden
 # alias lt='eza -T --color=always --group-directories-first' # tree listing not include hidden
-alias l.='eza -a | grep -E "^\."'
+# alias l.='eza -a | grep -E "^\."'
 #------------------------------------------------------------------
 
 ## Git Alias
@@ -397,7 +406,7 @@ alias mkdir="mkdir -pv"
 alias webcam-record="ffmpeg -y -i /dev/video0 webcam.mkv"
 alias screen-record="ffmpeg -f x11grab -i :0.0 screen.mkv"
 
-#terminal fun
+# terminal fun
 # alias matrix='unimatrix -s 96 -l k -c red'
 
 # LOCAL MANUALS
@@ -408,3 +417,26 @@ alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
 alias onefetch='onefetch --no-color-palette --no-art --no-title -d churn authors'
 alias ff='fastfetch'
+
+# usv () {
+#     SVDIR=~/.local/runit/service sv $@
+# }
+
+tmp () {
+    [ "$1" = "view" ] && cd /tmp/workspaces && cd $(command ls -t | fzf --preview 'ls -A {}') && return 0
+    r="/tmp/workspaces/$(xxd -l3 -ps /dev/urandom)"
+    mkdir -p -p "$r" && pushd "$r"
+}
+
+
+ground () {
+    [ "$1" = "view" ] && cd /home/ukiran/prog/groundworks && cd $(command ls -t | fzf --preview 'ls -A {}') && return 0
+    r="/home/ukiran/prog/groundworks/$(xxd -l3 -ps /dev/urandom)"
+    mkdir -p -p "$r" && pushd "$r"
+}
+
+
+READDECK_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/readdeck/config.toml"
+# readdeck() {
+#     command readdeck "$@" -config "$READDECK_CONFIG"
+# }
