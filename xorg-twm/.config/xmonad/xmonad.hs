@@ -82,29 +82,18 @@ import XMonad.Hooks.StatusBar.PP
 
 import XMonad.Actions.RotSlaves
 import qualified XMonad.Layout.BoringWindows as BW
-import XMonad.Layout.Gaps
-import XMonad.Layout.Grid
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
-import XMonad.Layout.LimitWindows (limitWindows)
-import XMonad.Layout.LimitWindows (limitWindows)
 import XMonad.Layout.Magnifier
 import XMonad.Layout.Master
 import XMonad.Layout.Maximize (maximizeRestore, maximizeWithPadding)
 import XMonad.Layout.Minimize (minimize)
-import XMonad.Layout.NoBorders (noBorders, smartBorders, lessBorders)
+import XMonad.Layout.NoBorders (lessBorders, noBorders, smartBorders)
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.PerWorkspace (onWorkspaces)
-
--- import XMonad.Layout.Reflect (reflectHoriz) -- TODO:
 import XMonad.Layout.Renamed (Rename(Replace), renamed)
 import XMonad.Layout.ResizableTile (MirrorResize(..), ResizableTall(..))
 import XMonad.Layout.Spacing
-import XMonad.Layout.SubLayouts
-import XMonad.Layout.TabBarDecoration
 import XMonad.Layout.Tabbed -- (Theme(..), shrinkText, tabbed)
-import XMonad.Layout.ThreeColumns
-import XMonad.Layout.TwoPane
-import XMonad.Layout.TwoPanePersistent
 
 import XMonad.Prompt
 import XMonad.Prompt.ConfirmPrompt
@@ -130,17 +119,12 @@ import XMonad.Util.Loggers (logTitle, logTitles)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.SpawnOnce (spawnOnce)
 
-import XMonad.Layout.Decoration
-import XMonad.Layout.Gaps
-import XMonad.Layout.SimpleDecoration
-
 import XMonad.Actions.Prefix
   ( PrefixArgument(Raw)
   , orIfPrefixed
   , usePrefixArgument
   , withPrefixArgument
   )
-import XMonad.Layout.TwoPane
 import XMonad.Layout.WindowNavigation
 
 main :: IO ()
@@ -232,8 +216,8 @@ topBarConfig =
     , urgentColor = colorRed
     , urgentBorderColor = colorRed
     , urgentTextColor = colorWhite
-    , decoHeight = 16
-    , fontName = "xft:Iosevka:weight=bold:size=10:antialias=true"
+    , decoHeight = 20
+    , fontName = "xft:Iosevka:weight=semibold:size=12.75:antialias=true"
     }
 
 mySWNConfig =
@@ -248,40 +232,11 @@ myLayout =
   avoidStruts
     $ BW.boringWindows
     $ onWorkspaces ["8", "9"] (tabs ||| tiled)
-    $ tiled ||| tabs ||| hacking
+    $ tiled ||| tabs ||| mtile ||| hacking
   where
-    threeCol =
-      setName "Threecol"
-        $ smartBorders
-        $ maximizeWithPadding 1
-        $ minimize
-        $ magnifiercz' 1.3
-        $ ThreeColMid nmaster delta ratio
     mtile = setName "Mtall" $ Mirror tiled
     tabs = setName "Tabs" $ smartBorders (tabbed shrinkText topBarConfig)
-    -- twoPane = addTabs shrinkText topBarConfig $ subLayout [0] (TwoPanePersistent Nothing (3/100) (1/2))
-    -- twoPane = setName "2Pane"
-    --     $ avoidStruts
-    --     $ windowNavigation
-    --     $ noFrillsDeco shrinkText topBarConfig (TwoPanePersistent Nothing delta ratio)
-    --  avoidStruts (masterTabbedStd)
-    -- masterTabbedStd = setName "Master-Tabbed"
-    --     $ mySpacing 2
-    --     $ mastered delta ratio
-    --     $ tabbed shrinkText topBarConfig
- -- masterTabs =
-    --   setName "Tile Tabs"
-    --     $ mastered (1 / 100) (1 / 2)
-    --     $ mySpacing' 2
-    --     $ (tabbed shrinkText topBarConfig)
     hacking = setName "Hacking" . magnify 1.1 (NoMaster 3) True $ tiled
-    topBared =
-      setName "NTall"
-        $ noFrillsDeco shrinkText topBarConfig
-        $ smartBorders
-        $ maximizeWithPadding 1
-        $ minimize
-        $ ResizableTall nmaster delta ratio []
     tiled =
       setName "Tall"
         $ smartBorders
@@ -317,16 +272,6 @@ rTall m r c = ResizableTall m r c []
 switchToLayout :: String -> X ()
 switchToLayout = sendMessage . JumpToLayout
 
--- TODO:
--- data MyLayoutPrompt = MyLayoutPrompt String
--- instance XPrompt MyLayoutPrompt where
---     showXPrompt (MyLayoutPrompt s) = s ++ "> "
--- layoutPrompt :: XPConfig -> X ()
--- layoutPrompt c = do
---     let ls = ["ThreeCol", "mtile", "tab", "tiled"]
---     mkXPrompt (MyLayoutPrompt "Layout") c
---              (mkComplFunFromList' c ls)
---              (sendMessage . JumpToLayout)
 viewShift :: WorkspaceId -> WindowSet -> WindowSet
 viewShift i = W.greedyView i . W.shift i
 
@@ -378,14 +323,15 @@ myScratchpads =
       "Main"
       "urxvtc -name Main -e tmux new-session -A -s 'Main'"
       (title =? "Main" <&&> appName =? "Main" <&&> resource =? "Main")
-      (doRectFloat $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
+      (doRectFloat $ W.RationalRect (1 / 20) (1 / 20) (18 / 20) (18 / 20))
+      -- (doRectFloat $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
   ]
 
 myKeys :: [(String, X ())]
 myKeys =
   [ ( "M-S-r"
     , spawn
-        "xmonad --recompile && xmonad --restart && \
+        "xmonad --recompile && xmonad-restart.sh && \
        \dunstify -a ignore -i '/home/ukiran/.config/xmonad/icons/new_xmonad.png' 'Reloaded Xmonad'")
   , ("M-C-r", spawn "xmonad-restart.sh")
   , ( "M-C-S-<Escape>"
@@ -406,12 +352,13 @@ myKeys =
           _ -> spawn "rofi -show window -show-icons" -- Without prefix argument
      )
   , ("M-s", spawn "rofi -show run")
+  , ("M-d", spawn "rofi -show filebrowser -show-icons")
   , ("M-e", spawn "emacsclient -c -a 'emacs'")
   -- , ("M-C-e", spawn "emacsclient --eval '(emacs-everywhere)'")
   -- , ("M-S-e", spawn "emacsclient --eval '(tinee)' -a ''")
   , ("M-<Return>", spawn "urxvtc -e tmux new-session -A -s 'Main'")
-  , ("M-<Home>", namedScratchpadAction myScratchpads "ncmpcpp")
   , ("M-<End>", namedScratchpadAction myScratchpads "Main")
+  , ("M-<Home>", namedScratchpadAction myScratchpads "ncmpcpp")
   , ("M-g", rotSlavesDown)
   , ("M-S-g", rotSlavesUp)
   ]
@@ -562,14 +509,6 @@ kill' =
     minimized <- withMinimized return
     unless (window `elem` minimized) kill1
 
--- minimizeIndicator :: X (Maybe String)
--- minimizeIndicator = do
---     mw <- gets (W.peek . windowset)
---     case mw of
---         Nothing -> return (Just "")
---         Just window -> do
---             minimizedWindows <- withMinimized return
---             return $ if window `elem` minimizedWindows then Just "H" else Just Nothing
 minimizeIndicator :: X (Maybe String)
 minimizeIndicator = do
   mw <- gets (W.peek . windowset)
@@ -604,7 +543,6 @@ myXmobarPP =
         }
   where
     formatFocused = wrap " " " " . ppWindow
-    -- formatUnfocused = xmobarColor colorBlue colorInactive . wrap " " " " . ppWindow
     formatUnfocused = const ""
     formattedWindowCount :: X (Maybe String)
     formattedWindowCount = fmap (fmap $ lowWhite) windowCount
@@ -643,9 +581,10 @@ myManageHook =
     , className
         =? "mpv"
         --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
- -- TODO: , className =? "Emacs" <&&> title =? "Emacs Everywhere" --> doShift (myWorkspaces !! 8)
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat
     , resource =? "desktop_window" --> doIgnore
+    , className =? "gumdialog" --> doCenterFloat
+    , title     =? "Gum Dialog" --> doCenterFloat
     , className =? "TelegramDesktop" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "Tor Browser" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "calibre" --> viewShiftHook (myWorkspaces !! 8)
@@ -678,8 +617,8 @@ myStartupHook = do
   spawnOnce "numlockx on &"
   spawnOnce "xmodmap $XDG_CONFIG_HOME/X11/xmodmap"
   spawnOnce "xfce4-power-manager &"
-  spawnOnce "/usr/bin/pipewire-pulse &"
-  spawnOnce "/usr/bin/pipewire &"
+  -- spawnOnce "/usr/bin/pipewire-pulse &"
+  -- spawnOnce "/usr/bin/pipewire &"
   -- spawnOnce "/usr/libexec/polkit-gnome-authentication-agent-1 &"
   spawnOnce "sxhkd -c $HOME/.config/sxhkd/xmonad_sxhkdrc"
   spawnOnce

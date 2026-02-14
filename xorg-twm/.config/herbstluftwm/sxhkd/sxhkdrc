@@ -31,7 +31,8 @@ XF86Mail
 
 # terminal: zellij or tmux
 super + {_, shift + } Return
-    {alacritty -T zellij -e zellij attach --create Main, alacritty}
+    {urxvtc -e tmux new-session -A -s 'Main', urxvtc}
+    # {alacritty -T zellij -e zellij attach --create Main, alacritty}
         # {alacritty -e tmux new-session -A -s 'Main', alacritty}
 
 shift + KP_End

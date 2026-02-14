@@ -19,6 +19,9 @@ export LD_LIBRARY_PATH=/usr/local/lib/
 export XAUTHORITY=$HOME/.Xauthority
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
+# Svdir
+export SVDIR=$HOME/.config/service
+
 # Dotfiles
 export DOTFILES="$HOME/dotfiles"
 
@@ -26,9 +29,6 @@ export DOTFILES="$HOME/dotfiles"
 export GOPATH="$XDG_DATA_HOME"/go
 export GOBIN="$GOPATH"/bin
 export PATH=$PATH:$GOPATH/bin
-
-xrdb -load "$XDG_CONFIG_HOME/X11/xresources"
-# BUG:
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -100,6 +100,8 @@ export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME"/bundle
 export BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
 
+# Odin
+export ODIN_ROOT="/usr/local/share/odin"
 
 # npm
 export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
@@ -121,3 +123,20 @@ fi
 ## mpd for xmobar
 export MPD_HOST="127.0.0.1"
 export MPD_PORT="6600"
+
+# . "$HOME/.atuin/bin/env"
+
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+
+export XCURSOR_SIZE=18
+export XCURSOR_THEME="Bibata-Modern-Classic"
+
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xcursor_env" ] && . "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xcursor_env"
+
+# This ensures that any script you run manually OR via turnstile
+# (if turnstile is configured to import env) sees the bus.
+## Remoce check
+# export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
+# export XDG_RUNTIME_DIR="/run/user/$(id -u)"

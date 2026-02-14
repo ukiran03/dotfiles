@@ -4,7 +4,7 @@ import XMonad
 colorScheme = "Operandi"
 
 colorActive :: String = "#531ab6" -- magenta-cooler
-colorInactive :: String = "#e0e0e0" -- bg-inactive
+colorInactive :: String = "#c4c4c4" -- bg-inactive
 colorFgDim :: String = "#e0e0e0"
 
 colorBlack :: String = "#000000"

@@ -7,6 +7,8 @@
 # Clipboard, rofi-greenclip
 super + grave
     rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+# super + tilda
+
 
 # #Raises volume
 XF86Audio{RaiseVolume,LowerVolume,Mute}
@@ -59,9 +61,11 @@ super + {F10, F11, F12}
 
 super + ctrl + F9
     qutebrowser
+
 # brightness
 super + bracket{left,right}
-    /home/ukiran/.local/bin/uk-bright {down,up}
+    /home/ukiran/.local/bin/laptop-brightness.sh {down,up}
+# /home/ukiran/.local/bin/uk-bright {down,up}
 
 super + y; {b, c, p, s}
     {polybar-toggle, \

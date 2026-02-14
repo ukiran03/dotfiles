@@ -1,9 +1,11 @@
 ! -*- compile-command: "xrdb ~/.config/X11/xresources" -*-
 
 #include "active_theme"
+
 ! <https://wiki.archlinux.org/title/Cursor_themes>
-Xcursor.theme: Bibata-Modern-Ice
-Xcursor.size: 18
+
+! Xcursor.theme: Bibata-Modern-Classic
+! Xcursor.size: 18
 
 !! default colors
 *.foreground: #ffffff
@@ -40,15 +42,24 @@ Xft.lcdfilter:  lcddefault
 !! https://smarttech101.com/urxvt-installation-color-scheme-fonts-resize-etc
 !! -- URxvt Settings
 
+! URxvt*loginShell: true
+! URxvt*exec: cowsay "Welcome to your terminal!"
 ! URxvt.font: xft:Iosevka Term:size=13:style=Medium
 ! URxvt.boldFont: xft:Iosevka Term:size=13:style=Bold
 ! URxvt.italicFont: xft:Iosevka Term:size=13:style=Italic
 ! URxvt.boldItalicFont: xft:Iosevka Term:size=13:style=Bold Italic
 
-URxvt.font:xft:Iosevka Term:size=11.25:style=Semibold
-URxvt.boldFont: xft:Iosevka Term:size=11.25:style=Bold
-URxvt.italicFont: xft:Iosevka Term:size=11.25:style=Italic
-URxvt.boldItalicFont: xft:Iosevka Term:size=11.25:style=Bold Italic
+!! Laptop
+URxvt.font:xft:Iosevka Term:size=13.25:style=Semibold
+URxvt.boldFont: xft:Iosevka Term:size=13.25:style=Bold
+URxvt.italicFont: xft:Iosevka Term:size=13.25:style=Italic
+URxvt.boldItalicFont: xft:Iosevka Term:size=13.25:style=Bold Italic
+
+!! Monitor
+! URxvt.font:xft:Iosevka Term:size=11.25:style=Semibold
+! URxvt.boldFont: xft:Iosevka Term:size=11.25:style=Bold
+! URxvt.italicFont: xft:Iosevka Term:size=11.25:style=Italic
+! URxvt.boldItalicFont: xft:Iosevka Term:size=11.25:style=Bold Italic
 
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0

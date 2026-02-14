@@ -91,7 +91,7 @@ fi
 if _check xsetroot
 then
     xsetroot -cursor_name left_ptr & #cursor active at boot
-    xsetroot -solid '#5A8E3A' &
+    # xsetroot -solid '#5A8E3A' &
 fi
 
 # check once again
@@ -105,7 +105,8 @@ fi
 # xset r rate 200 50
 
 # Load my Xresources
-# xrdb -load "$XDG_CONFIG_HOME/X11/xresources"
+xrdb -load "$XDG_CONFIG_HOME/X11/xresources" || true # ignore errors
+
 # _check xrdb && [ -f "$HOME"/.Xresources ] && xrdb -I "$HOME" -merge "$HOME"/.Xresources
 
 # PKG: network-manager-applet
@@ -140,7 +141,9 @@ else
     # setxkbmap -option altwin:swap_lalt_lwin ----------------------- back to normal for while
 fi
 
-uk-bright
+uk-bright &
+
+/home/ukiran/.bin/godocs.sh &
 # _volume_pipe=/tmp/.volume-pipe
 # [[ -S $_volume_pipe ]] || mkfifo $_volume_pipe &
 
@@ -151,7 +154,13 @@ _check mpc && mpc update &
 
 # _check xscreensaver && xscreensaver --no-splash &
 # _check xmobar && xmobar &
-xfsettingsd --daemon --disable-wm-check --sm-client-disable &
+
+# xfsettingsd --daemon --disable-wm-check --sm-client-disable &
+ # TODO:
+xsettingsd -c ~/.config/xsettingsd/xsettingsd.conf &
+
+# Refresh peripherals/status indicators
+laptop-brightness.sh > /dev/null 2>&1
 
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &
 ### /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &

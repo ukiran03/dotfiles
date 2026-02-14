@@ -1,77 +1,46 @@
 Config
   { overrideRedirect = False
-  , font = "xft:Iosevka Nerd Font:size=10:bold:antialias=true;3"
-       -- , additionalFonts = ["xft:Iosevka Nerd Font:weight=bold:pixelsize=10"]
-  , additionalFonts = ["xft:Iosevka Nerd Font:pixelsize=14:bold:antialias=true","xft:FontAwesome:style=Regular:pixelsize=14"]
+  , font = "xft:Iosevka Nerd Font:size=11.25:bold:antialias=true;3"
+  , additionalFonts = ["xft:Iosevka Nerd Font:pixelsize=17:bold:antialias=true"
+                      ,"xft:FontAwesome:style=Regular:pixelsize=14"]
   , bgColor = "#0d0e1c"
   , fgColor = "#ffffff"
-  -- , position = TopSize C 100 30
-  , position = TopW L 100
   , borderColor = "#3c4449"
   , border = BottomB
   , lowerOnStart = True
   , iconRoot = "/home/ukiran/.config/xmobar/xpm/"
   , commands =
-      [ Run
-          BatteryP
-          ["BAT1"]
-          [ "-t"
-          , "<fc=#6D8895>Bat:</fc> <acstatus><left>"
-          , "-L"
-          , "20"
-          , "-H"
-          , "85"
-          , "-l"
-          , "#ff6b55"
-          , "-h"
-          , "#88ca9f"
+      [ Run BatteryP
+          ["BAT1"] [ "-t" , " <fc=#6D8895>Bat:</fc> <acstatus><left> "
+          , "-L" , "20" , "-H" , "85" , "-l" , "#ff6b55" , "-h" , "#88ca9f"
           , "--"
-          , "-O" , "<fc=#88ca9f><fn=1> </fn></fc>"
-          , "-o"
-          , "<fc=#FEC43F></fc>"
-          , "-a"
-          , "dunstify -i '/usr/share/icons/Papirus-Dark/32x32@2x/panel/battery-000.svg' -u critical -r 2389 'Battery running out!!'"
-          , "-P"
-          , "%"
-          , "-A"
-          , "20"
-          ]
-          100
-      , Run
-          Cpu
-          [ "-t"
-          , "<fc=#6D8895>Cpu:</fc> <total>%" -- <bar>
-          , "-L"
-          , "3"
-          , "-H"
-          , "50"
-          , "--high"
-          , "#ff5f59"
-          , "--normal"
-          , "#88ca9f"
-          ]
-          50
-      , Run PipeReader "/tmp/.volume-pipe" "vol_pipe"
-      , Run PipeReader "!:/tmp/.brightness-pipe" "bright_pipe"
-      , Run DynNetwork ["-t", "<fc=#88ca9f><dev><up></fc>"] 10
-      , Run Memory [ "-t", "<fc=#6D8895>Mem:</fc> <used>", "-d", "1", "--", "--scale", "1024"] 20
+          , "-O" , "<fc=#88ca9f><fn=1> </fn></fc>" , "-o" , "<fc=#FEC43F></fc>"
+          , "-a" , ".config/xmobar/scripts/charge-notify.sh"
+          , "-P" , "%" , "-A" , "20"] 100
+      , Run Cpu
+          [ "-t" , "<fc=#6D8895>Cpu:</fc> <total>%"
+          , "-L" , "3" , "-H" , "50"
+          , "--high" , "#ff5f59" , "--normal" , "#88ca9f"] 50
+      , Run Com "sh" ["-c", "brightnessctl -m | cut -d, -f4"] "brightness" 20
+      , Run PipeReader " :.config/xmobar/fifo/record-fifo" "record_pipe"
+      , Run DynNetwork ["-t", " <fc=#88ca9f><dev><up></fc> "] 10
+      , Run Memory [ "-t", "<fc=#6D8895>Mem:</fc> <used>", "-d", "1"
+                   , "--", "--scale", "1024"] 20
       , Run Mail [ ( "Mail ", "/home/ukiran/Personal/Mail/reddiushakiran/INBOX/")] "mail"
       , Run MPD
         [ "-t", "<artist> - <title> <statei>"
         , "--", "-P", "", "-Z", "", "-S", ""
-        , "--host", "127.0.0.1" , "--port", "6600"
-        ] 10
+        , "--host", "127.0.0.1" , "--port", "6600"] 10
       , Run Date "%a, %d %b %Y, <fc=#00eff0>%I:%M %p</fc>" "date" 300
-      -- , Run Date "<fc=#FFFFFF,#5f509f> %a, %d %b %Y, %I:%M %p </fc>" "date" 300
-      , Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 50
+      , Run Com ".config/xmobar/scripts/trayer-padding-icon.sh" [] "trayerpad" 50
       , Run Com ".config/xmobar/xbps-updates.sh" [] "xbps" 3600
-    -- , Run Com "pamixer" ["--get-volume-human"] "" 20
-      , Run Alsa "default" "Master" ["-t", "<status> <volume>%","--", "-O", "<fc=#42A5F5><fn=1> </fn></fc>", "-o", "<fc=#d95468><fn=1> </fn></fc>"]
-      -- , Run Volume "default" "Master" ["-t", "<status>","--", "-O", "<fc=#42A5F5><fn=1> </fn></fc>", "-o", "<fc=#d95468><fn=1> </fn></fc>"] 20
+      , Run Alsa "default" "Master" ["-t", "<status> <volume>%","--"
+                                    , "-O", "<fc=#42A5F5><fn=1> </fn></fc>"
+                                    , "-o", "<fc=#d95468><fn=1> </fn></fc>"]
       , Run XMonadLog
       ]
   , sepChar = "%"
   , alignSep = "}{"
   , template =
-   " <icon=xmonad_dark.xpm/> <fc=#3c4449>|</fc> %XMonadLog% } %date% { %dynnetwork% %xbps% <fc=#6D8895>L: </fc>%bright_pipe%  <fc=#6D8895>(</fc>%cpu% - %memory%<fc=#6D8895>GB)</fc>  %alsa:default:Master% %pamixer%  %battery%  %trayerpad%"
+   " <icon=xmonad_dark.xpm/> <fc=#3c4449>|</fc> %XMonadLog% } %date% { <fc=#d95468>%record_pipe%</fc> %dynnetwork% <fc=#6D8895>󰃟 </fc>%brightness% <fc=#6D8895> (</fc>%cpu% - %memory%<fc=#6D8895>GB) </fc> %alsa:default:Master% %pamixer% %battery% %trayerpad%"
   }
