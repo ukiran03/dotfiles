@@ -14,21 +14,23 @@ emacs/.emacs.d/recentf
 emacs/.emacs.d/history
 emacs/.emacs.d/.project
 emacs/.emacs.d/custom.el
-
-
-
+/emacs/.emacs.d/_archive-lisp/
 
 ### Xorg-twm
+
 # herbstluftwm
 xorg-twm/.config/herbstluftwm/*
 !xorg-twm/.config/herbstluftwm/scripts
 !xorg-twm/.config/herbstluftwm/sxhkd
 !xorg-twm/.config/herbstluftwm/autostart
+
 # xmobar
 xorg-twm/.config/xmobar/*
 !xorg-twm/.config/xmobar/src
 !xorg-twm/.config/xmobar/xpm
+!xorg-twm/.config/xmobar/scripts
 !xorg-twm/.config/xmobar/trayer-padding-icon.sh
+
 # xmonad
 xorg-twm/.config/xmonad/*
 !xorg-twm/.config/xmonad/lib
@@ -69,9 +71,10 @@ xorg/.config/X11/active_theme
 
 !scripts
 
-
+# Shell
 shell/.config/zsh/plugins/*
 !shell/.config/zsh/
+/shell/.config/zsh/.zcompcache/
 
 ### GUI Apps
 gui-apps/.config/calibre/*
@@ -101,8 +104,7 @@ media/.config/mpv/*
 !term-apps/.config/surfraw
 !term-apps/.config/tmux
 
-# TODO:
-term-apps/.config/zathura/*
+/term-apps/.config/zathura/zathurarc
 
 !term-apps/.config/trashrc
 !term-apps/.peaclock
@@ -137,10 +139,8 @@ personal/*
 \#*#
 
 
-# TODO:
 xfce/*
 /gui-apps/.local/share/applications/*.desktop
 /scripts/.local/bin/*.1
-/emacs/.emacs.d/_archive-lisp/
-/shell/.config/zsh/.zcompcache/
+
 /xorg/.config/X11/xcursor_env

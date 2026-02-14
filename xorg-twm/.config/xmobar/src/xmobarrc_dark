@@ -11,7 +11,7 @@ Config
   , iconRoot = "/home/ukiran/.config/xmobar/xpm/"
   , commands =
       [ Run BatteryP
-          ["BAT1"] [ "-t" , " <fc=#6D8895>Bat:</fc> <acstatus><left> "
+          ["BAT1"] [ "-t" , "<fc=#6D8895>Bat:</fc> <acstatus><left> "
           , "-L" , "20" , "-H" , "85" , "-l" , "#ff6b55" , "-h" , "#88ca9f"
           , "--"
           , "-O" , "<fc=#88ca9f><fn=1> </fn></fc>" , "-o" , "<fc=#FEC43F></fc>"
