@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# Usaage: bap <file>
+
+file=$(echo "$1" | sed 's/\./\\./g')
+bat --pager "less --use-color -JMR -PM'$file   %lt-%lb?L/%L ?pB%pB\%'" "$1"

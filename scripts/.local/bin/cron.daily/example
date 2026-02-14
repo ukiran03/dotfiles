@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Back up Void Linux package list
+# Saves a list of explicitly installed packages to your home folder.
+PKGLIST="$HOME/.local/state/pkglist.txt"
+mkdir -p "$(dirname "$PKGLIST")"
+
+echo "Updating package list backup at $PKGLIST"
+xbps-query -m > "$PKGLIST"
+
+# 3. Log completion
+echo "Daily maintenance finished at $(date)"

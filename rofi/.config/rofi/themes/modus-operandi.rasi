@@ -1,0 +1,10 @@
+/* Modus Operandi */
+
+* {
+    background:         #ffffffff;
+    background-alt:     #ecececff;
+    foreground:         #000000ff;
+    selected:           #1f1fceff;
+    urgent:             #a60000ff;
+    active:             #008899ff;
+}
