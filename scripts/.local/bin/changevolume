@@ -12,9 +12,9 @@ if ! _check pamixer; then
     exit 1
 fi
 
-up_icon="notification-audio-volume-high"
-down_icon="notification-audio-volume-medium"
-muted_icon="notification-audio-volume-muted"
+up_icon="uk-volume-high"
+down_icon="uk-volume-low"
+muted_icon="uk-volume-mute"
 
 
 # Volume pipe for xmobar
@@ -60,11 +60,16 @@ down)
 mute)
 	pamixer -t
 	if eval "$(pamixer --get-mute)"; then
-		dunstify -a "ignore" -t 2000 -r 9993 -u low -i notification-audio-volume-muted "Muted"
+		dunstify -a "ignore" -t 2000 -r 9993 -u low -i "$muted_icon" "Muted"
 	else
     icon="$up_icon"
 		send_notification up
 	fi
+	;;
+*)
+	echo "Usage: $0 {up|down|mute}"
+    echo $(pamixer --get-volume-human)
+	exit 1
 	;;
 esac
 

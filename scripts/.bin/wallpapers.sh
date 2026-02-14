@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-find ~/Pictures/walls -type f | nsxiv -t -
+fd . ~/Pictures/walls -t f -X ls -t | nsxiv -t -

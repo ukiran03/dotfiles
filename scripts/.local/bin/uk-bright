@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-up_icon="/usr/share/icons/Papirus-Dark/32x32/panel/brightness-high-symbolic.svg"
-down_icon="/usr/share/icons/Papirus-Dark/32x32/panel/brightness-symbolic.svg"
-reset_icon="/usr/share/icons/Papirus-Dark/32x32/panel/weather-clear.svg"
+up_icon="uk-brightness-high.svg"
+down_icon="uk-brightness-low.svg"
+reset_icon="uk-brightness-medium.svg"
 
 _check() {
     command -v "$1" >/dev/null

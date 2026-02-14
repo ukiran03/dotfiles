@@ -40,12 +40,20 @@ fi
 
 echo -e "\n"
 
-# Run through the 16 colours.  Create two rows.
+# # Run through the 16 colours.  Create two rows.
+# for i in {0..15}; do
+#     echo -en "\033[48;5;${i}m${space}\033[m "
+#         if [ "$i" = 7 ]; then
+#             echo '' && continue
+#         fi
+# done
+
 for i in {0..15}; do
-    echo -en "\033[48;5;${i}m${space}\033[m "
-        if [ "$i" = 7 ]; then
-            echo '' && continue
-        fi
+    printf "\033[48;5;${i}m${space}\033[m%02d  " $i
+    if [ "$i" = 7 ]; then
+        echo '' && continue
+    fi
 done
+
 
 echo -e "\n"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-OFF_ICON="airplane-mode"
-ON_ICON="com.github.zren.volumeslider"
+OFF_ICON="uk-signal-slash"
+ON_ICON="uk-signal"
 current=$(nmcli networking)
 
 send_notification() {
