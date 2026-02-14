@@ -1,5 +1,0 @@
-SURFRAW_graphical_browser=firefox
-#SURFRAW_graphical_browser=brave
-#SURFRAW_graphical_browser=chromium
-#SURFRAW_graphical_browser=vivaldi
-SURFRAW_graphical=yes

@@ -1,5 +1,6 @@
 configuration {
-modi: "drun,run,filebrowser,window,windowcd,ssh";
+font: "Iosevka Nerd Font SemiBold 13";
+modi: "drun,run,filebrowser,window,windowcd";
 show-icons: false;
 display-drun: " ";
 display-run: " ";
@@ -33,7 +34,6 @@ matching: "prefix,fuzzy,regex";
 }
 
 @import                          "colors.rasi"
-@import                          "fonts.rasi"
 
 * {
 border-colour:               var(selected);
@@ -149,7 +149,7 @@ num-filtered-rows {
     padding:                     4px 0px;
     expand:                      false;
     background-color:            inherit;
-    font:                        "Iosevka Nerd Font SemiBold 10.25";
+    font:                        "Iosevka Nerd Font SemiBold 11.25";
     text-color:                  inherit;
     }
 
@@ -242,7 +242,7 @@ element selected.active {
     text-color:                  var(selected-active-foreground);
 }
 element alternate.normal {
-    background-color:            @background-alt;
+    background-color:            @background;
     text-color:                  var(alternate-normal-foreground);
 }
 element alternate.urgent {

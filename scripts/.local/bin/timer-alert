@@ -1,3 +1,0 @@
-#!/bin/sh
-dunstify -a "PEACLOCK TIMER" "Timer completed" -i alarm-symbolic -r 7562
-pw-play /usr/share/sounds/freedesktop/stereo/bell.oga &
