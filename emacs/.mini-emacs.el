@@ -32,7 +32,8 @@
               tab-width        4
               indent-tabs-mode nil)
 
-(set-frame-font "Iosevka Medium-11.25" nil t)
+;; (set-frame-font "Iosevka Medium-11.25" nil t)
+(set-frame-font "Iosevka Medium-14" nil t)
 
 ;; (menu-bar-mode -1)
 (tool-bar-mode -1)

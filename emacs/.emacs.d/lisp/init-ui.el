@@ -20,14 +20,13 @@
 
   ;; ‘Mode-line’
   :custom
-  (modus-themes-common-palette-overrides
-   '((border-mode-line-active bg-mode-line-active)
-     (border-mode-line-inactive bg-mode-line-inactive)))
+  (modus-themes-common-palette-overrides ;remove border
+   '((border-mode-line-active unspecified)
+     (border-mode-line-inactive unspecified)))
   (modus-vivendi-tinted-palette-overrides
    '((comment fg-dim)))
   :init
-  (load-theme 'modus-vivendi-tinted :no-confirm)
-  )
+  (load-theme 'modus-vivendi-tinted :no-confirm))
 
 (use-package ef-themes
   :ensure t

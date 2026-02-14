@@ -19,6 +19,7 @@
               ("C-c C-a" . go-import-add)
               ("C-c C-d" . godef-describe)
               ("C-c C-j" . godef-jump)
+              ("C-c C-r" . go-run)
               ("C-M-q"   . prog-indent-sexp)
               ("M-q"     . prog-fill-reindent-defun)
               ("C-c C-f a" . go-goto-arguments)
@@ -31,6 +32,9 @@
               ("C-x 4 C-c C-j" . godef-jump-other-window)))
 (add-to-list 'major-mode-remap-alist '(go-mode . go-ts-mode))
 
+;; (use-package go-mode
+;;   :ensure t)
+
 ;; (defun my/eglot-ensure-with-confirmation ()
 ;;   "Ask for confirmation to ensure Eglot server is running inside a project, but only if not already running."
 ;;   (interactive)
@@ -42,6 +46,17 @@
 ;; (use-package go-ts-mode
 ;;   :ensure nil
 ;;   :hook (go-ts-mode . my/eglot-ensure-with-confirmation))
+
+(use-package apheleia
+  :config
+  ;; go install mvdan.cc/gofumpt@latest
+  (setf (alist-get 'uk-go-fmt apheleia-formatters)
+        '("golines" "--base-formatter" "gofumpt -extra"))
+
+  (setf (alist-get 'go-mode apheleia-mode-alist)
+        '(goimports uk-go-fmt))
+  (setf (alist-get 'go-ts-mode apheleia-mode-alist)
+        '(goimports uk-go-fmt)))
 
 (use-package gotest
   :ensure t)

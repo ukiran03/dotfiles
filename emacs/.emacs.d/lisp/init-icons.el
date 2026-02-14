@@ -30,6 +30,7 @@
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package nerd-icons-dired
+  :disabled
   :ensure t
   :if (display-graphic-p)
   :blackout

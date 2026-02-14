@@ -11,9 +11,5 @@
   :config
   (setq sql-mariadb-program "mariadb"))
 
-;;; Code:
-
-(message "Hello, World")
-
 (provide 'init-db)
 ;;; init-db.el ends here

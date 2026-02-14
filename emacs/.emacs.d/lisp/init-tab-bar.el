@@ -12,7 +12,7 @@
   :init
   (setq display-time-interval 1)
   (setq display-time-default-load-average nil)
-  (setq display-time-format "(%d %b, %I:%M%p)"))
+  (setq display-time-format "(%I:%M%p, %d %b)"))
 ;; (display-time-mode)
 
 (use-package tab-bar
@@ -26,6 +26,8 @@
    ("C-M-<iso-lefttab>" . tab-bar-switch-to-prev-tab)
    ("H-<tab>" . tab-bar-switch-to-next-tab)
    ("H-<iso-lefttab>" . tab-bar-switch-to-prev-tab)
+   ("C-<prior>" . tab-previous)
+   ("C-<next>" . tab-next)
    ("s-u" . tab-bar-history-back)
    :map tab-prefix-map
    ("H-t" . tab-bar-select-tab-by-name))

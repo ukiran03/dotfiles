@@ -8,13 +8,18 @@
 (use-package eglot
   :ensure nil
   :hook ((eglot-managed-mode . my/eglot-eldoc-settings)
+         (eglot-managed-mode . (lambda ()
+                                 (setq-local project-mode-line
+                                             (not
+                                              (bound-and-true-p
+                                               eglot--managed-mode)))))
          ;; (prog-mode . (lambda ()
          ;;                (unless (derived-mode-p
          ;;                         'emacs-lisp-mode 'lisp-mode
          ;;                         'makefile-mode 'snippet-mode
          ;;                         'ron-mode)
          ;;                  (eglot-ensure))))
-         ((markdown-mode yaml-mode yaml-ts-mode) . eglot-ensure)
+         ;; ((markdown-mode yaml-mode yaml-ts-mode) . eglot-ensure)
          )
   :bind (:map eglot-mode-map
               ("<f5>" . eglot-format-buffer)

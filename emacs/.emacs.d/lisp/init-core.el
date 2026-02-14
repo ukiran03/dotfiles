@@ -129,8 +129,11 @@
 
 ;; Jump to things in Emacs tree-style
 (use-package avy
-  :bind (("C-:"   . avy-goto-char-timer)
-         ("C-;"   . avy-goto-char-2)
+  :bind (
+         ("C-:"   . avy-goto-char-2)
+         ("C-;"   . avy-goto-char-timer)
+         ("H-'"   . avy-goto-char-timer)
+         ("C-H-'"   . avy-goto-char-2)
          ("M-g l" . avy-goto-line)
          ("M-g w" . avy-goto-word-1))
   :hook (after-init . avy-setup-default)
@@ -251,7 +254,7 @@ word"
             (local-set-key (kbd "C-c C-b") #'eval-buffer)))
 
 (use-package which-key
-  ;; :hook (after-init . which-key-mode)
+  :hook (after-init . which-key-mode)
   :config
   (setq which-key-max-description-length 30
         which-key-lighter nil
@@ -306,5 +309,23 @@ word"
   :init (exec-path-from-shell-initialize))
 
 ;; (setq use-package-compute-statistics t) NOTE:
+
+;; From init.custom.el
+(defcustom ukiran-icon t
+  "Display icons or not."
+  :group 'centaur
+  :type 'boolean)
+
+(defcustom ukiran-completion-style 'minibuffer
+  "Completion display style."
+  :group 'centaur
+  :type '(choice (const :tag "Minibuffer" minibuffer)
+                 (const :tag "Child Frame" childframe)))
+
+(defcustom ukiran-frame-maximized-on-startup nil
+  "Maximize frame on startup or not."
+  :group 'centaur
+  :type 'boolean)
+
 
 (provide 'init-core)

@@ -11,17 +11,17 @@
   :ensure nil
   :config (setq reb-re-syntax 'rx)) ;I love using rx for regexps
 
-(when (uk/treesit-available-p)
-  ;; Automatic Tree-sitter grammar management
-  (use-package treesit-auto
-    :hook (after-init . global-treesit-auto-mode)
-    :init (setq treesit-auto-install 'prompt))
+;; (when (uk/treesit-available-p)
+;;   ;; Automatic Tree-sitter grammar management
+;;   (use-package treesit-auto
+;;     :hook (after-init . global-treesit-auto-mode)
+;;     :init (setq treesit-auto-install 'prompt))
 
-  ;; Code folding indicators using Tree-sitter
-  (use-package treesit-fold-indicators
-    :ensure treesit-fold
-    :hook (after-init . global-treesit-fold-indicators-mode)
-    :init (setq treesit-fold-indicators-priority -1)))
+;;   ;; Code folding indicators using Tree-sitter
+;;   (use-package treesit-fold-indicators
+;;     :ensure treesit-fold
+;;     :hook (after-init . global-treesit-fold-indicators-mode)
+;;     :init (setq treesit-fold-indicators-priority -1)))
 
 ;; dtrt (atuo find indend setting)
 (use-package dtrt-indent
@@ -98,18 +98,18 @@
   :ensure t
   :config
   (setq apheleia-mode-lighter " ;")
-  ;; Custom formatters
+
   (setf (alist-get 'clang-format apheleia-formatters)
         '("clang-format" "--style={IndentWidth: 4}"))
   (setf (alist-get 'hindent apheleia-formatters)
         '("hindent"))
-  (setf (alist-get 'goimports apheleia-formatters)
-        '("goimports"))
-  ;; Mode associations
+  (setf (alist-get 'gotmplfmt apheleia-formatters)
+        '("gotmplfmt"))
+
   (setf (alist-get 'haskell-mode apheleia-mode-alist) '(hindent))
   (setf (alist-get 'elm-mode apheleia-mode-alist) '(elm-format))
-  (setf (alist-get 'go-mode apheleia-mode-alist) '(goimports))
-  (setf (alist-get 'go-ts-mode apheleia-mode-alist) '(goimports)))
+  (setf (alist-get 'web-mode apheleia-mode-alist) '(gotmplfmt))
+  (setf (alist-get 'html-mode apheleia-mode-alist) '(gotmplfmt)))
 
 ;; Similar to format-all
 ;; checkout: <https://github.com/purcell/emacs-reformatter>
@@ -236,8 +236,50 @@
   (defun set-go-compile-command ()
     (setq-local compile-command
                 (format "go run %s" (file-name-nondirectory buffer-file-name))))
+  (defun set-c-compile-command ()
+    (setq-local compile-command
+                (format "gcc %s" (file-name-nondirectory buffer-file-name))))
   :hook ((go-mode . set-go-compile-command)
-         (go-ts-mode . set-go-compile-command)))
+         (go-ts-mode . set-go-compile-command)
+         (c-mode . set-c-compile-command)
+         (c-ts-mode . set-c-compile-command)))
+
+;; #[/home/ukiran/.emacs.d/site-lisp/clue/clue.el:L60]
+(use-package clue
+  ;; :disabled
+  :ensure nil
+  :defer t
+  :vc (:url "https://github.com/AmaiKinono/clue")
+  :blackout (clue-mode . " #")
+  ;; :init
+  ;; (add-hook 'find-file-hook #'clue-auto-enable-clue-mode)
+  :config
+  (setq
+   ;; Set like this if you only want auto-enabling citre-mode to work
+   ;; for markdown files.  You can also set it to nil, then the
+   ;; auto-enabling works for all files.  By default, it works for all
+   ;; text-modes.
+   clue-auto-enable-modes '(prog-mode)))
+
+
+;; Debugging
+(use-package dape
+  :config
+  ;; Pulse source line (performance hit)
+  (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
+
+  ;; To not display info and/or buffers on startup
+  ;; (remove-hook 'dape-start-hook 'dape-info)
+  (remove-hook 'dape-start-hook 'dape-repl))
+
+
+;; Direnv integration
+(use-package envrc
+  :ensure t
+  ;; :hook (after-init . envrc-global-mode)
+  :bind (:map envrc-mode-map
+              ("C-c e" . envrc-command-map)))
+
 
 (provide 'init-prog)
 

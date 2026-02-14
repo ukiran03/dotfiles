@@ -3,24 +3,6 @@
 ;;; Commentary:
 
 
-;; -- Python setup with tree-sitter
-(use-package python-base-mode
-  :ensure nil
-  :hook ((python-base-mode . apheleia-mode)
-         (python-base-mode . symbol-overlay-mode))
-  :custom
-  (python-indent-offset 4))
-
-(use-package python-ts-mode
-  :ensure nil
-  :hook ((python-base-mode . eglot-ensure))
-  :mode ("\\.py\\'" . python-ts-mode)
-  :interpreter ("python" . python-ts-mode))
-
-;; Remap all python buffers to tree-sitter mode
-(add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
-
-
 ;; -- Elixir
 
 
@@ -47,6 +29,29 @@
     :ensure nil)
   (use-package forth-interaction-mode
     :ensure nil))
+
+
+;; C/C++ Mode
+(use-package c-mode
+  :ensure nil
+  :hook (c-mode . apheleia-mode))
+
+(use-package cc-mode
+  :init (setq-default c-basic-offset 4)
+  :hook (cc-mode . apheleia-mode))
+
+(use-package c-ts-mode
+  :init
+  (setq c-ts-mode-indent-offset 4)
+
+  (when (boundp 'major-mode-remap-alist)
+    (add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
+    (add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
+    (add-to-list 'major-mode-remap-alist
+                 '(c-or-c++-mode . c-or-c++-ts-mode)))
+  :bind (:map c-ts-mode-map
+              ("<f1>" . compile))
+  :hook (c-ts-mode . apheleia-mode))
 
 ;;;;; Not Yet
 ;; (use-package odin-mode

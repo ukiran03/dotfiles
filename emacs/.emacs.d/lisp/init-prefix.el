@@ -51,7 +51,7 @@
   "B"    #'ibuffer
   "K"    #'kill-current-buffer)
 (keymap-set global-map "H-b" buffer-hyper-map)
-
+;; (global-set-key "H-k" kill-current-buffer)
 (defvar-keymap uk-buffer-repeat-map
   :doc "Freq buffer actions"
   :repeat t
@@ -134,6 +134,23 @@
 ;; (define-key global-map "H-e" #'eval-last-sexp)
 ;; (define-key global-map "H-z" #'repeat)
 
+(defvar-keymap docker-map
+  :doc "Docker Interface with `docker.el'"
+  :name "Docker"
+  "i" 'docker-images
+  "c" 'docker-containers
+  "v" 'docker-volumes
+  "n" 'docker-networks
+  "x" 'docker-contexts
+  "C" 'docker-compose)
+(keymap-set global-map "H-a d" docker-map)
+
+;; (defvar-keymap kubernetes-map
+;;   :doc "Kubernetes Interface with `kubed'"
+;;   :name "Kubernetes"
+;;   :parent kubed-prefix-map
+;;   "C-g" 'keyboard-quit)
+;; (keymap-set global-map "H-a k" kubernetes-map)
 
 (provide 'init-prefix)
 ;;; init-prefix.el ends here.

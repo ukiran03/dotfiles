@@ -22,38 +22,39 @@
 			                (when (fboundp 'page-break-lines-mode)
 			                  (page-break-lines-mode 1))))
   :init
-  (setq dashboard-banner-logo-title "I am not this body"
-        dashboard-banners-directory (expand-file-name "avatars/" user-emacs-directory)
-	    dashboard-startup-banner (concat dashboard-banners-directory "musashi1.jpg")
-        ;; dashboard-startup-banner 'logo
+  (setq
+   ;; dashboard-banner-logo-title "I am not this body"
+   dashboard-banners-directory (expand-file-name "avatars/" user-emacs-directory)
+   dashboard-startup-banner (concat dashboard-banners-directory "musashi1.jpg")
+   ;; dashboard-startup-banner 'logo
 
-	    dashboard-projects-backend 'project-el
-	    dashboard-path-style 'truncate-middle
-	    dashboard-path-max-length 60
-	    dashboard-center-content t
-        dashboard-vertically-center-content nil ;;@
-        dashboard-remove-missing-entry t
-	    dashboard-show-shortcuts t
-	    dashboard-items '(
-                          ;; (recents . 6)
-                          ;; (bookmarks . 5)
-                          ;; (registers . 3)
-                          (agenda . 3)
-		                  (projects . 6))
-	    dashboard-bookmarks-show-base t
-	    dashboard-bookmarks-item-format "%s"
-	    dashboard-set-file-icons t
-	    dashboard-set-heading-icons t
+   dashboard-projects-backend 'project-el
+   dashboard-path-style 'truncate-middle
+   dashboard-path-max-length 60
+   dashboard-center-content t
+   dashboard-vertically-center-content nil ;;@
+   dashboard-remove-missing-entry t
+   dashboard-show-shortcuts t
+   dashboard-items '(
+                     ;; (recents . 6)
+                     ;; (bookmarks . 5)
+                     ;; (registers . 3)
+                     ;; (agenda . 3)
+		             (projects . 6))
+   dashboard-bookmarks-show-base t
+   dashboard-bookmarks-item-format "%s"
+   dashboard-set-file-icons t
+   dashboard-set-heading-icons t
 
-        dashboard-startupify-list '(dashboard-insert-banner
-                                    dashboard-insert-newline
-                                    dashboard-insert-banner-title
-                                    dashboard-insert-newline
-                                    dashboard-insert-newline
-                                    dashboard-insert-init-info
-                                    dashboard-insert-items
-                                    dashboard-insert-newline
-                                    dashboard-insert-footer))
+   dashboard-startupify-list '(dashboard-insert-banner
+                               dashboard-insert-newline
+                               dashboard-insert-banner-title
+                               dashboard-insert-newline
+                               dashboard-insert-newline
+                               dashboard-insert-init-info
+                               dashboard-insert-items
+                               dashboard-insert-newline
+                               dashboard-insert-footer))
 
   (setq  dashboard-footer-messages
          '("Do your duty without attachment to the results."

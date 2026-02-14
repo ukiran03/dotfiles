@@ -41,6 +41,17 @@
   :bind (("H-b a" . frog-jump-buffer)
          ("H-b 4 a" . frog-jump-buffer-other-window)))
 
+(defun new-empty-buffer ()
+  "Create a new empty buffer.
+   New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
+   It returns the buffer (for elisp programing)."
+  (interactive)
+  (let ((buf (generate-new-buffer "untitled")))
+    (switch-to-buffer buf)
+    (funcall initial-major-mode)
+    (setq buffer-offer-save t)
+    buf))
+
 (provide 'init-ibuffer)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-ibuffer.el ends here

@@ -157,6 +157,8 @@
         hl-todo-keyword-faces
         `(("TODO"       warning bold)
           ("NOTE"       font-lock-constant-face bold)
+          ("Q"       warning bold)
+          ("A"       font-lock-constant-face bold)
           ("REVIEW"     success bold)
           ("FIXME"      error bold)))
   :config

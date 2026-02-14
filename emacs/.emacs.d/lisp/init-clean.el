@@ -1,7 +1,9 @@
 ;;; init-clean.el --- summary -*- lexical-binding: t -*-
 
-;;; Keep .emacs.d clean
+;; Keep emacs Custom-settings in separate file
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
+;;; Keep .emacs.d clean
 (use-package no-littering
   :ensure t
   :demand
@@ -25,16 +27,7 @@
         `((,(concat "\\`" (file-name-as-directory temporary-file-directory)))
           ("\\`/tmp/" . nil)
           ("\\`/dev/shm/" . nil)
-          ("." . ,(no-littering-expand-var-file-name "undo-tree-hist/"))))
-  )
-
-;; (setq backup-directory-alist
-;;       `(("." . "~/.emacs.d/data/backups"))
-;;       auto-save-file-name-transforms
-;;       `((".*" "~/.emacs.d/data/auto-saves/" t))
-;;       auto-save-list-file-prefix
-;;       (expand-file-name "data/auto-saves/sessions" user-emacs-directory)
-;;       )
+          ("." . ,(no-littering-expand-var-file-name "undo-tree-hist/")))))
 
 (provide 'init-clean)
 ;;; init-clean.el ends here

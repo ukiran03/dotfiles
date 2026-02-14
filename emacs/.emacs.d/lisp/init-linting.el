@@ -54,4 +54,4 @@
   ;; (setq dictionary-server "localhost") -- TODO: setup dictd on void
   )
 
-(provide 'init-check)
+(provide 'init-linting)

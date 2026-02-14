@@ -2,6 +2,12 @@
 
 ;; Commentry
 
+;; https://github.com/florommel/bufferlo
+;; (use-package bufferlo
+;;   :ensure t
+;;   :init
+;;   (bufferlo-mode))
+
 ;; `Resources': https://www.reddit.com/r/emacs/comments/179t67l/window_management_share_your_displaybufferalist/
 ;; Window & Buffer management
 
@@ -180,14 +186,14 @@
 			              (:inherit font-lock-keyword-face
 				                    :foreground unspecified
 				                    :bold t
-				                    :height 3.0))))
+				                    :height 2.0))))
   (aw-minibuffer-leading-char-face ((t
 				                     (:inherit font-lock-keyword-face
 					                           :bold t
 					                           :height 1.5))))
   (aw-mode-line-face ((t (:inherit mode-line-emphasis
 				                   :bold t))))
-  :hook (after-init . ace-window-display-mode)
+  ;; :hook (after-init . ace-window-display-mode)
   :bind
   ;; ([remap other-window] . ace-window)
   ("H-o" . ace-window)
@@ -195,7 +201,7 @@
   (setq aw-scope 'frame
 	    aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9) ;
 	    ;; aw-keys '(?q ?w ?e ?t ?h ?j ?k ?l ?p)
-	    aw-background nil
+	    aw-background t
 	    aw-minibuffer-flag t
 	    aw-display-mode-overlay t
 	    aw-ignore-current nil)

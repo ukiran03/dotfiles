@@ -64,12 +64,20 @@
 
 (use-package web-mode
   :mode "\\.tmpl\\'"
-  :hook ((web-mode . emmet-mode))
+  :hook ((web-mode . emmet-mode)
+         (web-mode . (lambda ()
+                       ;; (when (and (buffer-file-name)
+                       ;;            (string-equal
+                       ;;             (file-name-extension (buffer-file-name)) "tmpl"))
+                       ;;   __)
+                       (setq-local electric-pair-inhibit-predicate
+                                   (lambda (char)
+                                     (if (char-equal char ?{)
+                                         t
+                                       (electric-pair-default-inhibit char)))))))
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-code-indent-offset 2))
-
-
 
 ;; Prettier-Js
 (use-package prettier-js

@@ -66,4 +66,40 @@
     "package main\n"
     "golang file front matter"))
 
+(defun leet-question (num)
+  "Creates a directory named NUM and two files inside it:
+   sol-NUM.go and notes-NUM.org, or opens the existing directory if it already exists."
+  (interactive "nEnter number: ")
+  (let ((dir (number-to-string num))
+        (sol-file (concat (number-to-string num) "/sol-" (number-to-string num) ".go"))
+        (notes-file (concat (number-to-string num) "/notes-" (number-to-string num) ".org")))
+
+    ;; Check if the directory already exists
+    (if (file-directory-p dir)
+        (progn
+          ;; If the directory exists, just open it in Dired
+          (message "Directory %s already exists. Opening in Dired..." dir)
+          (dired dir))
+
+      ;; If the directory doesn't exist, create it
+      (progn
+        ;; Create the directory
+        (make-directory dir t)
+
+        ;; Create the Go file
+        (with-temp-file sol-file
+          (insert "// Solution for " (number-to-string num) "\n"))
+
+        ;; Create the Org file
+        (with-temp-file notes-file
+          (insert "#+TITLE: Notes for " (number-to-string num) "\n"))
+
+        ;; Open the new directory in Dired
+        (dired dir)
+
+        ;; Print a message
+        (message "Created directory %s and files: %s and %s. Opened in Dired."
+                 dir sol-file notes-file)))))
+
+
 (provide 'init-leet)
