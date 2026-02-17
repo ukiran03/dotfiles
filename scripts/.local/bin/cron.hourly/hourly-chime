@@ -1,2 +1,2 @@
 #!/bin/sh
-exec dunstify -r 3454 "Hour Chime: $(date +%I:%M\ %p)" "Another hour has gone by"
+exec dunstify -t 0 -r 3454 "Hour Chime: $(date +%I:%M\ %p)" "Another hour has gone by"

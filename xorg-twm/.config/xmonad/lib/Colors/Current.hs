@@ -1,1 +1,0 @@
-/home/ukiran/.config/xmonad/lib/Colors/Dark.hs
