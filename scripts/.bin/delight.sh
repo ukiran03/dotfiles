@@ -180,7 +180,6 @@ _dunst() {
 	dark) ln -sf "$theme_dir/dunstrc_dark" "$theme_file" ;;
 	*) echo "Usage: _dunst {light|dark}" && return 1 ;;
 	esac
-    pgrep -xo dunst > /dev/null && pkill -xo dunst
 	echo "[dunst]: Switched to $1 theme."
 }
 
@@ -204,7 +203,7 @@ _global_env() {
     return 1  # Failure (file missing or theme mismatch)
 }
 
-apps=(_emacs _rofi _xsettingsd _xmonad _xmobar _xresources _zathura _dunst _wallpaper)
+apps=(_emacs _rofi _xsettingsd _xmobar _xresources _zathura _dunst _wallpaper _xmonad)
 
 # 1. Map flags to mode names first
 case "$1" in
@@ -226,6 +225,7 @@ if [[ "$2" == "-f" ]] || ! _global_env "$mode"; then
     for app in "${apps[@]}"; do
         $app "$mode"
     done
+    killall dunst || true       # to reload dunst, and ignore exit status.
 else
     echo "Already using $mode theme. Use -f to force."
     exit 0

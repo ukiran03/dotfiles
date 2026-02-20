@@ -105,22 +105,22 @@ compdef ,g=git
 # autoload -Uz url-quote-magic
 # zle -N self-insert url-quote-magic
 
-# https://www.jefftk.com/p/logging-shell-history-in-zsh
-precmd() {
-	echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" \
-		>>~/.local/.full_history
-}
+# # https://www.jefftk.com/p/logging-shell-history-in-zsh
+# precmd() {
+# 	echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" \
+# 		>>~/.local/.full_history
+# }
 
-function histgrep {
-  local n_lines=10
-  if [[ "$1" =~ ^[0-9]*$ ]]; then
-    n_lines="$1"
-    shift
-  fi
-  grep "$@" ~/.full_history | tail -n "$n_lines"
-}
+# function histgrep {
+#   local n_lines=10
+#   if [[ "$1" =~ ^[0-9]*$ ]]; then
+#     n_lines="$1"
+#     shift
+#   fi
+#   grep "$@" ~/.full_history | tail -n "$n_lines"
+# }
 
-#### Plugins
+# #### Plugins
 # should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -137,12 +137,22 @@ source ~/.config/zsh/plugins/prezto-completions.zsh
 # . "$HOME/.atuin/bin/env"
 # eval "$(atuin init zsh)"
 
-cowsay "Learning by doing!"
+
 
 eval "$(direnv hook zsh)"
 
+if [[ -n $TMUX ]] || [[ $TERM == "rxvt-unicode-256color" ]]; then
+    export STARSHIP_CONFIG="$HOME/.config/starship/normal.toml"
+else
+    export STARSHIP_CONFIG="$HOME/.config/starship/emacs.toml"
+fi
+
+eval "$(starship init zsh)" # Starship Prompt
+
+
 source /home/ukiran/dotfiles/shell/.config/zsh/completions/_kubectl
 
-#### Prompt
+
 # source /home/ukiran/.config/zsh/prompt.zsh # Custom Prompt
-eval "$(starship init zsh)" # Starship Prompt
+
+cowsay "Learning by doing!"

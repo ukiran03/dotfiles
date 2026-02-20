@@ -13,11 +13,19 @@
   :ensure nil
   :bind (("C-S-w" . uk-simple-copy-line)
          ("C-w" . uk-kill-region)
+         ("C-z" . nil)
          ("C-<return>" . dwim-new-line)
+         ("S-SPC" . uk-insert-space-after-cursor)
          ("C-S-<backspace>" . uk-kill-whole-line)
          ("H-q" . read-only-mode)
          ("H-Q" . view-mode))
   :config
+  (defun uk-insert-space-after-cursor ()
+    "Inserts a space after the cursor without moving the point."
+    (interactive)
+    (save-excursion
+      (insert " ")))
+
   (defun uk-simple-copy-line ()
     "Copy the current line to the `kill-ring'."
     (interactive)
