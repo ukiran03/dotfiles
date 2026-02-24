@@ -80,7 +80,7 @@ If the region is not active, `kill-whole-line' line at the point."
 (use-package display-line-numbers
   :ensure nil
   :commands (uk-toggle-line-numbers)
-  :hook ((prog-mode yaml-mode conf-mode) . display-line-numbers-mode)
+  :hook ((prog-mode yaml-mode conf-mode text-mode) . display-line-numbers-mode)
   :init (setq display-line-numbers-width-start t)
   (setq display-line-numbers-type 'relative)
   :config
@@ -94,7 +94,8 @@ these values mean."
     (interactive)
     (defvar uk--line-number-style display-line-numbers-type)
     (let* ((styles `(t ,(if visual-line-mode 'visual 'relative) nil))
-           (order (cons display-line-numbers-type (remq display-line-numbers-type styles)))
+           (order (cons display-line-numbers-type
+                        (remq display-line-numbers-type styles)))
            (queue (memq uk--line-number-style order))
            (next (if (= (length queue) 1)
                      (car order)

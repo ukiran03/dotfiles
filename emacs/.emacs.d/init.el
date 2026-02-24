@@ -115,6 +115,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-python)
 (require 'init-racket)
 (require 'init-go)
+(require 'init-db)
 (require 'init-web)
 (require 'init-elixir)
 (require 'init-mail)

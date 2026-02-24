@@ -70,9 +70,9 @@
     timeout = 10
     default_icon = notification-symbolic
 [urgency_critical]
-    background = "#ef8386"
+    background = "#400000"
     foreground = "#ffffff"
-    frame_color = "#ff5f5f"
+    frame_color = "#d00000"
     timeout = 0
 [history-ignore-misc]
 appname = ignore

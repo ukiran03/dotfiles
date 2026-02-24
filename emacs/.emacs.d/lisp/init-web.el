@@ -93,4 +93,39 @@
                            "--singleQuote" "true"
                            )))
 
+
+;;; VueJS3
+
+;; (use-package eglot
+;;   :ensure t
+;;   :config
+;;   ;; Link web-mode to your 'vls' or 'vue-language-server'
+;;   (add-to-list 'eglot-server-programs
+;;                `(web-mode . ("vue-language-server" "--stdio"
+;;                              :initializationOptions
+;;                              (:vue (:hybridMode :json-false)
+;;                                    ;; Tells Volar we are JS-only
+;;                                    :typescript (:serverPath "")))))
+;;   ;; Auto-start Eglot when you open your Vue components
+;;   (add-hook 'web-mode-hook 'eglot-ensure)
+;;   (setq eglot-autostart-session 'every-buffer))
+
+;; (use-package web-mode
+;;   :ensure t
+;;   :mode "\\.vue\\'"
+;;   :config
+;;   ;; Standard Vue 2-space indentation
+;;   (setq web-mode-markup-indent-offset 2)
+;;   (setq web-mode-code-indent-offset 2)
+;;   (setq web-mode-css-indent-offset 2)
+;;   ;; This makes sure web-mode treats the script block as JS
+;;   (setq web-mode-content-types-alist '(("jsx" . "\\.vue\\'"))))
+
+(use-package vue-mode
+  :ensure t
+  :mode "\\.vue\\'"
+  :hook ((vue-mode . emmet-mode)
+         (mmm-mode . (lambda ()
+                       (set-face-background 'mmm-default-submode-face nil)))))
+
 (provide 'init-web)

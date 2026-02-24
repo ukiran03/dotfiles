@@ -239,6 +239,12 @@ produces dates with a fixed length."
              ,(concat "* %^{Title} \n" without-time "%?")
              :empty-lines-after 1)))))
 
+(use-package org
+  :ensure nil
+  :config
+  (setq org-archive-location
+        (concat (file-name-as-directory (expand-file-name "archive" org-directory))
+                "%s_archive::")))
 
 
 ;;;; Hugo

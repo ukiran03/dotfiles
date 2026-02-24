@@ -88,7 +88,9 @@ _xmonad() {
 	dark) ln -sf "$theme_dir/Dark.hs" "$theme_file" ;;
 	*) echo "Usage: _xmonad {light|dark}" && return 1 ;;
 	esac
+}
 
+_restart_xmonad() {
     echo "Recompiling XMonad..."
     if xmonad --recompile; then
         # Ensure the restart script exists/is executable before backgrounding
@@ -223,9 +225,16 @@ if [[ "$2" == "-f" ]] || ! _global_env "$mode"; then
     echo "$mode" > "$STATE_FILE"
 
     for app in "${apps[@]}"; do
-        $app "$mode"
+        $app "$mode" &          # as a background job
     done
+
+    # This pauses the script until ALL background jobs started above
+    # are done
+    wait
+
+    ## Post Actions
     killall dunst || true       # to reload dunst, and ignore exit status.
+    _restart_xmonad             # restart xmonad
 else
     echo "Already using $mode theme. Use -f to force."
     exit 0
