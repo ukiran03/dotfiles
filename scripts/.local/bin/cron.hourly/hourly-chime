@@ -1,2 +1,5 @@
 #!/bin/sh
-exec dunstify -t 0 -r 3454 "Hour Chime: $(date +%I:%M\ %p)" "Another hour has gone by"
+relative_time=$(uptime -p | cut -d' ' -f2-)
+exec dunstify -t 0 -r 3454 \
+         "Hour Chime: $(date +%I:%M\ %p)" \
+         "It's been $relative_time since boot"

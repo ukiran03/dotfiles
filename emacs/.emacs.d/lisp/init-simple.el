@@ -109,7 +109,7 @@ these values mean."
                  (_ (symbol-name next)))))))
 
 (defcustom uk-comment-keywords
-  '("TODO" "NOTE" "REVIEW" "FIXME")
+  '("TODO" "NOTE" "REVIEW" "FIXME" "REDO")
   "List of strings with keywords used by `uk-comment+timestamp'."
   :type '(repeat string)
   :group 'uk-simple)

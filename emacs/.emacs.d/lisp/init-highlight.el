@@ -151,15 +151,16 @@
                            (add-hook 'flymake-diagnostic-functions
                                      #'hl-todo-flymake nil t))))
   :init
-  ;; Example: TODO: NOTE: REVIEW: FIXME:
+  ;; Example: TODO: NOTE: REVIEW: FIXME: Q: A: REDO:
   (setq hl-todo-require-punctuation t
         hl-todo-highlight-punctuation ":"
         hl-todo-keyword-faces
-        `(("TODO"       warning bold)
-          ("NOTE"       font-lock-constant-face bold)
+        `(("TODO"       error bold)
+          ("NOTE"       warning bold)
+          ("REDO"       warning bold)
           ("Q"       warning bold)
           ("A"       font-lock-constant-face bold)
-          ("REVIEW"     success bold)
+          ("REVIEW"     font-lock-constant-face bold)
           ("FIXME"      error bold)))
   :config
   (defun hl-todo-rg (regexp &optional files dir)

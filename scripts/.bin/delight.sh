@@ -2,7 +2,7 @@
 
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
 STATE_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/global_theme"
-
+WALLPAPER="${XDG_DATA_HOME:-$HOME/.local/share}/bg"
 gtk_theme_light="Adwaita"
 gtk_theme_dark="Nordic-darker"
 
@@ -205,7 +205,7 @@ _global_env() {
     return 1  # Failure (file missing or theme mismatch)
 }
 
-apps=(_emacs _rofi _xsettingsd _xmobar _xresources _zathura _dunst _wallpaper _xmonad)
+apps=(_emacs _rofi _xsettingsd _xmobar _xresources _zathura _dunst _xmonad)
 
 # 1. Map flags to mode names first
 case "$1" in
@@ -234,7 +234,9 @@ if [[ "$2" == "-f" ]] || ! _global_env "$mode"; then
 
     ## Post Actions
     killall dunst || true       # to reload dunst, and ignore exit status.
+    _wallpaper "$mode"
     _restart_xmonad             # restart xmonad
+    # betterlockscreen -u "$WALLPAPER" > /dev/null 2>&1 &
 else
     echo "Already using $mode theme. Use -f to force."
     exit 0

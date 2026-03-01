@@ -44,7 +44,8 @@
 (use-package link-hint
   :bind (("C-c l o" . link-hint-open-link)
          ("C-c l c" . link-hint-copy-link)
-         ("C-c l p" . link-hint-open-link-at-point)))
+         ("C-c l O" . link-hint-open-link-at-point)
+         ("C-c l C" . link-hint-copy-link-at-point)))
 
 (provide 'init-search)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

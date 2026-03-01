@@ -27,10 +27,10 @@
     gap_size = 2
     separator_color = auto
     sort = yes
-    font = Iosevka Medium 10
+    font = Iosevka Medium 11.25
     line_height = 0
     markup = full
-    format = "<span weight='bold' font='11.5'>%s</span>\n<span weight='bold'>%b</span>"
+    format = "<span weight='bold' font='13'>%s</span>\n<span weight='bold'>%b</span>"
     alignment = left
     vertical_alignment = center
     show_age_threshold = 60
