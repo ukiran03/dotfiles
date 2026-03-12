@@ -5,6 +5,7 @@ STATE_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/global_theme"
 WALLPAPER="${XDG_DATA_HOME:-$HOME/.local/share}/bg"
 gtk_theme_light="Adwaita"
 gtk_theme_dark="Nordic-darker"
+gtk_theme_dark_fallback="Adwaita-dark"
 
 icon_theme_light="Papirus-Light"
 icon_theme_dark="Papirus-Dark"
@@ -19,13 +20,13 @@ _depcheck() {
 	}
 }
 
-_sed () {
-    # NOTE 2021-08-27: Confirm the following.
-    #
-    # If we run this asynchronously other processes might fail to get
-    # the new colours.  To my knowledge as of 2019-06-27, this appears
-    # to be better than using sleep and/or until...
-    sed --follow-symlinks -i "$@"
+_sed() {
+	# NOTE 2021-08-27: Confirm the following.
+	#
+	# If we run this asynchronously other processes might fail to get
+	# the new colours.  To my knowledge as of 2019-06-27, this appears
+	# to be better than using sleep and/or until...
+	sed --follow-symlinks -i "$@"
 }
 
 _emacs() {
@@ -70,8 +71,8 @@ _xsettingsd() {
 	esac
 
 	# Kill and run again to read the new values.
-    pgrep -xo xsettingsd > /dev/null && pkill -xo xsettingsd
-    xsettingsd -c "$theme_file" &
+	pgrep -xo xsettingsd >/dev/null && pkill -xo xsettingsd
+	xsettingsd -c "$theme_file" &
 	echo "[xsettingsd]: Switched to $1 theme."
 }
 
@@ -91,17 +92,17 @@ _xmonad() {
 }
 
 _restart_xmonad() {
-    echo "Recompiling XMonad..."
-    if xmonad --recompile; then
-        # Ensure the restart script exists/is executable before backgrounding
-        if command -v xmonad-restart.sh >/dev/null; then
-            xmonad-restart.sh &
-        fi
-        echo "[xmonad]: Switched to $1 theme."
-    else
-        echo "Error: XMonad compilation failed. Check your Haskell syntax."
-        return 1
-    fi
+	echo "Recompiling XMonad..."
+	if xmonad --recompile; then
+		# Ensure the restart script exists/is executable before backgrounding
+		if command -v xmonad-restart.sh >/dev/null; then
+			xmonad-restart.sh &
+		fi
+		echo "[xmonad]: Switched to $1 theme."
+	else
+		echo "Error: XMonad compilation failed. Check your Haskell syntax."
+		return 1
+	fi
 }
 
 _xmobar() {
@@ -121,38 +122,85 @@ _xmobar() {
 	echo "[xmobar]: Switched to $1 theme."
 }
 
+_system_theme() {
+	local sys_theme_file="${XDG_DATA_HOME:-$HOME/.local/share}/global_theme_env"
+	case "$1" in
+	light | dark)
+		printf 'export SYSTEM_THEME="%s"\n' "$1" >"$sys_theme_file"
+		if [ -f "$HOME/.profile" ]; then
+			source "$HOME/.profile"
+		fi
+		echo "System theme set to: $1"
+		;;
+	*)
+		echo "Usage: _system_theme {light|dark}"
+		return 1
+		;;
+	esac
+}
+
+#### Gsettings
+
+# Get or set the GTK theme
+_gsettings_gtk_act_theme_interface() {
+	gsettings "$1" org.gnome.desktop.interface gtk-theme "${@:2}"
+}
+
+# Set the Color Scheme
+_gsettings_color_scheme_set() {
+	gsettings set org.gnome.desktop.interface color-scheme "$1"
+}
+
+# Browsers uses this
+_gsettings_theme() {
+	_depcheck gsettings
+	if [ "$(_gsettings_gtk_act_theme_interface get)" = "'$gtk_theme_light'" ]; then
+		_gsettings_gtk_act_theme_interface set "$gtk_theme_dark"
+	else
+		_gsettings_gtk_act_theme_interface set "$gtk_theme_light"
+	fi
+
+	if [ "$(gsettings get org.gnome.desktop.interface color-scheme)" = "'prefer-light'" ]; then
+		style=dark
+		_gsettings_color_scheme_set prefer-dark
+	else
+		style=light
+		_gsettings_color_scheme_set prefer-light
+	fi
+}
+
 _xresources() {
 	local x11_dir="$CONFIG_DIR/X11"
 	local theme_dir="$x11_dir/themes"
 	local theme_file="$x11_dir/active_theme"
-    local src_file="$x11_dir/xresources"
+	local src_file="$x11_dir/xresources"
 	if [[ ! -d "$theme_dir" ]]; then
 		echo "Error: Xresources: $theme_dir not found."
 		return 1
 	fi
 	case "$1" in
-	    light)
-            ln -sf "$theme_dir/light_xresources" "$theme_file"
-            printf "export XCURSOR_THEME=\"$cursor_theme_light\"\n" > "$x11_dir/xcursor_env"
-            ;;
-	    dark)
-            ln -sf "$theme_dir/dark_xresources" "$theme_file"
-            printf "export XCURSOR_THEME=\"$cursor_theme_dark\"\n" > "$x11_dir/xcursor_env"
-            ;;
+	light)
+		ln -sf "$theme_dir/light_xresources" "$theme_file"
+		printf "export XCURSOR_THEME=\"$cursor_theme_light\"\n" >"$x11_dir/xcursor_env"
+		;;
+	dark)
+		ln -sf "$theme_dir/dark_xresources" "$theme_file"
+		printf "export XCURSOR_THEME=\"$cursor_theme_dark\"\n" >"$x11_dir/xcursor_env"
+		;;
 	*) echo "Usage: _xresources {light|dark}" && return 1 ;;
 	esac
 
-    if xrdb -I "$HOME" -load "$src_file" 2>/dev/null; then
-        source "${HOME}/.profile"
-        echo "[xresources]: Switched to $1 theme."
-    else
-        echo "Error: Failed to load Xresources via xrdb."
-        return 1
-    fi
+	if xrdb -I "$HOME" -load "$src_file" 2>/dev/null; then
+		source "${HOME}/.profile"
+		echo "[xresources]: Switched to $1 theme."
+	else
+		echo "Error: Failed to load Xresources via xrdb."
+		return 1
+	fi
 }
 
 _zathura() {
-    _depcheck zathura
+	_depcheck zathura
 	local zathura_dir="$CONFIG_DIR/zathura"
 	local theme_dir="$zathura_dir/src"
 	local theme_file="$zathura_dir/zathurarc"
@@ -161,15 +209,15 @@ _zathura() {
 		return 1
 	fi
 	case "$1" in
-        light) ln -sf "$theme_dir/zathurarc-light" "$theme_file";;
-        dark) ln -sf "$theme_dir/zathurarc-dark" "$theme_file";;
-        *) echo "Usage: _zathura {light|dark}" && return 1 ;;
-    esac
+	light) ln -sf "$theme_dir/zathurarc-light" "$theme_file" ;;
+	dark) ln -sf "$theme_dir/zathurarc-dark" "$theme_file" ;;
+	*) echo "Usage: _zathura {light|dark}" && return 1 ;;
+	esac
 	echo "[zathura]: Switched to $1 theme."
 }
 
 _dunst() {
-    _depcheck dunst
+	_depcheck dunst
 	local dunst_dir="$CONFIG_DIR/dunst"
 	local theme_dir="$dunst_dir/src"
 	local theme_file="$dunst_dir/dunstrc"
@@ -186,32 +234,35 @@ _dunst() {
 }
 
 _wallpaper() {
-    case "$1" in
-        light) setbg -s $(find ~/Pictures/walls/light/ -type f | shuf -n 1) & ;;
-        dark) setbg -s $(find ~/Pictures/walls/dark/ -type f | shuf -n 1) & ;;
-        *) echo "Usage: _wallpaper {light|dark}" && return 1 ;;
-    esac
-    echo "[wallpaper]: Switched to $1 theme."
+	case "$1" in
+	light) setbg -s $(find ~/Pictures/walls/light/ -type f | shuf -n 1) & ;;
+	dark) setbg -s $(find ~/Pictures/walls/dark/ -type f | shuf -n 1) & ;;
+	*) echo "Usage: _wallpaper {light|dark}" && return 1 ;;
+	esac
+	echo "[wallpaper]: Switched to $1 theme."
 }
 
 _global_env() {
-    local theme
-    if [[ -f "$STATE_FILE" ]]; then
-        theme=$(<"$STATE_FILE")
-        if [[ "$1" == "$theme" ]]; then
-            return 0  # Success
-        fi
-    fi
-    return 1  # Failure (file missing or theme mismatch)
+	local theme
+	if [[ -f "$STATE_FILE" ]]; then
+		theme=$(<"$STATE_FILE")
+		if [[ "$1" == "$theme" ]]; then
+			return 0 # Success
+		fi
+	fi
+	return 1 # Failure (file missing or theme mismatch)
 }
 
-apps=(_emacs _rofi _xsettingsd _xmobar _xresources _zathura _dunst _xmonad)
+apps=(_xmonad _emacs _rofi _xmobar _xresources _zathura _dunst)
 
 # 1. Map flags to mode names first
 case "$1" in
-    -l|light) mode="light" ;;
-    -d|dark) mode="dark"  ;;
-    *) echo "Usage: $0 {-d|-l} [-f: Force]"; exit 1 ;;
+-l | light) mode="light" ;;
+-d | dark) mode="dark" ;;
+*)
+	echo "Usage: $0 {-d|-l} [-f: Force]"
+	exit 1
+	;;
 esac
 
 # The Logic: Check if we should skip the "Already Set" check
@@ -219,25 +270,28 @@ esac
 #   A) The force flag (-f) is passed as the second argument
 #   B) OR we are NOT already in that environment (theme)
 if [[ "$2" == "-f" ]] || ! _global_env "$mode"; then
-    echo "Applying $mode theme..."
-    [[ "$2" == "-f" ]] && echo "(Forced to override active)"
-    # Update the state file
-    echo "$mode" > "$STATE_FILE"
+	echo "Applying $mode theme..."
+	[[ "$2" == "-f" ]] && echo "(Forced to override active)"
+	# Update the state file
+	echo "$mode" >"$STATE_FILE"
 
-    for app in "${apps[@]}"; do
-        $app "$mode" &          # as a background job
-    done
+	for app in "${apps[@]}"; do
+		$app "$mode" & # as a background job
+	done
 
-    # This pauses the script until ALL background jobs started above
-    # are done
-    wait
+	# This pauses the script until ALL background jobs started above
+	# are done
+	wait
 
-    ## Post Actions
-    killall dunst || true       # to reload dunst, and ignore exit status.
-    _wallpaper "$mode"
-    _restart_xmonad             # restart xmonad
-    # betterlockscreen -u "$WALLPAPER" > /dev/null 2>&1 &
+	## Post Actions
+	killall dunst || true # to reload dunst, and ignore exit status.
+	_wallpaper "$mode"
+	_system_theme "$mode"
+	_xsettingsd "$mode"
+    _gsettings_theme
+	_restart_xmonad # restart xmonad
+	# betterlockscreen -u "$WALLPAPER" > /dev/null 2>&1 &
 else
-    echo "Already using $mode theme. Use -f to force."
-    exit 0
+	echo "Already using $mode theme. Use -f to force."
+	exit 0
 fi
