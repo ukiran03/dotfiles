@@ -1,6 +1,27 @@
 ;;; init-prefix.el --- Hyper Key Prefix Action maps
 
 ;;; Code:
+
+;; Setup Hyper Key
+;; 1. Tell Emacs that the "Super" bit combined with others can be Hyper
+(setq x-hyper-keysym 'hyper)
+
+(defun my/map-hyper-chord (key-string)
+  "Translate the 3-modifier chord (Ctrl-Alt-Super) to Hyper for a given string."
+  (define-key key-translation-map (kbd (format "C-M-s-%s" key-string))
+              (kbd (format "H-%s" key-string))))
+
+;; 1. Loop for letters and digits
+(cl-loop for i from ?a to ?z do (my/map-hyper-chord (char-to-string i)))
+(cl-loop for i from ?0 to ?9 do (my/map-hyper-chord (char-to-string i)))
+
+;; 2. Explicitly map your navigation symbols
+(my/map-hyper-chord ",")
+(my/map-hyper-chord ".")
+(my/map-hyper-chord ";")
+(my/map-hyper-chord "'")
+
+
 (defvar-keymap files-hyper-map
   :doc "My Hyper prefix map For `Files'."
   :name "Files"
@@ -9,7 +30,8 @@
   "H-f"  #'find-file
   "F"  #'view-file
   "r"    'consult-recent-file
-  "R"    #'rename-file
+  "m"    #'rename-file
+  "M"    #'rename-visited-file
   "w"    #'write-file
   "l"    #'find-library
   "v"    #'find-alternate-file)
@@ -56,9 +78,10 @@
   :doc "Freq buffer actions"
   :repeat t
   "," #'previous-buffer
-  "<left>" #'previous-buffer
+  ;; "<left>" #'previous-buffer
   "." #'next-buffer
-  "<right>" #'next-buffer)
+  ;; "<right>" #'next-buffer
+  )
 
 (defvar-keymap other-window-hyper-map
   :doc "`other-window-prefix' actions."

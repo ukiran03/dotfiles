@@ -1,0 +1,33 @@
+(defsrc
+   ;; \
+   lctl
+   ralt
+   menu
+   caps
+   rctl
+)
+
+(defalias
+  ctrl_alt_chord (multi lctl lalt)
+  hyper_chord    (multi lctl lalt lmet)
+
+  ;; backslash_mod  (tap-hold 100 100 \ @ctrl_alt_chord)
+  lctrl_mod      (tap-hold 100 100 lctl @ctrl_alt_chord)
+  caps_mod       (tap-hold-press 50 50 caps lctl)
+  hyper_mod      (tap-hold-press 50 50 ralt @hyper_chord)
+  rsuper_mod     (tap-hold-press 100 100 menu lmet)
+  rep_mod        (tap-hold 200 200 rpt-any rctl)
+)
+
+(deflayer base
+  ;; @backslash_mod
+  @lctrl_mod
+  @hyper_mod
+  @rsuper_mod
+  @caps_mod
+  @rep_mod
+)
+
+(defcfg
+  process-unmapped-keys yes
+)
