@@ -1,6 +1,7 @@
 ;; init-consult.el --- summary -*- lexical-binding: t -*-
 
 (use-package consult
+
   :ensure t
   ;; Replace bindings. Lazily loaded by `use-package'.
   :bind (;; C-c bindings in `mode-specific-map'
@@ -40,7 +41,8 @@
          ("M-g m" . consult-mark)
          ("M-g k" . consult-global-mark)
          ("M-g i" . consult-imenu)
-         ("M-g I" . consult-imenu-multi)
+         ;; ("M-g I" . consult-imenu-multi)
+         ("M-g I" . my/consult-imenu-multi-right-aligned)
          ;; M-s bindings in `search-map'
          ("M-s d" . consult-fd)                  ;; Alternative: consult-fd
          ("M-s c" . consult-locate)
@@ -66,6 +68,36 @@
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI.
   :hook (completion-list-mode . consult-preview-at-point-mode)
+
+  :preface
+  (defun my/consult-imenu-multi-right-aligned (&optional query)
+    "Consult-imenu-multi with right-aligned buffer names."
+    (interactive "P")
+    (let* ((query (if (keywordp (car-safe query)) query
+                    `(:sort alpha
+                            :mode ,major-mode
+                            :directory ,(and (not query) 'project))))
+           (prompt-and-buffers (consult--buffer-query-prompt "Go to item" query))
+           (buffers (cdr prompt-and-buffers))
+           (align 50)) ;; Set your alignment column here
+
+      (consult-imenu--select
+       (car prompt-and-buffers)
+       (consult--slow-operation "Collecting items..."
+         (cl-mapcan (lambda (buf)
+                      (with-current-buffer buf
+                        (mapcar
+                         (lambda (item)
+                           (cons (concat (car item)
+                                         (propertize " " 'display
+                                                     `(space :align-to ,align))
+                                         (propertize
+                                          (buffer-name)
+                                          'face 'completions-annotations))
+                                 (cdr item)))
+                         (consult-imenu--items-safe))))
+                    buffers)))))
+
 
   ;; The :init configuration is always executed (Not lazy)
   :init
