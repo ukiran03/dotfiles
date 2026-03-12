@@ -84,6 +84,14 @@
   :config
   (setq password-store-menu-key "C-c P"))
 
+(use-package find-temp-file
+  :bind ("H-f t" . find-temp-file)
+  :config
+  (setq find-temp-file-directory (concat temporary-file-directory "emacs_tmps/"))
+  ;; Create the directory if it's missing
+  (unless (file-exists-p find-temp-file-directory)
+    (make-directory find-temp-file-directory t)))
+
 (provide 'init-utils)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

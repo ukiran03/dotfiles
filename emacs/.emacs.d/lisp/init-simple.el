@@ -4,10 +4,12 @@
 ;;; Commentary:
 
 ;;; Code:
+
 (use-package emacs
   :ensure nil
   :init
-  (setq mode-line-position-column-line-format '("%l,%c")))
+  (column-number-mode 1)
+  (size-indication-mode 1))
 
 (use-package simple
   :ensure nil

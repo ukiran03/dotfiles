@@ -16,44 +16,45 @@
 
 (use-package lin :ensure nil)
 
-(when (display-graphic-p)
-  (use-package pulsar
-    :ensure t
-    :init
-    (pulsar-global-mode 1)
-    :config
-    (setq pulsar-pulse t)
-    (setq pulsar-delay 0.03)
-    (setq pulsar-iterations 10)
-    (setq pulsar-face 'pulsar-generic)
-    (setq pulsar-highlight-face 'pulsar-cyan)
-    (setq pulsar-pulse-on-window-change t)
-    ;; (setq pulsar-pulse-region-functions 'region-funcs)
-    (dolist (region-funcs
-             '(easy-kill
-               yank kill-rectangle
-               uk-kill-whole-line
-               transpose-words transpose-chars transpose-lines
-               yank-rectangle open-rectangle undo primitive-undo))
-      (add-to-list 'pulsar-pulse-region-functions region-funcs))
-    (dolist
-        (func
-         '(avy-goto-char-2
-           avy-goto-line avy-goto-word-1 avy-goto-char-timer
-           avy-copy-line avy-kill-whole-line
-           pop-to-mark-command pop-global-mark
-           goto-last-change
-           exit-minibuffer abort-minibuffers))
-      (add-to-list 'pulsar-pulse-functions func))
-    :hook
-    ((next-error . pulsar-pulse-line)
-     (imenu-after-jump . pulsar-recenter-center)
-     (imenu-after-jump . pulsar-reveal-entry)
-     (consult-after-jump . pulsar-recenter-center)
-     (consult-after-jump . pulsar-reveal-entry))
-    :bind
-    (("C-c p p" . pulsar-pulse-line)   ; override `count-lines-page'
-     ("C-c p h" . pulsar-highlight-dwim))))
+(use-package pulsar
+  :ensure t
+  :init
+  (when (display-graphic-p)
+    (pulsar-global-mode 1))
+  :config
+  (setq pulsar-pulse t
+        pulsar-delay 0.03
+        pulsar-iterations 10
+        pulsar-face 'pulsar-generic
+        pulsar-highlight-face 'pulsar-cyan
+        pulsar-pulse-on-window-change t)
+
+  ;; Use 'append' for cleaner list management
+  (setq pulsar-pulse-region-functions
+        (append '(easy-kill yank kill-rectangle uk-kill-whole-line
+                            transpose-words transpose-chars transpose-lines
+                            yank-rectangle open-rectangle undo primitive-undo)
+                pulsar-pulse-region-functions))
+
+  (setq pulsar-pulse-functions
+        (append '(avy-goto-char-2 avy-goto-line avy-goto-word-1
+                                  avy-goto-char-timer avy-copy-line avy-kill-whole-line
+                                  pop-to-mark-command pop-global-mark goto-last-change
+                                  exit-minibuffer abort-minibuffers)
+                pulsar-pulse-functions))
+  :hook
+  (;; This handles the case where you start a daemon and later open a GUI frame
+   (server-after-make-frame . (lambda ()
+                                (when (display-graphic-p)
+                                  (pulsar-global-mode 1))))
+   (next-error . pulsar-pulse-line)
+   (imenu-after-jump . pulsar-recenter-center)
+   (imenu-after-jump . pulsar-reveal-entry)
+   (consult-after-jump . pulsar-recenter-center)
+   (consult-after-jump . pulsar-reveal-entry))
+  :bind
+  (("C-c p p" . pulsar-pulse-line)
+   ("C-c p h" . pulsar-highlight-dwim)))
 
 
 (use-package pulse

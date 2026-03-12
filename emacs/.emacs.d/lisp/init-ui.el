@@ -4,29 +4,59 @@
 ;;; Commentary:
 
 ;;; Code:
-
 (use-package modus-themes
   :ensure nil
   :demand t
   :bind (("<f6>" . modus-themes-toggle)
          ("C-<f6>" . modus-themes-select))
-  :config
-  (setq modus-themes-bold-constructs nil
-        modus-themes-italic-constructs t
-        modus-themes-mixed-fonts nil
-        modus-themes-completions '((t . (extrabold)))
-        modus-themes-prompts '(extrabold))
-  (setq modus-themes-to-toggle '(modus-operandi modus-vivendi-tinted))
-
-  ;; ‘Mode-line’
   :custom
-  (modus-themes-common-palette-overrides ;remove border
+  ;; Set these BEFORE loading the themes
+  (modus-themes-bold-constructs nil)
+  (modus-themes-italic-constructs t)
+  (modus-themes-mixed-fonts nil)
+  (modus-themes-completions '((t . (extrabold))))
+  (modus-themes-prompts '(extrabold))
+  (modus-themes-to-toggle '(modus-operandi modus-vivendi-tinted))
+
+  ;; Palette overrides
+  (modus-themes-common-palette-overrides
    '((border-mode-line-active unspecified)
      (border-mode-line-inactive unspecified)))
   (modus-vivendi-tinted-palette-overrides
    '((comment fg-dim)))
-  :init
-  (load-theme 'modus-vivendi-tinted :no-confirm))
+
+  :config
+  (load-theme 'modus-vivendi-tinted :no-confirm)
+  ;; ;; Load the theme based on the environment variable
+  ;; (if (string= (getenv "SYSTEM_THEME") "light")
+  ;;     (load-theme 'modus-operandi :no-confirm)
+  ;;   (load-theme 'modus-vivendi-tinted :no-confirm))
+  )
+
+;; (use-package modus-themes
+;;   :ensure nil
+;;   :demand t
+;;   :bind (("<f6>" . modus-themes-toggle)
+;;          ("C-<f6>" . modus-themes-select))
+;;   :config
+;;   (setq modus-themes-bold-constructs nil
+;;         modus-themes-italic-constructs t
+;;         modus-themes-mixed-fonts nil
+;;         modus-themes-completions '((t . (extrabold)))
+;;         modus-themes-prompts '(extrabold))
+;;   (setq modus-themes-to-toggle '(modus-operandi modus-vivendi-tinted))
+
+;;   ;; ‘Mode-line’
+;;   :custom
+;;   (modus-themes-common-palette-overrides ;remove border
+;;    '((border-mode-line-active unspecified)
+;;      (border-mode-line-inactive unspecified)))
+;;   (modus-vivendi-tinted-palette-overrides
+;;    '((comment fg-dim)))
+;;   :init
+;;   (if (string= (getenv "SYSTEM_THEME") "light")
+;;       (load-theme 'modus-operandi :no-confirm)
+;;     (load-theme 'modus-vivendi-tinted :no-confirm)))
 
 (use-package ef-themes
   :ensure t

@@ -4,7 +4,7 @@
   :hook ((js-base-mode . apheleia-mode)
          (js-base-mode . symbol-overlay-mode))
   :custom
-  (js-indent-level 2)
+  (js-indent-level 4)
   :config
   (add-to-list 'interpreter-mode-alist '("node" . js-base-mode)))
 
