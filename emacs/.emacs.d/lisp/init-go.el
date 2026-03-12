@@ -8,11 +8,20 @@
   :interpreter ("go" . go-ts-mode)
   :hook ((go-ts-mode . apheleia-mode)
          (go-ts-mode . symbol-overlay-mode)
-         (go-ts-mode . my/disable-super-save))
+         (go-ts-mode . my/disable-super-save)
+         (go-ts-mode . (lambda ()
+                         (let* ((proj (project-current))
+                                (root (when proj (project-root proj))))
+                           (when (and root
+                                      (file-exists-p (expand-file-name "go.mod" root))
+                                      (not (bound-and-true-p eglot--managed-mode)))
+                             (eglot-ensure))))))
   :config
   (setq go-ts-mode-indent-offset 4)
   (with-eval-after-load 'exec-path-from-shell
     (exec-path-from-shell-copy-envs '("GOPATH" "GO111MODULE" "GOPROXY")))
+
+  ;; Hook it up to both standard and Tree-sitter Go modes
   (use-package go-mode
     :ensure t)
   :bind (:map go-ts-mode-map
@@ -30,22 +39,8 @@
               ("C-c C-f n" . go-goto-function-name)
               ("C-c C-f r" . go-goto-return-values)
               ("C-x 4 C-c C-j" . godef-jump-other-window)))
+
 (add-to-list 'major-mode-remap-alist '(go-mode . go-ts-mode))
-
-;; (use-package go-mode
-;;   :ensure t)
-
-;; (defun my/eglot-ensure-with-confirmation ()
-;;   "Ask for confirmation to ensure Eglot server is running inside a project, but only if not already running."
-;;   (interactive)
-;;   (when (and (project-current)  ; Check if inside a project
-;;              (not (eglot--managed-p)))  ; Check if Eglot is not already managing this buffer
-;;     (when (y-or-n-p "Do you want to ensure an LSP server is running? ")
-;;       (eglot-ensure))))
-
-;; (use-package go-ts-mode
-;;   :ensure nil
-;;   :hook (go-ts-mode . my/eglot-ensure-with-confirmation))
 
 (use-package apheleia
   :config
@@ -60,5 +55,20 @@
 
 (use-package gotest
   :ensure t)
+;; (use-package go-test
+;;   :bind (:map go-mode-map
+;;               ("C-c t r" . go-test-current-test)
+;;               ("C-c t f" . go-test-current-file))
+
+;; go install github.com/josharian/impl@latest
+(use-package go-impl
+  :ensure t)
+
+;; go install github.com/fatih/gomodifytags@latest
+(use-package go-tag
+  :ensure t)
+
+;; go get -u github.com/davidrjenni/reftools/cmd/fillstruct
+(use-package go-fill-struct)
 
 (provide 'init-go)
