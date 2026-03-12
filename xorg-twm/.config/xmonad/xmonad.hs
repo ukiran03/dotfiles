@@ -340,7 +340,7 @@ myKeys =
   -- , ("M-p l", layoutPrompt prompt)
   -- , ("M-C-p", switchToLayout "threeCol")
   , ("M-<F9>", spawn browser)
-  , ("M-S-<F9>", spawn privateBrowser)
+  -- , ("M-S-<F9>", spawn privateBrowser)
       -- , ("M-S-<F9>", spawnOn "6" "firefox")
   , ("M-p m", manPrompt prompt)
   , ("M-p p", spawn "rofi-pass")

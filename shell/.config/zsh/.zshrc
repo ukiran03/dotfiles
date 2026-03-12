@@ -147,7 +147,7 @@ else
     export STARSHIP_CONFIG="$HOME/.config/starship/emacs.toml"
 fi
 
-eval "$(starship init zsh)" # Starship Prompt
+eval "$(starship init zsh)"
 
 
 source /home/ukiran/dotfiles/shell/.config/zsh/completions/_kubectl
@@ -156,3 +156,6 @@ source /home/ukiran/dotfiles/shell/.config/zsh/completions/_kubectl
 # source /home/ukiran/.config/zsh/prompt.zsh # Custom Prompt
 
 cowsay "Learning by doing!"
+
+# bun completions
+[ -s "/home/ukiran/.bun/_bun" ] && source "/home/ukiran/.bun/_bun"

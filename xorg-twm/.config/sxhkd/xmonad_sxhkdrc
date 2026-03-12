@@ -7,7 +7,6 @@
 # Clipboard, rofi-greenclip
 super + grave
     rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
-# super + tilda
 
 
 # #Raises volume
@@ -55,6 +54,9 @@ super + {F10, F11, F12}
 
 # super + shift + F9
     # ~/.Zen-browser/zen-bin --private-window
+
+super + shift + F9
+    gtk-launch brave-incognito-browser
 
 # super + F9
     # ~/.Zen-browser/zen-bin

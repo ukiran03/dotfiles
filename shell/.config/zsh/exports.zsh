@@ -17,7 +17,6 @@ fi
 # export FZF_CTRL_R_OPTS='--prompt "Shell: " --info inline-right --height=35%'
 export FZF_CTRL_R_OPTS=' --prompt "Search History: " --bind "enter:become:if [ -z {} ]; then echo {q}; else echo {}; fi"'
 
-
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
   --walker-skip .git,node_modules,target
@@ -29,7 +28,7 @@ export FZF_ALT_C_OPTS="
   --walker-skip .git,node_modules,target
   --preview 'ls --color=always --group-directories-first -F {}'"
 
-export FZF_DEFAULT_OPTS='--cycle --reverse --color 16 --height=~40% --border=bold --prompt "Search: " --info inline-right'
+export FZF_DEFAULT_OPTS='--cycle --reverse --color 16 --height 15 --border sharp --prompt "Search: " --info inline-right'
 
 # SHELL ZSH
 export HISTCONTROL=ignoreboth:erasedups # Both `ignoredups` and `erasedups` options are enabled
@@ -143,3 +142,6 @@ nnn ()
         rm -f -- "$NNN_TMPFILE" > /dev/null
     }
 }
+
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

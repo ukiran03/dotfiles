@@ -131,9 +131,11 @@ export QT_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 
 export XCURSOR_SIZE=18
-export XCURSOR_THEME="Bibata-Modern-Classic"
+# export XCURSOR_THEME="Bibata-Modern-Classic"
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xcursor_env" ] && . "${XDG_CONFIG_HOME:-$HOME/.config}/X11/xcursor_env"
+
+[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/global_theme_env" ] && . "${XDG_DATA_HOME:-$HOME/.local/share}/global_theme_env"
 
 # This ensures that any script you run manually OR via turnstile
 # (if turnstile is configured to import env) sees the bus.
