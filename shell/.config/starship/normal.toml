@@ -7,7 +7,7 @@ $git_status\
 $kubernetes\
 $line_break\
 $time $character"""
-add_newline = false
+add_newline = true
 
 [line_break]
 disabled = false
@@ -36,7 +36,7 @@ disabled = true
 
 [kubernetes]
 symbol = "k8s"
-format = "(\\($symbol [$context](cyan):[$namespace](bold fg:05)\\)) "
+format = "(\\($symbol [$context](cyan):[$namespace](bold fg:magenta)\\)) "
 disabled = true
 contexts = [
   { context_pattern = "k3d-k3s-default", context_alias = "default" },
