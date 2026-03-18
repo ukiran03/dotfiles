@@ -148,3 +148,4 @@ xfce/*
 # These are symlinks, not files
 /xorg-twm/.config/xmonad/lib/Colors/Current.hs
 /dunst/.config/dunst/dunstrc
+*.cache
