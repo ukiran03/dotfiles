@@ -31,7 +31,8 @@ Config
         [ "-t", "<artist> - <title> <statei>"
         , "--", "-P", "", "-Z", "", "-S", ""
         , "--host", "127.0.0.1" , "--port", "6600"] 10
-      , Run Date "%a, %d %b %Y, <fc=#00eff0>%I:%M %p</fc>" "date" 300
+      , Run Date "%a, %d %b %Y, <fc=#00eff0>%I:%M %p (%R)</fc>" "date" 300
+        -- , Run Date "%a, %d %b %Y, <fc=#00eff0>%I:%M:%S %p</fc>" "date" 10 -- show seconds
       , Run Com ".config/xmobar/scripts/trayer-padding-icon.sh" [] "trayerpad" 50
       , Run Com ".config/xmobar/xbps-updates.sh" [] "xbps" 3600
       , Run Alsa "default" "Master" ["-t", "<status> <volume>%","--"
