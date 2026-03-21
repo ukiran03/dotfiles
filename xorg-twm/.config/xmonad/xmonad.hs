@@ -157,16 +157,19 @@ myConfig =
     , startupHook = myStartupHook
     , workspaces = myWorkspaces
     , terminal = myTerminal
-    , logHook =
-        showWNameLogHook mySWNConfig
-          >> refocusLastLogHook
-          >> updatePointer (0.5, 0.7) (0, 0)
+    , logHook = myLogHook'
     , borderWidth = 5
     , normalBorderColor = colorInactive
     , focusedBorderColor = colorActive
     }
     `additionalKeysP` myKeys
     `removeKeysP` ["M-S-q"]
+
+myLogHook' :: X ()
+myLogHook' = do
+  showWNameLogHook mySWNConfig
+  refocusLastLogHook
+  updatePointer (0.5, 0.7) (0, 0)
 
 myTerminal :: String
 myTerminal = "urxvtc"
@@ -584,7 +587,7 @@ myManageHook =
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat
     , resource =? "desktop_window" --> doIgnore
     , className =? "gumdialog" --> doCenterFloat
-    , title     =? "Gum Dialog" --> doCenterFloat
+    , title =? "Gum Dialog" --> doCenterFloat
     , className =? "TelegramDesktop" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "Tor Browser" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "calibre" --> viewShiftHook (myWorkspaces !! 8)
