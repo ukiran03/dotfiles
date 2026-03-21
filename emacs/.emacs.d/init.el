@@ -52,24 +52,20 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 
 (update-load-path)
 
-;; Laptop
-;; (set-frame-font "Iosevka Medium-12.75" nil t)
-(set-frame-font "Iosevka Medium-14.25" nil t)
+;; 1. Set the default font (Monospace)
+(set-face-attribute 'default nil
+                    :family "Iosevka Medium"
+                    :height 140)
 
-;; Monitor
-;; (set-face-attribute 'default nil
-;;                     :family "Iosevka"
-;;                     :weight 'medium
-;;                     :height 110)
+;; 2. Set the fixed-pitch font (usually same as default)
+(set-face-attribute 'fixed-pitch nil
+                    :family "Iosevka Medium"
+                    :height 140)
 
-
-;; (set-face-attribute 'fixed-pitch nil
-;;                     :family "Iosevka"
-;;                     :weight 'medium
-;;                     :height 115)
-
-;; (set-face-attribute 'variable-pitch nil
-;;                     :family "Iosevka Slab")
+;; 3. Set the variable-pitch font (The Slab version)
+(set-face-attribute 'variable-pitch nil
+                    :family "Iosevka Slab"
+                    :height 140)
 
 (require 'init-funcs)
 ;; Packages
@@ -103,6 +99,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-llm)
 (require 'init-utils)
 (require 'init-eshell)
+(require 'init-feeds)
 
 (require 'init-kyverno)
 ;; Programming

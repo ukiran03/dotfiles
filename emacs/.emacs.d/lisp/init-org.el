@@ -54,7 +54,7 @@
         '((sequence "TODO(t)" "WAIT(w)" "|" "CANCELLED(c@)" "MISSED(m@/!)" "DONE(d!)")))
   (setq org-indent-mode-turns-on-hiding-stars t)
   (setq org-adapt-indentation nil)
-  (setq org-indent-indentation-per-level 4)
+  (setq org-indent-indentation-per-level 2) ; 4
   (setq org-startup-folded 'content))
 
 (use-package org-modern
