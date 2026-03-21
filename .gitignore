@@ -149,3 +149,4 @@ xfce/*
 /xorg-twm/.config/xmonad/lib/Colors/Current.hs
 /dunst/.config/dunst/dunstrc
 *.cache
+/gtk/.config/xsettingsd/xsettingsd.conf
