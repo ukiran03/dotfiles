@@ -4,10 +4,6 @@ import Control.Monad -- (liftM2, unless)
 import qualified Data.Map as M
 import Data.Ratio ((%))
 
-import Data.IORef
-import Data.Maybe (isJust)
-import System.IO.Unsafe (unsafePerformIO)
-
 -- import Doc.Help
 import System.Exit
 import XMonad
@@ -174,44 +170,9 @@ myLogHook' = do
   showWNameLogHook mySWNConfig
   refocusLastLogHook
   updatePointer (0.5, 0.7) (0, 0)
-  blinkOnlyOnNewFocus
 
 myTerminal :: String
 myTerminal = "urxvtc"
-
--- Blink
--- This creates a persistent "memory" for the focused window ID
-{-# NOINLINE lastFocused #-}
-lastFocused :: IORef (Maybe Window)
-lastFocused = unsafePerformIO $ newIORef Nothing
-
-blinkOnlyOnNewFocus :: X ()
-blinkOnlyOnNewFocus =
-  withFocused $ \w -> do
-    -- 1. Get the current stack of windows
-    stack <- gets (W.stack . W.workspace . W.current . windowset)
-    -- 2. Count them. We only care if count > 1
-    let windowCount =
-          case stack of
-            Just s -> length (W.up s) + length (W.down s) + 1
-            Nothing -> 0
-    -- 3. Only proceed if there's more than one window
-    when (windowCount > 1) $ do
-      lastW <- io $ readIORef lastFocused
-    -- 4. Only blink if the focused window ID actually changed
-      when (Just w /= lastW) $ do
-        io $ writeIORef lastFocused (Just w)
-        d <- asks display
-        wa <- io $ getWindowAttributes d w
-        spawn
-          $ "blink "
-              ++ show (wa_x wa)
-              ++ " "
-              ++ show (wa_y wa)
-              ++ " "
-              ++ show (wa_width wa)
-              ++ " "
-              ++ show (wa_height wa)
 
 -- Define browser variables
 browser :: String
