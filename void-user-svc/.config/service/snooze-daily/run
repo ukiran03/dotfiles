@@ -1,0 +1,16 @@
+#!/bin/sh
+
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/snooze"
+STAMP_FILE="$CACHE_DIR/daily"
+CRON_DIR="$HOME/.local/bin/cron.daily"
+
+mkdir -p "$CACHE_DIR"
+
+# Redirecting stderr to stdout so svlogd catches everything
+exec 2>&1
+
+# Execute snooze
+# -s 1d: wait 1 day
+# -t: check the stamp file to see when we last ran
+exec chpst -e "$TURNSTILE_ENV_DIR" snooze -s 1d -t "$STAMP_FILE" -- sh -c \
+     "test -d $CRON_DIR && run-parts --lsbsysinit $CRON_DIR && touch $STAMP_FILE"

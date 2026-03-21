@@ -1,0 +1,14 @@
+#!/bin/sh
+
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/snooze"
+STAMP_FILE="$CACHE_DIR/hourly"
+CRON_DIR="$HOME/.local/bin/cron.hourly"
+
+mkdir -p "$CACHE_DIR"
+
+# Redirecting stderr to stdout so svlogd catches everything
+exec 2>&1
+
+# Use -H \* to snap to the top of the hour
+exec chpst -e "$TURNSTILE_ENV_DIR" snooze -H'*' -s 1h -t "$STAMP_FILE" -- sh -c \
+     "test -d $CRON_DIR && run-parts --lsbsysinit $CRON_DIR && touch $STAMP_FILE"

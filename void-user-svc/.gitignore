@@ -1,0 +1,7 @@
+# Ignore runit runtime artifacts
+**/supervise/
+**/log/supervise/
+
+# Ignore the actual values in service-env (keep the directory structure only)
+.config/service-env/*
+!.config/service-env/.gitkeep
