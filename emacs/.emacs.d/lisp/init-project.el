@@ -19,7 +19,7 @@
   (setq project-mode-line t)
   (advice-add 'project-mode-line-format :filter-return
               (lambda (s) (when s (concat s " "))))
-  (setq project-vc-extra-root-markers '(".project"))  ; Emacs 29
+  (setq project-vc-extra-root-markers '(".project" "project.org"))  ; Emacs 29
 
   (setq project-switch-commands
         '((project-view-file "View File" "F")
