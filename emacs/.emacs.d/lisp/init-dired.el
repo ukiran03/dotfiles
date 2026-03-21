@@ -53,21 +53,27 @@
   (use-package dired-x
     :ensure nil
     :demand t
+    :hook (dired-mode . dired-omit-mode) ; This was the missing piece!
     :config
+    ;; Use setq-default to ensure the regex sticks across all dired buffers
+    (setq-default dired-omit-files
+                  (concat "^\\.?#\\|"         ; Autosaves
+                          "^\\.git$\\|"       ; Git
+                          "^\\.projectile$\\|"; Projectile
+                          "\\.elc$\\|"        ; Compiled elisp
+                          "_templ\\.go$"))    ; Your Go templates
+
     (setq dired-guess-shell-alist-user
-          `(("\\.pdf\\'" "zathura")
-            ("\\.docx\\'" "libreoffice")
-            ("\\.\\(?:djvu\\|eps\\)\\'" "zathura")
-            ("\\.\\(?:jpg\\|jpeg\\|png\\|gif\\|xpm\\)\\'" "nsxiv")
-            ("\\.\\(?:xcf\\)\\'" "gimp")
-            ("\\.csv\\'" "libreoffice --calc")
-            ("\\.tex\\'" "texmaker")
-            ("\\.\\(?:mp4\\|mkv\\|avi\\|flv\\|rm\\|rmvb\\|ogv\\)\\(?:\\.part\\)?\\'" "mpv")
-            ("\\.\\(?:mp3\\|flac\\)\\'" "mpv")
-            ("\\.html?\\'" "firefox")))
-    (setq dired-omit-files
-          (concat dired-omit-files
-                  "\\|^.DS_Store$\\|^.projectile$\\|^.git*\\|^.svn$\\|^.vscode$\\|\\.js\\.meta$\\|\\.meta$\\|\\.elc$\\|^.emacs.*"))))
+          ` (("\\.pdf\\'" "zathura")
+             ("\\.docx\\'" "libreoffice")
+             ("\\.\\(?:djvu\\|eps\\)\\'" "zathura")
+             ("\\.\\(?:jpg\\|jpeg\\|png\\|gif\\|xpm\\)\\'" "nsxiv")
+             ("\\.\\(?:xcf\\)\\'" "gimp")
+             ("\\.csv\\'" "libreoffice --calc")
+             ("\\.tex\\'" "texmaker")
+             ("\\.\\(?:mp4\\|mkv\\|avi\\|flv\\|rm\\|rmvb\\|ogv\\)\\(?:\\.part\\)?\\'" "mpv")
+             ("\\.\\(?:mp3\\|flac\\)\\'" "mpv")
+             ("\\.html?\\'" "firefox")))))
 
 (use-package dired
   :ensure nil
