@@ -25,20 +25,20 @@
   (use-package go-mode
     :ensure t)
   :bind (:map go-ts-mode-map
-              ("C-c C-a" . go-import-add)
-              ("C-c C-d" . godef-describe)
-              ("C-c C-j" . godef-jump)
-              ("C-c C-r" . go-run)
+              ("H-c a" . go-import-add)
+              ("H-c d" . godef-describe)
+              ("H-c j" . godef-jump)
+              ("H-c r" . go-run)
+              ("H-c f a" . go-goto-arguments)
+              ("H-c f d" . go-goto-docstring)
+              ("H-c f f" . go-goto-function)
+              ("H-c f i" . go-goto-imports)
+              ("H-c f m" . go-goto-method-receiver)
+              ("H-c f n" . go-goto-function-name)
+              ("H-c f r" . go-goto-return-values)
+              ("C-x 4 C-c C-j" . godef-jump-other-window)
               ("C-M-q"   . prog-indent-sexp)
-              ("M-q"     . prog-fill-reindent-defun)
-              ("C-c C-f a" . go-goto-arguments)
-              ("C-c C-f d" . go-goto-docstring)
-              ("C-c C-f f" . go-goto-function)
-              ("C-c C-f i" . go-goto-imports)
-              ("C-c C-f m" . go-goto-method-receiver)
-              ("C-c C-f n" . go-goto-function-name)
-              ("C-c C-f r" . go-goto-return-values)
-              ("C-x 4 C-c C-j" . godef-jump-other-window)))
+              ("M-q"     . prog-fill-reindent-defun)))
 
 (add-to-list 'major-mode-remap-alist '(go-mode . go-ts-mode))
 
@@ -47,11 +47,17 @@
   ;; go install mvdan.cc/gofumpt@latest
   (setf (alist-get 'uk-go-fmt apheleia-formatters)
         '("golines" "--base-formatter" "gofumpt -extra"))
+  (setf (alist-get 'gotmplfmt apheleia-formatters)
+        '("gotmplfmt"))
+  (setf (alist-get 'templ-fmt apheleia-formatters)
+        '("templ" "fmt"))
 
   (setf (alist-get 'go-mode apheleia-mode-alist)
         '(goimports uk-go-fmt))
   (setf (alist-get 'go-ts-mode apheleia-mode-alist)
-        '(goimports uk-go-fmt)))
+        '(goimports uk-go-fmt))
+  (setf (alist-get 'web-mode apheleia-mode-alist) '(gotmplfmt))
+  (setf (alist-get 'templ-ts-mode apheleia-mode-alist) '(templ-fmt)))
 
 (use-package gotest
   :ensure t)

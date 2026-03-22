@@ -103,13 +103,10 @@
         '("clang-format" "--style={IndentWidth: 4}"))
   (setf (alist-get 'hindent apheleia-formatters)
         '("hindent"))
-  (setf (alist-get 'gotmplfmt apheleia-formatters)
-        '("gotmplfmt"))
-
   (setf (alist-get 'haskell-mode apheleia-mode-alist) '(hindent))
   (setf (alist-get 'elm-mode apheleia-mode-alist) '(elm-format))
-  (setf (alist-get 'web-mode apheleia-mode-alist) '(gotmplfmt))
-  (setf (alist-get 'html-mode apheleia-mode-alist) '(gotmplfmt)))
+  ;; (setf (alist-get 'html-mode apheleia-mode-alist) '(gotmplfmt))
+  )
 
 ;; Similar to format-all
 ;; checkout: <https://github.com/purcell/emacs-reformatter>
