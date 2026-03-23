@@ -365,12 +365,7 @@ myKeys =
   , ("M-g", rotSlavesDown)
   , ("M-S-g", rotSlavesUp)
   ]
-    ++ [ ("M-<Right>", nextScreen)
-             -- , ("M-<Left>", spawn "notify-send 'Window Focus' '" ++ show name ++ "'")
-       , ("M-<Left>", prevScreen)
-       , ("M-S-<Right>", shiftNextScreen)
-       , ("M-S-<Left>", shiftPrevScreen)
-       , ("M-.", moveTo Next nonNSP)
+    ++ [ ("M-.", moveTo Next nonNSP)
        , ("M-,", moveTo Prev nonNSP)
        , ("M-S-.", shiftTo Next nonNSP >> moveTo Next nonNSP)
        , ("M-S-,", shiftTo Prev nonNSP >> moveTo Prev nonNSP)

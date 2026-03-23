@@ -59,6 +59,10 @@
   (setf (alist-get 'web-mode apheleia-mode-alist) '(gotmplfmt))
   (setf (alist-get 'templ-ts-mode apheleia-mode-alist) '(templ-fmt)))
 
+(use-package templ-ts-mode
+  :mode ("\\.templ\\'" . templ-ts-mode)
+  :hook ((templ-ts-mode . apheleia-mode)))
+
 (use-package gotest
   :ensure t)
 ;; (use-package go-test
