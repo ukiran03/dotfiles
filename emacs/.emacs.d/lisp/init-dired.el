@@ -8,72 +8,63 @@
 
 (use-package dired
   :ensure nil
+  :hook ((dired-mode . dired-omit-mode)
+         (dired-mode . hl-line-mode)
+         (dired-mode . dired-hide-details-mode))
   :bind (:map dired-mode-map
               ("C-c C-p" . wdired-change-to-wdired-mode)
-              ("_" . dired-create-empty-file))
+              ("_"       . dired-create-empty-file)
+              ("."       . dired-omit-mode))
   :config
-  (setq dired-auto-revert-buffer #'dired-directory-changed-p)
+  (setq dired-auto-revert-buffer #'dired-directory-changed-p
+        dired-dwim-target t
+        dired-free-space 'first            ; Emacs 29+
+        dired-make-directory-clickable t   ; Emacs 29+
+        dired-mouse-drag-files t           ; Emacs 29+
+        delete-by-moving-to-trash t
+        dired-recursive-deletes 'always
+        dired-recursive-copies 'always
+        dired-listing-switches "-AGFhlv --group-directories-first --time-style=long-iso"))
 
-  ;; Guess a default target directory
-  (setq dired-dwim-target t)
+;; Standard Extensions (dired-x & dired-aux)
+(use-package dired-x
+  :ensure nil
+  :after dired
+  :config
+  (setq dired-omit-files
+        (concat "^\\.?#\\|"         ; Autosaves
+                "^\\.git$\\|"       ; Git
+                "^\\.projectile$\\|"; Projectile
+                "\\.elc$\\|"        ; Compiled elisp
+                "_templ\\.go$"      ; Go templates
 
-  (setq dired-free-space 'first) ; Emacs 29.01
-  (setq dired-make-directory-clickable t); Emacs 29.01
-  (setq dired-mouse-drag-files t); Emacs 29.01
+                ;; <https://github.com/mattiasb/dired-hide-dotfiles/blob/master/dired-hide-dotfiles.el>
+                ;; <https://stackoverflow.com/questions/43628315/how-to-hide-one-dot-current-directory-in-dired-mode>
+                "^\\.\\|"))         ; Any file starting with a dot
+  (setq dired-guess-shell-alist-user
+        '(("\\.pdf\\'" "zathura")
+          ("\\.docx\\'" "libreoffice")
+          ("\\.\\(?:djvu\\|eps\\)\\'" "zathura")
+          ("\\.\\(?:jpg\\|jpeg\\|png\\|gif\\|xpm\\)\\'" "nsxiv")
+          ("\\.xcf\\'" "gimp")
+          ("\\.csv\\'" "libreoffice --calc")
+          ("\\.tex\\'" "texmaker")
+          ("\\.\\(?:mp4\\|mkv\\|avi\\|flv\\|rm\\|rmvb\\|ogv\\)\\(?:\\.part\\)?\\'" "mpv")
+          ("\\.\\(?:mp3\\|flac\\)\\'" "mpv")
+          ("\\.html?\\'" "firefox"))))
 
-  (setq delete-by-moving-to-trash t)
+;; Third-Party Packages (Keep these separate)
+(use-package dired-git-info
+  :after dired
+  :bind (:map dired-mode-map (")" . dired-git-info-mode)))
 
-  ;; Always delete and copy recursively
-  (setq dired-recursive-deletes 'always
-        dired-recursive-copies 'always)
+(use-package dired-rsync
+  :after dired
+  :bind (:map dired-mode-map ("C-c C-r" . dired-rsync)))
 
-  (add-hook 'dired-mode-hook #'hl-line-mode)
-  (add-hook 'dired-mode-hook #'dired-hide-details-mode)
-
-  ;; Show directory first
-  (setq dired-listing-switches "-AGFhlv --group-directories-first --time-style=long-iso")
-
-  ;; Show git info in dired
-  (use-package dired-git-info
-    :bind (:map dired-mode-map
-		        (")" . dired-git-info-mode)))
-
-  ;; Allow rsync from dired buffers
-  (use-package dired-rsync
-    :bind (:map dired-mode-map
-		        ("C-c C-r" . dired-rsync)))
-
-  ;; Colorful dired
-  (use-package diredfl
-    :disabled
-    :hook (dired-mode . diredfl-mode))
-
-  ;; Extra Dired functionality
-  (use-package dired-aux :ensure nil)
-  (use-package dired-x
-    :ensure nil
-    :demand t
-    :hook (dired-mode . dired-omit-mode) ; This was the missing piece!
-    :config
-    ;; Use setq-default to ensure the regex sticks across all dired buffers
-    (setq-default dired-omit-files
-                  (concat "^\\.?#\\|"         ; Autosaves
-                          "^\\.git$\\|"       ; Git
-                          "^\\.projectile$\\|"; Projectile
-                          "\\.elc$\\|"        ; Compiled elisp
-                          "_templ\\.go$"))    ; Your Go templates
-
-    (setq dired-guess-shell-alist-user
-          ` (("\\.pdf\\'" "zathura")
-             ("\\.docx\\'" "libreoffice")
-             ("\\.\\(?:djvu\\|eps\\)\\'" "zathura")
-             ("\\.\\(?:jpg\\|jpeg\\|png\\|gif\\|xpm\\)\\'" "nsxiv")
-             ("\\.\\(?:xcf\\)\\'" "gimp")
-             ("\\.csv\\'" "libreoffice --calc")
-             ("\\.tex\\'" "texmaker")
-             ("\\.\\(?:mp4\\|mkv\\|avi\\|flv\\|rm\\|rmvb\\|ogv\\)\\(?:\\.part\\)?\\'" "mpv")
-             ("\\.\\(?:mp3\\|flac\\)\\'" "mpv")
-             ("\\.html?\\'" "firefox")))))
+(use-package diredfl
+  :disabled
+  :hook (dired-mode . diredfl-mode))
 
 (use-package dired
   :ensure nil
@@ -94,7 +85,9 @@
 ;;   :bind (:map dired-mode-map ("C-o" . 'casual-dired-tmenu)))
 
 (use-package dired-preview
+  :disabled
   :ensure t
+  :after dired
   :config
   ;; Default values for demo purposes
   (setq dired-preview-delay 0.7)
@@ -124,9 +117,6 @@
 	          ("<tab>" . dired-subtree-toggle)
 	          ("<C-tab>" . dired-subtree-cycle)
 	          ("<backtab>" . 'dired-subtree-remove)))
-
-;; <https://github.com/mattiasb/dired-hide-dotfiles/blob/master/dired-hide-dotfiles.el>
-;; <https://stackoverflow.com/questions/43628315/how-to-hide-one-dot-current-directory-in-dired-mode>
 
 (use-package dired
   :ensure nil
