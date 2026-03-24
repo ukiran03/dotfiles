@@ -234,7 +234,7 @@ mySWNConfig =
 myLayout =
   avoidStruts
     $ BW.boringWindows
-    $ onWorkspaces ["8", "9"] (tabs ||| tiled)
+    $ onWorkspaces ["1", "8", "9"] (tabs ||| tiled)
     $ tiled ||| tabs ||| mtile ||| hacking
   where
     mtile = setName "Mtall" $ Mirror tiled
@@ -583,6 +583,7 @@ myManageHook =
     , resource =? "desktop_window" --> doIgnore
     , className =? "gumdialog" --> doCenterFloat
     , title =? "Gum Dialog" --> doCenterFloat
+    , className =? "Brave-browser" --> viewShiftHook (myWorkspaces !! 0)
     , className =? "TelegramDesktop" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "Tor Browser" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "calibre" --> viewShiftHook (myWorkspaces !! 8)
