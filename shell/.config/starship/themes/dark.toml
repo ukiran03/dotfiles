@@ -1,0 +1,56 @@
+format = """
+$jobs\
+$directory\
+$direnv\
+$git_branch\
+$git_status\
+$kubernetes\
+$line_break\
+$time $character"""
+
+add_newline = false
+
+[line_break]
+disabled = false
+
+[time]
+disabled = false
+format = "[$time]($style)"
+style = "bold yellow"
+
+[character]
+success_symbol = "[\\$](bold green)"
+error_symbol = "[✖](bold red)"
+
+[directory]
+truncation_length = 0
+read_only = " RO"
+read_only_style = "bold red"
+truncate_to_repo = false
+style = "bold cyan bg:black"
+
+[golang]
+format = "go:[$version]($style) "
+style = "bold cyan"
+disabled = true
+
+[kubernetes]
+symbol = "k8s"
+format = "(\\($symbol [$context](cyan):[$namespace](bold fg:magenta)\\)) "
+disabled = true
+contexts = [
+  { context_pattern = "k3d-k3s-default", context_alias = "default" },
+]
+
+[jobs]
+format = '[\[$number\]]($style) '
+style = 'bold yellow'
+number_threshold = 1
+
+[direnv]
+disabled = false
+detect_files = ['.envrc']
+symbol = 'env'
+format = '[$symbol:$loaded/$allowed]($style) '
+allowed_msg = "On"
+not_allowed_msg = "None"

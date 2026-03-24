@@ -199,6 +199,33 @@ _xresources() {
 	fi
 }
 
+_starship() {
+    _depcheck starship || return 1
+
+    local starship_config_dir="$CONFIG_DIR/starship"
+    local theme_dir="$starship_config_dir/themes"
+    local theme_file="$starship_config_dir/normal.toml"
+
+    if [[ ! -d "$theme_dir" ]]; then
+        echo "Error: Starship: $theme_dir not found."
+        return 1
+    fi
+
+    case "$1" in
+        light)
+            ln -sf "$theme_dir/light.toml" "$theme_file"
+            ;;
+        dark)
+            ln -sf "$theme_dir/dark.toml" "$theme_file"
+            ;;
+        *)
+            echo "Usage: _starship {light|dark}"
+            return 1
+            ;;
+    esac
+    echo "[starship]: Switched to $1 theme."
+}
+
 _zathura() {
 	_depcheck zathura
 	local zathura_dir="$CONFIG_DIR/zathura"
@@ -253,7 +280,7 @@ _global_env() {
 	return 1 # Failure (file missing or theme mismatch)
 }
 
-apps=(_xmonad _emacs _rofi _xmobar _xresources _zathura _dunst)
+apps=(_xmonad _emacs _rofi _xmobar _xresources _starship _zathura _dunst)
 
 # 1. Map flags to mode names first
 case "$1" in
