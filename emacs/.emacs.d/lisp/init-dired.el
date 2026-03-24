@@ -32,26 +32,22 @@
   :after dired
   :config
   (setq dired-omit-files
-        (concat "^\\.?#\\|"         ; Autosaves
-                "^\\.git$\\|"       ; Git
-                "^\\.projectile$\\|"; Projectile
-                "\\.elc$\\|"        ; Compiled elisp
-                "_templ\\.go$"      ; Go templates
+        (rx (or (seq line-end ".elc")          ; Ends with .elc
+                (seq "_templ.go" line-end)     ; Ends with _templ.go
+                (seq line-start (opt ".") "#") ; Starts with # or .#
+                (seq line-start "."))))         ; Starts with . (dot)
 
-                ;; <https://github.com/mattiasb/dired-hide-dotfiles/blob/master/dired-hide-dotfiles.el>
-                ;; <https://stackoverflow.com/questions/43628315/how-to-hide-one-dot-current-directory-in-dired-mode>
-                "^\\.\\|"))         ; Any file starting with a dot
   (setq dired-guess-shell-alist-user
-        '(("\\.pdf\\'" "zathura")
-          ("\\.docx\\'" "libreoffice")
-          ("\\.\\(?:djvu\\|eps\\)\\'" "zathura")
-          ("\\.\\(?:jpg\\|jpeg\\|png\\|gif\\|xpm\\)\\'" "nsxiv")
-          ("\\.xcf\\'" "gimp")
-          ("\\.csv\\'" "libreoffice --calc")
-          ("\\.tex\\'" "texmaker")
-          ("\\.\\(?:mp4\\|mkv\\|avi\\|flv\\|rm\\|rmvb\\|ogv\\)\\(?:\\.part\\)?\\'" "mpv")
-          ("\\.\\(?:mp3\\|flac\\)\\'" "mpv")
-          ("\\.html?\\'" "firefox"))))
+        `((,(rx ".pdf" eos) "zathura")
+          (,(rx ".docx" eos) "libreoffice")
+          (,(rx "." (or "djvu" "eps") eos) "zathura")
+          (,(rx "." (or "jpg" "jpeg" "png" "gif" "xpm") eos) "nsxiv")
+          (,(rx ".xcf" eos) "gimp")
+          (,(rx ".csv" eos) "libreoffice --calc")
+          (,(rx "." (or "mp4" "mkv" "avi" "flv" "rm" "rmvb" "ogv")
+                (opt ".part") eos) "mpv")
+          (,(rx "." (or "mp3" "flac") eos) "mpv")
+          (,(rx ".htm" (opt "l") eos) "firefox"))))
 
 ;; Third-Party Packages (Keep these separate)
 (use-package dired-git-info
@@ -66,12 +62,12 @@
   :disabled
   :hook (dired-mode . diredfl-mode))
 
-(use-package dired
-  :ensure nil
-  :hook (dired-mode . dired-omit-mode)
-  :bind (:map dired-mode-map
-              ( "."     . dired-omit-mode))
-  :custom (dired-omit-files (rx (seq bol "."))))
+;; (use-package dired
+;;   :ensure nil
+;;   :hook (dired-mode . dired-omit-mode)
+;;   :bind (:map dired-mode-map
+;;               ( "."     . dired-omit-mode))
+;;   :custom (dired-omit-files (rx (seq bol "."))))
 
 ;; (use-package dired-hist
 ;;   :after dired
@@ -93,13 +89,12 @@
   (setq dired-preview-delay 0.7)
   (setq dired-preview-max-size (expt 2 20))
   (setq dired-preview-ignored-extensions-regexp
-	    (concat "\\."
-		        "\\(mkv\\|webm\\|mp4\\|mp3\\|ogg\\|m4a"
-		        "\\|gz\\|zst\\|tar\\|xz\\|rar\\|zip"
-		        "\\|.out\\|.o"
-		        "\\|iso\\|epub\\|pdf\\)"))
-  ;; (dired-preview-global-mode -1)
-  )
+        (rx "." (or "mkv" "webm" "mp4" "mp3" "ogg" "m4a"    ;; Media
+                    "gz" "zst" "tar" "xz" "rar" "zip" "iso" ;; Archives
+                    "epub" "pdf" ;; Documents
+                    "out" "o")   ;; Build Artifacts
+            line-end))
+  (dired-preview-global-mode 1))
 
 (use-package consult-dir
   :ensure t
