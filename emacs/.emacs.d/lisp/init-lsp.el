@@ -12,15 +12,7 @@
                                  (setq-local project-mode-line
                                              (not
                                               (bound-and-true-p
-                                               eglot--managed-mode)))))
-         ;; (prog-mode . (lambda ()
-         ;;                (unless (derived-mode-p
-         ;;                         'emacs-lisp-mode 'lisp-mode
-         ;;                         'makefile-mode 'snippet-mode
-         ;;                         'ron-mode)
-         ;;                  (eglot-ensure))))
-         ;; ((markdown-mode yaml-mode yaml-ts-mode) . eglot-ensure)
-         )
+                                               eglot--managed-mode))))))
   :bind (:map eglot-mode-map
               ("<f5>" . eglot-format-buffer)
               ("C-h ." . eldoc)
@@ -43,8 +35,7 @@
   :config
   (add-to-list 'eglot-server-programs
                '((js-mode . ("~/.local/share/pnpm/typescript-language-server" "--stdio"))
-                 (typescript-mode . ("~/.local/share/pnpm/typescript-language-server" "--stdio"))))
-  )
+                 (typescript-mode . ("~/.local/share/pnpm/typescript-language-server" "--stdio")))))
 
 
 
