@@ -6,6 +6,7 @@ colorScheme = "dark"
 colorActive :: String = "#2fafff"
 colorInactive :: String = "#171D23"
 colorFgDim :: String = "#3c4449"
+colorBgDim :: String = "#3b3b3f"
 
 colorBlack :: String = "#FFFFFF"
 colorRed :: String = "#ff5f59"

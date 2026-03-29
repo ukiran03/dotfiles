@@ -210,16 +210,16 @@ prompt =
 
 topBarConfig =
   def
-    { activeColor = colorActive
-    , activeBorderColor = colorActive
-    , activeTextColor = colorText
-    , inactiveColor = colorInactive
-    , inactiveBorderColor = colorInactive
-    , inactiveTextColor = colorFgInactive
+    { activeColor = colorBgDim
+    , activeBorderColor = colorBlack
+    , activeTextColor = colorBlack
+    , inactiveColor = colorWhite
+    , inactiveBorderColor = colorWhite
+    , inactiveTextColor = colorBlack
     , urgentColor = colorRed
     , urgentBorderColor = colorRed
     , urgentTextColor = colorWhite
-    , decoHeight = 20
+    , decoHeight = 24
     , fontName = "xft:Iosevka:weight=semibold:size=12.75:antialias=true"
     }
 
