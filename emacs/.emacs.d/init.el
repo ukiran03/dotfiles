@@ -64,7 +64,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 
 ;; 3. Set the variable-pitch font (The Slab version)
 (set-face-attribute 'variable-pitch nil
-                    :family "Iosevka Slab"
+                    :family "Iosevka Medium" ; "Iosevka Slab"
                     :height 140)
 
 (require 'init-funcs)
