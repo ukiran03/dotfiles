@@ -107,8 +107,13 @@
 
 (use-package templ-ts-mode
   :mode ("\\.templ\\'" . templ-ts-mode)
-  :hook ((templ-ts-mode . apheleia-mode)
-         (templ-ts-mode . emmet-mode)))
+  :hook ((templ-ts-mode . eglot-ensure)      ; Starts LSP automatically
+         (templ-ts-mode . apheleia-mode)
+         (templ-ts-mode . emmet-mode))
+  :config
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '(templ-ts-mode . ("templ" "lsp")))))
 
 ;; (use-package gotest
 ;;   :bind (:map go-keymap

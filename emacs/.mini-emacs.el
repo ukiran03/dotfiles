@@ -55,7 +55,7 @@
 (add-hook 'minibuffer-setup-hook #'subword-mode)
 
 ;; Completion
-;; (fido-vertical-mode 1)
+(fido-vertical-mode 1)
 
 (setq completion-auto-help 'visible)
 
