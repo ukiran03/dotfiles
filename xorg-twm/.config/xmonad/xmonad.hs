@@ -219,8 +219,8 @@ topBarConfig =
     , urgentColor = colorRed
     , urgentBorderColor = colorRed
     , urgentTextColor = colorWhite
-    , decoHeight = 24
-    , fontName = "xft:Iosevka:weight=semibold:size=12.75:antialias=true"
+    , decoHeight = 22
+    , fontName = "xft:Iosevka:weight=bold:size=11.25:antialias=true;3"
     }
 
 mySWNConfig =
@@ -616,17 +616,8 @@ myStartupHook = do
   spawnOnce "numlockx on &"
   spawnOnce "xmodmap $XDG_CONFIG_HOME/X11/xmodmap"
   spawnOnce "xfce4-power-manager &"
-  -- spawnOnce "/usr/bin/pipewire-pulse &"
-  -- spawnOnce "/usr/bin/pipewire &"
-  -- spawnOnce "/usr/libexec/polkit-gnome-authentication-agent-1 &"
   spawnOnce "sxhkd -c $HOME/.config/sxhkd/xmonad_sxhkdrc"
   spawnOnce
     "trayer --edge top --align right --widthtype request --SetDockType true \
    \--SetPartialStrut true --expand true --monitor 1 --transparent true \
    \--alpha 0 --tint 0x171d23 --height 21 &"
-  spawnOnce
-    "{ xrandr | grep 'HDMI-1-0 connected' >/dev/null \
-   \&& xrandr --output HDMI-1-0 --auto --primary \
-   \&& xrandr --output eDP-1 --off ;} \
-   \|| { xrandr --output eDP-1 --auto --primary \
-   \&& xrandr --output HDMI-1-0 --off ;}"
