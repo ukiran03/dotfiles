@@ -568,7 +568,7 @@ myXmobarPP =
 myManageHook :: ManageHook
 myManageHook =
   composeAll
-    [ className =? "Gimp" --> doFloat
+    [ className =? "Gimp" --> viewShiftHook (myWorkspaces !! 7)
     , title
         =? "World"
         --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))

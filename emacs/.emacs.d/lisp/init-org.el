@@ -22,6 +22,7 @@
   (setq org-structure-template-alist
         '(("s" . "src")
           ("b" . "src bash")
+          ("q" . "src sql")
           ("g" . "src go")
           ("t" . "src text")
           ("e" . "src emacs-lisp")
@@ -31,7 +32,8 @@
           ("eT" . "src emacs-lisp :tangle FILENAME :mkdirp yes")
           ("x" . "example")
           ("X" . "export")
-          ("q" . "quote")))
+          ;; ("q" . "quote")
+          ))
   (setq org-modules nil
         org-startup-indented nil
         org-ellipsis (if (char-displayable-p ?⏷) "\t⏷" nil)
