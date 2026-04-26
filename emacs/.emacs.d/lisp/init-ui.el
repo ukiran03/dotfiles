@@ -5,7 +5,7 @@
 
 ;;; Code:
 (use-package modus-themes
-  :ensure nil
+  :ensure t
   :demand t
   :bind (("<f6>" . modus-themes-toggle)
          ("C-<f6>" . modus-themes-select))

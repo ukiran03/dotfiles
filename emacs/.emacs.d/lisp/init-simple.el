@@ -9,7 +9,9 @@
   :ensure nil
   :init
   ;; (size-indication-mode 1)
-  (column-number-mode 1))
+  (column-number-mode 1)
+  :config
+  (setq-default fill-column 79))
 
 (use-package simple
   :ensure nil
@@ -131,6 +133,11 @@ Without ARG, include only the date."
     (insert "[" (format-time-string format) "]")
     (insert " " keyword ": ")))
 
+;;; TODO: write these functions
+;; `isearch-kill-region': set mark, find DEST with isearch, kill the region
+;;
+;; `consult-copy-line': similar to `consult-line', but no preview, on
+;; hit-enter copy line at point
 
 (provide 'init-simple)
 
