@@ -132,8 +132,10 @@
 ;;;; Setup Folding For Programming
 (use-package puni
   :ensure t
-  :hook (((prog-mode racket-repl-mode eval-expression-minibuffer-setup-hook) . puni-mode)
-         ((calc-mode term-mode vterm-mode info-mode vertico-mode) . puni-disable-puni-mode)
+  :hook (((prog-mode racket-repl-mode
+                     eval-expression-minibuffer-setup-hook) . puni-mode)
+         ((calc-mode term-mode
+                     vterm-mode info-mode vertico-mode) . puni-disable-puni-mode)
          ;; (puni-mode  . electric-pair-local-mode)
          )
   :bind (("C-c s" . puni-mode)
@@ -230,15 +232,10 @@
 (use-package compile
   :ensure nil
   :config
-  (defun set-go-compile-command ()
-    (setq-local compile-command
-                (format "go run %s" (file-name-nondirectory buffer-file-name))))
   (defun set-c-compile-command ()
     (setq-local compile-command
                 (format "gcc %s" (file-name-nondirectory buffer-file-name))))
-  :hook ((go-mode . set-go-compile-command)
-         (go-ts-mode . set-go-compile-command)
-         (c-mode . set-c-compile-command)
+  :hook ((c-mode . set-c-compile-command)
          (c-ts-mode . set-c-compile-command)))
 
 ;; #[/home/ukiran/.emacs.d/site-lisp/clue/clue.el:L60]
@@ -273,7 +270,7 @@
 ;; Direnv integration
 (use-package envrc
   :ensure t
-  ;; :hook (after-init . envrc-global-mode)
+  :hook (after-init . envrc-global-mode)
   :bind (:map envrc-mode-map
               ("C-c e" . envrc-command-map)))
 
