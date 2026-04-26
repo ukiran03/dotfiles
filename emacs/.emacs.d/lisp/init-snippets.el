@@ -53,6 +53,12 @@
 ;;   :config
 ;;   (define-auto-insert 'go-mode #'tempo-template-go-compile))
 
+(define-abbrev global-abbrev-table "mygit" "https://github.com/ukiran03")
+(define-abbrev text-mode-abbrev-table
+  "mylocation"
+  "Sri Sai Balaji CO-Live PG, # 98, 14TH C Cross, Neeladri Nagar, Younis
+khan Layout, Electronic City, Bengaluru, Karnataka 560100")
+
 
 
 (provide 'init-snippets)
