@@ -19,7 +19,8 @@ config.bind ("xt", "config-cycle tabs.show always switching")
 
 config.set("auto_save.session", True)
 c.fonts.default_family = 'Iosevka Medium'
-c.fonts.default_size = '11.25pt'
+c.fonts.default_size = '14pt'
+c.zoom.default = '125%'
 config.bind('<Alt-x>', 'cmd-set-text :')
 config.bind('<Ctrl-x>c', 'config-source')
 config.bind('<Alt-w>', 'yank selection')
