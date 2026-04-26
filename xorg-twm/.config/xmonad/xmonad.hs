@@ -313,8 +313,8 @@ windowCount = do
         _ ->
           let visibleCount = totalCount - minimizedCount
            in if visibleCount > 0
-                then show visibleCount ++ ", -" ++ show minimizedCount
-                else "-" ++ show minimizedCount
+                then show visibleCount ++ ", +" ++ show minimizedCount
+                else "+" ++ show minimizedCount
 
 myScratchpads =
   [ NS
@@ -342,7 +342,7 @@ myKeys =
   -- , ("M-S-/", xmessage myHelp)
   -- , ("M-p l", layoutPrompt prompt)
   -- , ("M-C-p", switchToLayout "threeCol")
-  , ("M-<F9>", spawn browser)
+  -- , ("M-<F9>", spawn browser)
   -- , ("M-S-<F9>", spawn privateBrowser)
       -- , ("M-S-<F9>", spawnOn "6" "firefox")
   , ("M-p m", manPrompt prompt)
@@ -584,6 +584,7 @@ myManageHook =
     , className =? "gumdialog" --> doCenterFloat
     , title =? "Gum Dialog" --> doCenterFloat
     , className =? "Brave-browser" --> viewShiftHook (myWorkspaces !! 0)
+    , className =? "Helium" --> viewShiftHook (myWorkspaces !! 0)
     , className =? "TelegramDesktop" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "Tor Browser" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "calibre" --> viewShiftHook (myWorkspaces !! 8)

@@ -30,7 +30,7 @@ Config
         [ "-t", "<artist> - <title> <statei>"
         , "--", "-P", "", "-Z", "", "-S", ""
         , "--host", "127.0.0.1" , "--port", "6600"] 10
-      , Run Date "%a, %d %b %Y, <fc=#3f578f>%I:%M %p (%R)</fc>" "date" 300
+      , Run Date "%a, %d %b %Y, <fc=#3f578f>%I:%M:%S %p (%R)</fc>" "date" 10
       , Run Com ".config/xmobar/scripts/trayer-padding-icon.sh" [] "trayerpad" 30
       , Run Com ".config/xmobar/xbps-updates.sh" [] "xbps" 3600
       , Run Com "pamixer" ["--get-volume-human"] "" 20
