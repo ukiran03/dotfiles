@@ -18,9 +18,6 @@
   (setq ediff-merge-revisions-with-ancestor t)
   (setq ediff-show-clashes-only t))
 
-(use-package magit :ensure t)
-(use-package forge :ensure nil)
-
 (use-package magit
   :ensure t
   :bind ("H-g" . magit-status)
