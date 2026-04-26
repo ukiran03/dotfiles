@@ -282,6 +282,8 @@ See `org-capture-templates' for more information."
 
 (use-package org
   :ensure nil
+  :bind (:map org-mode-map
+              ("C-c j" . org-babel-goto-named-src-block))
   :config
   (setq org-confirm-babel-evaluate nil)
   (setq org-src-window-setup 'current-window)

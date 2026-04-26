@@ -1,3 +1,14 @@
+(use-package compile
+  :ensure nil
+  :config
+  (defun set-go-compile-command ()
+    "Set the compile command for Go files, but only if a file exists."
+    (when buffer-file-name
+      (setq-local compile-command
+                  (format "go run %s" (file-name-nondirectory buffer-file-name)))))
+  :hook ((go-mode . set-go-compile-command)
+         (go-ts-mode . set-go-compile-command)))
+
 (use-package go-mode
   :ensure t
   :display "Go Utility Tools"

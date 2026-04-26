@@ -33,10 +33,8 @@
   :config
   (setq dired-omit-files
         (rx (or (seq line-end ".elc")          ; Ends with .elc
-                (seq "_templ.go" line-end)     ; Ends with _templ.go
                 (seq line-start (opt ".") "#") ; Starts with # or .#
                 (seq line-start "."))))         ; Starts with . (dot)
-
   (setq dired-guess-shell-alist-user
         `((,(rx ".pdf" eos) "zathura")
           (,(rx ".docx" eos) "libreoffice")
@@ -48,6 +46,11 @@
                 (opt ".part") eos) "mpv")
           (,(rx "." (or "mp3" "flac") eos) "mpv")
           (,(rx ".htm" (opt "l") eos) "firefox"))))
+
+(use-package dired-gitignore
+  :ensure t
+  :after dired
+  :bind (:map dired-mode-map ("h" . dired-gitignore-mode)))
 
 ;; Third-Party Packages (Keep these separate)
 (use-package dired-git-info
