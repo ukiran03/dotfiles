@@ -21,8 +21,12 @@ super + e
 XF86Audio{Play,Next,Prev,Stop}
     mpc {toggle,next,prev,stop}
 
-# Youtube, Firefox etc.
+# mpv toggle, mpv-mpris is the only dep
 alt + F7
+    playerctl --player=mpv play-pause
+
+# Youtube, Firefox etc.
+shift + alt + F7
     playerctl play-pause
 
 # Email
@@ -56,10 +60,12 @@ super + {F10, F11, F12}
     # ~/.Zen-browser/zen-bin --private-window
 
 super + shift + F9
-    gtk-launch brave-incognito-browser
+    gtk-launch helium-incognito
+    # gtk-launch brave-incognito-browser
 
-# super + F9
-    # ~/.Zen-browser/zen-bin
+super + F9
+    gtk-launch helium
+
 
 super + ctrl + F9
     qutebrowser
