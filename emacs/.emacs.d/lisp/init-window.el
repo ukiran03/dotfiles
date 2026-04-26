@@ -57,7 +57,7 @@
   :bind
   (("H-o" . other-window)
    ("H-0" . delete-window)
-   ("H-1" . delete-other-windows)
+   ("H-1" . toggle-delete-other-windows) ; `delete-other-windows'
    ("H-2" . split-window-below)
    ("H-3" . split-window-right)
    ("H-," . previous-buffer)

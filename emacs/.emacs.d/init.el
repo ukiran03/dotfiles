@@ -67,6 +67,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
                     :family "Iosevka Medium" ; "Iosevka Slab"
                     :height 140)
 
+(require 'init-steal)
 (require 'init-funcs)
 ;; Packages
 ;; Without this comment Emacs25 adds (package-initialize) here
