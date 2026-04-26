@@ -83,6 +83,22 @@
   ;; "<right>" #'next-buffer
   )
 
+(defvar-keymap avy-cmd-map
+  :doc "Essential Avy Cmds"
+  :name "Avy"
+  ";" #'avy-goto-char-timer
+  "2" #'avy-goto-char-2
+  "w" #'avy-goto-word-1
+  "g" #'avy-goto-line
+  "m" #'avy-move-line
+  "l" #'avy-copy-line
+  "k" #'avy-kill-whole-line
+  "c" #'avy-copy-region
+  "K" #'avy-kill-region
+  "s" #'avy-kill-ring-save-region
+  "h" #'avy-org-goto-heading-timer)
+(keymap-set global-map "C-;" avy-cmd-map)
+
 (defvar-keymap other-window-hyper-map
   :doc "`other-window-prefix' actions."
   :name "Other-Window Prefix"
