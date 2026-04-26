@@ -13,7 +13,17 @@
 set window-height 3000
 set window-width 3000
 
-set font "inconsolata 9"
+# set font "inconsolata 9"
+set font "monospace semi-bold 12"
+
+set index-bg "#ffffff"
+set index-fg "#000000"
+set index-active-bg "#e0e0e0"
+
+# This is the color of the text (the number itself)
+set highlight-fg "#0000ff"
+# This is the color of the box behind the number
+# set highlight-color "#dae5ec"
 
 # copy selection to system clipboard
 set selection-clipboard clipboard
@@ -24,36 +34,31 @@ set scroll-page-aware "true"
 set scroll-full-overlap 0.01
 set scroll-step 100
 
-set statusbar-fg "#B0B0B0"
-set statusbar-bg "#202020"
+set statusbar-bg "#e0e0e0"
+set statusbar-fg "#000000"
 
-set inputbar-bg "#151515"
-set inputbar-fg "#FFFFFF"
+set inputbar-fg "#151515"
+set inputbar-bg "#FFFFFF"
 
-set notification-error-bg "#AC4142"
-set notification-error-fg "#151515"
+set notification-error-fg "#AC4142"
+set notification-error-bg "#e0e0e0"
 
 set notification-warning-bg "#AC4142"
-set notification-warning-fg "#151515"
+set notification-warning-fg "#e0e0e0"
 
-set notification-bg "#90A959"
-set notification-fg "#151515"
+set notification-fg "#006800"
+set notification-bg "#e0e0e0"
 
 # -- themes (recolor) on opening
 # set recolor "true"
 
 # DEFAULT THEME
-set default-bg "#2e3440"
-set default-fg "#F7F7F6"
+set default-fg "#2e3440"
+set default-bg "#F7F7F6"
 
 # OFF-WHITE THEME
 set recolor-lightcolor "#f3eddf"  # bg
 set recolor-darkcolor "#000000"   # fg
-
-# GRAY THEME
-## set recolor-lightcolor "#2f343f"  # bg
-# set recolor-lightcolor "#2e3440"  # bg
-# set recolor-darkcolor "#ffffff"   # fg
 
 set recolor-reverse-video "true"
 set recolor-keephue "true"
