@@ -64,6 +64,7 @@
   ;; This enables the 'd' for delete, 'm' for mark workflow in lists
   (add-hook 'kubed-list-mode-hook #'hl-line-mode))
 
+(use-package just-mode)
 
 (use-package docker
   :ensure t

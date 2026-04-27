@@ -270,10 +270,15 @@
 ;; Direnv integration
 (use-package envrc
   :ensure t
+  :config
+  (setq envrc-none-lighter nil)
+  (setq envrc-on-lighter
+        '(:propertize " envrc" face (envrc-mode-line-on-face bold)))
+  (setq envrc-error-lighter
+        '(:propertize " envrc!" face (envrc-mode-line-error-face bold)))
   :hook (after-init . envrc-global-mode)
   :bind (:map envrc-mode-map
               ("C-c e" . envrc-command-map)))
-
 
 (provide 'init-prog)
 
