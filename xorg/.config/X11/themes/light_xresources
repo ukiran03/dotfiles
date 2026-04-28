@@ -8,22 +8,22 @@ Xcursor.size: 18
 *.foreground: #000000
 *.background: #ffffff
 *.cursorColor: #000000
-*.color0: #000000
+*.color0: #e6e6e6
 *.color1: #a60000
 *.color2: #006800
 *.color3: #6f5500
 *.color4: #0031a9
 *.color5: #721045
 *.color6: #005e8b
-*.color7: #c8c8c8
-*.color8: #595959
+*.color7: #595959
+*.color8: #c8c8c8
 *.color9: #a0132f
 *.color10: #00663f
 *.color11: #7a4f2f
 *.color12: #0000b0
 *.color13: #531ab6
 *.color14: #005f5f
-*.color15: #e6e6e6
+*.color15: #000000
 
 URxvt.highlightColor: #bdbdbd
 URxvt.highlightTextColor: #393330

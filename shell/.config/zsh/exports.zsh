@@ -38,7 +38,7 @@ export SAVEHIST=$HISTSIZE
 
 # export MANPAGER="most"
 export GROFF_NO_SGR=1
-export MANPAGER="less -JMR --use-color -Dd+r -Du+b -DPcs -DEys -DSYW --mouse"
+export MANPAGER="less -JMR --use-color -Dd+r -Du+b -DPcs -DERd -DSys --mouse"
 
 # default apps
 # export EDITOR="nvim"

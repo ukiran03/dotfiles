@@ -27,7 +27,7 @@ truncation_length = 0
 read_only = " RO"
 read_only_style = "bold red"
 truncate_to_repo = false
-style = "bold cyan bg:bright-white"
+style = "bold cyan bg:black"
 
 [golang]
 format = "go:[$version]($style) "
