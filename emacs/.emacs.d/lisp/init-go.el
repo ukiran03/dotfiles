@@ -1,13 +1,9 @@
+;;; init-go.el --- summary -*- lexical-binding: t -*-
+
 (use-package compile
   :ensure nil
-  :config
-  (defun set-go-compile-command ()
-    "Set the compile command for Go files, but only if a file exists."
-    (when buffer-file-name
-      (setq-local compile-command
-                  (format "go run %s" (file-name-nondirectory buffer-file-name)))))
-  :hook ((go-mode . set-go-compile-command)
-         (go-ts-mode . set-go-compile-command)))
+  :custom
+  (compile-command "just "))
 
 (use-package go-mode
   :ensure t
@@ -24,57 +20,16 @@
              go-goto-function-name
              go-goto-return-values))
 
-(defun my/golang-init-eglot ()
-  "Start eglot only if a go.mod exists in the project root."
-  (let* ((proj (project-current))
-         (root (when proj (project-root proj))))
-    (when (and root (file-exists-p (expand-file-name "go.mod" root)))
-      (eglot-ensure))))
-
-;; (defun my/golang-init-eglot ()
-;;   "Start Eglot if go.mod exists; otherwise, fix Apheleia for scratch files."
-;;   (let* ((proj (project-current))
-;;          (root (when proj (project-root proj))))
-;;     (if (and root (file-exists-p (expand-file-name "go.mod" root)))
-;;         ;; CASE 1: Project found
-;;         (eglot-ensure)
-
-;;       ;; CASE 2: Scratch file (No go.mod)
-;;       ;; We manually add goimports back to the chain for THIS buffer only.
-;;       (setq-local apheleia-mode-alist
-;;                   (append '((go-ts-mode . (goimports uk-go-fmt)))
-;;                           apheleia-mode-alist)))))
-
-;; (defun my/go-organize-imports-on-save ()
-;;   "Safely organize imports via Eglot for Go buffers."
-;;   (when (derived-mode-p 'go-ts-mode)
-;;     (add-hook 'before-save-hook
-;;               (lambda ()
-;;                 (interactive)
-;;                 (ignore-errors (eglot-code-action-organize-imports
-;;                                 (point-min) (point-max)))) nil t)
-
-;;     ;; ;; 2. The Apheleia Logic (Buffer-local)
-;;     ;; ;; We make this change buffer-local so it doesn't affect other Go files
-;;     ;; (setq-local apheleia-mode-alist
-;;     ;;             (copy-alist apheleia-mode-alist))
-;;     ;; (setf (alist-get 'go-ts-mode apheleia-mode-alist) 'go-format)
-;;     ))
-
 (use-package go-ts-mode
   :ensure nil
   :mode "\\.go\\'"
   :interpreter "go"
   :hook ((go-ts-mode . symbol-overlay-mode)
-         (go-ts-mode . apheleia-mode) ; TODO:
          (go-ts-mode . my/disable-super-save)
-         (go-ts-mode . my/golang-init-eglot)
-         ;; Attach the import-organizer only when Eglot is actually active
-         ;; (eglot-managed-mode-hook . my/go-organize-imports-on-save)
-         )
-
+         (go-ts-mode . my/go-init-logic))
   :bind (:map go-ts-mode-map
               ("<f1>"          . compile)
+              ("<f5>"          . my/go-eglot-format-on-save)
               ("C-M-q"         . prog-indent-sexp)
               ("M-q"           . prog-fill-reindent-defun)
               ;; Navigation & Refactoring (Powered by go-mode)
@@ -94,12 +49,43 @@
 
   :config
   (setq go-ts-mode-indent-offset 4)
+  (defun my/go-eglot-format-on-save ()
+    "Organize imports and format using Eglot."
+    ;; (interactive)
+    (when (eglot-managed-p)
+      (ignore-errors
+        (eglot-code-actions (point-min) (point-max) "source.organizeImports" t))
+      (eglot-format-buffer)))
+
+  (defun my/go-init-logic ()
+    "Decide between Eglot and Apheleia based on go.mod presence."
+    (let* ((proj (project-current))
+           (root (when proj (project-root proj)))
+           ;; Check for go.mod in project root OR current directory (for
+           ;; non-project files)
+           (using-eglot (and root (file-exists-p (expand-file-name "go.mod" root)))))
+
+      (if using-eglot
+          (progn
+            (eglot-ensure)
+            (add-hook 'before-save-hook #'my/go-eglot-format-on-save nil t))
+        ;; Fallback: If no go.mod, use Apheleia if available
+        (when (fboundp 'apheleia-mode)
+          (apheleia-mode 1)))))
 
   ;; Sync environment variables if the package is available
   (with-eval-after-load 'exec-path-from-shell
     (exec-path-from-shell-copy-envs '("GOPATH" "GO111MODULE" "GOPROXY"))))
 
 (add-to-list 'major-mode-remap-alist '(go-mode . go-ts-mode))
+
+(use-package eglot
+  :ensure nil
+  :init
+  (setq-default eglot-workspace-configuration
+                '((:gopls . ((gofumpt . t)
+                             (importShortcut . "Both")
+                             (completionBudget . "100ms"))))))
 
 (use-package apheleia
   :config
@@ -134,14 +120,9 @@
 ;;               ("C-c t b" . go-test-current-benchmark)
 ;;               ("C-c t c" . go-test-current-coverage)
 ;;               ("C-c t x" . go-run)))
-
-(use-package go-impl
-  :ensure t)
-
-(use-package go-tag
-  :ensure t)
-
-(use-package go-fill-struct)
+(use-package go-impl :ensure t)
+(use-package go-tag :ensure t)
+(use-package go-fill-struct :ensure t)
 
 (provide 'init-go)
 
