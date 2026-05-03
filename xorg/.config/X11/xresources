@@ -29,10 +29,10 @@ Xft.lcdfilter:  lcddefault
 ! URxvt.boldItalicFont: xft:Iosevka Term:size=13:style=Bold Italic
 
 !! Laptop
-URxvt.font:xft:Iosevka Term:size=13.25:style=Semibold
-URxvt.boldFont: xft:Iosevka Term:size=13.25:style=Bold
-URxvt.italicFont: xft:Iosevka Term:size=13.25:style=Italic
-URxvt.boldItalicFont: xft:Iosevka Term:size=13.25:style=Bold Italic
+URxvt.font:xft:Iosevka Term:size=14.25:style=Semibold
+URxvt.boldFont: xft:Iosevka Term:size=14.25:style=Bold
+URxvt.italicFont: xft:Iosevka Term:size=14.25:style=Italic
+URxvt.boldItalicFont: xft:Iosevka Term:size=14.25:style=Bold Italic
 
 !! Monitor
 ! URxvt.font:xft:Iosevka Term:size=11.25:style=Semibold
