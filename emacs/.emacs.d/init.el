@@ -120,6 +120,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-vc)
 (require 'init-linting)
 (require 'init-project)
+(require 'init-devops)
 
 ;;;;; Prot
 ;; (setq find-library-include-other-files nil) ; Emacs 29

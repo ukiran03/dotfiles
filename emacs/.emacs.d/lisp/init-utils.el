@@ -66,17 +66,6 @@
 
 (use-package just-mode)
 
-(use-package docker
-  :ensure t
-  ;; :bind ("C-c d" . docker) ; Global menu for containers, images,
-  ;; volumes
-  :config
-  (setq docker-show-messages nil)
-  ;; Makes the list buffers look clean and follow your cursor
-  (add-hook 'docker-container-mode-hook #'hl-line-mode)
-  (add-hook 'docker-image-mode-hook #'hl-line-mode))
-
-
 ;;; A better, more complete user interface for password-store
 ;;; https://github.com/rjekker/password-store-menu
 (use-package password-store-menu
