@@ -6,6 +6,7 @@ $git_branch\
 $git_status\
 $kubernetes\
 $line_break\
+${env_var.INCOGNITO_MODE}\
 $time $character"""
 
 add_newline = false
@@ -46,6 +47,12 @@ contexts = [
 format = '[\[$number\]]($style) '
 style = 'bold yellow'
 number_threshold = 1
+
+[env_var.INCOGNITO_MODE]
+symbol = " <% "
+style = "bold fg:black bg:bright-white"
+# style = "bold fg:#ffffff bg:#000000"
+format = "[$symbol]($style) "
 
 [direnv]
 disabled = false
