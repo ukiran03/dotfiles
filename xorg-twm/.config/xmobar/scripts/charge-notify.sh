@@ -7,7 +7,7 @@ send_notify() {
 	local msg="Battery running out!!"
 
 	if command -v dunstify >/dev/null; then
-		dunstify -i "$ICON" -u critical -r 2389 "$msg"
+		dunstify -t 5000 -i "$ICON" -u critical -r 2389 "$msg"
 	else
 		notify-send -i "$ICON" -u critical "$msg"
 	fi

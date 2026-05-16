@@ -1,7 +1,7 @@
 Config
   { overrideRedirect = False
   , font = "xft:Iosevka Nerd Font:size=11.25:bold:antialias=true;3"
-  , additionalFonts = ["xft:Iosevka Nerd Font:pixelsize=14:bold:antialias=true"
+  , additionalFonts = ["xft:Iosevka Nerd Font:pixelsize=17:bold:antialias=true"
                       ,"xft:FontAwesome:style=Regular:pixelsize=14"]
   , bgColor = "#f2f2f2"
   , fgColor = "#000000"
@@ -11,37 +11,33 @@ Config
   , iconRoot = "/home/ukiran/.config/xmobar/xpm/"
   , commands =
       [ Run BatteryP
-          ["BAT1"] [ "-t" , " <fc=#6D8895>Bat: </fc><acstatus><left> "
+          ["BAT1"] [ "-t" , " <fc=#6D8895>BAT</fc> <acstatus><left> "
           , "-L" , "20" , "-H" , "85" , "-l" , "#a60000" , "-h" , "#006800"
           , "--"
           , "-O" , "<fc=#006800><fn=1> </fn></fc>" , "-o" , "<fc=#6f5500></fc>"
           , "-a" , ".config/xmobar/scripts/charge-notify.sh"
           , "-P" , "%" , "-A" , "20"] 100
       , Run Cpu
-          [ "-t" , "<fc=#6D8895>Cpu:</fc> <total>%"
+          [ "-t" , "<fc=#6D8895>C</fc> <total>%"
           , "-L" , "3" , "-H" , "50"
           , "--high" , "#a60000" , "--normal" , "#006800"] 50
       , Run Com "sh" ["-c", "brightnessctl -m | cut -d, -f4"] "brightness" 20
-      , Run PipeReader " :.config/xmobar/fifo/record-fifo" "record_pipe"
-      , Run DynNetwork ["-t", "<fc=#006800> <dev><up> </fc>"] 10
-      , Run Memory [ "-t", "<fc=#6D8895>Mem:</fc> <used>", "-d", "1"
+
+      , Run Network "wlp3s0" ["-t", "<fc=#006800> <dev><up> </fc>"] 30
+      , Run Memory [ "-t", "<fc=#6D8895>M</fc> <used>", "-d", "1"
                    , "--", "--scale", "1024"] 50
-      , Run MPD
-        [ "-t", "<artist> - <title> <statei>"
-        , "--", "-P", "", "-Z", "", "-S", ""
-        , "--host", "127.0.0.1" , "--port", "6600"] 10
+
       , Run Date "%a, %d %b %Y, <fc=#3f578f>%I:%M:%S %p (%R)</fc>" "date" 10
-      , Run Com ".config/xmobar/scripts/trayer-padding-icon.sh" [] "trayerpad" 30
-      , Run Com ".config/xmobar/xbps-updates.sh" [] "xbps" 3600
-      , Run Com "pamixer" ["--get-volume-human"] "" 20
+      , Run Com ".config/xmobar/scripts/trayer-padding-icon.sh" [] "trayerpad" 50
       , Run Alsa "default" "Master" ["-t", "<status> <volume>%","--"
-                                    , "-O", "<fc=#0031a9><fn=1> </fn></fc>"
-                                    , "-o", "<fc=#a60000><fn=1> </fn></fc>"]
-      , Run MPD ["-t", "<state>: <artist> - <track>"] 10
+                                    , "-O", "<fn=1> </fn>", "-o", "<fn=1> </fn>"
+                                    , "-C", "#0031a9", "-c", "#6D8895"
+                                    , "-H", "60", "-h", "<fc=#a60000><fn=1> </fn></fc>"
+                                    ]
       , Run XMonadLog
       ]
   , sepChar = "%"
   , alignSep = "}{"
   , template =
-   " <icon=xmonad_light.xpm/> <fc=#e0e0e0>|</fc> %XMonadLog% } %date% { <fc=#a60000>%record_pipe%</fc> %dynnetwork% <fc=#6D8895>󰃟 </fc>%brightness% <fc=#6D8895> (</fc>%cpu% - %memory%<fc=#6D8895>GB) </fc> %alsa:default:Master% %battery% %trayerpad%"
+   " <icon=xmonad_light.xpm/> <fc=#e0e0e0>|</fc> %XMonadLog% } %date% { %wlp3s0% <fc=#6D8895>󰃟 </fc>%brightness% <fc=#6D8895> (</fc>%cpu% - %memory%<fc=#6D8895>GB) </fc> %alsa:default:Master% %battery% %trayerpad%"
   }
