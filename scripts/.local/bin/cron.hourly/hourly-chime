@@ -1,5 +1,5 @@
 #!/bin/sh
 relative_time=$(uptime -p | cut -d' ' -f2-)
-exec dunstify -t 0 -r 3454 \
+exec dunstify -r 3454 \
          "Hour Chime: $(date +%I:%M\ %p)" \
          "It's been $relative_time since boot"
