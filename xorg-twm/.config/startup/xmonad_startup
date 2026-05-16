@@ -141,7 +141,7 @@ else
     # setxkbmap -option altwin:swap_lalt_lwin ----------------------- back to normal for while
 fi
 
-uk-bright &
+# uk-bright &
 
 /home/ukiran/.bin/godocs.sh &
 # _volume_pipe=/tmp/.volume-pipe
@@ -162,10 +162,13 @@ xsettingsd -c ~/.config/xsettingsd/xsettingsd.conf &
 # Refresh peripherals/status indicators
 laptop-brightness.sh > /dev/null 2>&1
 
-# /usr/lib/xfce4/notifyd/xfce4-notifyd &
-### /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-# /usr/libexec/polkit-gnome-authentication-agent-1 &
-#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+### Redshift
+if _check rso; then
+    rso
+fi
 
-#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# /usr/lib/xfce4/notifyd/xfce4-notifyd &
+
+# /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+# /usr/libexec/polkit-gnome-authentication-agent-1 &
+# /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &

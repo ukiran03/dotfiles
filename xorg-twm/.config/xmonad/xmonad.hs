@@ -590,6 +590,7 @@ myManageHook =
     , className =? "calibre" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "qBittorrent" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "Liferea" --> viewShiftHook (myWorkspaces !! 7)
+    , className =? "Wireshark" --> viewShiftHook (myWorkspaces !! 7)
     , className =? "Thunderbird" --> viewShiftHook (myWorkspaces !! 7)
     , className =? "Blender" --> viewShiftHook (myWorkspaces !! 7)
     , className =? "Inkscape" --> viewShiftHook (myWorkspaces !! 7)
