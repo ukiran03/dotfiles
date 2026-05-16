@@ -98,6 +98,7 @@ alias rm="trash-put -v"
 
 ## only for zsh
 compdef ,g=git
+compdef ,d=docker
 
 ## https://superuser.com/questions/649635/zsh-says-no-matches-found-when-trying-to-download-video-with-youtube-dl
 # autoload -Uz bracketed-paste-magic
@@ -185,6 +186,10 @@ source /home/ukiran/dotfiles/shell/.config/zsh/completions/_kubectl
 # source /home/ukiran/.config/zsh/prompt.zsh # Custom Prompt
 
 cowsay "Learning by doing!"
+
+# ASDF completions
+# fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+# autoload -Uz compinit && compinit
 
 # bun completions
 [ -s "/home/ukiran/.bun/_bun" ] && source "/home/ukiran/.bun/_bun"

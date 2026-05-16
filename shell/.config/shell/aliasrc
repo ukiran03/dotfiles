@@ -392,6 +392,9 @@ alias ,gp='git pull'
 alias ,gcm='git commit'
 alias ,gcl='git clone'
 
+## Docker Alias
+alias ,d='docker'
+
 # source files
 alias src="source"
 
