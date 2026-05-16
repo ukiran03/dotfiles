@@ -1,0 +1,23 @@
+#!/bin/sh
+
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/yt-local"
+
+mkdir -p "$CACHE_DIR"
+
+# Redirecting stderr to stdout so svlogd catches everything
+exec 2>&1
+
+#  Define the application directory
+APP_DIR="$HOME/.local/src/yt-local"
+
+# Move into the directory so server.py can find its local files/templates
+cd "$APP_DIR" || exit 1
+
+# Execute using the venv python binary.
+#
+# Using 'exec' ensures python becomes PID 1 of this service, allowing runit to
+# manage its signals (stop/restart) properly.
+#
+# Use chpst to load the session environment and exec the venv python This
+# ensures $HOME and other session vars are correctly set.
+exec chpst -e "$TURNSTILE_ENV_DIR" ./venv/bin/python3 server.py

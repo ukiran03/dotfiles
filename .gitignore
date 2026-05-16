@@ -151,3 +151,4 @@ xfce/*
 *.cache
 /gtk/.config/xsettingsd/xsettingsd.conf
 /shell/.config/starship/normal.toml
+down
