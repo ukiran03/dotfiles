@@ -24,10 +24,18 @@
     (pop-to-buffer buf)
     (set-window-text-height (get-buffer-window) (round (* 0.5 (frame-height)))))
 
-  (defun uk-elfeed-open ()
-    "Wrapper to load the elfeed db from disk before opening"
-    (interactive)
-    (elfeed-db-load) (elfeed) (elfeed-search-update--force)))
+  ;; (defun uk-elfeed-open ()
+  ;;   "Wrapper to load the elfeed db from disk before opening"
+  ;;   (interactive)
+  ;;   (elfeed-db-load) (elfeed) (elfeed-search-update--force))
+  )
+
+(defun uk-elfeed-sync-open ()           ;TODO: refactor
+  "Initialize elfeed-org, open the buffer, and then trigger an update."
+  (interactive)
+  (elfeed-org)
+  (elfeed)
+  (elfeed-update))
 
 ;; <https://github.com/remyhonig/elfeed-org>
 ;; Configure Elfeed with org mode

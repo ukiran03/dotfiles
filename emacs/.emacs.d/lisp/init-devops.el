@@ -2,7 +2,7 @@
 
 (use-package docker
   :ensure t
-  :demand t
+  ;; :demand t
   :hook ((docker-container-mode docker-image-mode) . hl-line-mode)
   :custom
   (docker-show-messages nil)

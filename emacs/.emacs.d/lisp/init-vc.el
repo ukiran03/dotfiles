@@ -39,7 +39,9 @@
   :commands magit-todos-mode
   :init
   (setq magit-todos-nice (if (executable-find "nice") t nil))
-  (magit-todos-mode 1))
+  (magit-todos-mode 1)
+  :config
+  (setq magit-todos-exclude-globs '(".git/" "vendor/" "node_modules/" "*.pb.go")))
 
 (use-package forge
   :after magit)

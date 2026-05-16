@@ -150,6 +150,7 @@
 	      "^\\*eldoc.*\\*$"
           "\\*apheleia-.*-log\\*"
 	      "\\*Async Shell Command\\*"
+          "\\*compilation\\*"
           go-test-mode
           racket-repl-mode
 	      help-mode

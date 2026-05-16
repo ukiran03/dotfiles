@@ -64,4 +64,12 @@
   ;;   ;; code.
   ;;   :load-path ("path-to-git-checkout-of-combobulate"))
   )
+
+(use-package combobulate
+  :vc (:url "https://github.com/mickeynp/combobulate.git")
+  :bind ("H-m" . combobulate)
+  ;; :config (setq combobulate-key-prefix "H-m")
+  ;; :hook ((go-ts-mode . combobulate-mode))
+  )
+
 (provide 'init-treesit)

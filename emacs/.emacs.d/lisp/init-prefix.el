@@ -47,17 +47,17 @@
   "j"    #'dired-jump)
 (keymap-set global-map "H-d" dired-hyper-map)
 
-(defvar-keymap saves-hyper-map
-  :doc "saves `Buffers'."
-  :name "Save"
-  "C-g" 'keyboard-quit
-  "s"    #'save-buffer
-  "H-s"  #'save-buffer
-  "a"    #'save-some-buffers)
-(keymap-set global-map "H-s" saves-hyper-map)
-
+;; (defvar-keymap saves-hyper-map
+;;   :doc "saves `Buffers'."
+;;   :name "Save"
+;;   "C-g" 'keyboard-quit
+;;   "s"    #'save-buffer
+;;   "H-s"  #'save-buffer
+;;   "a"    #'save-some-buffers)
+;; (keymap-set global-map "H-s" saves-hyper-map)
 
-;; Karthinks: https://karthinks.com/software/it-bears-repeating/
+(global-set-key (kbd "H-s") #'save-buffer)
+(global-set-key (kbd "C-M-S-s-s") #'save-some-buffers)
 
 (defvar-keymap buffer-hyper-map
   :doc "buffer actions."
@@ -73,7 +73,9 @@
   "B"    #'ibuffer
   "K"    #'kill-current-buffer)
 (keymap-set global-map "H-b" buffer-hyper-map)
-;; (global-set-key "H-k" kill-current-buffer)
+(global-set-key (kbd "H-k") #'kill-current-buffer)
+
+;; Karthinks: https://karthinks.com/software/it-bears-repeating/
 (defvar-keymap uk-buffer-repeat-map
   :doc "Freq buffer actions"
   :repeat t
@@ -93,7 +95,7 @@
   "m" #'avy-move-line
   "l" #'avy-copy-line
   "k" #'avy-kill-whole-line
-  "c" #'avy-copy-region
+  "r" #'avy-copy-region
   "K" #'avy-kill-region
   "s" #'avy-kill-ring-save-region
   "h" #'avy-org-goto-heading-timer)

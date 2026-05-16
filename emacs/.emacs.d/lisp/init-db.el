@@ -17,7 +17,9 @@
 (use-package sqlup-mode
   :ensure t
   :hook ((sql-mode . sqlup-mode)
-         (sql-interactive-mode . sqlup-mode)))
+         (sql-interactive-mode . sqlup-mode))
+  :config
+  (add-to-list 'sqlup-blacklist "name"))
 
 (provide 'init-db)
 ;;; init-db.el ends here

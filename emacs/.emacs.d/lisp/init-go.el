@@ -93,13 +93,12 @@
         '("golines" "--base-formatter" "gofumpt -extra"))
   (setf (alist-get 'gotmplfmt apheleia-formatters) '("gotmplfmt"))
   (setf (alist-get 'templ-fmt apheleia-formatters) '("templ" "fmt"))
-
+  (setf (alist-get 'buf-fmt apheleia-formatters) '("buf" "format" "--path" filepath))
   (setf (alist-get 'go-mode apheleia-mode-alist) '(goimports go-format))
   (setf (alist-get 'go-ts-mode apheleia-mode-alist) '(goimports go-format))
-  ;; (setf (alist-get 'go-mode apheleia-mode-alist) 'go-format)
-  ;; (setf (alist-get 'go-ts-mode apheleia-mode-alist) 'go-format)
 
   (setf (alist-get 'web-mode apheleia-mode-alist) '(gotmplfmt))
+  (setf (alist-get 'protobuf-mode apheleia-mode-alist) '(buf-fmt))
   (setf (alist-get 'templ-ts-mode apheleia-mode-alist) '(templ-fmt)))
 
 (use-package templ-ts-mode
@@ -123,6 +122,17 @@
 (use-package go-impl :ensure t)
 (use-package go-tag :ensure t)
 (use-package go-fill-struct :ensure t)
+
+;; Protocol Buffers, gRPC configs
+(use-package protobuf-mode
+  :blackout (protobuf-mode . "PBuf")
+  :mode ("\\.proto\\'" . protobuf-mode)
+  :hook ((protobuf-mode . eglot-ensure)
+         (protobuf-mode . apheleia-mode))
+  :config
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '(protobuf-mode . ("buf" "lsp" "serve")))))
 
 (provide 'init-go)
 
