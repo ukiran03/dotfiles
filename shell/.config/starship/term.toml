@@ -1,5 +1,6 @@
 format = """
 $jobs\
+$python\
 $directory\
 $direnv\
 $git_branch\
@@ -34,6 +35,11 @@ style = "bold cyan bg:black"
 format = "go:[$version]($style) "
 style = "bold cyan"
 disabled = true
+
+[python]
+disabled = false
+style = "bold yellow"
+format = '[(\($virtualenv\) )]($style)'
 
 [kubernetes]
 symbol = "k8s"

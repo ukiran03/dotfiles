@@ -171,7 +171,7 @@ incognito() {
 eval "$(direnv hook zsh)"
 
 if [[ -n $TMUX ]] || [[ $TERM == "rxvt-unicode-256color" ]]; then
-    export STARSHIP_CONFIG="$HOME/.config/starship/normal.toml"
+    export STARSHIP_CONFIG="$HOME/.config/starship/term.toml"
 else
     export STARSHIP_CONFIG="$HOME/.config/starship/emacs.toml"
 fi
