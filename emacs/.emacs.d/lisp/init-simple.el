@@ -18,6 +18,7 @@
   :bind (("C-S-w" . uk-simple-copy-line)
          ("C-w" . uk-kill-region)
          ("C-z" . nil)
+         ("<f2>" . nil)
          ("C-<return>" . dwim-new-line)
          ("S-SPC" . uk-insert-space-after-cursor)
          ("C-S-<backspace>" . uk-kill-whole-line)

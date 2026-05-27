@@ -1,92 +1,163 @@
-;;; init-prefix.el --- Hyper Key Prefix Action maps
+;;; init-prefix.el --- Hyper Key Prefix Action maps -*- lexical-binding: t -*-
 
 ;;; Code:
 
-;; Setup Hyper Key
-;; 1. Tell Emacs that the "Super" bit combined with others can be Hyper
+(require 'cl-lib)
+
+;; =============================================================================
+;;; 1. Hyper Key & Keyboard Chord Translation Setup
+;; =============================================================================
+
+;; Bind your Window Manager/OS Super modifier combos to Emacs Hyper
 (setq x-hyper-keysym 'hyper)
 
 (defun my/map-hyper-chord (key-string)
-  "Translate the 3-modifier chord (Ctrl-Alt-Super) to Hyper for a given string."
-  (define-key key-translation-map (kbd (format "C-M-s-%s" key-string))
+  "Translate the 3-modifier chord (Ctrl-Alt-Super) to Hyper for a given KEY-STRING."
+  (define-key key-translation-map
+              (kbd (format "C-M-s-%s" key-string))
               (kbd (format "H-%s" key-string))))
 
-;; 1. Loop for letters and digits
-(cl-loop for i from ?a to ?z do (my/map-hyper-chord (char-to-string i)))
-(cl-loop for i from ?0 to ?9 do (my/map-hyper-chord (char-to-string i)))
+;; Loop to batch-map alphanumeric inputs
+(cl-loop for char across "abcdefghijklmnopqrstuvwxyz0123456789,.';"
+         do (my/map-hyper-chord (char-to-string char)))
 
-;; 2. Explicitly map your navigation symbols
-(my/map-hyper-chord ",")
-(my/map-hyper-chord ".")
-(my/map-hyper-chord ";")
-(my/map-hyper-chord "'")
+;; =============================================================================
+;;; 2. Hyper-Prefix Keymaps (`defvar-keymap`)
+;; =============================================================================
 
-
+;; --- Files Prefix (H-f) ---
 (defvar-keymap files-hyper-map
-  :doc "My Hyper prefix map For `Files'."
+  :doc "Files configuration actions map."
   :name "Files"
-  "C-g" 'keyboard-quit
-  "f"    #'find-file
-  "H-f"  #'find-file
-  "F"  #'view-file
-  "r"    'consult-recent-file
-  "m"    #'rename-file
-  "M"    #'rename-visited-file
-  "w"    #'write-file
-  "l"    #'find-library
-  "v"    #'find-alternate-file)
+  "C-g" #'keyboard-quit
+  "f"   #'find-file
+  "H-f" #'find-file
+  "F"   #'view-file
+  "r"   #'consult-recent-file
+  "m"   #'rename-file
+  "M"   #'rename-visited-file
+  "w"   #'write-file
+  "l"   #'find-library
+  "v"   #'find-alternate-file)
 (keymap-set global-map "H-f" files-hyper-map)
-
+
+;; --- Dired Prefix (H-d) ---
 (defvar-keymap dired-hyper-map
-  :doc "Hyper prefix map for `Dired'."
+  :doc "Dired file management navigation map."
   :name "Dired"
-  "C-g" 'keyboard-quit
-  "c"    'consult-dir
-  "d"    #'dired
-  "H-d"    #'dired
-  "j"    #'dired-jump)
+  "C-g" #'keyboard-quit
+  "c"   #'consult-dir
+  "d"   #'dired
+  "H-d" #'dired
+  "j"   #'dired-jump)
 (keymap-set global-map "H-d" dired-hyper-map)
-
-;; (defvar-keymap saves-hyper-map
-;;   :doc "saves `Buffers'."
-;;   :name "Save"
-;;   "C-g" 'keyboard-quit
-;;   "s"    #'save-buffer
-;;   "H-s"  #'save-buffer
-;;   "a"    #'save-some-buffers)
-;; (keymap-set global-map "H-s" saves-hyper-map)
 
-(global-set-key (kbd "H-s") #'save-buffer)
-(global-set-key (kbd "C-M-S-s-s") #'save-some-buffers)
-
+;; --- Buffers Prefix (H-b) ---
 (defvar-keymap buffer-hyper-map
-  :doc "buffer actions."
+  :doc "Buffer tracking and active buffer actions."
   :name "Buffer"
-  "C-g" 'keyboard-quit
-  "b"    'consult-buffer
-  "H-b"  'consult-buffer
-  "k"    #'kill-buffer
-  "i"    #'insert-buffer
-  "g"    #'revert-buffer-quick
-  "c"    #'clone-buffer
-  "r"    #'rename-buffer
-  "B"    #'ibuffer
-  "K"    #'kill-current-buffer)
+  "C-g" #'keyboard-quit
+  "b"   #'consult-buffer
+  "H-b" #'consult-buffer
+  "k"   #'kill-buffer
+  "i"   #'insert-buffer
+  "g"   #'revert-buffer-quick
+  "c"   #'clone-buffer
+  "r"   #'rename-buffer
+  "B"   #'ibuffer
+  "K"   #'kill-current-buffer)
 (keymap-set global-map "H-b" buffer-hyper-map)
-(global-set-key (kbd "H-k") #'kill-current-buffer)
 
-;; Karthinks: https://karthinks.com/software/it-bears-repeating/
-(defvar-keymap uk-buffer-repeat-map
-  :doc "Freq buffer actions"
-  :repeat t
-  "," #'previous-buffer
-  ;; "<left>" #'previous-buffer
-  "." #'next-buffer
-  ;; "<right>" #'next-buffer
-  )
-
+;; --- Narrowing Prefix (H-n) ---
+(defvar-keymap narrow-hyper-map
+  :doc "Buffer narrowing actions."
+  :name "Narrow"
+  :parent narrow-map
+  "C-g" #'keyboard-quit)
+(keymap-set global-map "H-n" narrow-hyper-map)
+
+;; --- Project Prefix (H-p) ---
+(defvar-keymap project-hyper-map
+  :doc "Project-wide version control & context lookup."
+  :name "Project"
+  :parent project-prefix-map
+  "C-g"      #'keyboard-quit
+  "."        #'project-dired
+  "<return>" #'project-dired
+  "F"        #'project-view-file
+  "<delete>" #'project-forget-project)
+(keymap-set global-map "H-p" project-hyper-map)
+
+;; --- Registers & Bookmarks Prefix (H-r) ---
+(defvar-keymap reg-and-bm-hyper-map
+  :doc "Register tracking and bookmark access."
+  :name "Reg & Bm"
+  :parent ctl-x-r-map
+  "C-g" #'keyboard-quit
+  "p"   #'point-to-register)
+(keymap-set global-map "H-r" reg-and-bm-hyper-map)
+
+;; --- Version Control Prefix (H-v) ---
+(defvar-keymap vc-hyper-map
+  :doc "VC and Git internal operations."
+  :name "VC"
+  :parent vc-prefix-map
+  "C-g" #'keyboard-quit)
+(keymap-set global-map "H-v" vc-hyper-map)
+
+;; --- Window Configurations Prefix (H-w) ---
+(defvar-keymap window-hyper-map
+  :doc "Window structural alterations."
+  :name "Window"
+  :parent window-prefix-map
+  "C-g" #'keyboard-quit
+  "t"   #'transpose-frame
+  "="   #'balance-windows
+  "+"   #'balance-windows-area
+  "_"   #'shrink-window-if-larger-than-buffer)
+(keymap-set global-map "H-w" window-hyper-map)
+
+;; --- Multi-Window / Multi-Frame Prefixes (H-4 / H-5) ---
+(defvar-keymap other-window-hyper-map
+  :doc "Other-window target actions map."
+  :name "Other-Window Prefix"
+  :parent ctl-x-4-map
+  "C-g" #'keyboard-quit
+  "l"   #'find-library-other-window
+  "H-4" #'other-window-prefix)
+(keymap-set global-map "H-4" other-window-hyper-map)
+
+(defvar-keymap other-frame-hyper-map
+  :doc "Other-frame target actions map."
+  :name "Other-Frame Prefix"
+  :parent ctl-x-5-map
+  "C-g" #'keyboard-quit)
+(keymap-set global-map "H-5" other-frame-hyper-map)
+
+;; --- Infrastructure Prefixes (H-a) ---
+(defvar-keymap docker-map
+  :doc "Docker Infrastructure management operations."
+  :name "Docker"
+  "i" #'docker-images
+  "c" #'docker-containers
+  "v" #'docker-volumes
+  "n" #'docker-networks
+  "x" #'docker-contexts
+  "C" #'docker-compose)
+(keymap-set global-map "H-a d" docker-map)
+
+;; =============================================================================
+;;; 3. Global Shortcuts & Specialized Utility Keymaps
+;; =============================================================================
+
+;; Standalone Bindings
+(keymap-set global-map "H-s" #'save-buffer)
+(keymap-set global-map "H-k" #'kill-current-buffer)
+(keymap-set global-map "C-M-S-s-s" #'save-some-buffers)
+
+;; --- Non-Hyper Context: Avy Maps (C-;) ---
 (defvar-keymap avy-cmd-map
-  :doc "Essential Avy Cmds"
+  :doc "Essential structural jump commands via Avy."
   :name "Avy"
   ";" #'avy-goto-char-timer
   "2" #'avy-goto-char-2
@@ -100,98 +171,13 @@
   "s" #'avy-kill-ring-save-region
   "h" #'avy-org-goto-heading-timer)
 (keymap-set global-map "C-;" avy-cmd-map)
-
-(defvar-keymap other-window-hyper-map
-  :doc "`other-window-prefix' actions."
-  :name "Other-Window Prefix"
-  :parent ctl-x-4-map
-  "C-g" 'keyboard-quit
-  "l"    #'find-library-other-window
-  "H-4"  #'other-window-prefix)
-(keymap-set global-map "H-4" other-window-hyper-map)
 
-(defvar-keymap other-frame-hyper-map
-  :doc "`other-frame-prefix' actions."
-  :name "Other-Frame Prefix"
-  :parent ctl-x-5-map
-  "C-g" 'keyboard-quit)
-(keymap-set global-map "H-5" other-frame-hyper-map)
-
-
-(defvar-keymap narrow-hyper-map
-  :doc "Narrow-map hyper actions."
-  :name "Narrow"
-  :parent narrow-map
-  "C-g" 'keyboard-quit)
-(keymap-set global-map "H-n" narrow-hyper-map)
-
-
-(defvar-keymap project-hyper-map
-  :doc "project-map hyper actions"
-  :name "Project"
-  :parent project-prefix-map
-  "." 'project-dired
-  "<return>" 'project-dired
-  "C-g" 'keyboard-quit
-  "F" #'project-view-file
-  "<delete>" 'project-forget-project)
-(keymap-set global-map "H-p" project-hyper-map)
-
-(defvar-keymap reg-and-bm-hyper-map
-  :doc "Register and Bookmark hyper-map."
-  :name "Reg & Bm"
-  :parent ctl-x-r-map
-  "C-g" 'keyboard-quit
-  "p"    #'point-to-register)
-(keymap-set global-map "H-r" reg-and-bm-hyper-map)
-
-;; (defvar-keymap tab-hyper-map
-;;   :doc "tab-bar hyper map."
-;;   :name "Tabs"
-;;   :parent tab-prefix-map
-;;   "C-g" 'keyboard-quit)
-;; (keymap-set global-map "H-t" tab-hyper-map)
-
-(defvar-keymap vc-hyper-map
-  :doc "`vc' hyper map."
-  :name "VC"
-  :parent vc-prefix-map
-  "C-g" 'keyboard-quit)
-(keymap-set global-map "H-v" vc-hyper-map)
-
-(defvar-keymap window-hyper-map
-  :doc "`window' hyper map."
-  :name "window"
-  :parent window-prefix-map
-  "t" 'transpose-frame
-  "=" 'balance-windows
-  "+" 'balance-windows-area
-  "_" 'shrink-window-if-larger-than-buffer
-  "C-g" 'keyboard-quit)
-(keymap-set global-map "H-w" window-hyper-map)
-
-;; (keymap-set global-map "H-e" #'eval-last-sexp)
-;; (keymap-set global-map "H-z" #'repeat)
-;; (define-key global-map "H-e" #'eval-last-sexp)
-;; (define-key global-map "H-z" #'repeat)
-
-(defvar-keymap docker-map
-  :doc "Docker Interface with `docker.el'"
-  :name "Docker"
-  "i" 'docker-images
-  "c" 'docker-containers
-  "v" 'docker-volumes
-  "n" 'docker-networks
-  "x" 'docker-contexts
-  "C" 'docker-compose)
-(keymap-set global-map "H-a d" docker-map)
-
-;; (defvar-keymap kubernetes-map
-;;   :doc "Kubernetes Interface with `kubed'"
-;;   :name "Kubernetes"
-;;   :parent kubed-prefix-map
-;;   "C-g" 'keyboard-quit)
-;; (keymap-set global-map "H-a k" kubernetes-map)
+;; --- Repeating Actions Navigation Maps ---
+(defvar-keymap uk-buffer-repeat-map
+  :doc "Frequent sequential buffer cyclic actions."
+  :repeat t
+  "," #'previous-buffer
+  "." #'next-buffer)
 
 (provide 'init-prefix)
 ;;; init-prefix.el ends here.

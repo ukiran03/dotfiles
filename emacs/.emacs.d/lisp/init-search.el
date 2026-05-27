@@ -1,51 +1,52 @@
-;;; init-search.el --- summary -*- lexical-binding: t -*-
+;;; init-search.el --- Search configuration -*- lexical-binding: t -*-
 
 ;;; Commentary:
+;;  Isearch, occur, grep, and search extras.
 
 ;;; Code:
 
-;;; Isearch, occur, grep, and extras
-
-;; (use-package isearch
-;;   :ensure nil
-;;   :demand t
-;;   :config
-;;   (setq search-whitespace-regexp ".*?" ; one `setq' here to make it obvious they are a bundle
-;;         isearch-lax-whitespace t
-;;         isearch-regexp-lax-whitespace nil))
-
 (use-package isearch
   :ensure nil
   :demand t
   :config
-  (setq search-highlight t)
-  (setq isearch-lazy-highlight t)
-  (setq lazy-highlight-initial-delay 0.5)
-  (setq lazy-highlight-no-delay-length 4))
+  ;; Whitespace & Regex Behavior
+  (setq search-whitespace-regexp ".*?"
+        isearch-lax-whitespace t
+        isearch-regexp-lax-whitespace nil)
 
-(use-package isearch
-  :ensure nil
-  :demand t
-  :config
-  (setq isearch-lazy-count t)
-  (setq lazy-count-prefix-format "(%s/%s) ")
-  (setq lazy-count-suffix-format nil))
+  ;; Lazy Highlighting
+  (setq search-highlight t
+        isearch-lazy-highlight t
+        lazy-highlight-initial-delay 0.5
+        lazy-highlight-no-delay-length 4)
 
-(use-package isearch
-  :ensure nil
-  :demand t
-  :config
-  (setq isearch-wrap-pause t) ; `no-ding' makes keyboard macros never quit
-  (setq isearch-repeat-on-direction-change t))
+  ;; Match Count Display (e.g., (1/10))
+  (setq isearch-lazy-count t
+        lazy-count-prefix-format "(%s/%s) "
+        lazy-count-suffix-format nil)
+
+  ;; Wrapping & Navigation
+  (setq isearch-wrap-pause t ; `no-ding' makes keyboard macros never quit
+        isearch-repeat-on-direction-change t))
+
+;;; Extras & External Packages
 
 (use-package substitute
   :ensure t)
 
 (use-package link-hint
+  :ensure t ; Added explicitly for consistency with third-party packages
   :bind (("C-c l o" . link-hint-open-link)
          ("C-c l c" . link-hint-copy-link)
          ("C-c l O" . link-hint-open-link-at-point)
          ("C-c l C" . link-hint-copy-link-at-point)))
+
+;; Affe (Asynchronous Fuzzy Finder)
+(use-package affe
+  :ensure t
+  :config
+  ;; Manual preview key for `affe-grep'
+  (consult-customize affe-grep :preview-key "M-."))
 
 (provide 'init-search)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

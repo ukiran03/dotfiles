@@ -1,115 +1,75 @@
-;; init-completions.el --- summary -*- lexical-binding: t -*-
+;;; init-completions.el --- Modern Completion Engine -*- lexical-binding: t -*-
 
-;;; Embark
+;;; Context Actions & Exporting (Embark)
 (use-package embark
   :ensure t
-  :hook ((embark-collect-mode . prot-common-truncate-lines-silently)
-         (embark-collect-mode . consult-preview-at-point-mode))
-  :bind
-  ( :map minibuffer-local-map
-    ("C-c C-c" . embark-collect)
-    ("C-c C-." . embark-act)
-    ("C-c C-e" . embark-export)))
+  :bind (:map minibuffer-local-map
+              ("C-c C-c" . embark-collect)
+              ("C-c C-." . embark-act)
+              ("C-c C-e" . embark-export)))
 
-;; Needed for correct exporting while using Embark with Consult
-;; commands.
 (use-package embark-consult
   :ensure t
   :after (embark consult))
 
-;;; Core
+;;; Core Emacs Minibuffer & UI Configuration
 (use-package emacs
   :ensure nil
   :init
-  ;; Support opening new minibuffers from inside existing minibuffers.
+  ;; Minibuffer behavior
   (setq enable-recursive-minibuffers t)
-  ;; Only list the commands of the current modes
-  (setq read-extended-command-predicate
-        #'command-completion-default-include-p)
-
-  ;; Enable indentation+completion using the TAB key.
-  ;; `completion-at-point' is often bound to M-TAB.
+  (setq completion-cycle-threshold 3)
+  (setq read-extended-command-predicate #'command-completion-default-include-p)
   (setq tab-always-indent 'complete)
 
-  ;; Do not allow the cursor to move inside the minibuffer prompt.  I
-  ;; got this from the documentation of Daniel Mendler's Vertico
-  ;; package: <https://github.com/minad/vertico>.
+  ;; Prevent cursor from entering the prompt
   (setq minibuffer-prompt-properties
         '(read-only t cursor-intangible t face minibuffer-prompt))
-  :init
-  ;; TAB cycle if there are only few candidates
-  (setq completion-cycle-threshold 3))
 
+  ;; Global Search and UI Adjustments
+  (setq completion-ignore-case t)
+  (setq read-buffer-completion-ignore-case t)
+  (setq read-file-name-completion-ignore-case t)
+  (setq-default case-fold-search t)
+  (setq resize-mini-windows t)
+  (setq read-answer-short t)
+  (setq echo-keystrokes 0.25)
+  (setq kill-ring-max 60))
+
+;;; Minibuffer Visual Enhancements
 (use-package mb-depth
   :ensure nil
   :hook (after-init . minibuffer-depth-indicate-mode)
   :config
-  (setq read-minibuffer-restore-windows nil) ; Emacs 28
-  (setq enable-recursive-minibuffers t))
+  (setq read-minibuffer-restore-windows nil))
 
-(use-package recursion-indicator
-  :ensure t
-  :after minibuffer
-  :demand t
+(use-package minibuf-eldef
+  :ensure nil
+  :hook (after-init . minibuffer-electric-default-mode)
   :config
-  (recursion-indicator-mode))
+  (setq minibuffer-default-prompt-format " [%s]"))
 
+;;; Built-in Completion Styling & UI
 (use-package minibuffer
   :ensure nil
+  :demand t
   :config
-  ;;;; Completion styles
-  (setq completion-styles '(basic substring initials flex orderless)) ; also see `completion-category-overrides'
-  ;; From `prot'
-  ;; Reset all the per-category defaults so that (i) we use the
-  ;; standard `completion-styles' and (ii) can specify our own styles
-  ;; in the `completion-category-overrides' without having to
-  ;; explicitly override everything.
-  (setq completion-category-defaults nil)
+  ;; Layout and UI
+  (setq completions-detailed t)
+  (setq completions-max-height 6)
+  (setq completions-format 'one-column)
+  (setq completion-show-help nil)
+  (setq completion-auto-help 'always)
+  (setq completion-auto-select nil)
+  (setq completion-show-inline-help nil)
+  (setq completions-header-format (propertize "%s candidates:\n" 'face 'bold-italic))
+  (setq completions-highlight-face 'completions-highlight)
+  (setq minibuffer-completion-auto-choose t)
 
-  ;; A non-exhaustve list of known completion categories:
-  ;; - `bookmark'
-  ;; - `buffer'
-  ;; - `charset'
-  ;; - `coding-system'
-  ;; - `color'
-  ;; - `command' (e.g. `M-x')
-  ;; - `customize-group'
-  ;; - `environment-variable'
-  ;; - `expression'
-  ;; - `face'
-  ;; - `file'
-  ;; - `function' (the `describe-function' command bound to `C-h f')
-  ;; - `info-menu'
-  ;; - `imenu'
-  ;; - `input-method'
-  ;; - `kill-ring'
-  ;; - `library'
-  ;; - `minor-mode'
-  ;; - `multi-category'
-  ;; - `package'
-  ;; - `project-file'
-  ;; - `symbol' (the `describe-symbol' command bound to `C-h o')
-  ;; - `theme'
-  ;; - `unicode-name' (the `insert-char' command bound to `C-x 8 RET')
-  ;; - `variable' (the `describe-variable' command bound to `C-h v')
-  ;; - `consult-grep'
-  ;; - `consult-isearch'
-  ;; - `consult-kmacro'
-  ;; - `consult-location'
-  ;; - `embark-keybinding'
-  ;;
+  ;; Matching Styles (Fallback options if Orderless is absent)
+  (setq completion-styles '(basic substring initials flex orderless))
+  (setq completion-category-defaults nil)
   (setq completion-category-overrides
-        ;; NOTE 2021-10-25: I am adding `basic' because it works better as a
-        ;; default for some contexts.  Read:
-        ;; <https://debbugs.gnu.org/cgi/bugreport.cgi?bug=50387>.
-        ;;
-        ;; `partial-completion' is a killer app for files, because it
-        ;; can expand ~/.l/s/fo to ~/.local/share/fonts.
-        ;;
-        ;; If `basic' cannot match my current input, Emacs tries the
-        ;; next completion style in the given order.  In other words,
-        ;; `orderless' kicks in as soon as I input a space or one of its
-        ;; style dispatcher characters.
         '((file (styles . (basic partial-completion orderless)))
           (bookmark (styles . (basic substring)))
           (library (styles . (basic substring)))
@@ -119,24 +79,7 @@
           (kill-ring (styles . (emacs22 orderless)))
           (eglot (styles . (emacs22 substring orderless))))))
 
-(use-package minibuffer
-  :ensure nil
-  :demand t
-  :config
-  (setq completions-detailed t)
-  (setq completions-max-height 6)
-  (setq completions-format 'one-column)
-  (setq completion-show-help nil)
-  (setq completion-auto-help 'always)
-  (setq completion-auto-select nil)
-  (setq completions-detailed t)
-  (setq completion-show-inline-help nil)
-  (setq completions-max-height 6)
-  (setq completions-header-format (propertize "%s candidates:\n" 'face 'bold-italic))
-  (setq completions-highlight-face 'completions-highlight)
-  (setq minibuffer-completion-auto-choose t))
-
-;;;; `savehist' (minibuffer and related histories)
+;;; Session History Preservation
 (use-package savehist
   :ensure nil
   :hook (after-init . savehist-mode)
@@ -146,57 +89,13 @@
   (setq savehist-save-minibuffer-history t)
   (add-to-list 'savehist-additional-variables 'kill-ring))
 
-(setq completion-ignore-case t)
-(setq read-buffer-completion-ignore-case t)
-(setq-default case-fold-search t)   ; For general regexp
-(setq read-file-name-completion-ignore-case t)
-
-(use-package minibuf-eldef
-  :ensure nil
-  :hook (after-init . minibuffer-electric-default-mode)
-  :config
-  (setq minibuffer-default-prompt-format " [%s]")) ; Emacs 29
-
 (use-package rfn-eshadow
   :ensure nil
   :hook (minibuffer-setup . cursor-intangible-mode)
   :config
-  ;; Not everything here comes from rfn-eshadow.el, but this is fine.
-
-  (setq resize-mini-windows t)
-  (setq read-answer-short t) ; also check `use-short-answers' for Emacs28
-  (setq echo-keystrokes 0.25)
-  (setq kill-ring-max 60) ; Keep it small
   (file-name-shadow-mode 1))
 
-
-;;; 3rd party pkgs
-
-;; Optionally use the `orderless' completion style.
-(use-package orderless
-  :ensure t
-  :demand t
-  :after minibuffer
-  :config
-  ;; Remember to check my `completion-styles' and the
-  ;; `completion-category-overrides'.
-  (setq orderless-matching-styles '(orderless-prefixes orderless-regexp))
-  (setq orderless-smart-case nil)
-
-  ;; SPC should never complete: use it for `orderless' groups.
-  ;; The `?' is a regexp construct.
-  :bind ( :map minibuffer-local-completion-map
-          ("SPC" . nil)
-          ("?" . nil)))
-
-
-;;; `Code' Completions
-
-;; `corfu.el': COmpletion in Region FUnction
-;; <https://elpa.gnu.org/packages/doc/corfu.html>
-;; <https://github.com/minad/corfu>
-
-;; Auto completion
+;;; In-Buffer Auto-Completion (Corfu)
 (use-package corfu
   :ensure t
   :custom
@@ -207,43 +106,29 @@
   :custom-face
   (corfu-border ((t (:inherit region :background unspecified))))
   :bind (:map corfu-map
-	          ("M-SPC" . corfu-insert-separator)
-	          ("TAB"   . corfu-next)
-	          ("S-TAB" . corfu-previous)
-              ("C-n" . corfu-next)
-              ("C-p" . corfu-previous)
-	          ("S-<return>" . corfu-insert)
-	          ("RET"   . nil))
+              ("M-SPC" . corfu-insert-separator)
+              ("TAB"   . corfu-next)
+              ("S-TAB" . corfu-previous)
+              ("C-n"   . corfu-next)
+              ("C-p"   . corfu-previous)
+              ("S-<return>" . corfu-insert)
+              ("RET"   . nil))
   :hook ((after-init . global-corfu-mode)
          (global-corfu-mode . corfu-echo-mode))
   :config
-  ;; Sort by input history (no need to modify `corfu-sort-function').
   (with-eval-after-load 'savehist
     (corfu-history-mode 1)
     (add-to-list 'savehist-additional-variables 'corfu-history)))
 
-;; (unless (display-graphic-p)
-;;   (use-package corfu-terminal
-;;     :hook (global-corfu-mode . corfu-terminal-mode)))
-
-;; `cape.el': Completion At Point Extensions
-;; <https://elpa.gnu.org/packages/doc/cape.html>
-;; <https://github.com/minad/cape>
-;; ;; Add extensions
+;;; Completion At Point Extensions (Cape)
 (use-package cape
-  :demand
+  :ensure t
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-elisp-block)
-  ;; (add-to-list 'completion-at-point-functions #'cape-history)
+  :config
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
 
-;; Affe
-(use-package affe
-  :ensure t
-  :config
-  ;; Manual preview key for `affe-grep'
-  (consult-customize affe-grep :preview-key "M-."))
-
 (provide 'init-completions)
+;;; init-completions.el ends here

@@ -1,11 +1,16 @@
-;; init-dired.el --- Dired configurations.	-*- lexical-binding: t -*-
+;;; init-dired.el --- Dired configurations -*- lexical-binding: t -*-
 
-;; Commentry
-;; `DIRctoryEDitor' configs
+;;; Commentary:
+;; A fast, unified, and interactive keyboard-driven filesystem layout manager.
+
+;;; Code:
+
+;; 1. Global Jump Binding
 (use-package emacs
   :ensure nil
   :bind ("H-j" . dired-jump))
 
+;; 2. Consolidated Core Dired Configuration
 (use-package dired
   :ensure nil
   :hook ((dired-mode . dired-omit-mode)
@@ -14,27 +19,50 @@
   :bind (:map dired-mode-map
               ("C-c C-p" . wdired-change-to-wdired-mode)
               ("_"       . dired-create-empty-file)
-              ("."       . dired-omit-mode))
+              ("."       . dired-omit-mode)
+              ("C-S-o"   . dired-view-file-other-window))
   :config
-  (setq dired-auto-revert-buffer #'dired-directory-changed-p
-        dired-dwim-target t
-        dired-free-space 'first            ; Emacs 29+
-        dired-make-directory-clickable t   ; Emacs 29+
-        dired-mouse-drag-files t           ; Emacs 29+
-        delete-by-moving-to-trash t
-        dired-recursive-deletes 'always
-        dired-recursive-copies 'always
-        dired-listing-switches "-AGFhlv --group-directories-first --time-style=long-iso"))
+  ;; Switch Layout Mechanics
+  (setq dired-listing-switches
+        "-AGFhlv --group-directories-first --time-style=long-iso")
 
-;; Standard Extensions (dired-x & dired-aux)
+  ;; Realtime UX Update Controls
+  (setq dired-auto-revert-buffer #'dired-directory-changed-p
+        dired-dwim-target t ; Intelligently targets adjacent splits for operations
+        dired-free-space 'first
+        dired-make-directory-clickable t
+        dired-mouse-drag-files t)
+
+  ;; Trash/Deletions Policy Security
+  (setq delete-by-moving-to-trash t
+        dired-recursive-deletes 'always
+        dired-recursive-copies 'always)
+
+  ;; Embedded custom helper inside config
+  (defun dired-view-file-other-window ()
+    "In Dired, examine a file in view mode on `other-window', returning to
+Dired when done.  When file is a directory, show it in this buffer if it
+is inserted.  Otherwise, display it in another buffer."
+    (interactive nil dired-mode)
+    (let ((file (dired-get-file-for-visit)))
+      (if (file-directory-p file)
+          (or (and (cdr dired-subdir-alist)
+                   (dired-goto-subdir file))
+              (dired file))
+        (view-file-other-window file)))))
+
+;; 3. Core Standard Extension Adjustments
 (use-package dired-x
   :ensure nil
   :after dired
   :config
+  ;; File Omit Regex
   (setq dired-omit-files
-        (rx (or (seq line-end ".elc")          ; Ends with .elc
-                (seq line-start (opt ".") "#") ; Starts with # or .#
-                (seq line-start "."))))         ; Starts with . (dot)
+        (rx (or (seq line-end ".elc")
+                (seq line-start (opt ".") "#")
+                (seq line-start "."))))
+
+  ;; External App Associations Engine
   (setq dired-guess-shell-alist-user
         `((,(rx ".pdf" eos) "zathura")
           (,(rx ".docx" eos) "libreoffice")
@@ -47,94 +75,57 @@
           (,(rx "." (or "mp3" "flac") eos) "mpv")
           (,(rx ".htm" (opt "l") eos) "firefox"))))
 
+;; 4. Third-Party Extension Layers
 (use-package dired-gitignore
   :ensure t
   :after dired
   :bind (:map dired-mode-map ("h" . dired-gitignore-mode)))
 
-;; Third-Party Packages (Keep these separate)
 (use-package dired-git-info
+  :ensure t
   :after dired
   :bind (:map dired-mode-map (")" . dired-git-info-mode)))
 
 (use-package dired-rsync
+  :ensure t
   :after dired
   :bind (:map dired-mode-map ("C-c C-r" . dired-rsync)))
 
-(use-package diredfl
-  :disabled
-  :hook (dired-mode . diredfl-mode))
-
-;; (use-package dired
-;;   :ensure nil
-;;   :hook (dired-mode . dired-omit-mode)
-;;   :bind (:map dired-mode-map
-;;               ( "."     . dired-omit-mode))
-;;   :custom (dired-omit-files (rx (seq bol "."))))
-
-;; (use-package dired-hist
-;;   :after dired
-;;   :bind (:map dired-mode-map
-;; 	          ("l" . dired-hist-go-back)
-;; 	          ("r" . dired-hist-go-forward)))
-
-;;<https://github.com/kickingvegas/casual-dired>
-;; (use-package casual-dired
-;;   :ensure nil
-;;   :bind (:map dired-mode-map ("C-o" . 'casual-dired-tmenu)))
-
-(use-package dired-preview
-  :disabled
+(use-package dired-subtree
   :ensure t
   :after dired
+  :bind (:map dired-mode-map
+              ("<tab>" . dired-subtree-toggle)
+              ("<C-tab>" . dired-subtree-cycle)
+              ("<backtab>" . dired-subtree-remove))
   :config
-  ;; Default values for demo purposes
-  (setq dired-preview-delay 0.7)
-  (setq dired-preview-max-size (expt 2 20))
-  (setq dired-preview-ignored-extensions-regexp
-        (rx "." (or "mkv" "webm" "mp4" "mp3" "ogg" "m4a"    ;; Media
-                    "gz" "zst" "tar" "xz" "rar" "zip" "iso" ;; Archives
-                    "epub" "pdf" ;; Documents
-                    "out" "o")   ;; Build Artifacts
-            line-end))
-  (dired-preview-global-mode 1))
+  (setq dired-subtree-use-backgrounds nil))
 
+;; 5. Mini-Buffer Quick Path Directory Traversal
 (use-package consult-dir
   :ensure t
-  :bind (("C-x C-d" . consult-dir)
-         :map vertico-map
-         ("C-x C-d" . consult-dir)
-         ("C-x C-j" . consult-dir-jump-file)))
-
-;; <https://github.com/Fuco1/dired-hacks>
-(use-package dired-subtree
-  :after dired
+  :bind ("C-x C-d" . consult-dir)
   :config
-  (setq dired-subtree-use-backgrounds nil)
-  :bind (:map dired-mode-map
-	          ("<tab>" . dired-subtree-toggle)
-	          ("<C-tab>" . dired-subtree-cycle)
-	          ("<backtab>" . 'dired-subtree-remove)))
+  ;; Safe lazy-loaded configuration injection for Vertico userspace
+  (with-eval-after-load 'vertico
+    (define-key vertico-map (kbd "C-x C-d") #'consult-dir)
+    (define-key vertico-map (kbd "C-x C-j") #'consult-dir-jump-file)))
 
-(use-package dired
-  :ensure nil
-  :bind (:map dired-mode-map
-              ("C-S-o" . dired-view-file-other-window))
-  :config
-  (defun dired-view-file-other-window ()
-    "In Dired, examine a file in view mode on `other-window', returning to Dired when done.
-When file is a directory, show it in this buffer if it is inserted.
-Otherwise, display it in another buffer."
-    (interactive nil dired-mode)
-    (let ((file (dired-get-file-for-visit)))
-      (if (file-directory-p file)
-	      (or (and (cdr dired-subdir-alist)
-		           (dired-goto-subdir file))
-	          (dired file))
-        (view-file-other-window file)))))
+(use-package dired-sidebar
+  :ensure t
+  :commands (dired-sidebar-toggle-sidebar)
+  :init
+  (add-hook 'dired-sidebar-mode-hook
+            (lambda ()
+              (unless (file-remote-p default-directory)
+                (auto-revert-mode))))
+  :custom
+  (dired-sidebar-window-fixed nil)
+  (dired-sidebar-width 25)
+  (dired-sidebar-theme 'none)
+  :bind
+  ([f8] . dired-sidebar-toggle-with-current-directory))
 
 
 (provide 'init-dired)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-dired.el ends here

@@ -15,8 +15,8 @@
 (setq read-process-output-max (* 4 1024 1024)) ; 4MB
 
 ;; Don’t Render Cursors in Non-Focused Windows
-(setq-default cursor-in-non-selected-windows t) ; nil to disable
-(setq highlight-nonselected-windows t)          ; nil to disable
+(setq-default cursor-in-non-selected-windows t)
+(setq highlight-nonselected-windows nil)
 
 ;;; Kill Ring (Emacs’s Clipboard History) and Clipboard
 

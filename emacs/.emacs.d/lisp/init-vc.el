@@ -1,7 +1,7 @@
-;;; init-vc.el --- summary -*- lexical-binding: t -*-
-
+;;; init-vc.el --- Version control configuration -*- lexical-binding: t -*-
 
 ;;; Commentary:
+;;  Configuration for Ediff, Magit, Forge, and Git fringe indicators.
 
 ;;; Code:
 
@@ -18,50 +18,48 @@
   (setq ediff-merge-revisions-with-ancestor t)
   (setq ediff-show-clashes-only t))
 
+;;;; `magit'
 (use-package magit
   :ensure t
   :bind ("H-g" . magit-status)
   :init
   (setq magit-define-global-key-bindings nil)
-  ;; (setq magit-section-visibility-indicator '("⮧"))
   :config
   (setq git-commit-summary-max-length 50)
-  ;; NOTE 2023-01-24: I used to also include `overlong-summary-line'
-  ;; in this list, but I realised I do not need it.  My summaries are
-  ;; always in check.  When I exceed the limit, it is for a good
-  ;; reason.
+  ;; Note: 'overlong-summary-line' omitted intentionally.
   (setq git-commit-style-convention-checks '(non-empty-second-line))
   (setq magit-diff-refine-hunk t))
 
 ;; Show TODOs in magit
 (use-package magit-todos
-  :after magit-status
-  :commands magit-todos-mode
-  :init
-  (setq magit-todos-nice (if (executable-find "nice") t nil))
-  (magit-todos-mode 1)
+  :ensure t
+  :after magit
   :config
-  (setq magit-todos-exclude-globs '(".git/" "vendor/" "node_modules/" "*.pb.go")))
+  (setq magit-todos-nice (and (executable-find "nice") t))
+  (setq magit-todos-exclude-globs '(".git/" "vendor/" "node_modules/" "*.pb.go"))
+  (magit-todos-mode 1))
 
+;; Forge for GitHub/GitLab integration within Magit
 (use-package forge
+  :ensure t
   :after magit)
 
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
+  :ensure t
   :init
   (setq diff-hl-draw-borders nil)
   (setq-default diff-hl-inline-popup--height 4)
-  :hook ((after-init . global-diff-hl-mode)
-         (after-init . global-diff-hl-show-hunk-mouse-mode)
-         (dired-mode . diff-hl-dired-mode))
+  (setq-default fringes-outside-margins t)
   :config
-  ;;   ;; Highlight on-the-fly
-  ;;   (diff-hl-flydiff-mode 1)
-  ;;   ;; Set fringe style
-  (setq-default fringes-outside-margins t))
+  (global-diff-hl-mode 1)
+  (global-diff-hl-show-hunk-mouse-mode 1)
+  :hook (dired-mode . diff-hl-dired-mode))
 
-
+;; Built-in VC customizations
 (use-package vc
+  :ensure nil
+  :defer t
   :custom-face
   (vc-edited-state ((t (:inherit font-lock-warning-face :slant italic)))))
 

@@ -1,3 +1,5 @@
+;; init-mail.el -- Mail configurations. -*- lexical-binding: t -*-
+
 (use-package notmuch
   :commands (notmuch notmuch-mua-new-mail))
 
@@ -33,9 +35,5 @@
           ( :name "ushakiranreddi@"
             :query "to:ushakiranreddi@gmail.com"
             :sort-order newest-first))))
-
-
-
-
 
 (provide 'init-mail)

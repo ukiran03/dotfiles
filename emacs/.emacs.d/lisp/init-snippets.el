@@ -1,66 +1,66 @@
 ;;; init-snippets.el --- Snippets configurations.	-*- lexical-binding: t -*-
 
-;;; Commentry:
-;; Setting-up in buffer snippets
+;;; Commentary:
+;; Setting up in-buffer snippets and templates via Yasnippet and Tempel.
 
-;; Code:
-;; ‘Snippets’ Settings'
+;;; Code:
+
+;; =============================================================================
+;; 1. Yasnippet Configuration
+;; =============================================================================
 
 ;; Yet another snippet extension
 (use-package yasnippet
-  ;; :disabled
   :blackout yas-minor-mode
-  ;; :hook (prog-mode . yas-minor-mode)
-  )
+  :hook (prog-mode . yas-minor-mode))
 
-;; Collection of yasnippet snippets
-(use-package yasnippet-snippets)
+;; Collection of ready-made yasnippet snippets
+(use-package yasnippet-snippets
+  :after yasnippet)
 
-
+;; Integrate Yasnippet with Consult for easy searching
 (use-package consult-yasnippet
-  :disabled
   :bind ("M-g y" . consult-yasnippet))
 
-;; Yasnippet Completion At Point Function
+;; Integrate Yasnippet into Completion At Point (Corfu/Company)
 (use-package yasnippet-capf
-  :disabled
-  :init (add-to-list 'completion-at-point-functions #'yasnippet-capf))
-
-;; Configure Tempel
+  :init
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+
+
+;; =============================================================================
+;; 2. Tempel Configuration (Modern, Fast Alternative)
+;; =============================================================================
+
 (use-package tempel
-  ;; Require trigger prefix before template name when completing.
-  ;; :custom (tempel-trigger-prefix "<")
   :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
-         ("M-*" . tempel-insert)))
+         ("M-*" . tempel-insert))
+  :init
+  ;; Function to setup Tempel hooks for completion-at-point
+  (defun tempel-setup-capf ()
+    ;; Add the Tempel capf to the list.
+    ;; `add-hook' allows combining it with other backends.
+    (setq-local completion-at-point-functions
+                (cons #'tempel-expand
+                      completion-at-point-functions)))
 
-;; Optional: Add tempel-collection.
-;; The package is young and doesn't have comprehensive coverage.
-;; (use-package tempel-collection)
+  :hook ((conf-mode . tempel-setup-capf)
+         (prog-mode . tempel-setup-capf)
+         (text-mode . tempel-setup-capf)))
 
-;;;;; using compile-hook compile-command
-;; (use-package tempo
-;;   :ensure nil
-;;   :config
-;;   (tempo-define-template "go-compile"
-;;                          `("// -*- compile-command: \"go run "
-;;                            (file-name-nondirectory buffer-file-name) "\" -*-" n n)
-;;                          nil
-;;                          "Insert Go compile-command header"))
 
-;; (use-package auto-insert
-;;   :ensure nil
-;;   :init
-;;   (auto-insert-mode 1)
-;;   :config
-;;   (define-auto-insert 'go-mode #'tempo-template-go-compile))
+;; =============================================================================
+;; 3. Global & Mode-Specific Abbrevs
+;; =============================================================================
+
+;; Ensure abbrev mode is globally enabled
+(setq-default abbrev-mode t)
 
 (define-abbrev global-abbrev-table "mygit" "https://github.com/ukiran03")
+
 (define-abbrev text-mode-abbrev-table
   "mylocation"
-  "Sri Sai Balaji CO-Live PG, # 98, 14TH C Cross, Neeladri Nagar, Younis
-khan Layout, Electronic City, Bengaluru, Karnataka 560100")
-
-
+  "Sri Sai Balaji CO-Live PG, # 98, 14TH C Cross, Neeladri Nagar, Younis khan Layout, Electronic City, Bengaluru, Karnataka 560100")
 
 (provide 'init-snippets)
 ;;; init-snippets.el ends here

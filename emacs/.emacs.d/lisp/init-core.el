@@ -1,57 +1,53 @@
-;;; init-core.el --- summary -*- lexical-binding: t -*-
+;;; init-core.el --- Core Platform Defaults -*- lexical-binding: t -*-
 
-;;; Commentary:
-
-;;; Code:
-
+;;; Shared Autoload Functions
 ;;;###autoload
 (defun prot-common-truncate-lines-silently ()
   "Toggle line truncation without printing messages."
   (let ((inhibit-message t))
     (toggle-truncate-lines t)))
 
-;; Better defaults
-;; (setq initial-scratch-message nil)
-(setq frame-inhibit-implied-resize nil)
-;; prevents changing font, etc triggering a resize of the entire frame
-;; in non-tiling setups Misc
-
-(setq use-short-answers t)
-(setq visible-bell t)
-(setq inhibit-splash-screen t)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets) ; Show path if names are same
-(setq adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*")
-(setq adaptive-fill-first-line-regexp "^* *$")
-(setq delete-by-moving-to-trash t)         ; Deleting files go to OS's trash folder
-(setq set-mark-command-repeat-pop t)       ; Repeating C-SPC after popping mark pops it again
-;; (setq kill-whole-line t)                   ; Kill line including '\n'
-
-(setq make-backup-files t)
-(setq auto-save-default t)
-;; check init-clean.el
-
-;; Move this in its own thing
-;; (setq
-;;  create-lockfiles nil
-;;  delete-old-versions t
-;;  kept-new-versions 6
-;;  kept-old-versions 2
-;;  version-control t)
-
-(setq-default major-mode 'text-mode)
-
-;; Quitting emacs via `C-x C-c` or the GUI 'X' button
-(setq confirm-kill-emacs #'y-or-n-p)
-
+;;; Built-in Core Configurations
 (use-package emacs
   :ensure nil
-  :config
-  (setq help-window-select t))
+  :init
+  ;; Window, Resize, and Frame settings
+  (setq frame-inhibit-implied-resize nil)
+  (setq initial-scratch-message nil)
+  (setq inhibit-splash-screen t)
+  (setq help-window-select t)
+  (setq frame-title-format
+        '("%b" (:eval (let ((host (file-remote-p default-directory 'host)))
+                        (when host (concat "@" host)))) " - Emacs"))
 
-;; C-v and M-v don't undo each other, because the point position isn't
-;; preservered. Fix that.
-(setq scroll-preserve-screen-position 'always)
+  ;; Global Operational Defaults
+  (setq use-short-answers t)
+  (setq visible-bell nil)
+  (setq ring-bell-function #'ignore)
+  (setq confirm-kill-emacs #'y-or-n-p)
+  (setq delete-by-moving-to-trash t)
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+  (setq set-mark-command-repeat-pop t)
+  (setq kill-ring-max 200)
+  (setq save-interprogram-paste-before-kill t)
 
+  ;; Editing Typography & Spacing
+  (setq-default major-mode 'text-mode)
+  (setq-default c-basic-offset 4
+                tab-width 4
+                indent-tabs-mode nil)
+  (setq adaptive-fill-regexp "[ \t]+|[ \t]*([0-9]+.\\|\\*+)[ \t]*")
+  (setq adaptive-fill-first-line-regexp "^* *$")
+
+  ;; Scrolling Architecture
+  (setq scroll-preserve-screen-position 'always)
+
+  ;; Global System Level Key Hooks
+  :bind ("M-o" . other-window)
+  :hook ((before-save . delete-trailing-whitespace)
+         (minibuffer-setup . subword-mode)))
+
+;;; Mode Hook Modifiers
 (use-package help
   :ensure nil
   :init
@@ -60,27 +56,21 @@
                  (side . right)
                  (window-width . 80))))
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; (setq frame-title-format '("Emacs - %b")
-;;       icon-title-format frame-title-format)
-(setq frame-title-format
-      '("%b"
-        (:eval (let ((host (file-remote-p default-directory 'host)))
-                 (when host
-                   (concat "@" host))))
-        " - Emacs"))
-
 (use-package text-mode
   :ensure nil
   :mode "\\`\\(README\\|CHANGELOG\\|COPYING\\|LICENSE\\)\\'"
-  :hook
-  ((text-mode . turn-on-auto-fill)
-   (prog-mode . (lambda () (setq-local sentence-end-double-space t))))
+  :hook ((text-mode . turn-on-auto-fill)
+         (prog-mode . (lambda ()
+                        (setq-local sentence-end-double-space t))))
   :config
   (setq sentence-end-double-space nil)
   (setq sentence-end-without-period nil))
 
+(use-package abbrev
+  :ensure nil
+  :blackout abbrev-mode)
+
+;;; Core Modal Systems
 (use-package repeat
   :ensure nil
   :hook (after-init . repeat-mode)
@@ -91,163 +81,117 @@
   :ensure nil
   :hook (after-init . server-mode))
 
-;; Automatically reload files was modified by external program
 (use-package autorevert
   :ensure nil
-  :blackout
+  :blackout global-auto-revert-mode
   :hook (after-init . global-auto-revert-mode))
 
-;; Redefine M-< and M-> for some modes
+(delete-selection-mode 1)
+
+(use-package elec-pair
+  :ensure nil
+  :hook (after-init . electric-pair-mode)
+  :config
+  (defun uk/electric-pair-conservative-inhibit (char)
+    "Ensures single quotes or pairs are not added errantly around words.
+from `r/emacs/comments/1hwf46n/comment/m63mddk'"
+    (or (eq char (char-after))
+        (and (eq char (char-before))
+             (eq char (char-before (1- (point)))))
+        (eq (char-syntax (following-char)) ?w)
+        (and (eq (char-syntax (char-before (1- (point)))) ?w)
+             (eq (preceding-char) char)
+             (not (eq (char-syntax (preceding-char)) ?\()))))
+  (setq electric-pair-inhibit-predicate
+        #'uk/electric-pair-conservative-inhibit))
+
+;;; Core State and History Preservation
+(use-package recentf
+  :ensure nil
+  :bind ("C-x C-r" . recentf-open-files)
+  :hook (after-init . recentf-mode)
+  :init
+  (setq recentf-max-saved-items 300
+        recentf-auto-cleanup :never
+        recentf-exclude
+        '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
+          "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+          "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
+          "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"))
+  :config
+  (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:")
+  (add-to-list 'recentf-exclude
+               (lambda (file) (file-in-directory-p file package-user-dir)))
+  (when (boundp 'org-directory)
+    (add-to-list 'recentf-exclude
+                 (lambda (file) (file-in-directory-p file org-directory))))
+  (push (expand-file-name recentf-save-file) recentf-exclude)
+  (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
+
+(use-package saveplace
+  :ensure nil
+  :hook (after-init . save-place-mode))
+
+(use-package savehist
+  :ensure nil
+  :hook (after-init . savehist-mode)
+  :init
+  (setq savehist-autosave-interval 300)
+  (setq history-length 1000)
+  (setq savehist-additional-variables
+        '(mark-ring
+          global-mark-ring search-ring
+          regexp-search-ring extended-command-history)))
+
+;;; Third-Party Navigation & Editing Extensions
 (use-package beginend
+  :ensure t
   :blackout beginend-global-mode
   :hook (after-init . beginend-global-mode)
-  :config (mapc (lambda (pair)
-                  (diminish (cdr pair)))
-                beginend-modes))
+  :config
+  (mapc (lambda (pair) (diminish (cdr pair))) beginend-modes))
 
-(use-package visual-regexp)
-(use-package visual-regexp-steroids)
+(use-package visual-regexp :ensure t)
+(use-package visual-regexp-steroids :ensure t)
 
-;; Increase selected region by semantic units
 (use-package expand-region
+  :ensure t
   :bind ("C-=" . er/expand-region))
 
-;; Smartly select region, rectangle, multi cursors
-(use-package smart-region               ; `eating' -- `C-SPC C-SPC' `mark-deactivated'
-  :disabled
-  :hook (after-init . smart-region-on))
-
-;; Move to the beginning/end of line or code
 (use-package mwim
+  :ensure t
   :bind (([remap move-beginning-of-line] . mwim-beginning)
          ([remap move-end-of-line] . mwim-end)))
 
 (use-package vundo
+  :ensure t
   :bind (("C-x /" . vundo)
          ("H-/" . vundo))
-  :config (setq vundo-glyph-alist vundo-unicode-symbols))
+  :config
+  (setq vundo-glyph-alist vundo-unicode-symbols))
 
-;; Jump to things in Emacs tree-style
 (use-package avy
+  :ensure t
   :hook (after-init . avy-setup-default)
-  :config (setq avy-all-windows nil
-                avy-all-windows-alt t
-                avy-background t
-                avy-style 'pre))
+  :config
+  (setq avy-all-windows nil
+        avy-all-windows-alt t
+        avy-background t
+        avy-style 'pre))
 
-;; Goto last change
 (use-package goto-chg
+  :ensure t
   :bind ("C-," . goto-last-change))
 
-;; Kill & Mark things easily
-;; <https://github.com/leoliu/easy-kill>
-;;
-;; M-w w: save word at point
-;; M-w s: save sexp at point
-;; M-w l: save list at point (enclosing sexp)
-;; M-w d: save defun at point
-;; M-w D: save current defun name
-;; M-w f: save file at point
-;; M-w b: save buffer-file-name or default-directory.
-                                        ; - changes the
-                                        ; kill to the directory name,
-                                        ; + to full name and 0 to
-                                        ; basename.
-;; C-h f easy-kill
 (use-package easy-kill
+  :ensure t
   :bind (([remap kill-ring-save] . easy-kill)
          ([remap mark-sexp] . easy-mark)))
 
-(setq kill-ring-max 200)
-
-;; Save clipboard contents into kill-ring before replace them
-(setq save-interprogram-paste-before-kill t)
-
-;; History
-;;; TODO: Read the `Regexp' chapter in Emacs manual
-(use-package recentf
-  :bind (("C-x C-r" . recentf-open-files))
-  :hook (after-init . recentf-mode)
-  :init (setq recentf-max-saved-items 300
-              recentf-auto-cleanup :never
-              recentf-exclude
-              '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
-                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-                "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
-                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"
-                (lambda (file) (file-in-directory-p file package-user-dir))))
-  (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:")
-  (add-to-list 'recentf-exclude
-               (lambda (file) (file-in-directory-p file org-directory)))
-  :config
-  (push (expand-file-name recentf-save-file) recentf-exclude)
-  (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
-
-;; Save place
-(use-package saveplace
-  :hook (after-init . save-place-mode))
-(use-package savehist
-  :hook (after-init . savehist-mode)
-  :init (setq history-length 1000
-              savehist-additional-variables '(mark-ring
-                                              global-mark-ring
-                                              search-ring
-                                              regexp-search-ring
-                                              extended-command-history)
-              savehist-autosave-interval 300))
-
-;; Basic modes
-(delete-selection-mode 1)
-
-;; Automatic parenthesis pairing
-(use-package elec-pair
-  :ensure nil
-  :hook (after-init . electric-pair-mode)
-  :init (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
-  :config
-  (defun uk/electric-pair-conservative-inhibit (char)
-    "https://www.reddit.com/r/emacs/comments/1hwf46n/comment/m63mddk
-This ensures multiple quotes are not added at the beginning or end of a
-word"
-    (or
-     ;; I find it more often preferable not to pair when the
-     ;; same char is next.
-     (eq char (char-after))
-     ;; Don't pair up when we insert the second of "" or of ((.
-     (and (eq char (char-before))
-          (eq char (char-before (1- (point)))))
-     ;; I also find it often preferable not to pair next to a word.
-     (eq (char-syntax (following-char)) ?w)
-     ;; Don't pair at the end of a word, unless parens.
-     (and
-      (eq (char-syntax (char-before (1- (point)))) ?w)
-      (eq (preceding-char) char)
-      (not (eq (char-syntax (preceding-char)) ?\()))))
-  (setq electric-pair-inhibit-predicate 'uk/electric-pair-conservative-inhibit))
-
-(add-hook 'minibuffer-setup-hook #'subword-mode)
-
-;; (set-face-attribute 'org-modern-symbol nil :family "Iosevka" :height 110)
-;; Tab and Space
-;; Permanently indent with spaces, never with TABs
-(setq-default c-basic-offset   4
-              tab-width        4
-              indent-tabs-mode nil)
-
-(global-set-key (kbd "M-o") 'other-window)
-
-(use-package abbrev
-  :ensure nil
-  :blackout abbrev-mode)
-
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c C-x") #'ielm)
-            (local-set-key (kbd "C-c C-c") #'eval-defun)
-            (local-set-key (kbd "C-c C-b") #'eval-buffer)))
-
 (use-package which-key
+  :ensure t
   :hook (after-init . which-key-mode)
+  :bind ("C-h M-m" . which-key-show-major-mode)
   :config
   (setq which-key-max-description-length 30
         which-key-lighter nil
@@ -255,70 +199,48 @@ word"
         which-key-show-prefix 'bottom
         which-key-popup-type 'minibuffer
         which-key-preserve-window-configuration t
-        which-key-max-description-length 30
         which-key-dont-use-unicode t
         which-key-idle-delay 0.6
-        which-key-idle-secondary-delay 0.2)
-  :bind ("C-h M-m" . which-key-show-major-mode))
+        which-key-idle-secondary-delay 0.2))
 
 (use-package elisp-demos
+  :ensure t
   :defer 1
   :config
-  (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
+  (advice-add 'describe-function-1
+              :after #'elisp-demos-advice-describe-function-1))
 
-(use-package tmr)
+(use-package tmr :ensure t)
+(use-package suggest :ensure t)
 
-;; Persistent the scratch buffer
-;; <https://github.com/Fanael/persistent-scratch>
-;; <https://umarahmad.xyz/blog/quick-scratch-buffers/>
 (use-package persistent-scratch
+  :ensure t
   :blackout
   :hook ((after-init . persistent-scratch-autosave-mode)
          (lisp-interaction-mode . persistent-scratch-mode))
-  :init (setq persistent-scratch-backup-file-name-format "%Y-%m-%d"
-              persistent-scratch-backup-directory
-              (expand-file-name "data/persistent-scratch" user-emacs-directory)))
-
-;; https://github.com/Wilfred/suggest.el
-;; discover elisp functions that do what you want
-(use-package suggest)
-
-(use-package super-save
-  ;; :disabled
-  :defer 1
-  :blackout super-save-mode
   :init
-  (super-save-mode +1)
-  :config
-  (defun my/disable-super-save ()
-    (super-save-mode -1))
-  ;; (setq super-save-hook-triggers nil)
-  ;; (setq super-save-triggers nil)
-  (setq super-save-auto-save-when-idle t))
+  (setq persistent-scratch-backup-file-name-format "%Y-%m-%d"
+        persistent-scratch-backup-directory
+        (expand-file-name "data/persistent-scratch" user-emacs-directory)))
 
+;;; Environment Shell Path Synchronizer
 (use-package exec-path-from-shell
+  :ensure t
   :commands exec-path-from-shell-initialize
   :custom (exec-path-from-shell-arguments '("-l"))
   :init (exec-path-from-shell-initialize))
 
-;; (setq use-package-compute-statistics t) NOTE:
+;;; Hooks for Language Development
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-x") #'ielm)
+            (local-set-key (kbd "C-c C-c") #'eval-defun)
+            (local-set-key (kbd "C-c C-b") #'eval-buffer)))
 
-;; From init.custom.el
+;; ;;; Configuration API Definitions (Custom Defcustoms)
 (defcustom ukiran-icon t
   "Display icons or not."
-  :group 'centaur
-  :type 'boolean)
-
-(defcustom ukiran-completion-style 'minibuffer
-  "Completion display style."
-  :group 'centaur
-  :type '(choice (const :tag "Minibuffer" minibuffer)
-                 (const :tag "Child Frame" childframe)))
-
-(defcustom ukiran-frame-maximized-on-startup nil
-  "Maximize frame on startup or not."
-  :group 'centaur
-  :type 'boolean)
-
+  :group 'centaur :type 'boolean)
 
 (provide 'init-core)
+;;; init-core.el ends here

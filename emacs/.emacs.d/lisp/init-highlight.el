@@ -1,26 +1,24 @@
-;; init-highlight.el --- Initialize highlighting configurations.	-*- lexical-binding: t -*-
+;;; init-highlight.el --- Initialize highlighting configurations.	-*- lexical-binding: t -*-
 
 ;;; Commentary:
-;;
 ;; Highlighting configurations.
-;;
 
 ;;; Code:
 
-;; Highlight the current line
+;; Highlight the current line safely
 (use-package hl-line
   :ensure nil
   :hook ((after-init . global-hl-line-mode)
          ((dashboard-mode eshell-mode shell-mode term-mode eat-mode vterm-mode) .
-          (lambda () (setq-local global-hl-line-mode nil)))))
+          (lambda () (hl-line-mode -1))))) ; Fix: Explicitly disable locally
 
-(use-package lin :ensure nil)
-
+(use-package lin :ensure nil :defer t)
+
+;; Smooth visual line/region pulsing
 (use-package pulsar
   :ensure t
-  :init
-  (when (display-graphic-p)
-    (pulsar-global-mode 1))
+  :defer t
+  :commands (pulsar-pulse-line pulsar-highlight-dwim)
   :config
   (setq pulsar-pulse t
         pulsar-delay 0.03
@@ -29,7 +27,7 @@
         pulsar-highlight-face 'pulsar-cyan
         pulsar-pulse-on-window-change t)
 
-  ;; Use 'append' for cleaner list management
+  ;; Efficient, clean list additions
   (setq pulsar-pulse-region-functions
         (append '(easy-kill yank kill-rectangle uk-kill-whole-line
                             transpose-words transpose-chars transpose-lines
@@ -37,13 +35,13 @@
                 pulsar-pulse-region-functions))
 
   (setq pulsar-pulse-functions
-        (append '(avy-goto-char-2 avy-goto-line avy-goto-word-1
-                                  avy-goto-char-timer avy-copy-line avy-kill-whole-line
-                                  pop-to-mark-command pop-global-mark goto-last-change
-                                  exit-minibuffer abort-minibuffers)
+        (append '(ding avy-goto-char-2 avy-goto-line avy-goto-word-1
+                       avy-goto-char-timer avy-copy-line avy-kill-whole-line
+                       pop-to-mark-command pop-global-mark goto-last-change
+                       exit-minibuffer abort-minibuffers)
                 pulsar-pulse-functions))
   :hook
-  (;; This handles the case where you start a daemon and later open a GUI frame
+  (;; Handles both startup graphics and Emacs daemon server frame allocations
    (server-after-make-frame . (lambda ()
                                 (when (display-graphic-p)
                                   (pulsar-global-mode 1))))
@@ -56,36 +54,14 @@
   (("C-c p p" . pulsar-pulse-line)
    ("C-c p h" . pulsar-highlight-dwim)))
 
-
-(use-package pulse
-  :disabled                             ; using pulsar-pulse-region
-  :ensure nil
-  :config
-  (defun re-uk-pulse-current-region (&rest _)
-    "Pulse the current implicit or active region."
-    (if (region-active-p)
-        (pulse-momentary-highlight-region (region-beginning) (region-end))
-      (when (mark)
-        (pulse-momentary-highlight-region (mark) (point)))))
-  (advice-add #'kill-ring-save :before #'re-uk-pulse-current-region))
-
-
-;; Pulse modified region
-(use-package goggles
-  :disabled
-  :blackout
-  :hook ((prog-mode text-mode) . goggles-mode)
-  :config
-  (setq-default goggles-pulse t)
-  (setq-default goggles-pulse-delay 0.09)) ;; set to nil to disable pulsing
-
 ;; Highlight matching parens
 (use-package paren
   :ensure nil
-  :config (show-paren-mode 1)
+  :hook (after-init . show-paren-mode)
+  :config
   (setq show-paren-when-point-inside-paren t
-	    show-paren-when-point-in-periphery t))
-
+        show-paren-when-point-in-periphery t))
+
 ;; Highlight brackets according to their depth
 (use-package rainbow-delimiters
   :ensure t
@@ -93,53 +69,38 @@
 
 ;; Syntax highlighting of known Elisp symbols
 (use-package highlight-defined
+  :ensure t
   :hook ((emacs-lisp-mode inferior-emacs-lisp-mode) . highlight-defined-mode))
 
-;; highlight-numbers
-(use-package highlight-numbers
-  :disabled
-  :hook ((prog-mode text-mode) . highlight-numbers-mode))
-
+;; Efficient cursor jump reference highlights
 (use-package symbol-overlay
   :ensure t
-  ;; :hook ((prog-mode . symbol-overlay-mode)
-  ;; (racket-mode . (setq-local symbol-overlay-mode nil)))
-  :blackout
+  :blackout t
+  :init
+  (setq symbol-overlay-idle-time 0.1)
   :bind (:map symbol-overlay-mode-map
-              ("M-i" . symbol-overlay-put)
-	          ("M-n" . symbol-overlay-jump-next)
-	          ("M-p" . symbol-overlay-jump-prev)
-	          ("M-N" . symbol-overlay-switch-forward)
-	          ("M-P" . symbol-overlay-switch-backward)
-	          ("M-C" . symbol-overlay-remove-all)
-	          ([M-f3] . symbol-overlay-remove-all))
-  :init (setq symbol-overlay-idle-time 0.1))
-
+              ("M-i"  . symbol-overlay-put)
+              ("M-n"  . symbol-overlay-jump-next)
+              ("M-p"  . symbol-overlay-jump-prev)
+              ("M-N"  . symbol-overlay-switch-forward)
+              ("M-P"  . symbol-overlay-switch-backward)
+              ("M-C"  . symbol-overlay-remove-all)
+              ([M-f3] . symbol-overlay-remove-all)))
+
+;; In-buffer hex and literal color visualizer
 (use-package colorful-mode
-  :blackout
-  ;; :hook (prog-mode . global-colorful-mode)
-  :init (setq colorful-use-prefix nil   ; t
-              colorful-prefix-string "⬤")
-  :config (dolist (mode '(html-mode php-mode help-mode helpful-mode))
-            (add-to-list 'global-colorful-modes mode)))
-
-;; <https://github.com/jdtsmith/indent-bars>
-(use-package indent-bars
   :ensure t
-  :disabled
-  :hook ((python-mode yaml-mode) . indent-bars-mode)
+  :blackout t
+  :init
+  (setq colorful-use-prefix nil)
+  ;; (setq colorful-prefix-string "⬤")
   :config
-  (setq
-   indent-bars-color '(highlight :face-bg t :blend 0.2)
-   indent-bars-pattern "."
-   indent-bars-width-frac 0.1
-   indent-bars-pad-frac 0.1
-   indent-bars-zigzag nil
-   indent-bars-color-by-depth nil
-   indent-bars-highlight-current-depth nil
-   indent-bars-display-on-blank-lines nil)) ; or whichever modes you prefer
-
+  (dolist (mode '(html-mode php-mode help-mode helpful-mode))
+    (add-to-list 'global-colorful-modes mode)))
+
+;; Keyword / Tag highlighting and project searches
 (use-package hl-todo
+  :ensure t
   :bind (:map hl-todo-mode-map
               ("C-c t o" . hl-todo-occur)
               ("C-c t p" . hl-todo-previous)
@@ -152,37 +113,42 @@
                            (add-hook 'flymake-diagnostic-functions
                                      #'hl-todo-flymake nil t))))
   :init
-  ;; Example: TODO: NOTE: REVIEW: FIXME: Q: A: REDO:
   (setq hl-todo-require-punctuation t
         hl-todo-highlight-punctuation ":"
         hl-todo-keyword-faces
-        `(("TODO"       error bold)
-          ("NOTE"       warning bold)
-          ("REDO"       warning bold)
-          ("Q"       warning bold)
-          ("A"       font-lock-constant-face bold)
-          ("REVIEW"     font-lock-constant-face bold)
-          ("FIXME"      error bold)))
+        `(("TODO"   error bold)
+          ("NOTE"   warning bold)
+          ("REDO"   warning bold)
+          ("Q"      warning bold)
+          ("A"      font-lock-constant-face bold)
+          ("REVIEW" font-lock-constant-face bold)
+          ("FIXME"  error bold)))
   :config
+  ;; Silence compiler warning for rip-grep interface integration functions
+  (declare-function rg "ext:rg")
+  (declare-function rg-project "ext:rg")
+  (declare-function rg-read-files "ext:rg")
+
   (defun hl-todo-rg (regexp &optional files dir)
     "Use `rg' to find all TODO: or similar keywords."
     (interactive
      (progn
        (unless (require 'rg nil t)
-         (error "`rg' is not installed"))
+         (user-error "`rg' package is not installed"))
        (let ((regexp (replace-regexp-in-string "\\\\[<>]*" "" (hl-todo--regexp))))
          (list regexp
                (rg-read-files)
                (read-directory-name "Base directory: " nil default-directory t)))))
     (rg regexp files dir))
+
   (defun hl-todo-rg-project ()
     "Use `rg' to find all TODO or similar keywords in current project."
     (interactive)
     (unless (require 'rg nil t)
-      (error "`rg' is not installed"))
-    (rg-project (replace-regexp-in-string "\\\\[<>]*" "" (hl-todo--regexp)) "everything")))
-
+      (user-error "`rg' package is not installed"))
+    (rg-project
+     (replace-regexp-in-string "\\\\[<>]*" "" (hl-todo--regexp)) "everything")))
 
 (provide 'init-highlight)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; init-highlight.el ends here

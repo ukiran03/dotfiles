@@ -1,43 +1,61 @@
-;; init-denote.el --- Better Note-tatking configurations.	-*- lexical-binding: t -*-
+;;; init-denote.el --- Better Note-taking configurations -*- lexical-binding: t -*-
 
-;;; Commentry:
-;; Best Note taking software
+;;; Commentary:
+;; A clean, structured note-taking engine built upon Denote's predictable file names.
 
+;;; Code:
+
+;; Core Note Management Framework
+(use-package denote
+  :ensure t
+  :bind (("C-c n n" . denote)
+         ("C-c n r" . denote-rename-file)
+         ("C-c n l" . denote-link)
+         ("C-c n b" . denote-backlinks)
+         ("C-c n d" . denote-sort-dired)
+         ("C-c n x" . my/denote-create-note-in-any-directory)) ; Integrated personal macro
+  :init
+  ;; Configure paths and format hooks early
+  (setq denote-directory (expand-file-name "~/Documents/Notes"))
+  :config
+  ;; Target Storage Configurations
+  (setq denote-file-type 'org
+        denote-known-keywords '("meta" "system" "emacs" "media" "programming"
+                                "essay" "english" "book" "film" "music"))
+
+  ;; Automatically rewrite buffer headers to cleanly display titles instead of
+  ;; raw text filenames
+  (denote-rename-buffer-mode 1))
+
+;; Consult Integration (Out-of-order searching and live grepping)
 (use-package consult-denote
+  :ensure t
+  :after (consult denote)
   :bind (("C-c n c f" . consult-denote-find)
          ("C-c n c r" . consult-denote-grep)))
 
-(use-package denote
-  :hook (dired-mode . denote-dired-mode)
-  :bind
-  (("C-c n n" . denote)
-   ("C-c n r" . denote-rename-file)
-   ("C-c n l" . denote-link)
-   ("C-c n b" . denote-backlinks)
-   ("C-c n d" . denote-sort-dired))
-  :config
-  (setq denote-file-type 'org)
-  (setq denote-directory (expand-file-name "~/Documents/Notes"))
-  (setq denote-known-keywords '("meta" "system" "emacs" "media"
-			                    "programming" "essay" "english" "book"  "film" "music"))
-  (denote-rename-buffer-mode 1))
+(use-package denote-sequence
+  :ensure t
+  :after denote
+  :bind (("C-c n s n" . denote-sequence-new-child)
+         ("C-c n s p" . denote-sequence-new-parent)))
 
-(use-package denote-org)
-(use-package denote-journal)
-(use-package denote-sequence)
-(use-package denote-search)
+(use-package denote-search
+  :ensure t
+  :after denote
+  :bind ("C-c n s s" . denote-search))
 
-(defun my-denote-create-note-in-any-directory ()
-  "Create new Denote note in any directory.
-     Prompt for the directory using minibuffer completion."
+;;; Personal Custom Extensions
+;;;###autoload
+(defun my/denote-create-note-in-any-directory ()
+  "Create a brand new Denote note file targeting an arbitrary chosen
+location.  Prompts dynamically for target directory storage using
+minibuffer completion hooks."
   (declare (interactive-only t))
   (interactive)
-  (let ((denote-directory (read-directory-name "New note in: " nil nil :must-match)))
+  (let ((denote-directory
+         (read-directory-name "Generate new note inside: " nil nil :must-match)))
     (call-interactively #'denote)))
 
-;; denote packages: denote, denote-journal, denote-sequence,
-;; denote-org, denote-markdown, denote-silo, denote-menu, citar-denote
-
 (provide 'init-denote)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-denote.el ends here

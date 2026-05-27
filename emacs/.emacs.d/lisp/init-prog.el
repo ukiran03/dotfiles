@@ -1,5 +1,4 @@
-;;; init-prog.el --- summary -*- lexical-binding: t -*-
-
+;;; init-prog.el --- Programming Configuration -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -9,21 +8,20 @@
 
 (use-package re-builder
   :ensure nil
-  :config (setq reb-re-syntax 'rx)) ;I love using rx for regexps
+  :config (setq reb-re-syntax 'rx)) ; I love using rx for regexps
 
+;; Tree-sitter setup (Kept commented out as per original layout)
 ;; (when (uk/treesit-available-p)
-;;   ;; Automatic Tree-sitter grammar management
 ;;   (use-package treesit-auto
 ;;     :hook (after-init . global-treesit-auto-mode)
 ;;     :init (setq treesit-auto-install 'prompt))
-
-;;   ;; Code folding indicators using Tree-sitter
+;;
 ;;   (use-package treesit-fold-indicators
 ;;     :ensure treesit-fold
 ;;     :hook (after-init . global-treesit-fold-indicators-mode)
 ;;     :init (setq treesit-fold-indicators-priority -1)))
 
-;; dtrt (atuo find indend setting)
+;; dtrt (auto find indent setting)
 (use-package dtrt-indent
   :config (dtrt-indent-global-mode))
 
@@ -33,9 +31,11 @@
   (defun my-compile-goto-error-recenter (&rest _args)
     "Recenter window after `compile-goto-error`."
     (recenter-top-bottom))
-  (advice-add 'compile-goto-error :after #'my-compile-goto-error-recenter))
+  (advice-add 'compile-goto-error :after #'my-compile-goto-error-recenter)
+  (setq warning-minimum-level :error))
 
 (use-package pretty-hydra
+  :disabled
   :bind ("C-<f5>" . toggles-hydra/body)
   :init
   ;; Global toggles
@@ -55,12 +55,11 @@
         ("d" diff-hl-mode "diff-hl" :toggle t)
         ("D" diff-hl-dired-mode "dired diff-hl" :toggle t))))))
 
-;; Emacs 30.1
+;; Emacs 30.1+ Built-in completion preview
 (use-package completion-preview
   :ensure nil
   :blackout
-  :hook
-  (prog-mode . completion-preview-mode))
+  :hook (prog-mode . completion-preview-mode))
 
 (use-package newcomment
   :ensure nil
@@ -82,34 +81,28 @@
   :config
   (setq eldoc-echo-area-use-multiline-p t))
 
-;;  `C': <https://astyle.sourceforge.net/astyle.html>
+;; Format-all (Disabled in favor of apheleia)
 (use-package format-all
   :disabled
   :blackout
   :commands format-all-mode
   :config
   (setq format-all-formatters
-        '(("C"     (astyle "--mode=c"))
-          ("C" (astyle "--style=gnu"))
-          ("Shell" (shfmt "-i" "4" "-ci"))
+        '(("C"       (astyle "--mode=c"))
+          ("C"       (astyle "--style=gnu"))
+          ("Shell"   (shfmt "-i" "4" "-ci"))
           ("Haskell" (hindent)))))
 
 (use-package apheleia
   :ensure t
   :config
   (setq apheleia-mode-lighter " ;")
-
   (setf (alist-get 'clang-format apheleia-formatters)
         '("clang-format" "--style={IndentWidth: 4}"))
   (setf (alist-get 'hindent apheleia-formatters)
         '("hindent"))
   (setf (alist-get 'haskell-mode apheleia-mode-alist) '(hindent))
-  (setf (alist-get 'elm-mode apheleia-mode-alist) '(elm-format))
-  ;; (setf (alist-get 'html-mode apheleia-mode-alist) '(gotmplfmt))
-  )
-
-;; Similar to format-all
-;; checkout: <https://github.com/purcell/emacs-reformatter>
+  (setf (alist-get 'elm-mode apheleia-mode-alist) '(elm-format)))
 
 ;; Click to browse URL or to send to e-mail address
 (use-package goto-addr
@@ -120,24 +113,19 @@
 ;; Abbreviations with abbrev.el
 (use-package abbrev
   :ensure nil
-  :hook((text-mode . abbrev-mode)
-        (prog-mode . abbrev-mode))
+  :hook ((text-mode . abbrev-mode)
+         (prog-mode . abbrev-mode))
   :config
   (define-abbrev prog-mode-abbrev-table "tmc" "time complexity:")
   (define-abbrev prog-mode-abbrev-table "spc" "space complexity:"))
 
-;; ‘Animated-Guide’ : <http://danmidwood.com/content/2014/11/21/animated-paredit.html>
+;; Structural editing / Delimiter management
 (use-package paredit :ensure nil)
 
-;;;; Setup Folding For Programming
 (use-package puni
   :ensure t
-  :hook (((prog-mode racket-repl-mode
-                     eval-expression-minibuffer-setup-hook) . puni-mode)
-         ((calc-mode term-mode
-                     vterm-mode info-mode vertico-mode) . puni-disable-puni-mode)
-         ;; (puni-mode  . electric-pair-local-mode)
-         )
+  :hook (((prog-mode racket-repl-mode eval-expression-minibuffer-setup-hook) . puni-mode)
+         ((calc-mode term-mode vterm-mode info-mode vertico-mode) . puni-disable-puni-mode))
   :bind (("C-c s" . puni-mode)
          :map puni-mode-map
          ([remap backward-sentence] . puni-end-of-sexp)
@@ -146,9 +134,7 @@
          ([remap backward-sexp] . puni-backward-sexp-or-up-list)
          ([remap kill-line] . puni-kill-line)
          ([remap mark-paragraph] . puni-expand-region)
-         ;; ([remap kill-sexp] . puni-kill-thing-at-point)
          ("M-k" . puni-raise)
-         ;; Remove outer pairs
          ("M-O" . puni-splice)
          ("C-)" . puni-slurp-forward)
          ("C-(" . puni-slurp-backward)
@@ -167,29 +153,20 @@
 (use-package aggressive-indent
   :blackout
   :ensure t
-  :hook ((emacs-lisp-mode
-          lisp-interaction-mode
-          racket-mode
-          scheme-mode) . aggressive-indent-mode))
+  :hook ((emacs-lisp-mode lisp-interaction-mode racket-mode scheme-mode) . aggressive-indent-mode))
 
 (use-package indent-bars
   :config
-  (setq
-   indent-bars-color '(highlight :face-bg t :blend 0.2)
-   indent-bars-pattern "."
-   indent-bars-width-frac 0.1
-   indent-bars-pad-frac 0.1
-   indent-bars-zigzag nil
-   indent-bars-color-by-depth nil
-   indent-bars-highlight-current-depth nil
-   indent-bars-display-on-blank-lines nil))
+  (setq indent-bars-color '(highlight :face-bg t :blend 0.2)
+        indent-bars-pattern "."
+        indent-bars-width-frac 0.1
+        indent-bars-pad-frac 0.1
+        indent-bars-zigzag nil
+        indent-bars-color-by-depth nil
+        indent-bars-highlight-current-depth nil
+        indent-bars-display-on-blank-lines nil))
 
-(use-package emacs
-  :ensure nil
-  :config
-  (setq warning-minimum-level :error))
-
-;; <https://erick.navarro.io/blog/testing-an-api-with-emacs-and-restclient/>
+;; API Testing Packages
 (use-package restclient
   :ensure t
   :mode (("\\.http\\'" . restclient-mode)))
@@ -199,88 +176,63 @@
   :config
   (setq verb-auto-kill-response-buffers t))
 
-;; (use-package org
-;;   :mode ("\\.org\\'" . org-mode)
-;;   :config
-;;   (with-eval-after-load 'org
-;;     (define-key org-mode-map (kbd "H-c H-r") verb-command-map)))
-
 (use-package files
   :ensure nil
   :bind (:map prog-mode-map
               ("S-<f5>" . revert-buffer)))
 
-;; <https://arjanvandergaag.nl/blog/using-emacs-as-a-database-client.html>
+;; SQL Configuration
 (use-package sql
   :ensure nil
-  :defer
-  :custom
-  (sql-sqlite-options '("-header" "-box"))
-  (setq sql-postgres-login-params
-        '((server :default "localhost"))))
-
-(use-package compile
+  :defer t
   :config
-  ;; http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html
+  (setq sql-sqlite-options '("-header" "-box")
+        sql-postgres-login-params '(server port user database))) ; Corrected parameter tokens
+
+;; Compilation Buffers (Merged blocks)
+(use-package compile
+  :ensure nil
+  :config
+  ;; Colorize compilation output
   (with-eval-after-load 'ansi-color
     (defun endless/colorize-compilation ()
       "Colorize from `compilation-filter-start' to `point'."
       (let ((inhibit-read-only t))
         (ansi-color-apply-on-region compilation-filter-start (point))))
-    (add-hook 'compilation-filter-hook #'endless/colorize-compilation)))
+    (add-hook 'compilation-filter-hook #'endless/colorize-compilation))
 
-(use-package compile
-  :ensure nil
-  :config
+  ;; Auto-detect local C file compilation command
   (defun set-c-compile-command ()
     (setq-local compile-command
                 (format "gcc %s" (file-name-nondirectory buffer-file-name))))
   :hook ((c-mode . set-c-compile-command)
          (c-ts-mode . set-c-compile-command)))
 
-;; #[/home/ukiran/.emacs.d/site-lisp/clue/clue.el:L60]
+;; Context-aware tags navigation helper
 (use-package clue
-  ;; :disabled
   :ensure nil
   :defer t
   :vc (:url "https://github.com/AmaiKinono/clue")
   :blackout (clue-mode . " #")
-  ;; :init
-  ;; (add-hook 'find-file-hook #'clue-auto-enable-clue-mode)
   :config
-  (setq
-   ;; Set like this if you only want auto-enabling citre-mode to work
-   ;; for markdown files.  You can also set it to nil, then the
-   ;; auto-enabling works for all files.  By default, it works for all
-   ;; text-modes.
-   clue-auto-enable-modes '(prog-mode)))
+  (setq clue-auto-enable-modes '(prog-mode)))
 
-
-;; Debugging
+;; Debug Adapter Protocol (DAP)
 (use-package dape
   :config
-  ;; Pulse source line (performance hit)
   (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
-
-  ;; To not display info and/or buffers on startup
-  ;; (remove-hook 'dape-start-hook 'dape-info)
   (remove-hook 'dape-start-hook 'dape-repl))
 
-
-;; Direnv integration
+;; Direnv Integration
 (use-package envrc
   :ensure t
   :config
-  (setq envrc-none-lighter nil)
-  (setq envrc-on-lighter
-        '(:propertize " env" face envrc-mode-line-on-face))
-  (setq envrc-error-lighter
-        '(:propertize " env!" face (envrc-mode-line-error-face bold)))
+  (setq envrc-none-lighter nil
+        envrc-on-lighter '(:propertize " env" face envrc-mode-line-on-face)
+        envrc-error-lighter '(:propertize " env!" face (envrc-mode-line-error-face bold)))
   :hook (after-init . envrc-global-mode)
   :bind (:map envrc-mode-map
               ("C-c e" . envrc-command-map)))
 
 (provide 'init-prog)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-prog.el ends here

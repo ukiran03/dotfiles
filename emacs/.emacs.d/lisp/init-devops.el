@@ -23,4 +23,21 @@
                t))
 
 ;; :bind ("C-c d" . docker) ; Global menu for containers, images,
+
+
+;; Alternative UI's for Kubernetes
+;; https://github.com/kubernetes-el/kubernetes-el
+;; https://github.com/abrochard/kubel
+;; https://github.com/jinnovation/kele.el
+
+;;; https://github.com/eshelyaron/kubed
+;;; https://eshelyaron.com/kubed.html
+(use-package kubed
+  :ensure t
+  :bind (("H-a k" . kubed-prefix-map))
+  :config
+  ;; This enables the 'd' for delete, 'm' for mark workflow in lists
+  (add-hook 'kubed-list-mode-hook #'hl-line-mode))
+
+
 (provide 'init-devops)

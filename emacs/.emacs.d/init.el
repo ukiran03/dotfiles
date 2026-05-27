@@ -7,6 +7,8 @@
 (when (version< emacs-version "27.1")
   (error "This requires Emacs 27.1 and above!"))
 
+;; (setq use-package-compute-statistics t)
+
 ;; Speed up startup
 
 ;; Defer garbage collection further back in the startup process
@@ -36,7 +38,7 @@
 ;; Optimize: Force "lisp" and "site-lisp" at the head to reduce the startup time
 (defun update-load-path (&rest _)
   "Update `load-path'."
-  (dolist (dir '("site-lisp" "lisp" "my-lisp"))
+  (dolist (dir '("site-lisp" "lisp"))
     (push (expand-file-name dir user-emacs-directory) load-path)))
 
 ;; Add subdirectories inside "site-lisp" to `load-path`
@@ -52,20 +54,11 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 
 (update-load-path)
 
-;; 1. Set the default font (Monospace)
-(set-face-attribute 'default nil
-                    :family "Iosevka Medium"
-                    :height 140)
-
-;; 2. Set the fixed-pitch font (usually same as default)
-(set-face-attribute 'fixed-pitch nil
-                    :family "Iosevka Medium"
-                    :height 140)
-
-;; 3. Set the variable-pitch font (The Slab version)
-(set-face-attribute 'variable-pitch nil
-                    :family "Iosevka Medium" ; "Iosevka Slab"
-                    :height 140)
+;; Set the fonts
+(dolist (face '(default fixed-pitch variable-pitch))
+  (set-face-attribute face nil
+                      :family "Iosevka Medium"
+                      :height 140))
 
 (require 'init-steal)
 (require 'init-funcs)
@@ -94,33 +87,33 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-denote)
 (require 'init-treesit)
 (require 'init-tab-bar)
-(require 'init-dashboard)
 (require 'init-window)
 (require 'init-icons)
-(require 'init-llm)
 (require 'init-utils)
-(require 'init-eshell)
+(require 'init-shell)
 (require 'init-feeds)
 
-(require 'init-kyverno)
 ;; Programming
-(require 'init-leet)
 (require 'init-snippets)
 (require 'init-lsp)
 (require 'init-langs)
 (require 'init-prog)
 (require 'init-dape)
 (require 'init-python)
-(require 'init-racket)
 (require 'init-go)
+(require 'init-c)
 (require 'init-db)
 (require 'init-web)
-(require 'init-elixir)
 (require 'init-mail)
 (require 'init-vc)
 (require 'init-linting)
 (require 'init-project)
-(require 'init-devops)
+;; (require 'init-devops)
+;; (require 'init-kyverno)
+
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs started in %s." (emacs-init-time))))
 
 ;;;;; Prot
 ;; (setq find-library-include-other-files nil) ; Emacs 29
