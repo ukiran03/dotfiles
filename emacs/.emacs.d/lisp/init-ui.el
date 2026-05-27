@@ -7,6 +7,7 @@
 
 ;;;; Fonts & Typography (Fontaine)
 (use-package fontaine
+  :disabled
   :ensure t
   :hook (after-init . fontaine-mode)
   :bind ("C-c f" . fontaine-set-preset)

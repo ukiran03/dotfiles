@@ -114,7 +114,7 @@
           racket-repl-mode
           help-mode
           compilation-mode))
-  (setq popper-group-function 'popper-group-by-project)
+  ; (setq popper-group-function 'popper-group-by-project)
   (setq popper-echo-dispatch-actions t)
 
   (popper-mode 1)

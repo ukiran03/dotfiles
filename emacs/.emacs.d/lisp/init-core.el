@@ -13,7 +13,7 @@
   :init
   ;; Window, Resize, and Frame settings
   (setq frame-inhibit-implied-resize nil)
-  (setq initial-scratch-message nil)
+  ;; (setq initial-scratch-message nil)
   (setq inhibit-splash-screen t)
   (setq help-window-select t)
   (setq frame-title-format
@@ -214,6 +214,7 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
 (use-package suggest :ensure t)
 
 (use-package persistent-scratch
+  :disabled
   :ensure t
   :blackout
   :hook ((after-init . persistent-scratch-autosave-mode)

@@ -35,7 +35,7 @@
 ;; (set-frame-font "Iosevka Medium-11.25" nil t)
 (set-frame-font "Iosevka Medium-14" nil t)
 
-;; (menu-bar-mode -1)
+(menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 ;; (global-display-line-numbers-mode 1)

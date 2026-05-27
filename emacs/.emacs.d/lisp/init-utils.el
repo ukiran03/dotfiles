@@ -30,8 +30,7 @@
 
 (use-package drag-stuff
   :ensure t
-  :init
-  (drag-stuff-global-mode 1)
+  ;; :init (drag-stuff-global-mode 1)
   :config
   (drag-stuff-define-keys))
 
