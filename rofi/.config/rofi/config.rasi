@@ -2,6 +2,7 @@ configuration {
 font: "Iosevka Nerd Font SemiBold 13";
 modi: "drun,run,filebrowser,window,windowcd";
 show-icons: false;
+icon-theme: "Papirus";
 display-drun: " ";
 display-run: " ";
 display-filebrowser: " ";

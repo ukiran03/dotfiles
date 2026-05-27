@@ -81,4 +81,7 @@ super + y; {b, c, p, s}
     picom-toggle, \
     pkill -USR1 -x sxhkd && dunstify -a ignore -i key_bindings "Reloaded key bindings"}
 
+super + Escape
+    ~/.local/bin/powermenu.sh
+
 # pkill -USR1 -x sxhkd && dunstify -a ignore -i key_bindings "Reloaded key bindings"

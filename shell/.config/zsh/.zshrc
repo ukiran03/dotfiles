@@ -171,7 +171,7 @@ incognito() {
 
 eval "$(direnv hook zsh)"
 
-if [[ -n $TMUX ]] || [[ $TERM == "rxvt-unicode-256color" ]]; then
+if [[ "$TERM" == "tmux-256color" || "$TERM" == "rxvt-unicode-256color" ]]; then
     export STARSHIP_CONFIG="$HOME/.config/starship/term.toml"
 else
     export STARSHIP_CONFIG="$HOME/.config/starship/emacs.toml"
@@ -193,3 +193,11 @@ cowsay "Learning by doing!"
 
 # bun completions
 [ -s "/home/ukiran/.bun/_bun" ] && source "/home/ukiran/.bun/_bun"
+
+# pnpm
+export PNPM_HOME="/home/ukiran/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end

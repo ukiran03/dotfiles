@@ -330,7 +330,14 @@ alias batc="bat -l conf -p"
 
 # for emacs
 # alias r~="rm -rf *~"
-alias emacsc="emacsclient -c"
+# alias emacsc="emacsclient -c"
+emacsc() {
+    # Default to the current directory (.) if no argument is provided
+    local dir="${1:-.}"
+
+    emacsclient -c "$dir" > /dev/null 2>&1 & disown
+}
+
 alias emacsn="emacsclient -nw"
 
 # displays
@@ -438,6 +445,7 @@ ground () {
     mkdir -p -p "$r" && pushd "$r"
 }
 
+alias claer='clear'
 
 READDECK_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/readdeck/config.toml"
 # readdeck() {

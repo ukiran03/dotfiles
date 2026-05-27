@@ -1,4 +1,7 @@
 #!/bin/sh
 
+# Redirecting stderr to stdout so svlogd catches everything
+exec 2>&1
+
 # exec pipewire 2>&1
 exec chpst -e "$TURNSTILE_ENV_DIR" pipewire
