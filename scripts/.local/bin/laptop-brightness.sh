@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
-up_icon="uk-brightness-high"
-down_icon="uk-brightness-low"
-reset_icon="uk-brightness-medium"
+# up_icon="uk-brightness-high"
+# down_icon="uk-brightness-low"
+# reset_icon="uk-brightness-medium"
+
+up_icon="display-brightness-symbolic"
+down_icon="display-brightness-symbolic"
+reset_icon="display-brightness-symbolic"
+
 DEFAULT_BRIGHTNESS="45%"
 PIPE_PATH="$HOME/.config/xmobar/fifo/brightness-fifo"
 

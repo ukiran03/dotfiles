@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-OFF_ICON="uk-signal-slash"
-ON_ICON="uk-signal"
+OFF_ICON="network-offline-symbolic"
+ON_ICON="network-transmit-receive-symbolic"
+
 current=$(nmcli networking)
 
 send_notification() {

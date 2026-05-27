@@ -32,20 +32,46 @@ _sed() {
 _redshift() {
     _depcheck rso
 	case "$1" in
-	light) rso 4000 ;;
-	dark) rso 5000 ;;
+	light) rso 3500 ;;
+	dark) rso 4500 ;;
 	esac
 
     return 0
 }
 
 _emacs() {
-	_depcheck emacs
-	pgrep -x emacs >/dev/null || return 1
+	local custom_file="$HOME/.emacs.d/custom.el"
+	local light_theme="modus-operandi"
+	local dark_theme="modus-vivendi-tinted"
+	local new_theme
+
+	# Handle argument parsing and validation
 	case "$1" in
-	light) emacsclient -e "(when (and (functionp 'modus-themes-get-themes) (modus-themes-get-themes)) (modus-themes-load-theme 'modus-operandi))" >/dev/null ;;
-	dark) emacsclient -e "(when (and (functionp 'modus-themes-get-themes) (modus-themes-get-themes)) (modus-themes-load-theme 'modus-vivendi-tinted))" >/dev/null ;;
+		light) new_theme="$light_theme" ;;
+		dark)  new_theme="$dark_theme" ;;
+		*)     echo "Usage: _emacs [light|dark]"; return 1 ;;
 	esac
+
+	# If Emacs is running, change the theme dynamically via emacsclient
+	if pgrep -x emacs >/dev/null; then
+		emacsclient -e "(when (and (fboundp 'modus-themes-get-themes) (fboundp 'consult-theme)) (consult-theme '$new_theme))" >/dev/null 2>&1
+
+	# If Emacs is dead, safely update custom.el for the next boot
+	else
+		# Ensure the file exists so awk doesn't fail
+		touch "$custom_file"
+
+		awk -v found=0 -v theme="$new_theme" '
+			/\(setq my-theme \x27/ {
+				found=1;
+				$0="(setq my-theme \x27" theme ")"
+			}
+			{ print }
+			END {
+				if (!found) print "(setq my-theme \x27" theme ")"
+			}
+		' "$custom_file" > "${custom_file}.tmp" && mv "${custom_file}.tmp" "$custom_file"
+	fi
 }
 
 _rofi() {
