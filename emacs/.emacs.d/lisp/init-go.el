@@ -22,15 +22,19 @@
              go-goto-function-name
              go-goto-return-values))
 
+(with-eval-after-load 'project
+  (add-to-list 'project-vc-ignores "vendor/"))
+
 (use-package go-ts-mode
   :ensure nil
   :mode "\\.go\\'"
   :interpreter "go"
   :hook ((go-ts-mode . symbol-overlay-mode)
-         (go-ts-mode . my/go-init-logic))
+         (go-ts-mode . my/go-init-logic)
+         (go-ts-mode . apheleia-mode))
   :bind (:map go-ts-mode-map
               ("<f1>" . compile)
-              ("<f5>" . my/go-eglot-format-on-save)
+              ("<f5>" . apheleia-format-buffer)
               ("C-M-q" . prog-indent-sexp)
               ("M-q" . prog-fill-reindent-defun)
               ;; Navigation & Refactoring (Fallback primitives from go-mode)
@@ -50,29 +54,15 @@
   :config
   (setq go-ts-mode-indent-offset 4)
 
-  (defun my/go-eglot-format-on-save ()
-    "Organize imports and format synchronously using Eglot."
-    (when (eglot-managed-p)
-      (ignore-errors
-        ;; Crucial: Removed the trailing 't' to make this synchronous
-        (eglot-code-actions (point-min) (point-max) "source.organizeImports"))
-      (eglot-format-buffer)))
-
   (defun my/go-init-logic ()
-    "Decide cleanly between Eglot and Apheleia based on go.mod presence."
+    "Eglot ensure based on go.mod presence."
     (let* ((proj (project-current))
-           (root (when proj (project-root proj)))
-           (using-eglot (and root (file-exists-p (expand-file-name "go.mod" root)))))
-      (if using-eglot
-          (progn
-            ;; Turn off apheleia if it's running locally to avoid hook collision
-            (when (fboundp 'apheleia-mode) (apheleia-mode -1))
-            (eglot-ensure)
-            ;; The final 't' makes this hook strictly local to this buffer
-            (add-hook 'before-save-hook #'my/go-eglot-format-on-save nil t))
-        ;; Fallback: No go.mod found, run standalone formatters
-        (when (fboundp 'apheleia-mode)
-          (apheleia-mode 1)))))
+           (proj-indeed (when proj (project-root proj)))
+           (sure-eglot (and proj-indeed
+                            (file-exists-p
+                             (expand-file-name "go.mod" proj-indeed)))))
+      (when sure-eglot
+        (eglot-ensure))))
 
   ;; Sync environment variables securely
   (with-eval-after-load 'exec-path-from-shell

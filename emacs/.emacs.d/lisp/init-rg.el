@@ -34,7 +34,7 @@
     :format regexp
     :files "*.go"
     :dir project
-    :flags ("-U" "-z" "-o" "-P"))
+    :flags ("-U" "-z" "-o" "-P" "-g" "!vendor/"))
 
   (rg-define-search rg-go-interface-blocks
     "Search Go files for multiline interface type blocks."
@@ -42,7 +42,7 @@
     :format regexp
     :files "*.go"
     :dir project
-    :flags ("-U" "-z" "-o" "-P"))
+    :flags ("-U" "-z" "-o" "-P" "-g" "!vendor/"))
 
   (rg-define-search rg-go-struct-blocks
     "Search Go files for multiline struct type blocks."
@@ -50,7 +50,7 @@
     :format regexp
     :files "*.go"
     :dir project
-    :flags ("-U" "-z" "-o" "-P"))
+    :flags ("-U" "-z" "-o" "-P" "-g" "!vendor/"))
 
   ;; Transient menu for Golang scrapers
   (transient-define-prefix code-scrapers-golang ()

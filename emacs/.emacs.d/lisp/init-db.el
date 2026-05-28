@@ -23,11 +23,13 @@
 ;; Smart SQL Syntax Indentation Engine
 (use-package sql-indent
   :ensure t
-  :after sql)
+  :blackout
+  :hook(sql-mode . sqlind-minor-mode))
 
 ;; Automatic Keyword Uppercasing Engine
 (use-package sqlup-mode
   :ensure t
+  :blackout
   :hook ((sql-mode sql-interactive-mode) . sqlup-mode)
   :config
   ;; Do not automatically uppercase the column or variable token "name"

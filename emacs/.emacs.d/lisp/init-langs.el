@@ -8,6 +8,9 @@
 (use-package python-mode)
 (use-package just-mode)
 
+(use-package yaml-mode)
+(use-package dockerfile-mode)
+
 (use-package conf-xdefaults-mode
   :ensure nil
   :mode "\\`\\(xresources\\|xmodmap\\)\\'")
