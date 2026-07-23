@@ -2,6 +2,7 @@
 *.swo
 *.swp
 *~
+_*
 \#*#
 emacs/.emacs.d/docs/
 emacs/.emacs.d/eln-cache/

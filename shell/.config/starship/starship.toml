@@ -1,0 +1,79 @@
+format = """
+$jobs\
+$python\
+$directory\
+$direnv\
+$git_branch\
+$git_status\
+$kubernetes\
+$line_break\
+$cmd_duration\
+${env_var.INCOGNITO_MODE}\
+ $character"""
+
+add_newline = true
+
+[line_break]
+disabled = false
+
+[time]
+disabled = false
+format = "[$time]($style)"
+style = "bold yellow"
+
+[character]
+success_symbol = "[❱](bold green)"
+error_symbol = "[✖](bold red)"
+
+[cmd_duration]
+min_time = 5000
+format = "[$duration]($style) "
+style = "yellow bold"
+show_milliseconds = false
+disabled = false
+show_notifications = false
+min_time_to_notify = 45000
+
+[directory]
+truncation_length = 0
+read_only = " RO"
+read_only_style = "bold red"
+truncate_to_repo = false
+style = "bold cyan"
+
+[golang]
+format = "go:[$version]($style) "
+style = "bold cyan"
+disabled = true
+
+[python]
+disabled = false
+style = "bold yellow"
+format = '[(\($virtualenv\) )]($style)'
+
+[kubernetes]
+symbol = "k8s"
+format = "(\\($symbol [$context](cyan):[$namespace](bold fg:magenta)\\)) "
+disabled = true
+contexts = [{ context_pattern = "k3d-k3s-default", context_alias = "k3s-default" },]
+
+[jobs]
+format = '[\[$number\]]($style) '
+style = 'bold yellow'
+number_threshold = 1
+
+[direnv]
+disabled = false
+detect_files = ['.envrc']
+symbol = 'env'
+format = '[$symbol$loaded$allowed]($style) '
+loaded_msg = ""
+unloaded_msg = ""
+allowed_msg = ""
+not_allowed_msg = ":NA"
+denied_msg = ":!"
+
+[env_var.INCOGNITO_MODE]
+symbol = " <% "
+style = "bold fg:black bg:bright-white"
+format = "[$symbol]($style) "
