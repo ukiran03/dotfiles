@@ -139,7 +139,7 @@ go-mode go-ts-mode
 ;; (con "const " p " = " q )
 (cons "const (" n> p " = " q n ")")
 ;; (var "var " p " " q)
-;; (map "map[" p "]" q)
+(map "map[" p "]" q)
 ;; (if "if " p " {" n> n "}" >)
 (ifel "if " p " {" n> p n "} else {" > n> p n "}" > q)
 (elif "if " p " {" n> p n "} else if " > p " {" n> p n "}" > q)
@@ -150,7 +150,7 @@ go-mode go-ts-mode
 (switch "switch " p " {" n> "case " p ":" q n "}" >)
 (fmain "func main() {" n> r> q n "}" >)
 (func "func " p " (" p ") " p " {" n> q n "}" >)
-;; (init "func init() {" n> q n "}")
+(init "func init() {" n> q n "}")
 (run "func run() {" n> q n "}")
 (test "func Test" p " (t *testing.T) { " n> q n "}")
 

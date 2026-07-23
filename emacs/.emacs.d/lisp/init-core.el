@@ -22,8 +22,11 @@
 
   ;; Global Operational Defaults
   (setq use-short-answers t)
-  (setq visible-bell nil)
-  (setq ring-bell-function #'ignore)
+
+  (setq visible-bell t)
+  ;; (setq ring-bell-function #'ignore)
+  (setq ring-bell-function nil)
+
   (setq confirm-kill-emacs #'y-or-n-p)
   (setq delete-by-moving-to-trash t)
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets)

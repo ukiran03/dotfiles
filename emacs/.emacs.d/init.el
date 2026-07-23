@@ -5,6 +5,8 @@
 ;; startup optimizations, structures the load paths, and modularly loads
 ;; specific configuration subsets from the `lisp/` and `site-lisp/` directories.
 
+;; (setq debug-on-error nil)
+
 ;;; Code:
 
 (when (version< emacs-version "27.1")
@@ -77,10 +79,11 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 ;; ;;; CORE ARCHITECTURE MODULES          ;;;
 ;; ==========================================
 
-(require 'init-steal)
-(require 'init-funcs)
+;; MUST BE FIRST: Initializes package.el, ELPA archives, and use-package
 (require 'init-package)
 
+(require 'init-steal)
+(require 'init-funcs)
 (require 'init-completions)
 (require 'init-clean)
 (require 'init-vertico)
@@ -115,11 +118,14 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-utils)
 (require 'init-shell)
 (require 'init-feeds)
+(require 'init-modeline)
 (require 'init-quotes)
+
 ;; ==========================================
 ;; ;;; LANGUAGE & PROGRAMMING DEVELOP     ;;;
 ;; ==========================================
 
+(require 'init-ai)
 (require 'init-snippets)
 (require 'init-lsp)
 (require 'init-langs)
@@ -134,8 +140,8 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-vc)
 (require 'init-linting)
 (require 'init-project)
-;; (require 'init-devops)   ; Uncomment if needed
-;; (require 'init-kyverno)  ; Uncomment if needed
+(require 'init-devops)
+;; (require 'init-kyverno)
 
 ;; ==========================================
 ;; ;;; BUILT-IN COMMAND UNBANNING          ;;;

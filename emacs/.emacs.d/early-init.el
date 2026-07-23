@@ -38,6 +38,8 @@
 ;; Inhibit resizing frame
 (setq frame-inhibit-implied-resize t)
 
+;; Prevent flash of unstyled mode line
+(setq-default mode-line-format nil)
 
 ;; Faster to disable these here (before they've been initialized)
 (push '(menu-bar-lines . 0) default-frame-alist)
@@ -45,7 +47,6 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 (when (featurep 'ns)
   (push '(ns-transparent-titlebar . t) default-frame-alist))
-;; (setq-default mode-line-format nil)  ; i dont use doom-modeline
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; early-init.el ends here
