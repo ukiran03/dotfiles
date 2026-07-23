@@ -20,7 +20,7 @@
   (advice-add 'project-mode-line-format :filter-return
               (lambda (s) (when s (concat s " "))))
   (add-to-list 'project-vc-ignores "vendor/")
-  (setq project-vc-extra-root-markers '(".project" "project.org"))  ; Emacs 29
+  (setq project-vc-extra-root-markers '(".project" "project.org" "PROJECT"))  ; Emacs 29
 
   ;; Modern Emacs 28/29+ switch command format using character literals
   (setq project-switch-commands

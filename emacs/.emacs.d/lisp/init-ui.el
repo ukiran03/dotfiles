@@ -7,7 +7,6 @@
 
 ;;;; Fonts & Typography (Fontaine)
 (use-package fontaine
-  :disabled
   :ensure t
   :hook (after-init . fontaine-mode)
   :bind ("C-c f" . fontaine-set-preset)
@@ -37,8 +36,8 @@
   (modus-themes-bold-constructs nil)
   (modus-themes-italic-constructs t)
   (modus-themes-mixed-fonts nil)
-  (modus-themes-completions '((t . (extrabold))))
-  (modus-themes-prompts '(extrabold))
+  ;; (modus-themes-completions '((t . (extrabold)))) FIXME: hardcoded in src
+  ;; (modus-themes-prompts '(extrabold))
   (modus-themes-to-toggle '(modus-operandi modus-vivendi-tinted))
   ;; Palette overrides
   (modus-themes-common-palette-overrides
@@ -46,6 +45,12 @@
      (border-mode-line-inactive unspecified)))
   (modus-vivendi-tinted-palette-overrides
    '((comment fg-dim))))
+
+;; (custom-set-faces
+;;  ;; Inherit from the face to keep colors, then specify weight
+;;  '(completions-common-part ((t (:inherit completions-common-part :weight semibold))))
+;;  '(completions-first-difference ((t (:inherit completions-first-difference :weight semibold))))
+;;  '(minibuffer-prompt ((t (:inherit minibuffer-prompt :weight semibold)))))
 
 (use-package ef-themes
   :ensure t
@@ -65,6 +70,18 @@
   :config
   (setq olivetti-style 'fancy))
 
+(use-package spacious-padding
+  :ensure t
+  :config
+  (setq spacious-padding-widths
+        '( :internal-border-width 0
+           :header-line-width 0
+           :mode-line-width 0
+           :custom-button-width 0
+           :tab-width 0
+           :right-divider-width 3
+           :scroll-bar-width 0
+           :fringe-width 8)))
 
 ;;;; UI Elements & Context
 (use-package breadcrumb

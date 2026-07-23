@@ -21,7 +21,8 @@
   :ensure nil
   :bind
   (("H-0" . delete-window)
-   ("H-1" . toggle-delete-other-windows) ; Handled via your custom/built-in toggle
+   ;; ("H-1" . toggle-delete-other-windows) ; Handled via your custom/built-in toggle
+   ("H-1" . delete-other-windows)
    ("H-2" . split-window-below)
    ("H-3" . split-window-right)
    ("H-," . previous-buffer)
@@ -56,7 +57,10 @@
    ("C-M-<down>"  . windmove-down)
    ("C-M-<left>"  . windmove-left)
    ("C-M-S-<up>"    . windmove-swap-states-up)
-   ("C-M-S-<right>" . windmove-swap-states-right) ; Note: Overlaps Org Mode structure edits
+
+   ;; Note: Overlaps Org Mode structure edits
+   ("C-M-S-<right>" . windmove-swap-states-right)
+
    ("C-M-S-<down>"  . windmove-swap-states-down)
    ("C-M-S-<left>"  . windmove-swap-states-left))
   :init
@@ -114,8 +118,13 @@
           racket-repl-mode
           help-mode
           compilation-mode))
-  ; (setq popper-group-function 'popper-group-by-project)
+  ;; (setq popper-group-function 'popper-group-by-project)
   (setq popper-echo-dispatch-actions t)
+  ;; (setq popper-mode-line "")
+  (setq popper-mode-line
+        '(:eval
+          (propertize " POP" 'face      ; 
+                      '(:inherit mode-line-emphasis :slant normal :weight bold))))
 
   (popper-mode 1)
   (popper-echo-mode 1)

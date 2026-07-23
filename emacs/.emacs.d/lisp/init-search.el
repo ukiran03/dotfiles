@@ -31,6 +31,15 @@
 
 ;;; Extras & External Packages
 
+(use-package ctrlf
+  :disabled t
+  :ensure t
+  :hook (after-init . ctrlf-mode)
+  :config
+  (setq ctrlf-auto-recenter t)
+  (setq ctrlf-highlight-current-line nil)
+  (setq ctrlf-show-match-count-at-eol nil))
+
 (use-package substitute
   :ensure t)
 

@@ -35,7 +35,8 @@
   :if (display-graphic-p)
   :blackout
   ;; :custom-face
-  ;; (nerd-icons-dired-dir-face ((t (:inherit nerd-icons-dsilver :foreground unspecified))))
+  ;; (nerd-icons-dired-dir-face
+  ;;    ((t (:inherit nerd-icons-dsilver :foreground unspecified))))
   :hook
   (dired-mode . nerd-icons-dired-mode))
 

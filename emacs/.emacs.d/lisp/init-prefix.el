@@ -134,7 +134,7 @@
   "C-g" #'keyboard-quit)
 (keymap-set global-map "H-5" other-frame-hyper-map)
 
-;; --- Infrastructure Prefixes (H-a) ---
+;; --- Infrastructure Prefixes (H-a d) ---
 (defvar-keymap docker-map
   :doc "Docker Infrastructure management operations."
   :name "Docker"

@@ -7,6 +7,9 @@
 
 (require 'use-package)
 
+(use-package compat
+  :ensure t)
+
 ;;;; Core Vertico Configuration
 (use-package vertico
   :ensure t

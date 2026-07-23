@@ -85,7 +85,7 @@
 
 (defun icons-displayable-p ()
   "Return non-nil if icons are displayable."
-  (and (boundandtruep ukiran-icon)
+  (and ukiran-icon
        (or (featurep 'nerd-icons)
            (require 'nerd-icons nil t))))
 

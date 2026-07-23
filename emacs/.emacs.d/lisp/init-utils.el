@@ -6,6 +6,7 @@
 ;;; Code:
 
 (use-package trashed
+  :disabled
   :ensure t
   :commands (trashed)
   :config

@@ -10,20 +10,11 @@
   :ensure nil
   :config (setq reb-re-syntax 'rx)) ; I love using rx for regexps
 
-;; Tree-sitter setup (Kept commented out as per original layout)
-;; (when (uk/treesit-available-p)
-;;   (use-package treesit-auto
-;;     :hook (after-init . global-treesit-auto-mode)
-;;     :init (setq treesit-auto-install 'prompt))
-;;
-;;   (use-package treesit-fold-indicators
-;;     :ensure treesit-fold
-;;     :hook (after-init . global-treesit-fold-indicators-mode)
-;;     :init (setq treesit-fold-indicators-priority -1)))
-
 ;; dtrt (auto find indent setting)
 (use-package dtrt-indent
-  :config (dtrt-indent-global-mode))
+  :ensure t
+  :defer t
+  :hook (prog-mode . dtrt-indent-mode))
 
 (use-package emacs
   :ensure nil
@@ -34,26 +25,25 @@
   (advice-add 'compile-goto-error :after #'my-compile-goto-error-recenter)
   (setq warning-minimum-level :error))
 
+;; Hydra
 (use-package pretty-hydra
-  :disabled
-  :bind ("C-<f5>" . toggles-hydra/body)
-  :init
-  ;; Global toggles
-  (with-no-warnings
-    (pretty-hydra-define
-      toggles-hydra (:color amaranth :quit-key ("q" "C-g"))
-      ("Basic"
-       (("a" aggressive-indent-mode "Ag indent" :toggle t)
-        ("p" puni-mode "Puni" :toggle t)
-        ("F" format-all-mode "FMT" :toggle t))
-       "Highlight"
-       (("h s" symbol-overlay-mode "symbol OL" :toggle t)
-        ("h t" global-hl-todo-mode "todo" :toggle t)
-        ("c" colorful-mode "colorful" :toggle t))
-       "Program"
-       (("f" flymake-mode "flymake" :toggle t)
-        ("d" diff-hl-mode "diff-hl" :toggle t)
-        ("D" diff-hl-dired-mode "dired diff-hl" :toggle t))))))
+  :ensure t
+  :bind (:map prog-mode-map
+              ("<f6>" . hydra-prog-toggles/body))
+  :config
+  (pretty-hydra-define hydra-prog-toggles
+    (:hint nil :color amaranth :quit-key "q" :title "Prog Mode Toggles")
+    ("Editing"
+     (("f" apheleia-mode "FMT" :toggle t)
+      ("p" puni-mode "puni" :toggle t)
+      ("ds" drag-stuff-mode "drag stuff" :toggle t)
+      ;; ("a" aggressive-indent-mode "Ag indent" :toggle t)
+      )
+     "Visuals"
+     (("w" whitespace-mode "whitespace" :toggle t)
+      ("l" display-line-numbers-mode "line numbers" :toggle t)
+      ("s" symbol-overlay-mode "symbol overlay" :toggle t)
+      ("dh" diff-hl-mode "diff-hl" :toggle t)))))
 
 ;; Emacs 30.1+ Built-in completion preview
 (use-package completion-preview
@@ -124,8 +114,11 @@
 
 (use-package puni
   :ensure t
-  :hook (((prog-mode racket-repl-mode eval-expression-minibuffer-setup-hook) . puni-mode)
-         ((calc-mode term-mode vterm-mode info-mode vertico-mode) . puni-disable-puni-mode))
+  :commands (puni-mode puni-disable-puni-mode)
+  :hook (((racket-repl-mode
+           eval-expression-minibuffer-setup-hook) . puni-mode)
+         ((calc-mode term-mode vterm-mode
+                     info-mode vertico-mode) . puni-disable-puni-mode))
   :bind (("C-c s" . puni-mode)
          :map puni-mode-map
          ([remap backward-sentence] . puni-end-of-sexp)
@@ -153,18 +146,24 @@
 (use-package aggressive-indent
   :blackout
   :ensure t
-  :hook ((emacs-lisp-mode lisp-interaction-mode racket-mode scheme-mode) . aggressive-indent-mode))
+  :hook ((emacs-lisp-mode
+          lisp-interaction-mode
+          racket-mode
+          scheme-mode) . aggressive-indent-mode))
 
 (use-package indent-bars
-  :config
-  (setq indent-bars-color '(highlight :face-bg t :blend 0.2)
-        indent-bars-pattern "."
-        indent-bars-width-frac 0.1
-        indent-bars-pad-frac 0.1
-        indent-bars-zigzag nil
-        indent-bars-color-by-depth nil
-        indent-bars-highlight-current-depth nil
-        indent-bars-display-on-blank-lines nil))
+  :custom
+  (indent-bars-color '(font-lock-comment-face :face-bg nil :blend 0.4))
+  (indent-bars-color-by-depth '(:source-color t :factor 0.4))
+  (indent-bars-highlight-current-depth '(:source-color t :factor 0.8))
+  (indent-bars-pattern " . . . . .")
+  (indent-bars-width-frac 0.1)
+  (indent-bars-pad-frac 0.1)
+  (indent-bars-color-by-depth nil)
+  (indent-bars-display-on-blank-lines nil)
+  (indent-bars-treesit-support t)
+  (indent-bars-no-descend-string t)
+  (indent-bars-prefer-character t))
 
 ;; API Testing Packages
 (use-package restclient
@@ -187,13 +186,13 @@
   :defer t
   :config
   (setq sql-sqlite-options '("-header" "-box")
-        sql-postgres-login-params '(server port user database))) ; Corrected parameter tokens
+        sql-postgres-login-params '(server port user database)))
 
-;; Compilation Buffers (Merged blocks)
+;; Compilation Buffers
 (use-package compile
   :ensure nil
   :config
-  ;; Colorize compilation output
+  (setq compilation-scroll-output t)
   (with-eval-after-load 'ansi-color
     (defun endless/colorize-compilation ()
       "Colorize from `compilation-filter-start' to `point'."
@@ -201,7 +200,6 @@
         (ansi-color-apply-on-region compilation-filter-start (point))))
     (add-hook 'compilation-filter-hook #'endless/colorize-compilation))
 
-  ;; Auto-detect local C file compilation command
   (defun set-c-compile-command ()
     (setq-local compile-command
                 (format "gcc %s" (file-name-nondirectory buffer-file-name))))
@@ -210,6 +208,7 @@
 
 ;; Context-aware tags navigation helper
 (use-package clue
+  :disabled
   :ensure nil
   :defer t
   :vc (:url "https://github.com/AmaiKinono/clue")
@@ -227,9 +226,11 @@
 (use-package envrc
   :ensure t
   :config
-  (setq envrc-none-lighter nil
-        envrc-on-lighter '(:propertize " env" face envrc-mode-line-on-face)
-        envrc-error-lighter '(:propertize " env!" face (envrc-mode-line-error-face bold)))
+  (setq envrc-none-lighter nil)
+  (setq envrc-on-lighter
+        '(:propertize " env" face envrc-mode-line-on-face))
+  (setq envrc-error-lighter
+        '(:propertize " env!" face (envrc-mode-line-error-face bold)))
   :hook (after-init . envrc-global-mode)
   :bind (:map envrc-mode-map
               ("C-c e" . envrc-command-map)))

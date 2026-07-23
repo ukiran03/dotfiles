@@ -18,6 +18,11 @@
   (setq ediff-merge-revisions-with-ancestor t)
   (setq ediff-show-clashes-only t))
 
+;;;; `difftastic'
+(use-package difftastic-bindings
+  :ensure difftastic ;; or nil if you prefer manual installation
+  :config (difftastic-bindings-mode))
+
 ;;;; `magit'
 (use-package magit
   :ensure t
@@ -43,6 +48,13 @@
 (use-package forge
   :ensure t
   :after magit)
+
+;; Github Markdown/Org files preview
+(use-package grip-mode
+  :ensure t
+  ;; :hook ((markdown-mode org-mode) . grip-mode)
+  :config (setq grip-command 'go-grip))
+
 
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl

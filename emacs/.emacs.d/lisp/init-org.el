@@ -79,7 +79,7 @@ Produces fixed-length, perfectly aligned dates."
 
 (use-package org
   :ensure nil
-  :hook ((org-mode . org-indent-mode))
+  ;; :hook ((org-mode . org-indent-mode))
   :bind (("C-c A" . org-agenda)
          ("C-c a" . (lambda () (interactive) (org-agenda nil "A")))
          ("C-c c" . org-capture)
@@ -248,6 +248,7 @@ Produces fixed-length, perfectly aligned dates."
   :hook (org-mode . org-appear-mode))
 
 (use-package ox-hugo
+  :disabled
   :ensure t
   :after org
   :config
