@@ -13,7 +13,6 @@
              godef-jump-other-window
              godef-describe
              go-import-add
-             go-run
              go-goto-arguments
              go-goto-docstring
              go-goto-function
@@ -21,6 +20,11 @@
              go-goto-method-receiver
              go-goto-function-name
              go-goto-return-values))
+
+(use-package gotest
+  :ensure t
+  ;; :defer t
+  :commands (go-run))
 
 (with-eval-after-load 'project
   (add-to-list 'project-vc-ignores "vendor/"))
@@ -31,6 +35,7 @@
   :interpreter "go"
   :hook ((go-ts-mode . symbol-overlay-mode)
          (go-ts-mode . my/go-init-logic)
+         (go-ts-mode . puni-mode)
          (go-ts-mode . apheleia-mode))
   :bind (:map go-ts-mode-map
               ("<f1>" . compile)
@@ -75,7 +80,7 @@
   :ensure t
   :config
   (setf (alist-get 'go-format apheleia-formatters)
-        '("golines" "--base-formatter" "gofumpt -extra"))
+        '("golines" "-m" "79" "--base-formatter" "gofumpt -extra")) ;TODO: add fill-column as a var
   (setf (alist-get 'gotmplfmt apheleia-formatters) '("gotmplfmt"))
   (setf (alist-get 'templ-fmt apheleia-formatters) '("templ" "fmt"))
   (setf (alist-get 'buf-fmt apheleia-formatters) '("buf" "format" "--path" filepath))
@@ -114,6 +119,22 @@
     (defvar eglot-server-programs)
     (add-to-list 'eglot-server-programs
                  '(protobuf-mode . ("buf" "lsp" "serve")))))
+
+;; Tempel Snippets
+(use-package tempel
+  :ensure t
+  :init
+  ;; Define a function that returns your templates (Tempel loves this)
+  (defun my-golang-templates ()
+    '((go "go func() {" n> q n> "}()")
+      (defer "defer func() {" n> q n> "}()")))
+
+  :config
+  ;; Safely add it as a buffer-local source when go-ts-mode activates
+  (add-hook 'go-ts-mode-hook
+            (lambda ()
+              (add-hook 'tempel-template-sources
+                        #'my-golang-templates nil 'local))))
 
 (provide 'init-go)
 
