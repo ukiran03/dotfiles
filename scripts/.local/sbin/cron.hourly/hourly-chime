@@ -1,4 +1,6 @@
 #!/bin/sh
+exec 2>&1
+
 relative_time=$(uptime -p | cut -d' ' -f2-)
 exec dunstify -r 3454 \
          "Hour Chime: $(date +%I:%M\ %p)" \

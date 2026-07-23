@@ -1,0 +1,1 @@
+/home/ukiran/.local/bin/mailsync.sh
