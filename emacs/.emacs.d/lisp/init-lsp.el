@@ -38,6 +38,9 @@
         eglot-extend-to-xref t
         eglot-send-changes-idle-time 0.5)
 
+  ;; massive perf boost---don't log every event (from emacsbedrock/dev.el)
+  (fset #'jsonrpc--log-event #'ignore)
+
   ;; Performance Optimization Enhancements
   (setq read-process-output-max (* 1024 1024) ; 1MB chunk size for reading LSP data
         eglot-events-buffer-size 0) ; Disable logging for a massive speed boost

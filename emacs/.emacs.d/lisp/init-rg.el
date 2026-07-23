@@ -4,30 +4,27 @@
 
 ;;; Code:
 
+;; Load macro definitions into memory ONLY during macro-expansion/compilation
+(eval-when-compile
+  (require 'rg)
+  (require 'transient))
+
 (use-package rg
   :ensure t
   :defer t
-  :commands (rg-menu rg-isearch-menu)
+  :commands (rg-menu rg-isearch-menu code-scrapers-golang)
 
-  :bind ((:map global-map
-               ("M-s R" . rg-menu)
-               ("M-s c" . code-scrapers-golang)))
+  :bind (:map global-map
+         ("M-s R" . rg-menu)
+         ("M-s c" . code-scrapers-golang))
 
   :init
   ;; Safely inject the isearch keybinding into the built-in isearch system
   (with-eval-after-load 'isearch
     (define-key isearch-mode-map (kbd "M-s r") #'rg-isearch-menu))
 
-  :preface
-  ;; This tells Emacs about our custom command BEFORE use-package tries to
-  ;; expand any internal macros, preserving our 0.00ms startup speed.
-  (autoload 'code-scrapers-golang "init-rg" "Custom ripgrep AST scrapers." t)
-
   :config
-  ;; Everything inside here evaluates ONLY after you run an rg command.
-  (require 'transient)
-
-  ;;;; Golang Scrapers
+  ;; Golang Scrapers
   (rg-define-search rg-go-import-blocks
     "Search Go files for multiline import blocks."
     :query "(?s)import \\(.*?\\)"

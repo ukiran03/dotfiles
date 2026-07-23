@@ -26,6 +26,10 @@
   :blackout
   :hook(sql-mode . sqlind-minor-mode))
 
+(use-package sqlformat
+  :config
+  (setq sqlformat-command 'pgformatter))
+
 ;; Automatic Keyword Uppercasing Engine
 (use-package sqlup-mode
   :ensure t
