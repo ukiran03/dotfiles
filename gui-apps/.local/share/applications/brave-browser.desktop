@@ -3,8 +3,8 @@ Encoding=UTF-8
 Version=1.0
 Type=Application
 Categories=GNOME;GTK;Network;WebBrowser;
-Icon=/home/ukiran/.Apps/brave/product_logo_128.png
-Exec=/home/ukiran/.Apps/brave/brave-browser --password-store=basic
+Icon=/home/ukiran/.local/share/Apps/brave/product_logo_128.png
+Exec=/home/ukiran/.local/share/Apps/brave/brave --password-store=basic %U
 Name=Brave Browser
 Comment=Brave Browser
 Actions=NewWindow;NewPrivateWindow;
