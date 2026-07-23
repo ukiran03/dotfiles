@@ -1,203 +1,144 @@
-#### Autoload
+# ==============================================================================
+# ENVIRONMENT & CORE PREFERENCES
+# ==============================================================================
+export COLORTERM="truecolor"
+export STARSHIP_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/starship/starship.toml"
+export WORDCHARS='*?_[]~=&;!#$%^(){}<>' # Removed: -./ for better word navigation
+
+# Define ZDOTDIR fallback safely
+: "${ZDOTDIR:=${XDG_CONFIG_HOME:-$HOME/.config}/zsh}"
+
+# Load Colors module
 autoload -U colors && colors
 
-#### Options
-setopt autocd       # Automatically cd into typed directory.
-setopt NO_CASE_GLOB # Modifies the behavior of filename globbing
-# (pattern matching) to be case-insensitive
-setopt COMPLETE_ALIASES # Perform command completion for aliases
-setopt GLOB_DOTS        # Include hidden files when performing file globbing
-setopt SHARE_HISTORY    # Share history between all sessions.
-setopt PROMPT_SUBST     # Enables prompt substitution
-setopt always_to_end    # Ensures the cursor moves to the end of the command line
-setopt APPEND_HISTORY   # Preserving the commands from all sessions
-setopt INTERACTIVE_COMMENTS
-setopt auto_menu          # Automatically displays a menu of possible completions
-setopt complete_in_word   # Attempt to complete the word at the cursor position
-setopt hist_verify        # Re-evaluate the modified command line before executing it
-setopt INC_APPEND_HISTORY # Incremental history writing to hist_file
+# Disable Ctrl+S terminal freeze
+stty stop undef 2>/dev/null
 
-setopt HIST_IGNORE_ALL_DUPS # Delete an old recorded event if a new event is a duplicate.
-setopt HIST_IGNORE_SPACE    # Do not record an event starting with a space.
-setopt HIST_SAVE_NO_DUPS    # Do not write a duplicate event to the history file.
-# setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
-setopt HIST_EXPIRE_DUPS_FIRST # Prioritize removing duplicate events over non-duplicate ones
-setopt HIST_FIND_NO_DUPS      # Do not display a previously found event.
-setopt HIST_IGNORE_DUPS       # Do not record an event that was just recorded again.
-setopt EXTENDED_GLOB          # Globing
-# Zsh Directory Stack
-setopt AUTO_PUSHD        # Push the current directory visited on the stack.
-setopt PUSHD_IGNORE_DUPS # Do not store duplicates in the stack.
-setopt PUSHD_SILENT      # Do not print the directory stack after pushd or popd.
-setopt CORRECT
-#### Keybinds
-bindkey -e
-bindkey "^[[3~" delete-char
+# ==============================================================================
+# ZSH OPTIONS
+# ==============================================================================
+# Directory Navigation
+setopt AUTOCD            # Automatically cd into typed directory name
+setopt AUTO_PUSHD        # Push directory to stack on cd
+setopt PUSHD_IGNORE_DUPS # Do not store duplicate directories in stack
+setopt PUSHD_SILENT      # Do not print directory stack after pushd/popd
+setopt CORRECT           # Auto-correct mistyped commands
+
+# Globbing
+setopt NO_CASE_GLOB  # Case-insensitive globbing
+setopt GLOB_DOTS     # Include hidden files in globbing
+setopt EXTENDED_GLOB # Extended pattern matching features
+
+# Line & Completion Behavior
+setopt COMPLETE_ALIASES     # Complete aliases
+setopt ALWAYS_TO_END        # Move cursor to end of word after completion
+setopt AUTO_MENU            # Automatically display completion menu
+setopt COMPLETE_IN_WORD     # Allow completion from within a word
+setopt INTERACTIVE_COMMENTS # Allow comments in interactive shell
+setopt PROMPT_SUBST         # Enable prompt variable substitution
+
+# History Management
+setopt SHARE_HISTORY          # Share history across all active sessions
+setopt APPEND_HISTORY         # Preserve commands from all sessions
+setopt INC_APPEND_HISTORY     # Save commands to history file immediately
+setopt HIST_IGNORE_ALL_DUPS   # Delete old duplicate command if new one is typed
+setopt HIST_IGNORE_SPACE      # Ignore commands starting with a space
+setopt HIST_SAVE_NO_DUPS      # Do not write duplicate events to history file
+setopt HIST_EXPIRE_DUPS_FIRST # Remove duplicates first when history is full
+setopt HIST_FIND_NO_DUPS      # Do not display duplicates when searching history
+setopt HIST_VERIFY            # Load expanded history entry into editing buffer first
+
+# ==============================================================================
+# KEY BINDINGS & LINE EDITOR (ZLE)
+# ==============================================================================
+bindkey -e # Use Emacs keybindings
+
+bindkey '^[[3~' delete-char
 bindkey '^[[H' beginning-of-line
 bindkey '^[[F' end-of-line
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
 bindkey '^H' backward-kill-word
 bindkey '^U' backward-kill-line
 bindkey '^[[3;5~' kill-word
-# bindkey '^[[63~' undo
 bindkey '^_' undo
-# Bind Ctrl+Shift+/ to redo
 bindkey '^[[63;6~' redo
-stty stop undef # Disable ctrl-s to freeze terminal.
 
-### Multi line edit
-# Enable Ctrl-x-e to edit command line
+# Multi-line Command Line Editing (Ctrl-X Ctrl-E)
 autoload -U edit-command-line
-# Emacs style
 zle -N edit-command-line
 bindkey '^xe' edit-command-line
 bindkey '^x^e' edit-command-line
 
-## Words deletion
-export WORDCHARS='*?_[]~=&;!#$%^(){}<>' ## removed: -./
-
-#### Completions
-# zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' # case insenitive  ## prezto
-# Basic auto/tab complete:
+# ==============================================================================
+# COMPLETIONS (Fast Init)
+# ==============================================================================
 autoload -U compinit
-zstyle ':completion:*' menu select
 zmodload zsh/complist
-compinit
-_comp_options+=(globdots) # Include hidden files.
-# set list-colors to enable filename colorizing
-# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
-## Sources
-
-if [[ -f $ZDOTDIR/exports.zsh ]]; then
-	source $ZDOTDIR/exports.zsh
+# Perform compinit check only once a day for fast startup time
+if [[ -n "${ZDOTDIR}/.zcompdump(#qN-m+1)" ]]; then
+	compinit
 else
-	echo "zsh-exports file missing"
+	compinit -C
 fi
 
-# if [[ -f $ZDOTDIR/zsh-funcs ]]; then
-#   source $ZDOTDIR/zsh-funcs
-# else
-#   echo "zsh-funcs file missing"
-# fi
+_comp_options+=(globdots) # Include hidden files in completions
+zstyle ':completion:*' menu select
 
-# Rename the current tmux pane to the current working directory
+# Match aliases for completion wrapper
+compdef ,g=git
+compdef ,d=docker
+
+# ==============================================================================
+# SOURCE EXTERNAL CONFIGURATIONS & PLUGINS
+# ==============================================================================
+# Primary Exports
+if [[ -f "$ZDOTDIR/exports.zsh" ]]; then
+	source "$ZDOTDIR/exports.zsh"
+else
+	echo "Warning: $ZDOTDIR/exports.zsh missing"
+fi
+
+# Zsh Plugins
+[[ -f "$ZDOTDIR/plugins.zsh" ]] && source "$ZDOTDIR/plugins.zsh"
+
+# Incognito helper script
+[[ -f "$ZDOTDIR/scripts/incognito.zsh" ]] && source "$ZDOTDIR/scripts/incognito.zsh"
+
+# ==============================================================================
+# INTEGRATIONS & TOOLS
+# ==============================================================================
+# Aliases
+alias rm="trash-put -v"
+
+# Tmux Pane Rename Helper
 rename_tmux_pane_to_cwd() {
 	if [[ -n "$TMUX" ]]; then
-		# Get the current pane's working directory and rename the pane
 		tmux rename-window "$(basename "$PWD")"
 	else
 		echo "Not in a tmux session."
 	fi
 }
 
-## Trash-Cli
-alias rm="trash-put -v"
-# alias rm="gtrash put"
-
-## only for zsh
-compdef ,g=git
-compdef ,d=docker
-
-## https://superuser.com/questions/649635/zsh-says-no-matches-found-when-trying-to-download-video-with-youtube-dl
-# autoload -Uz bracketed-paste-magic
-# zle -N bracketed-paste bracketed-paste-magic
-# autoload -Uz url-quote-magic
-# zle -N self-insert url-quote-magic
-
-# # https://www.jefftk.com/p/logging-shell-history-in-zsh
-# precmd() {
-# 	echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" \
-# 		>>~/.local/.full_history
-# }
-
-# function histgrep {
-#   local n_lines=10
-#   if [[ "$1" =~ ^[0-9]*$ ]]; then
-#     n_lines="$1"
-#     shift
-#   fi
-#   grep "$@" ~/.full_history | tail -n "$n_lines"
-# }
-
-# #### Plugins
-# should be last.
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-# ZSH AutoPair Plugin
-source /home/ukiran/.config/zsh/plugins/zsh-autopair/autopair.zsh
-autopair-init
-
-source ~/.config/zsh/plugins/prezto-completions.zsh
-
-### It have kubens, kubectx
-# fpath=(~/.config/zsh/completions $fpath)
-# autoload -U compinit && compinit
-
-# . "$HOME/.atuin/bin/env"
-# eval "$(atuin init zsh)"
-
-# --- Incognito Mode Setup ---
-# Idea Credit: https://twdev.blog/2026/02/bash_incognito/
-# Define colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m'
-
-# Set the original history path only if it hasn't been set yet
-# This prevents it from being overwritten if you source .zshrc while in incognito
-export OG_HISTFILE="${OG_HISTFILE:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zsh_history}"
-
-incognito() {
-    if [ -n "$INCOGNITO_MODE" ]; then
-        # Turning OFF incognito
-        export HISTFILE="$OG_HISTFILE"
-        setopt SHARE_HISTORY
-        setopt INC_APPEND_HISTORY
-        setopt APPEND_HISTORY
-        unset INCOGNITO_MODE
-        echo -e "${RED}INCOGNITO OFF (History recording resumed)${NC}"
-    else
-        # Turning ON incognito
-        export HISTFILE=/dev/null
-        unsetopt SHARE_HISTORY
-        unsetopt INC_APPEND_HISTORY
-        unsetopt APPEND_HISTORY
-        export INCOGNITO_MODE=active
-        echo -e "${GREEN}INCOGNITO ON (History is RAM-only)${NC}"
-    fi
-}
-
-eval "$(direnv hook zsh)"
-
-if [[ "$TERM" == "tmux-256color" || "$TERM" == "rxvt-unicode-256color" ]]; then
-    export STARSHIP_CONFIG="$HOME/.config/starship/term.toml"
-else
-    export STARSHIP_CONFIG="$HOME/.config/starship/emacs.toml"
+# Direnv
+if command -v direnv &>/dev/null; then
+	eval "$(direnv hook zsh)"
 fi
 
-eval "$(starship init zsh)"
+# Starship Prompt
+if command -v starship &>/dev/null; then
+	eval "$(starship init zsh)"
+fi
 
+# source /home/ukiran/dotfiles/shell/.config/zsh/completions/_kubectl
 
-source /home/ukiran/dotfiles/shell/.config/zsh/completions/_kubectl
+# Google Cloud SDK
+GCLOUD_SDK_DIR="$HOME/.local/gke/google-cloud-sdk"
 
-
-# source /home/ukiran/.config/zsh/prompt.zsh # Custom Prompt
-
-cowsay "Learning by doing!"
-
-# ASDF completions
-# fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
-# autoload -Uz compinit && compinit
-
-# bun completions
-[ -s "/home/ukiran/.bun/_bun" ] && source "/home/ukiran/.bun/_bun"
-
-# pnpm
-export PNPM_HOME="/home/ukiran/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
-esac
-# pnpm end
+if [[ -d "$GCLOUD_SDK_DIR" ]]; then
+	[[ -f "$GCLOUD_SDK_DIR/path.zsh.inc" ]] &&
+		source "$GCLOUD_SDK_DIR/path.zsh.inc"
+	[[ -f "$GCLOUD_SDK_DIR/completion.zsh.inc" ]] &&
+		source "$GCLOUD_SDK_DIR/completion.zsh.inc"
+fi

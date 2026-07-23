@@ -1,5 +1,6 @@
-## -*- mode: bash-ts-mode -*-
-## -*- compile-command: "source ~/.config/shell/aliasrc" -*-
+# -*- mode: shell-script-mode -*-
+# -*- compile-command: "source ~/.config/shell/aliasrc" -*-
+
 ### ALIASES ###
 
 # alias bomb=":(){ :|:& };:"
@@ -331,7 +332,8 @@ alias batc="bat -l conf -p"
 # for emacs
 # alias r~="rm -rf *~"
 # alias emacsc="emacsclient -c"
-emacsc() {
+
+e() {
     # Default to the current directory (.) if no argument is provided
     local dir="${1:-.}"
 
@@ -374,12 +376,12 @@ alias ys="yay -Qs | grep"
 #alias lsl="ls -al"
 # Changing "ls" to "exa"
 # alias l='ls'
-alias ls='eza --color=always --group-directories-first -F'
-alias l.='eza --color=always --group-directories-first -F -d .[^.]*'
-alias l='eza --color=always --group-directories-first -F'
-alias ll="eza --color=always --group-directories-first -lF --git"
-alias la="eza --color=always --group-directories-first -aF"
-alias lal="eza --color=always --group-directories-first -laF --git"
+alias ls='eza --color=always --group-directories-first -F auto'
+alias l.='eza --color=always --group-directories-first -F auto -d .[^.]*'
+alias l='eza --color=always --group-directories-first -F auto'
+alias ll="eza --color=always --group-directories-first -l -F auto --git"
+alias la="eza --color=always --group-directories-first -a -F auto"
+alias lal="eza --color=always --group-directories-first -la -F auto --git"
 
 # lsd() {
 #     eza --color=always -DF --show-symlinks "$@"
@@ -451,3 +453,20 @@ READDECK_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/readdeck/config.toml"
 # readdeck() {
 #     command readdeck "$@" -config "$READDECK_CONFIG"
 # }
+
+# True color check
+check-true-colors() {
+    awk 'BEGIN{
+    s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+    for (colnum = 0; colnum<77; colnum++) {
+        r = 255-(colnum*255/76);
+        g = (colnum*510/76);
+        b = (colnum*255/76);
+        if (g>255) g = 510-g;
+        printf "\033[48;2;%d;%d;%dm", r,g,b;
+        printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
+        printf "%s\033[0m", substr(s,colnum+1,1);
+    }
+    printf "\n";
+    }'
+}
