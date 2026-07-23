@@ -146,6 +146,15 @@
   "C" #'docker-compose)
 (keymap-set global-map "H-a d" docker-map)
 
+;; --- AI. Gptel prefixes (H-a g) ---
+(defvar-keymap gptel-map
+  :doc "GPTel, a simple, extensible LLM client"
+  :name "GPTel"
+  "g" #'gptel-menu
+  "i" #'gptel
+  "s" #'gptel-send)
+(keymap-set global-map "H-a g" gptel-map)
+
 ;; =============================================================================
 ;;; 3. Global Shortcuts & Specialized Utility Keymaps
 ;; =============================================================================
