@@ -98,9 +98,44 @@
   (dolist (mode '(html-mode php-mode help-mode helpful-mode))
     (add-to-list 'global-colorful-modes mode)))
 
+(use-package whitespace
+  :ensure nil
+  :hook (prog-mode . whitespace-mode)
+  :config
+  ;; Set initial default style
+  (setq whitespace-style '(face tabs tab-mark))
+
+  ;; Customizing symbols using your ASCII numbers
+  (setq whitespace-display-mappings
+        '((space-mark 32 [183] [46])       ; Space mapped to middle dot / period
+          (space-mark 160 [164] [95])      ; NBSP mapped to currency / underscore
+          (newline-mark 10 [36 10])        ; Newline mapped to $ + newline
+          (tab-mark 9 [187 9] [92 9])))     ; Tab mapped to » / \
+
+  (defun uk/choose-whitespace-style ()
+    "Interactively switch between 3 distinct whitespace styles on the fly."
+    (interactive)
+    (let* ((options
+            '(("Tabs Only" . (face tabs tab-mark))
+              ("Tabs and Tsoding Dots" . (face tabs tab-mark spaces space-mark))
+              ("Default Emacs Style" . (face tabs spaces trailing lines
+                                             space-before-tab newline indentation empty
+                                             space-after-tab space-mark tab-mark
+                                             newline-mark missing-newline-at-eof))))
+           (choice (completing-read "Select whitespace style: " (mapcar #'car options)))
+           (selected-style (cdr (assoc choice options))))
+      ;; Apply the new style globally
+      (setq whitespace-style selected-style)
+      ;; Force-refresh the mode in the current buffer to apply instantly
+      (when whitespace-mode
+        (whitespace-mode -1)
+        (whitespace-mode 1))
+      (message "Whitespace style updated to: %s" choice))))
+
 ;; Keyword / Tag highlighting and project searches
 (use-package hl-todo
   :ensure t
+  :demand t
   :bind (:map hl-todo-mode-map
               ("C-c t o" . hl-todo-occur)
               ("C-c t p" . hl-todo-previous)
@@ -108,22 +143,23 @@
               ("C-c t i" . hl-todo-insert)
               ("C-c t r" . hl-todo-rg-project)
               ("C-c t R" . hl-todo-rg))
-  :hook ((after-init . global-hl-todo-mode)
-         (hl-todo-mode . (lambda ()
-                           (add-hook 'flymake-diagnostic-functions
-                                     #'hl-todo-flymake nil t))))
-  :init
-  (setq hl-todo-require-punctuation t
-        hl-todo-highlight-punctuation ":"
-        hl-todo-keyword-faces
-        `(("TODO"   error bold)
-          ("NOTE"   warning bold)
-          ("REDO"   warning bold)
-          ("Q"      warning bold)
-          ("A"      font-lock-constant-face bold)
-          ("REVIEW" font-lock-constant-face bold)
-          ("FIXME"  error bold)))
+  :hook (hl-todo-mode . (lambda ()
+                          (add-hook 'flymake-diagnostic-functions
+                                    #'hl-todo-flymake nil t)))
   :config
+  (setq hl-todo-require-punctuation t
+        hl-todo-highlight-punctuation ":")
+  (setq hl-todo-keyword-faces
+        '(("TODO"   . '(error bold))
+          ("DOUBT"  . '(error bold))
+          ("NOTE"   . '(warning bold))
+          ("REDO"   . '(warning bold))
+          ("Q"      . '(warning bold))
+          ("A"      . '(font-lock-constant-face bold))
+          ("REVIEW" . '(font-lock-constant-face bold))
+          ("FIXME"  . '(error bold))))
+  ;; Enable the global mode
+  (global-hl-todo-mode 1)
   ;; Silence compiler warning for rip-grep interface integration functions
   (declare-function rg "ext:rg")
   (declare-function rg-project "ext:rg")

@@ -22,6 +22,7 @@
          ("C-<return>" . dwim-new-line)
          ("S-SPC" . uk-insert-space-after-cursor)
          ("C-S-<backspace>" . uk-kill-whole-line)
+         ("C-y" . uk-smart-yank)
          ("H-q" . read-only-mode)
          ("H-Q" . view-mode))
   :config
@@ -36,6 +37,28 @@
     (interactive)
     (copy-region-as-kill (line-beginning-position) (line-end-position))
     (pulse-momentary-highlight-region (line-beginning-position) (line-end-position)))
+
+  (defun uk-smart-yank (arg)
+    "Wrapper for `yank`.
+With no prefix argument, it behaves like a normal `yank`.  With a
+standard prefix argument `C-u` (ARG is '(4)), it replaces the current
+line."
+    (interactive "P")
+    (if (equal arg '(4))
+        ;; If C-u was pressed, replace the current line
+        (let ((beg (line-beginning-position))
+              (end (line-beginning-position 2))) ; Captures the newline character too
+          (delete-region beg end)
+          (yank)
+          ;; Ensure the yanked text stays neatly on its own line
+          (unless (string-suffix-p "\n" (current-kill 0))
+            (insert "\n"))
+          )
+      ;; Otherwise, perform a standard yank
+      (yank arg)))
+
+  ;; This restores the built-in active-mark/delete-selection features
+  (put 'uk-smart-yank 'delete-selection 'yank)
 
   (defun dwim-new-line (&optional arg)
     "Insert newline(s) at end of line.
@@ -75,12 +98,27 @@ If the region is not active, `kill-whole-line' line at the point."
 
 (use-package simple
   :ensure nil
+  :diminish visual-line-mode
+  :hook ((text-mode . visual-line-mode)
+         (prog-mode . enable-trailing-whitespace)
+         (markdown-mode . enable-trailing-whitespace)
+         (conf-mode . enable-trailing-whitespace))
+  :init
+  (setq kill-whole-line t ; Kill line including '\n'
+        track-eol t ; Keep cursor at end of lines. Requires line-move-visual nil.
+        line-move-visual nil)
+  (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
   :config
+  (defun enable-trailing-whitespace ()
+    "Show trailing spaces and delete on saving."
+    (setq show-trailing-whitespace t)
+    (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
+
   (defun uk-toggle-show-trailing-whitespace ()
-    "toggles show-trailing-whitespace"
+    "Toggle show-trailing-whitespace in the current buffer."
     (interactive)
-    (if show-trailing-whitespace (setq show-trailing-whitespace nil)
-      (setq show-trailing-whitespace t))))
+    (setq show-trailing-whitespace (not show-trailing-whitespace))
+    (message "show-trailing-whitespace set to: %s" show-trailing-whitespace)))
 
 (use-package display-line-numbers
   :ensure nil
@@ -114,7 +152,7 @@ these values mean."
                  (_ (symbol-name next)))))))
 
 (defcustom uk-comment-keywords
-  '("TODO" "NOTE" "REVIEW" "FIXME" "REDO")
+  '("TODO" "DOUBT" "NOTE" "REVIEW" "FIXME" "REDO")
   "List of strings with keywords used by `uk-comment+timestamp'."
   :type '(repeat string)
   :group 'uk-simple)
@@ -133,6 +171,20 @@ Without ARG, include only the date."
     (comment-dwim nil)
     (insert "[" (format-time-string format) "]")
     (insert " " keyword ": ")))
+
+;; https://karthinks.com/software/even-more-batteries-included-with-emacs/
+(define-advice copy-from-above-command (:around (func &optional arg) comment)
+  (if (equal current-prefix-arg '(4))
+      (progn
+        (funcall func)
+        (save-excursion
+          (forward-line 0)
+          (let ((ln (line-number-at-pos (point))))
+            (backward-char)
+            (skip-chars-backward "\n\t ")
+            (unless (= (line-number-at-pos) ln)
+              (comment-line 1)))))
+    (funcall func arg)))
 
 ;;; TODO: write these functions
 ;; `isearch-kill-region': set mark, find DEST with isearch, kill the region
