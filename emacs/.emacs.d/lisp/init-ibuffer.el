@@ -11,38 +11,44 @@
   :init
   (setq ibuffer-filter-group-name-face '(:inherit (font-lock-string-face bold))))
 
+;; Group ibuffer's list by project
 (use-package ibuffer-project
-  :ensure t
-  ;; Fix: Replaced the long inline lambda with a clean, named function hook
-  :hook (ibuffer . my-ibuffer-project-group-and-sort)
-  :init
-  (setq ibuffer-project-use-cache t)
+  :disabled
+  :autoload (ibuffer-project-generate-filter-groups
+             ibuffer-do-sort-by-project-file-relative)
+  :functions icons-displayable-p
+  :hook (ibuffer . (lambda ()
+                     "Group ibuffer's list by project."
+                     (setq ibuffer-filter-groups
+                           (ibuffer-project-generate-filter-groups))
+                     (unless (eq ibuffer-sorting-mode 'project-file-relative)
+                       (ibuffer-do-sort-by-project-file-relative))))
+  :init (setq ibuffer-project-use-cache t)
   :config
-  (defun my-ibuffer-project-group-and-sort ()
-    "Group ibuffer's list dynamically by current active project and sort contextually."
-    (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups))
-    (unless (eq ibuffer-sorting-mode 'project-file-relative)
-      (ibuffer-do-sort-by-project-file-relative)))
-
-  (defun my-ibuffer-project-group-name (root type)
-    "Format function to override name generation formatting for project ROOT and TYPE."
-    (if (and (stringp type) (> (length type) 0))
-        (format "%s %s" type root)
-      (format "%s" root)))
-
-  ;; Apply the override advice so your custom naming schema takes effect
-  (advice-add #'ibuffer-project-group-name :override #'my-ibuffer-project-group-name)
-
-  (defun my-ibuffer-remote-root (buf)
-    "Safely return the remote connection string descriptor for BUF if applicable."
-    (with-current-buffer buf
-      (when (and default-directory (file-remote-p default-directory))
-        (file-remote-p default-directory))))
-
-  ;; Wire up project and remote filters safely
-  (setq ibuffer-project-root-functions
-        '((ibuffer-project-project-root . "Project")
-          (my-ibuffer-remote-root       . "Remote"))))
+  (with-no-warnings
+    (defun my/ibuffer-project-group-name (root type)
+      "Return group name for project ROOT and TYPE."
+      (if (and (stringp type) (> (length type) 0))
+          (format "%s %s" type root)
+        (format "%s" root)))
+    (if (icons-displayable-p)
+        (progn
+          (advice-add #'ibuffer-project-group-name
+                      :override #'my/ibuffer-project-group-name)
+          (setq
+           ibuffer-project-root-functions
+           `((ibuffer-project-project-root
+              . ,(nerd-icons-octicon
+                  "nf-oct-repo" :height 1.2 :face ibuffer-filter-group-name-face))
+             (file-remote-p
+              . ,(nerd-icons-codicon
+                  "nf-cod-radio_tower"
+                  :height 1.2 :face ibuffer-filter-group-name-face)))))
+      (progn
+        (advice-remove #'ibuffer-project-group-name #'my/ibuffer-project-group-name)
+        (setq ibuffer-project-root-functions
+              '((ibuffer-project-project-root . "Project")
+                (file-remote-p . "Remote")))))))
 
 ;; Avy-style visual selection jump menus for fast buffer switching
 (use-package frog-jump-buffer
