@@ -9,14 +9,16 @@
 
 ;; Global Sync/Startup Command Shorthand
 ;;;###autoload
-(defun uk/elfeed-sync-open ()
-  "Initialize `elfeed-org`, load targets from file configurations, and
-force full async fetch."
-  (interactive)
-  (require 'elfeed-org)
-  (elfeed-org)
-  (elfeed)
-  (elfeed-update))
+(defun uk-elfeed (arg)
+  "Open `elfeed`, With a prefix ARG (\\[universal-argument]), initialize
+`elfeed-org` and force a full async database fetch before opening."
+  (interactive "P")
+  (when arg
+    (require 'elfeed-org)
+    (elfeed-org)
+    ;; (elfeed)
+    (elfeed-update))
+  (elfeed))
 
 ;; Core Extensible Database and Engine Setup
 (use-package elfeed
