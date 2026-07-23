@@ -1,0 +1,9 @@
+# Rofi
+super + {a,s,w,y}
+    {rofi -show drun -show-icons, \
+    rofi -show run, \
+    rofi -show filebrowser -show-icons}
+
+# Clipboard, rofi-greenclip
+super + grave
+    rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'

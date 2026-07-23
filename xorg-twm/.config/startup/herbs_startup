@@ -30,7 +30,7 @@ _check () {
 #               -option 'altwin:menu_win' -option 'caps:none'
 # fi
 
-xmodmap "$XDG_CONFIG_HOME/X11/xmodmap"
+# xmodmap "$XDG_CONFIG_HOME/X11/xmodmap"
 
 # The hotkey daemon that handles all custom key bindings.  I split the
 # key chords into separate files, based on their scope.  The ones that
@@ -60,26 +60,6 @@ then
 fi
 
 
-#### Pipewire
-
-if _check pipewire; then
-    if ! pgrep -x "pipewire" > /dev/null; then
-        /usr/bin/pipewire &
-    fi
-fi
-
-if _check pipewire-pulse; then
-    if ! pgrep -x "pipewire-pulse" > /dev/null; then
-        /usr/bin/pipewire-pulse &
-    fi
-fi
-
-# Start the display compositor, See picom(1)
-_check picom && picom --config "$HOME"/.config/picom/picom.conf &
-
-# Simple daemon for GTK settings, PKG: xsettingsd
-# _check xsettingsd && xsettingsd -c "$HOME"/.config/xsettingsd/xsettingsd.conf &
-
 # Use the same cursor everywhere, PKG: extra/xorg-xsetroot
 if _check xsetroot
 then
@@ -98,11 +78,12 @@ fi
 # xset r rate 200 50
 
 # Load my Xresources
-# xrdb -load "$XDG_CONFIG_HOME/X11/xresources"
+xrdb -load "$XDG_CONFIG_HOME/X11/xresources" || true # ignore errors
+
 # _check xrdb && [ -f "$HOME"/.Xresources ] && xrdb -I "$HOME" -merge "$HOME"/.Xresources
 
 # PKG: network-manager-applet
-_check nm-applet && nm-applet &
+# _check nm-applet && nm-applet &
 
 # Dunst
 _check dunst && dunst &
@@ -153,21 +134,30 @@ fi
 
 # _check emacs && emacs -T emacs-server &
 
+xsettingsd -c ~/.config/xsettingsd/xsettingsd.conf &
+
 _check mpc && mpc update &
 
 _check numlockx && numlockx on &
 
 _check thunar && thunar --daemon &
 
+laptop-brightness.sh > /dev/null 2>&1
+
 #nmcli networking off &
 # bash internet &
 
+### Redshift
+if _check rso; then
+    rso
+fi
 
+urxvtd -q &
 
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 #/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-xfsettingsd --daemon --disable-wm-check --sm-client-disable &
+# xfsettingsd --daemon --disable-wm-check --sm-client-disable &
 
 #/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 #/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
