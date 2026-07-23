@@ -24,9 +24,11 @@ Config
       , Run Com "sh" ["-c", "brightnessctl -m | cut -d, -f4"] "brightness" 20
 
       , Run Network "wlp3s0" ["-t", "<fc=#006800> <dev><up> </fc>"] 30
+      , Run Com "sh" ["-c", "awk '/wlp3s0/ {print $2 + $10}' /proc/net/dev | numfmt --to=iec"] "netusage" 30
       , Run Memory [ "-t", "<fc=#6D8895>M</fc> <used>", "-d", "1"
                    , "--", "--scale", "1024"] 50
-
+      , Run Com "sh" ["-c", "datediff 2002-11-20 $(date +'%Y-%m-%d') -f '<fc=#0031a9>%yy %mm %dd</fc>'"] "age" 0
+      , Run Com "sh" ["-c", "notmuch count 'tag:unread and tag:inbox'"] "notmuch" 6000 -- 30 min
       , Run Date "%a, %d %b %Y, <fc=#3f578f>%I:%M:%S %p (%R)</fc>" "date" 10
       , Run Com ".config/xmobar/scripts/trayer-padding-icon.sh" [] "trayerpad" 50
       , Run Alsa "default" "Master" ["-t", "<status> <volume>%","--"
@@ -39,5 +41,5 @@ Config
   , sepChar = "%"
   , alignSep = "}{"
   , template =
-   " <icon=xmonad_light.xpm/> <fc=#e0e0e0>|</fc> %XMonadLog% } %date% { %wlp3s0% <fc=#6D8895>󰃟 </fc>%brightness% <fc=#6D8895> (</fc>%cpu% - %memory%<fc=#6D8895>GB) </fc> %alsa:default:Master% %battery% %trayerpad%"
+   " <icon=xmonad_light.xpm/> <fc=#e0e0e0>|</fc> %XMonadLog% } %date% {<fc=#6D8895>Age</fc>: %age% <fc=#e0e0e0>|</fc> <fc=#006800><fn=1>⥍</fn></fc>%netusage% %wlp3s0% <fc=#e0e0e0>|</fc> <fc=#6D8895>  </fc>%notmuch% <fc=#6D8895>󰃟 </fc>%brightness% <fc=#6D8895> (</fc>%cpu% - %memory%<fc=#6D8895>GB) </fc> %alsa:default:Master% %battery% %trayerpad%"
   }

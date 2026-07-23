@@ -608,17 +608,18 @@ myManageHook =
 
 myStartupHook :: X ()
 myStartupHook = do
-  spawnOnce "urxvtd -q &"
-  spawnOnce "bash $HOME/.config/startup/xmonad_startup"
-  spawnOnce "~/.fehbg &"
-  spawnOnce "dunst &"
-  spawnOnce "greenclip daemon &"
-  spawnOnce "thunar --daemon &"
-  spawnOnce "nmcli networking off &"
-  spawnOnce "numlockx on &"
-  spawnOnce "xmodmap $XDG_CONFIG_HOME/X11/xmodmap"
-  spawnOnce "xfce4-power-manager &"
-  spawnOnce "sxhkd -c $HOME/.config/sxhkd/xmonad_sxhkdrc"
+  -- spawnOnce "urxvtd -q &"
+  spawnOnce "bash $HOME/.config/startup/xtwm_startup.sh"
+  spawn "sleep 2 && /usr/libexec/polkit-gnome-authentication-agent-1"
+  -- spawnOnce "~/.fehbg &"
+  -- spawnOnce "dunst &"
+  -- spawnOnce "greenclip daemon &"
+  -- spawnOnce "thunar --daemon &"
+  -- spawnOnce "nmcli networking off &"
+  -- spawnOnce "numlockx on &"
+  -- spawnOnce "xmodmap $XDG_CONFIG_HOME/X11/xmodmap"
+  -- spawnOnce "xfce4-power-manager &"
+  -- spawnOnce "sxhkd -c $HOME/.config/sxhkd/xmonad_sxhkdrc"
   spawnOnce
     "trayer --edge top --align right --widthtype request --SetDockType true \
    \--SetPartialStrut true --expand true --monitor 1 --transparent true \
