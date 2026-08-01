@@ -51,6 +51,7 @@
                '(ghostel-project-list-buffers "Ghostel buffers") t))
 
 (use-package ghostel-comint
+  :disabled
   :ensure ghostel
   :hook (after-init . ghostel-comint-global-mode))
 
