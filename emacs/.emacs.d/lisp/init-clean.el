@@ -7,7 +7,7 @@
 
 ;; 2. No-Littering Configuration
 (use-package no-littering
-  :ensure t
+  :straight t
   :demand t ; Force load early so other packages respect its paths
   :config
   ;; Exclude no-littering directories from recentf history

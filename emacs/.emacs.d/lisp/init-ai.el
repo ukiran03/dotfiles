@@ -1,7 +1,7 @@
 ;;; init-ai.el --- AI interactions -*- lexical-binding: t -*-
 
 (use-package gptel
-  :ensure t
+  :straight t
   :config
   (setq gptel-api-key (getenv "GEMINI_API_KEY"))
 

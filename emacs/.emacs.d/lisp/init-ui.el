@@ -7,7 +7,7 @@
 
 ;;;; Fonts & Typography (Fontaine)
 (use-package fontaine
-  :ensure t
+  :straight t
   :hook (after-init . fontaine-mode)
   :bind ("C-c f" . fontaine-set-preset)
   :config
@@ -30,7 +30,7 @@
 
 ;;;; Theme Configurations
 (use-package modus-themes
-  :ensure t
+  :straight t
   :demand t
   :custom
   (modus-themes-bold-constructs nil)
@@ -53,25 +53,25 @@
 ;;  '(minibuffer-prompt ((t (:inherit minibuffer-prompt :weight semibold)))))
 
 (use-package ef-themes
-  :ensure t
+  :straight t
   :config
   (setq ef-themes-to-toggle '(ef-cyprus ef-day)))
 
 (use-package kaolin-themes
-  :ensure t
+  :straight t
   :config
   (setq kaolin-themes-org-scale-headings nil))
 
 
 ;;;; Writing & Layout
 (use-package olivetti
-  :ensure t
+  :straight t
   :defer t
   :config
   (setq olivetti-style 'fancy))
 
 (use-package spacious-padding
-  :ensure t
+  :straight t
   :config
   (setq spacious-padding-widths
         '( :internal-border-width 0
@@ -85,7 +85,7 @@
 
 ;;;; UI Elements & Context
 (use-package breadcrumb
-  :ensure t
+  :straight t
   :hook ((text-mode prog-mode) . prot/breadcrumb-local-mode)
   :config
   (setq breadcrumb-project-max-length 0.5)

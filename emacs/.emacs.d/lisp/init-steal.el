@@ -39,7 +39,7 @@
 
 ;; Auto-Chmod Scripts on Save
 (use-package sh-mode
-  :ensure nil
+  :straight nil
   :hook (after-save . executable-make-buffer-file-executable-if-script-p))
 
 ;; Sane Syntax in re-builder

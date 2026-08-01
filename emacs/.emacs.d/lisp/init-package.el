@@ -1,47 +1,42 @@
-;;; init-package.el --- Initialize package configurations.	-*- lexical-binding: t -*-
+;;; init-package.el --- Initialize package configurations via straight.el. -*- lexical-binding: t -*-
+
+;;; Commentary:
+;; Package management configuration utilizing straight.el and use-package.
 
 ;;; Code:
 
-(require 'package)
+;;; --- Straight.el Bootstrap ---
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-;; --- Package Archives & Priorities ---
-(setq package-archives
-      '(("gnu"           . "https://elpa.gnu.org/packages/")
-        ("gnu-elpa-devel" . "https://elpa.gnu.org/devel/")
-        ("nongnu"         . "https://elpa.nongnu.org/nongnu/")
-        ("melpa"          . "https://melpa.org/packages/"))
+;;; --- Use-Package Integration ---
+;; Tell use-package to automatically use straight.el for all declarations
+(setq straight-use-package-by-default t)
 
-      package-archive-priorities
-      '(("gnu"    . 3)
-        ("melpa"  . 2)
-        ("nongnu" . 1)))
-
-;; --- Initialization ---
-(setq package-enable-at-startup nil
-      package-install-upgrade-built-in t)
-
-(unless (bound-and-true-p package--initialized)
-  (package-initialize))
-
-;; Refresh package list if archives are empty
-(unless package-archive-contents
-  (package-refresh-contents))
-
-;; --- Use-Package Configuration ---
-(setq use-package-always-ensure t
-      use-package-always-defer t
+;; Configure base use-package options
+(setq use-package-always-defer t
       use-package-expand-minimally t
       use-package-enable-imenu-support t)
 
+;; Load built-in use-package directly
 (require 'use-package)
 
-;; FORCE-EVALUATE autoloads after any auto-installation
-(advice-add 'package-install :after
-            (lambda (&rest _)
-              (package-activate-all)))
-
+;; Ensure diminish works via straight
 (use-package diminish
-  :ensure t)
+  :straight t)
 
 (provide 'init-package)
 ;;; init-package.el ends here

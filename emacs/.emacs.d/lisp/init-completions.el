@@ -2,19 +2,19 @@
 
 ;;; Context Actions & Exporting (Embark)
 (use-package embark
-  :ensure t
+  :straight t
   :bind (:map minibuffer-local-map
               ("C-c C-c" . embark-collect)
               ("C-c C-." . embark-act)
               ("C-c C-e" . embark-export)))
 
 (use-package embark-consult
-  :ensure t
+  :straight t
   :after (embark consult))
 
 ;;; Core Emacs Minibuffer & UI Configuration
 (use-package emacs
-  :ensure nil
+  :straight nil
   :init
   ;; Minibuffer behavior
   (setq enable-recursive-minibuffers t)
@@ -38,20 +38,20 @@
 
 ;;; Minibuffer Visual Enhancements
 (use-package mb-depth
-  :ensure nil
+  :straight nil
   :hook (after-init . minibuffer-depth-indicate-mode)
   :config
   (setq read-minibuffer-restore-windows nil))
 
 (use-package minibuf-eldef
-  :ensure nil
+  :straight nil
   :hook (after-init . minibuffer-electric-default-mode)
   :config
   (setq minibuffer-default-prompt-format " [%s]"))
 
 ;;; Built-in Completion Styling & UI
 (use-package minibuffer
-  :ensure nil
+  :straight nil
   :demand t
   :config
   ;; Layout and UI
@@ -81,7 +81,7 @@
 
 ;;; Session History Preservation
 (use-package savehist
-  :ensure nil
+  :straight nil
   :hook (after-init . savehist-mode)
   :config
   (setq history-length 100)
@@ -90,14 +90,14 @@
   (add-to-list 'savehist-additional-variables 'kill-ring))
 
 (use-package rfn-eshadow
-  :ensure nil
+  :straight nil
   :hook (minibuffer-setup . cursor-intangible-mode)
   :config
   (file-name-shadow-mode 1))
 
 ;;; In-Buffer Auto-Completion (Corfu)
 (use-package corfu
-  :ensure t
+  :straight t
   :custom
   (corfu-cycle t)
   (corfu-quit-no-match 'separator)
@@ -122,7 +122,7 @@
 
 ;;; Completion At Point Extensions (Cape)
 (use-package cape
-  :ensure t
+  :straight t
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)

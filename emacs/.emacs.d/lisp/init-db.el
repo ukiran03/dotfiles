@@ -7,7 +7,7 @@
 
 ;; Built-in SQL client settings
 (use-package sql
-  :ensure nil
+  :straight nil
   :config
   (setq sql-mariadb-program "mariadb")
 
@@ -22,7 +22,7 @@
 
 ;; Smart SQL Syntax Indentation Engine
 (use-package sql-indent
-  :ensure t
+  :straight t
   :blackout
   :hook(sql-mode . sqlind-minor-mode))
 
@@ -32,7 +32,7 @@
 
 ;; Automatic Keyword Uppercasing Engine
 (use-package sqlup-mode
-  :ensure t
+  :straight t
   :blackout
   :hook ((sql-mode sql-interactive-mode) . sqlup-mode)
   :config

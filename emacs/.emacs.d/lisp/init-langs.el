@@ -17,12 +17,8 @@
 ;; (add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
 
 (use-package conf-xdefaults-mode
-  :ensure nil
+  :straight nil
   :mode "\\`\\(xresources\\|xmodmap\\)\\'")
-
-(use-package emacs-lisp-mode
-  :ensure nil
-  :hook (emacs-lisp-mode . puni-mode))
 
 (provide 'init-langs)
 ;;; init-langs.el ends here

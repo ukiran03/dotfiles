@@ -1,7 +1,7 @@
 ;; init-devops.el -- Docker, K8s, etc. -*- lexical-binding: t -*-
 
 (use-package docker
-  :ensure t
+  :straight t
   ;; :demand t
   :hook ((docker-container-mode docker-image-mode) . hl-line-mode)
   :custom
@@ -33,7 +33,7 @@
 ;;; https://github.com/eshelyaron/kubed
 ;;; https://eshelyaron.com/kubed.html
 (use-package kubed
-  :ensure t
+  :straight t
   :bind (("H-a k" . kubed-prefix-map))
   :config
   ;; This enables the 'd' for delete, 'm' for mark workflow in lists

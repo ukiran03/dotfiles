@@ -7,7 +7,7 @@
 ;;; Code:
 
 (use-package project
-  :ensure nil
+  :straight nil
   :init
   (setq project-mode-line-face '(:inherit font-lock-constant-face :weight bold))
   :bind

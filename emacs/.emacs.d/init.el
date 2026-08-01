@@ -1,4 +1,4 @@
-;;; init.el --- A Fancy and Fast Emacs Configuration.	-*- lexical-binding: t no-byte-compile: t -*-
+;;; init.el --- My Emacs Configuration.-*- lexical-binding: t no-byte-compile: t -*-
 
 ;;; Commentary:
 ;; This is the primary initialization file for Emacs. It sets up aggressive
@@ -59,12 +59,9 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
   (let ((default-directory (expand-file-name "site-lisp" user-emacs-directory)))
     (normal-top-level-add-subdirs-to-load-path)))
 
-;; Attach path updates directly onto package initialization hooks
-(advice-add #'package-initialize :after #'update-load-path)
-(advice-add #'package-initialize :after #'add-subdirs-to-load-path)
-
-;; Run once immediately for built-in/pre-loaded configuration
+;; Run path updates immediately for built-in/pre-loaded configuration
 (update-load-path)
+(add-subdirs-to-load-path)
 
 ;; ==========================================
 ;; ;;; TYPOGRAPHY & FONTS                  ;;;
@@ -79,7 +76,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 ;; ;;; CORE ARCHITECTURE MODULES          ;;;
 ;; ==========================================
 
-;; MUST BE FIRST: Initializes package.el, ELPA archives, and use-package
+;; MUST BE FIRST: Initializes straight.el and use-package integration
 (require 'init-package)
 
 (require 'init-steal)

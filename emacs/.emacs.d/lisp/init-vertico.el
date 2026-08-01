@@ -8,11 +8,11 @@
 (require 'use-package)
 
 (use-package compat
-  :ensure t)
+  :straight t)
 
 ;;;; Core Vertico Configuration
 (use-package vertico
-  :ensure t
+  :straight t
   :hook ((after-init . vertico-mode)
          (rfn-eshadow-update-overlay . vertico-directory-tidy))
   :bind (:map vertico-map
@@ -30,7 +30,7 @@
 
 ;;;; Vertico Multiform Display Rules
 (use-package vertico-multiform
-  :ensure nil ; Built into the vertico package
+  :straight nil ; Built into the vertico package
   :after vertico
   :init
   (vertico-multiform-mode 1)
@@ -57,14 +57,14 @@
 
 ;;;; Rich Annotations (Marginalia)
 (use-package marginalia
-  :ensure t
+  :straight t
   :hook (after-init . marginalia-mode)
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle)))
 
 ;;;; Orderless Completion Style
 (use-package orderless
-  :ensure t
+  :straight t
   :init
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil

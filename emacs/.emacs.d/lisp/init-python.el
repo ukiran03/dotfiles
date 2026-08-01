@@ -7,7 +7,7 @@
 ;;; Code:
 
 (use-package python-ts-mode
-  :ensure nil
+  :straight nil
   :hook ((python-ts-mode . apheleia-mode)
          (python-ts-mode . eglot-ensure)
          (python-ts-mode . indent-bars-mode)

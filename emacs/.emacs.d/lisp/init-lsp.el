@@ -6,7 +6,7 @@
 ;;; Code:
 
 (use-package eglot
-  :ensure nil
+  :straight nil
   :preface
   ;; Define the hook function before it is referenced in :hook
   (defun my/eglot-eldoc-settings ()
@@ -54,7 +54,7 @@
 ;; ;; Emacs LSP booster (Uncomment if you use the binary wrapper)
 ;; ;; "https://github.com/jdtsmith/eglot-booster"
 ;; (use-package eglot-booster
-;;   :ensure t
+;;   :straight t
 ;;   :after eglot
 ;;   :config (eglot-booster-mode 1))
 

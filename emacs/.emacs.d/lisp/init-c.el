@@ -2,7 +2,7 @@
 
 ;; Legacy CC Mode (Fallback & Shared Variable Initialization)
 (use-package cc-mode
-  :ensure nil
+  :straight nil
   :init
   (setq-default c-basic-offset 4))
 
@@ -15,7 +15,7 @@
 
 ;; Modern Tree-sitter C/C++ Mode
 (use-package c-ts-mode
-  :ensure nil ; Built-in
+  :straight nil ; Built-in
   :init
   (setq c-ts-mode-indent-offset 4)
 

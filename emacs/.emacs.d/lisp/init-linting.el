@@ -1,7 +1,7 @@
 ;;; init-check.el --- Code Checker configurations.	-*- lexical-binding: t -*-
 
 (use-package flymake
-  :ensure nil
+  :straight nil
   :hook (elisp-mode . flymake-mode)
   :config
   (setq flymake-no-changes-timeout nil)
@@ -21,7 +21,7 @@
           (flymake-start t)))))
 
 (use-package jinx
-  :ensure t
+  :straight t
   :blackout
   :bind
   (([remap ispell-word] . jinx-correct)
@@ -30,7 +30,7 @@
                 ("S" . jinx-previous))))
 
 (use-package dictionary
-  :ensure nil
+  :straight nil
   :init
   ;; (setq dictionary-server "localhost") -- TODO: setup dictd on void
   )

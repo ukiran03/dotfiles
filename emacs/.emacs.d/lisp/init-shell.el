@@ -7,13 +7,13 @@
 
 ;;; Comint & System Shells
 (use-package comint
-  :ensure nil
+  :straight nil
   :config
   (setq comint-process-echoes t))
 
 ;;; Eshell Prompt Styling
 (use-package eshell-prompt-extras
-  :ensure t
+  :straight t
   :after esh-opt
   :config
   (autoload 'epe-theme-lambda "eshell-prompt-extras")
@@ -22,7 +22,7 @@
 
 ;;; Terminal Visual Command Overrides
 (use-package ghostel
-  :ensure t
+  :straight t
   :hook ((ghostel-mode . (lambda () (show-paren-local-mode -1)))
          (eshell-load . ghostel-eshell-visual-command-mode))
   :bind (:map ghostel-semi-char-mode-map

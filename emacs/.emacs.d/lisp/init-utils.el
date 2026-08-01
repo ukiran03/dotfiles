@@ -7,7 +7,7 @@
 
 (use-package trashed
   :disabled
-  :ensure t
+  :straight t
   :commands (trashed)
   :config
   (setq trashed-action-confirmer 'y-or-n-p)
@@ -16,7 +16,7 @@
   (setq trashed-date-format "%Y-%m-%d %H:%M:%S"))
 
 (use-package blackout
-  :ensure t
+  :straight t
   :config
   (pcase-dolist (`(,mode . ,tag)
                  '((lisp-interaction-mode . "λ")
@@ -30,13 +30,13 @@
     (blackout mode tag)))
 
 (use-package drag-stuff
-  :ensure t
+  :straight t
   ;; :init (drag-stuff-global-mode 1)
   :config
   (drag-stuff-define-keys))
 
 (use-package find-temp-file
-  :ensure t
+  :straight t
   :bind ("H-f t" . find-temp-file)
   :config
   (setq find-temp-file-directory

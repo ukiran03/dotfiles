@@ -7,16 +7,16 @@
 
 ;; Highlight the current line safely
 (use-package hl-line
-  :ensure nil
+  :straight nil
   :hook ((after-init . global-hl-line-mode)
          ((dashboard-mode eshell-mode shell-mode term-mode eat-mode vterm-mode) .
           (lambda () (hl-line-mode -1))))) ; Fix: Explicitly disable locally
 
-(use-package lin :ensure nil :defer t)
+(use-package lin :straight nil :defer t)
 
 ;; Smooth visual line/region pulsing
 (use-package pulsar
-  :ensure t
+  :straight t
   :defer t
   :commands (pulsar-pulse-line pulsar-highlight-dwim)
   :config
@@ -56,7 +56,7 @@
 
 ;; Highlight matching parens
 (use-package paren
-  :ensure nil
+  :straight nil
   :hook (after-init . show-paren-mode)
   :config
   (setq show-paren-when-point-inside-paren t
@@ -64,17 +64,17 @@
 
 ;; Highlight brackets according to their depth
 (use-package rainbow-delimiters
-  :ensure t
+  :straight t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Syntax highlighting of known Elisp symbols
 (use-package highlight-defined
-  :ensure t
+  :straight t
   :hook ((emacs-lisp-mode inferior-emacs-lisp-mode) . highlight-defined-mode))
 
 ;; Efficient cursor jump reference highlights
 (use-package symbol-overlay
-  :ensure t
+  :straight t
   :blackout t
   :init
   (setq symbol-overlay-idle-time 0.1)
@@ -89,7 +89,7 @@
 
 ;; In-buffer hex and literal color visualizer
 (use-package colorful-mode
-  :ensure t
+  :straight t
   :blackout t
   :init
   (setq colorful-use-prefix nil)
@@ -99,7 +99,7 @@
     (add-to-list 'global-colorful-modes mode)))
 
 (use-package whitespace
-  :ensure nil
+  :straight nil
   :hook (prog-mode . whitespace-mode)
   :config
   ;; Set initial default style
@@ -134,7 +134,7 @@
 
 ;; Keyword / Tag highlighting and project searches
 (use-package hl-todo
-  :ensure t
+  :straight t
   :demand t
   :bind (:map hl-todo-mode-map
               ("C-c t o" . hl-todo-occur)

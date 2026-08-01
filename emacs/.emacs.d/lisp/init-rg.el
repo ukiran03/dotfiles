@@ -4,13 +4,8 @@
 
 ;;; Code:
 
-;; Load macro definitions into memory ONLY during macro-expansion/compilation
-(eval-when-compile
-  (require 'rg)
-  (require 'transient))
-
 (use-package rg
-  :ensure t
+  :straight t
   :defer t
   :commands (rg-menu rg-isearch-menu code-scrapers-golang)
 

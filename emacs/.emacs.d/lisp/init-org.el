@@ -78,7 +78,7 @@ Produces fixed-length, perfectly aligned dates."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package org
-  :ensure nil
+  :straight nil
   ;; :hook ((org-mode . org-indent-mode))
   :bind (("C-c A" . org-agenda)
          ("C-c a" . (lambda () (interactive) (org-agenda nil "A")))
@@ -222,7 +222,7 @@ Produces fixed-length, perfectly aligned dates."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package org-modern
-  :ensure t
+  :straight t
   :after org
   :hook ((org-agenda-finalize . org-modern-agenda))
   :config
@@ -243,13 +243,13 @@ Produces fixed-length, perfectly aligned dates."
         org-modern-radio-target nil))
 
 (use-package org-appear
-  :ensure t
+  :straight t
   :after org
   :hook (org-mode . org-appear-mode))
 
 (use-package ox-hugo
   :disabled
-  :ensure t
+  :straight t
   :after org
   :config
   (with-eval-after-load 'org-capture

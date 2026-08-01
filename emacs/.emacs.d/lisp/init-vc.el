@@ -7,7 +7,7 @@
 
 ;;;; `ediff'
 (use-package ediff
-  :ensure nil
+  :straight nil
   :commands (ediff-buffers ediff-files ediff-buffers3 ediff-files3)
   :init
   (setq ediff-split-window-function 'split-window-horizontally)
@@ -19,13 +19,11 @@
   (setq ediff-show-clashes-only t))
 
 ;;;; `difftastic'
-(use-package difftastic-bindings
-  :ensure difftastic ;; or nil if you prefer manual installation
-  :config (difftastic-bindings-mode))
+;; (use-package difftastic-bindings)
 
 ;;;; `magit'
 (use-package magit
-  :ensure t
+  :straight t
   :bind ("H-g" . magit-status)
   :init
   (setq magit-define-global-key-bindings nil)
@@ -37,7 +35,7 @@
 
 ;; Show TODOs in magit
 (use-package magit-todos
-  :ensure t
+  :straight t
   :after magit
   :config
   (setq magit-todos-nice (and (executable-find "nice") t))
@@ -46,19 +44,19 @@
 
 ;; Forge for GitHub/GitLab integration within Magit
 (use-package forge
-  :ensure t
+  :straight t
   :after magit)
 
 ;; Github Markdown/Org files preview
 (use-package grip-mode
-  :ensure t
+  :straight t
   ;; :hook ((markdown-mode org-mode) . grip-mode)
   :config (setq grip-command 'go-grip))
 
 
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
-  :ensure t
+  :straight t
   :init
   (setq diff-hl-draw-borders nil)
   (setq-default diff-hl-inline-popup--height 4)
@@ -70,7 +68,7 @@
 
 ;; Built-in VC customizations
 (use-package vc
-  :ensure nil
+  :straight nil
   :defer t
   :custom-face
   (vc-edited-state ((t (:inherit font-lock-warning-face :slant italic)))))

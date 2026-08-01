@@ -7,17 +7,16 @@
 (add-to-list 'auto-mode-alist '("xresources\\'" . conf-xdefaults-mode))
 
 (use-package re-builder
-  :ensure nil
+  :straight nil
   :config (setq reb-re-syntax 'rx)) ; I love using rx for regexps
 
 ;; dtrt (auto find indent setting)
 (use-package dtrt-indent
-  :ensure t
   :defer t
   :hook (prog-mode . dtrt-indent-mode))
 
 (use-package emacs
-  :ensure nil
+  :straight nil
   :config
   (defun my-compile-goto-error-recenter (&rest _args)
     "Recenter window after `compile-goto-error`."
@@ -27,7 +26,6 @@
 
 ;; Hydra
 (use-package pretty-hydra
-  :ensure t
   :bind (:map prog-mode-map
               ("<f6>" . hydra-prog-toggles/body))
   :config
@@ -47,26 +45,25 @@
 
 ;; Emacs 30.1+ Built-in completion preview
 (use-package completion-preview
-  :ensure nil
+  :straight nil
   :blackout
   :hook (prog-mode . completion-preview-mode))
 
 (use-package newcomment
-  :ensure nil
+  :straight nil
   :bind ("H-;" . comment-line))
 
 (use-package subword
-  :ensure nil
+  :straight nil
   :blackout subword-mode
   :hook (prog-mode . subword-mode))
 
 (use-package page-break-lines
   :blackout
-  :ensure t
   :hook (prog-mode . page-break-lines-mode))
 
 (use-package eldoc
-  :ensure nil
+  :straight nil
   :blackout eldoc-mode
   :config
   (setq eldoc-echo-area-use-multiline-p t))
@@ -84,7 +81,6 @@
           ("Haskell" (hindent)))))
 
 (use-package apheleia
-  :ensure t
   :config
   (setq apheleia-mode-lighter " ;")
   (setf (alist-get 'clang-format apheleia-formatters)
@@ -96,29 +92,28 @@
 
 ;; Click to browse URL or to send to e-mail address
 (use-package goto-addr
-  :ensure nil
+  :straight nil
   :hook ((text-mode . goto-address-mode)
          (prog-mode . goto-address-prog-mode)))
 
 ;; Abbreviations with abbrev.el
 (use-package abbrev
-  :ensure nil
+  :straight nil
   :hook ((text-mode . abbrev-mode)
          (prog-mode . abbrev-mode))
   :config
   (define-abbrev prog-mode-abbrev-table "tmc" "time complexity:")
   (define-abbrev prog-mode-abbrev-table "spc" "space complexity:"))
 
-;; Structural editing / Delimiter management
-(use-package paredit :ensure nil)
-
 (use-package puni
-  :ensure t
-  :commands (puni-mode puni-disable-puni-mode)
-  :hook (((racket-repl-mode
-           eval-expression-minibuffer-setup-hook) . puni-mode)
-         ((calc-mode term-mode vterm-mode
-                     info-mode vertico-mode) . puni-disable-puni-mode))
+  :hook ((racket-repl-mode . puni-mode)
+         (emacs-lisp-mode . puni-mode)
+         (eval-expression-minibuffer-setup . puni-mode)
+         (calc-mode . puni-disable-puni-mode)
+         (term-mode . puni-disable-puni-mode)
+         (vterm-mode . puni-disable-puni-mode)
+         (info-mode . puni-disable-puni-mode)
+         (vertico-mode . puni-disable-puni-mode))
   :bind (("C-c s" . puni-mode)
          :map puni-mode-map
          ([remap backward-sentence] . puni-end-of-sexp)
@@ -145,7 +140,6 @@
 
 (use-package aggressive-indent
   :blackout
-  :ensure t
   :hook ((emacs-lisp-mode
           lisp-interaction-mode
           racket-mode
@@ -167,22 +161,20 @@
 
 ;; API Testing Packages
 (use-package restclient
-  :ensure t
   :mode (("\\.http\\'" . restclient-mode)))
 
 (use-package verb
-  :ensure t
   :config
   (setq verb-auto-kill-response-buffers t))
 
 (use-package files
-  :ensure nil
+  :straight nil
   :bind (:map prog-mode-map
               ("S-<f5>" . revert-buffer)))
 
 ;; SQL Configuration
 (use-package sql
-  :ensure nil
+  :straight nil
   :defer t
   :config
   (setq sql-sqlite-options '("-header" "-box")
@@ -190,7 +182,7 @@
 
 ;; Compilation Buffers
 (use-package compile
-  :ensure nil
+  :straight nil
   :config
   (setq compilation-scroll-output t)
   (with-eval-after-load 'ansi-color
@@ -206,15 +198,15 @@
   :hook ((c-mode . set-c-compile-command)
          (c-ts-mode . set-c-compile-command)))
 
-;; Context-aware tags navigation helper
-(use-package clue
-  :disabled
-  :ensure nil
-  :defer t
-  :vc (:url "https://github.com/AmaiKinono/clue")
-  :blackout (clue-mode . " #")
-  :config
-  (setq clue-auto-enable-modes '(prog-mode)))
+;; ;; Context-aware tags navigation helper
+;; (use-package clue
+;;   :disabled
+;;   :straight nil
+;;   :defer t
+;;   :vc (:url "https://github.com/AmaiKinono/clue")
+;;   :blackout (clue-mode . " #")
+;;   :config
+;;   (setq clue-auto-enable-modes '(prog-mode)))
 
 ;; Debug Adapter Protocol (DAP)
 (use-package dape
@@ -224,7 +216,6 @@
 
 ;; Direnv Integration
 (use-package envrc
-  :ensure t
   :config
   (setq envrc-none-lighter nil)
   (setq envrc-on-lighter

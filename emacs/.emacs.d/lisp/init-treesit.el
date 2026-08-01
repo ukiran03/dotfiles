@@ -11,11 +11,11 @@
 ;; =============================================================================
 
 (use-package treesit
-  :ensure nil
+  :straight nil
   :mode (("\\.tsx\\'" . tsx-ts-mode)))
 
 (use-package treesit-auto
-  :ensure t
+  :straight t
   :custom
   ;; 'prompt will ask before cloning; set to t if you want silent automatic installs
   (treesit-auto-install 'prompt)
@@ -32,7 +32,7 @@
 
 (use-package combobulate
   :disabled
-  :ensure nil
+  :straight nil
   ;; Installs Combobulate directly via Emacs 29+ built-in VC package manager
   :vc (:url "https://github.com/mickeynp/combobulate.git" :branch "master")
   :custom

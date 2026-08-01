@@ -6,7 +6,7 @@
 ;;; Code:
 
 (use-package ibuffer
-  :ensure nil
+  :straight nil
   :bind ("C-x C-b" . ibuffer)
   :init
   (setq ibuffer-filter-group-name-face '(:inherit (font-lock-string-face bold))))
@@ -52,7 +52,7 @@
 
 ;; Avy-style visual selection jump menus for fast buffer switching
 (use-package frog-jump-buffer
-  :ensure t
+  :straight t
   :bind (("H-b a"   . frog-jump-buffer)
          ("H-b 4 a" . frog-jump-buffer-other-window)))
 

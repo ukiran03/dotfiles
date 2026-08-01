@@ -16,7 +16,7 @@
 ;; (display-time-mode)
 
 (use-package tab-bar
-  :ensure nil
+  :straight nil
   :if (>= emacs-major-version 28)
   :after cus-face
   :defer

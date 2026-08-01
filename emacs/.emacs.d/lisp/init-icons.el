@@ -2,10 +2,10 @@
 
 ;;; Icons
 (use-package nerd-icons
-  :ensure t)
+  :straight t)
 
 (use-package nerd-icons-completion
-  :ensure t
+  :straight t
   :if (display-graphic-p)
   :after marginalia
   ;; FIXME 2024-09-01: For some reason this stopped working because it
@@ -23,7 +23,7 @@
   (setq nerd-icons-completion-category-icons nil))
 
 (use-package nerd-icons-corfu
-  :ensure t
+  :straight t
   :if (display-graphic-p)
   :after corfu
   :config
@@ -31,7 +31,7 @@
 
 (use-package nerd-icons-dired
   :disabled
-  :ensure t
+  :straight t
   :if (display-graphic-p)
   :blackout
   ;; :custom-face
@@ -55,14 +55,14 @@
           (mark " " name))))
 
 (use-package nerd-icons-xref
-  :ensure t
+  :straight t
   :if (display-graphic-p)
   :after xref
   :config
   (nerd-icons-xref-mode 1))
 
 (use-package nerd-icons-grep
-  :ensure t
+  :straight t
   :if (display-graphic-p)
   :after grep
   :config

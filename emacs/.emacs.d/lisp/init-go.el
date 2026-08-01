@@ -1,13 +1,13 @@
 ;;; init-go.el --- summary -*- lexical-binding: t -*-
 
 (use-package compile
-  :ensure nil
+  :straight nil
   :custom
   (compile-command "just "))
 
 ;; Core Go-mode navigation fallbacks
 (use-package go-mode
-  :ensure t
+  :straight t
   :defer t
   :commands (godef-jump
              godef-jump-other-window
@@ -22,7 +22,7 @@
              go-goto-return-values))
 
 (use-package gotest
-  :ensure t
+  :straight t
   ;; :defer t
   :commands (go-run))
 
@@ -30,7 +30,7 @@
   (add-to-list 'project-vc-ignores "vendor/"))
 
 (use-package go-ts-mode
-  :ensure nil
+  :straight nil
   :mode "\\.go\\'"
   :interpreter "go"
   :hook ((go-ts-mode . symbol-overlay-mode)
@@ -77,7 +77,7 @@
 (add-to-list 'major-mode-remap-alist '(go-mode . go-ts-mode))
 
 (use-package apheleia
-  :ensure t
+  :straight t
   :config
   (setf (alist-get 'go-format apheleia-formatters)
         '("golines" "-m" "79" "--base-formatter" "gofumpt -extra")) ;TODO: add fill-column as a var
@@ -103,13 +103,13 @@
                  '(templ-ts-mode . ("templ" "lsp")))))
 
 ;; Structural Go Helper packages
-(use-package go-impl :ensure t :defer t)
-(use-package go-tag :ensure t :defer t)
-(use-package go-fill-struct :ensure t :defer t)
+(use-package go-impl :straight t :defer t)
+(use-package go-tag :straight t :defer t)
+(use-package go-fill-struct :straight t :defer t)
 
 ;; Protocol Buffers & gRPC configs
 (use-package protobuf-mode
-  :ensure t
+  :straight t
   :blackout (protobuf-mode . "PBuf")
   :mode ("\\.proto\\'" . protobuf-mode)
   :hook ((protobuf-mode . eglot-ensure)
@@ -122,7 +122,7 @@
 
 ;; Tempel Snippets
 (use-package tempel
-  :ensure t
+  :straight t
   :init
   ;; Define a function that returns your templates (Tempel loves this)
   (defun my-golang-templates ()

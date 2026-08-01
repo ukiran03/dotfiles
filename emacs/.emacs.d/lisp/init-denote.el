@@ -7,7 +7,7 @@
 
 ;; Core Note Management Framework
 (use-package denote
-  :ensure t
+  :straight t
   :bind (("C-c n n" . denote)
          ("C-c n r" . denote-rename-file)
          ("C-c n l" . denote-link)
@@ -29,19 +29,19 @@
 
 ;; Consult Integration (Out-of-order searching and live grepping)
 (use-package consult-denote
-  :ensure t
+  :straight t
   :after (consult denote)
   :bind (("C-c n c f" . consult-denote-find)
          ("C-c n c r" . consult-denote-grep)))
 
 (use-package denote-sequence
-  :ensure t
+  :straight t
   :after denote
   :bind (("C-c n s n" . denote-sequence-new-child)
          ("C-c n s p" . denote-sequence-new-parent)))
 
 (use-package denote-search
-  :ensure t
+  :straight t
   :after denote
   :bind ("C-c n s s" . denote-search))
 

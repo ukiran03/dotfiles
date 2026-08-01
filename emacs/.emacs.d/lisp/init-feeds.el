@@ -22,7 +22,7 @@
 
 ;; Core Extensible Database and Engine Setup
 (use-package elfeed
-  :ensure t
+  :straight t
   :bind (:map elfeed-show-mode-map
               ("V" . my/elfeed-mpv-play)) ; Clean unquoted bind syntax
   :hook (elfeed-show-mode . visual-line-mode)
@@ -57,7 +57,7 @@ current article URL."
 
 ;; Org-Mode Subscriber File Layout Association
 (use-package elfeed-org
-  :ensure t
+  :straight t
   :after elfeed
   :init
   (setq rmh-elfeed-org-files (list (expand-file-name "feeds.org" org-directory)))
@@ -71,7 +71,7 @@ current article URL."
 
 (use-package elfeed-tube
   :disabled
-  :ensure t
+  :straight t
   :after elfeed
   :config
   ;; Automatically hooks into elfeed to fetch metadata, thumbnails, and
@@ -80,7 +80,7 @@ current article URL."
 
 (use-package elfeed-score
   :disabled
-  :ensure t
+  :straight t
   :after elfeed
   :config
   ;; Activates interactive engine layout parameters to rank down noise rules
@@ -89,7 +89,7 @@ current article URL."
 
 (use-package elfeed-dashboard
   :disabled
-  :ensure t
+  :straight t
   :after elfeed
   :config
   (setq elfeed-dashboard-file

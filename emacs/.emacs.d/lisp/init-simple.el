@@ -6,7 +6,7 @@
 ;;; Code:
 
 (use-package emacs
-  :ensure nil
+  :straight nil
   :init
   ;; (size-indication-mode 1)
   (column-number-mode 1)
@@ -14,7 +14,7 @@
   (setq-default fill-column 79))
 
 (use-package simple
-  :ensure nil
+  :straight nil
   :bind (("C-S-w" . uk-simple-copy-line)
          ("C-w" . uk-kill-region)
          ("C-z" . nil)
@@ -97,7 +97,7 @@ If the region is not active, `kill-whole-line' line at the point."
       (kill-region (region-beginning) (region-end)))))
 
 (use-package simple
-  :ensure nil
+  :straight nil
   :diminish visual-line-mode
   :hook ((text-mode . visual-line-mode)
          (prog-mode . enable-trailing-whitespace)
@@ -121,7 +121,7 @@ If the region is not active, `kill-whole-line' line at the point."
     (message "show-trailing-whitespace set to: %s" show-trailing-whitespace)))
 
 (use-package display-line-numbers
-  :ensure nil
+  :straight nil
   :commands (uk-toggle-line-numbers)
   :hook ((prog-mode yaml-mode conf-mode text-mode) . display-line-numbers-mode)
   :init (setq display-line-numbers-width-start t)

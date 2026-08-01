@@ -6,7 +6,7 @@
 ;;; Code:
 
 (use-package isearch
-  :ensure nil
+  :straight nil
   :demand t
   :config
   ;; Whitespace & Regex Behavior
@@ -33,7 +33,7 @@
 
 (use-package ctrlf
   :disabled t
-  :ensure t
+  :straight t
   :hook (after-init . ctrlf-mode)
   :config
   (setq ctrlf-auto-recenter t)
@@ -41,10 +41,10 @@
   (setq ctrlf-show-match-count-at-eol nil))
 
 (use-package substitute
-  :ensure t)
+  :straight t)
 
 (use-package link-hint
-  :ensure t ; Added explicitly for consistency with third-party packages
+  :straight t ; Added explicitly for consistency with third-party packages
   :bind (("C-c l o" . link-hint-open-link)
          ("C-c l c" . link-hint-copy-link)
          ("C-c l O" . link-hint-open-link-at-point)
@@ -52,7 +52,7 @@
 
 ;; Affe (Asynchronous Fuzzy Finder)
 (use-package affe
-  :ensure t
+  :straight t
   :config
   ;; Manual preview key for `affe-grep'
   (consult-customize affe-grep :preview-key "M-."))

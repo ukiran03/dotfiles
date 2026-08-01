@@ -1,5 +1,5 @@
 (use-package dape
-  :ensure t
+  :straight t
   :init
   ;; Performance tweaks
   (setq gc-cons-threshold 80000000)

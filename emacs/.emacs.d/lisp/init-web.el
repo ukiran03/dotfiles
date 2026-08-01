@@ -6,7 +6,7 @@
 
 ;; Base JS mode (for shared hooks)
 (use-package js
-  :ensure nil ;; built-in
+  :straight nil ;; built-in
   :hook ((js-base-mode . apheleia-mode)
          (js-base-mode . symbol-overlay-mode))
   :custom
@@ -16,21 +16,21 @@
 
 ;; JS (tree-sitter) mode for .js/.mjs files
 (use-package js-ts-mode
-  :ensure nil
+  :straight nil
   :mode ("\\.m?js\\'" . js-ts-mode)
   :custom
   (js-ts-indent-offset 2))
 
 ;; JSX mode for .jsx files
 (use-package js-jsx-mode
-  :ensure nil
+  :straight nil
   :mode ("\\.jsx\\'" . js-jsx-mode)
   :custom
   (js-indent-level 2))
 
 ;; TypeScript Base Mode (for shared hooks)
 (use-package typescript-ts-base-mode
-  :ensure nil
+  :straight nil
   :hook ((typescript-ts-base-mode . apheleia-mode)
          (typescript-ts-base-mode . symbol-overlay-mode))
   :custom
@@ -38,14 +38,14 @@
 
 ;; TypeScript (tree-sitter) mode for .ts files
 (use-package typescript-ts-mode
-  :ensure nil
+  :straight nil
   :mode ("\\.ts\\'" . typescript-ts-mode)
   :custom
   (typescript-ts-mode-indent-offset 2))
 
 ;; TSX mode for .tsx files
 (use-package tsx-ts-mode
-  :ensure nil
+  :straight nil
   :mode ("\\.tsx\\'" . tsx-ts-mode)
   :custom
   (typescript-ts-mode-indent-offset 2))
@@ -69,7 +69,7 @@
 
 ;; Web-Mode for HTML, Go templates, and Vue
 (use-package web-mode
-  :ensure t
+  :straight t
   :mode (("\\.html\\'" . web-mode)
          ("\\.tmpl\\'" . web-mode)
          ("\\.vue\\'"  . web-mode))
@@ -100,7 +100,7 @@
 
 ;; Vue 3 LSP support using Volar
 (use-package eglot
-  :ensure nil ;; Built-in in Emacs 29+
+  :straight nil ;; Built-in in Emacs 29+
   :hook (web-mode . (lambda ()
                       (when (and (buffer-file-name)
                                  (string-equal

@@ -9,7 +9,7 @@
 
 ;;; Built-in Core Configurations
 (use-package emacs
-  :ensure nil
+  :straight nil
   :init
   ;; Window, Resize, and Frame settings
   (setq frame-inhibit-implied-resize nil)
@@ -51,7 +51,7 @@
 
 ;;; Mode Hook Modifiers
 (use-package help
-  :ensure nil
+  :straight nil
   :init
   (add-to-list 'display-buffer-alist
                '("\\*Help" display-buffer-in-side-window
@@ -59,7 +59,7 @@
                  (window-width . 80))))
 
 (use-package text-mode
-  :ensure nil
+  :straight nil
   :mode "\\`\\(README\\|CHANGELOG\\|COPYING\\|LICENSE\\)\\'"
   :hook ((text-mode . turn-on-auto-fill)
          (prog-mode . (lambda ()
@@ -69,29 +69,29 @@
   (setq sentence-end-without-period nil))
 
 (use-package abbrev
-  :ensure nil
+  :straight nil
   :blackout abbrev-mode)
 
 ;;; Core Modal Systems
 (use-package repeat
-  :ensure nil
+  :straight nil
   :hook (after-init . repeat-mode)
   :init
   (setq repeat-exit-key (kbd "<escape>")))
 
 (use-package server
-  :ensure nil
+  :straight nil
   :hook (after-init . server-mode))
 
 (use-package autorevert
-  :ensure nil
+  :straight nil
   :blackout global-auto-revert-mode
   :hook (after-init . global-auto-revert-mode))
 
 (delete-selection-mode 1)
 
 (use-package elec-pair
-  :ensure nil
+  :straight nil
   :hook (after-init . electric-pair-mode)
   :config
   (defun uk/electric-pair-conservative-inhibit (char)
@@ -109,7 +109,7 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
 
 ;;; Core State and History Preservation
 (use-package recentf
-  :ensure nil
+  :straight nil
   :bind ("C-x C-r" . recentf-open-files)
   :hook (after-init . recentf-mode)
   :init
@@ -131,11 +131,11 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
   (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
 
 (use-package saveplace
-  :ensure nil
+  :straight nil
   :hook (after-init . save-place-mode))
 
 (use-package savehist
-  :ensure nil
+  :straight nil
   :hook (after-init . savehist-mode)
   :init
   (setq savehist-autosave-interval 300)
@@ -147,33 +147,33 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
 
 ;;; Third-Party Navigation & Editing Extensions
 (use-package beginend
-  :ensure t
+  :straight t
   :blackout beginend-global-mode
   :hook (after-init . beginend-global-mode)
   :config
   (mapc (lambda (pair) (diminish (cdr pair))) beginend-modes))
 
-(use-package visual-regexp :ensure t)
-(use-package visual-regexp-steroids :ensure t)
+(use-package visual-regexp :straight t)
+(use-package visual-regexp-steroids :straight t)
 
 (use-package expand-region
-  :ensure t
+  :straight t
   :bind ("C-=" . er/expand-region))
 
 (use-package mwim
-  :ensure t
+  :straight t
   :bind (([remap move-beginning-of-line] . mwim-beginning)
          ([remap move-end-of-line] . mwim-end)))
 
 (use-package vundo
-  :ensure t
+  :straight t
   :bind (("C-x /" . vundo)
          ("H-/" . vundo))
   :config
   (setq vundo-glyph-alist vundo-unicode-symbols))
 
 (use-package avy
-  :ensure t
+  :straight t
   :hook (after-init . avy-setup-default)
   :config
   (setq avy-all-windows nil
@@ -182,16 +182,16 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
         avy-style 'pre))
 
 (use-package goto-chg
-  :ensure t
+  :straight t
   :bind ("C-," . goto-last-change))
 
 (use-package easy-kill
-  :ensure t
+  :straight t
   :bind (([remap kill-ring-save] . easy-kill)
          ([remap mark-sexp] . easy-mark)))
 
 (use-package which-key
-  :ensure t
+  :straight t
   :hook (after-init . which-key-mode)
   :bind ("C-h M-m" . which-key-show-major-mode)
   :config
@@ -206,18 +206,18 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
         which-key-idle-secondary-delay 0.2))
 
 (use-package elisp-demos
-  :ensure t
+  :straight t
   :defer 1
   :config
   (advice-add 'describe-function-1
               :after #'elisp-demos-advice-describe-function-1))
 
-(use-package tmr :ensure t)
-(use-package suggest :ensure t)
+(use-package tmr :straight t)
+(use-package suggest :straight t)
 
 (use-package persistent-scratch
   :disabled
-  :ensure t
+  :straight t
   :blackout
   :hook ((after-init . persistent-scratch-autosave-mode)
          (lisp-interaction-mode . persistent-scratch-mode))
@@ -228,7 +228,7 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
 
 ;;; Environment Shell Path Synchronizer
 (use-package exec-path-from-shell
-  :ensure t
+  :straight t
   :commands exec-path-from-shell-initialize
   :custom (exec-path-from-shell-arguments '("-l"))
   :init (exec-path-from-shell-initialize))

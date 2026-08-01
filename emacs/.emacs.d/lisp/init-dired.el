@@ -7,12 +7,12 @@
 
 ;; 1. Global Jump Binding
 (use-package emacs
-  :ensure nil
+  :straight nil
   :bind ("H-j" . dired-jump))
 
 ;; 2. Consolidated Core Dired Configuration
 (use-package dired
-  :ensure nil
+  :straight nil
   :hook ((dired-mode . dired-omit-mode)
          (dired-mode . hl-line-mode)
          (dired-mode . dired-hide-details-mode))
@@ -53,7 +53,7 @@ is inserted.  Otherwise, display it in another buffer."
 
 ;; 3. Core Standard Extension Adjustments
 (use-package dired-x
-  :ensure nil
+  :straight nil
   :after dired
   :config
   ;; File Omit Regex
@@ -77,22 +77,22 @@ is inserted.  Otherwise, display it in another buffer."
 
 ;; 4. Third-Party Extension Layers
 (use-package dired-gitignore
-  :ensure t
+  :straight t
   :after dired
   :bind (:map dired-mode-map ("h" . dired-gitignore-mode)))
 
 (use-package dired-git-info
-  :ensure t
+  :straight t
   :after dired
   :bind (:map dired-mode-map (")" . dired-git-info-mode)))
 
 (use-package dired-rsync
-  :ensure t
+  :straight t
   :after dired
   :bind (:map dired-mode-map ("C-c C-r" . dired-rsync)))
 
 (use-package dired-subtree
-  :ensure t
+  :straight t
   :after dired
   :bind (:map dired-mode-map
               ("<tab>" . dired-subtree-toggle)
@@ -103,7 +103,7 @@ is inserted.  Otherwise, display it in another buffer."
 
 ;; 5. Mini-Buffer Quick Path Directory Traversal
 (use-package consult-dir
-  :ensure t
+  :straight t
   :bind ("C-x C-d" . consult-dir)
   :config
   ;; Safe lazy-loaded configuration injection for Vertico userspace
@@ -112,7 +112,7 @@ is inserted.  Otherwise, display it in another buffer."
     (define-key vertico-map (kbd "C-x C-j") #'consult-dir-jump-file)))
 
 (use-package dired-sidebar
-  :ensure t
+  :straight t
   :commands (dired-sidebar-toggle-sidebar)
   :init
   (add-hook 'dired-sidebar-mode-hook

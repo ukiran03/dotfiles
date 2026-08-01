@@ -9,7 +9,7 @@
 
 ;;;; Built-in Window Customizations
 (use-package emacs
-  :ensure nil
+  :straight nil
   :init
   ;; Silence annoying logs entirely, preventing them from stealing focus
   (add-to-list 'display-buffer-alist
@@ -18,7 +18,7 @@
                  (allow-no-window . t))))
 
 (use-package window
-  :ensure nil
+  :straight nil
   :bind
   (("H-0" . delete-window)
    ;; ("H-1" . toggle-delete-other-windows) ; Handled via your custom/built-in toggle
@@ -30,7 +30,7 @@
 
 ;;;; Restoring Window States (Winner Mode)
 (use-package winner
-  :ensure nil
+  :straight nil
   :commands (winner-undo winner-redo)
   :hook (after-init . winner-mode)
   :init
@@ -50,7 +50,7 @@
   :defer t)
 
 (use-package windmove
-  :ensure nil
+  :straight nil
   :bind
   (("C-M-<up>"    . windmove-up)
    ("C-M-<right>" . windmove-right)
@@ -68,14 +68,14 @@
 
 ;;;; Buffer Aesthetics & Navigation
 (use-package uniquify
-  :ensure nil
+  :straight nil
   :config
   (setq uniquify-buffer-name-style 'forward
         uniquify-strip-common-suffix t
         uniquify-after-kill-buffer-p t))
 
 (use-package breadcrumb
-  :ensure t
+  :straight t
   :hook ((text-mode prog-mode) . prot/breadcrumb-local-mode)
   :config
   (setq breadcrumb-project-max-length 0.5
@@ -90,7 +90,7 @@
 
 ;;;; Window Maximization/Zooming
 (use-package zoom-window
-  :ensure t
+  :straight t
   :bind ("H-w z" . zoom-window-zoom)
   :config
   ;; Safely falling back if pulsar isn't loaded yet
@@ -101,7 +101,7 @@
 
 ;;;; Popup Management (Popper)
 (use-package popper
-  :ensure t
+  :straight t
   :bind (("C-`"   . popper-toggle)
          ("M-`"   . popper-cycle)
          ("C-M-`" . popper-toggle-type))
@@ -147,7 +147,7 @@
 
 ;;;; Structural Focus & Selection (Ace Window)
 (use-package ace-window
-  :ensure t
+  :straight t
   :bind ("H-o" . ace-window)
   :custom-face
   (aw-leading-char-face ((t (:inherit font-lock-keyword-face :foreground unspecified :bold t :height 2.0))))
