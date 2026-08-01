@@ -82,6 +82,6 @@ super + y; {b, c, p, s}
     pkill -USR1 -x sxhkd && dunstify -a ignore -i key_bindings "Reloaded key bindings"}
 
 super + Escape
-    ~/.local/bin/powermenu.sh
+    ~/.local/sbin/powermenu.sh
 
 # pkill -USR1 -x sxhkd && dunstify -a ignore -i key_bindings "Reloaded key bindings"

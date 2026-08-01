@@ -92,6 +92,7 @@ export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:/usr/share/terminfo"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export ASDF_DATA_DIR="$XDG_DATA_HOME"/asdf
 
 # ==============================================================================
 # PATH Construction (Duplicate-Safe)

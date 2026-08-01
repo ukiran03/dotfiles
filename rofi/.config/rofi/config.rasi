@@ -8,7 +8,7 @@ display-run: " ";
 display-filebrowser: " ";
 display-window: " ";
 display-windowcd: "Curr  ";
-drun-display-format: "{name}";
+drun-display-format: "{name} [<span weight='normal' size='90%'>({generic})</span>]";
 window-format: "{w} · {c} · {t}";
 window-command: "wmctrl -i -R {window}";
 window {
@@ -90,7 +90,7 @@ window {
     location:                    Center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       500px;
+    width:                       600px;
     x-offset:                    0px;
     y-offset:                    0px;
 

@@ -6,6 +6,7 @@ $direnv\
 $git_branch\
 $git_status\
 $kubernetes\
+$time\
 $line_break\
 $cmd_duration\
 ${env_var.INCOGNITO_MODE}\
@@ -18,11 +19,13 @@ disabled = false
 
 [time]
 disabled = false
+time_format = "%R"
 format = "[$time]($style)"
 style = "bold yellow"
 
 [character]
-success_symbol = "[❱](bold green)"
+success_symbol = "[\\$](bold green)"
+# more symbols for urxvt: ❯ ❱
 error_symbol = "[✖](bold red)"
 
 [cmd_duration]
