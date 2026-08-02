@@ -1,11 +1,11 @@
 ;;; init-vc.el --- Version control configuration -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;;  Configuration for Ediff, Magit, Forge, and Git fringe indicators.
+;; Configuration for Ediff, Magit, Forge, and Git fringe indicators.
 
 ;;; Code:
 
-;;;; `ediff'
+;; Ediff
 (use-package ediff
   :straight nil
   :commands (ediff-buffers ediff-files ediff-buffers3 ediff-files3)
@@ -18,10 +18,7 @@
   (setq ediff-merge-revisions-with-ancestor t)
   (setq ediff-show-clashes-only t))
 
-;;;; `difftastic'
-;; (use-package difftastic-bindings)
-
-;;;; `magit'
+;; Magit
 (use-package magit
   :straight t
   :bind ("H-g" . magit-status)
@@ -53,7 +50,6 @@
   ;; :hook ((markdown-mode org-mode) . grip-mode)
   :config (setq grip-command 'go-grip))
 
-
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
   :straight t
@@ -74,6 +70,4 @@
   (vc-edited-state ((t (:inherit font-lock-warning-face :slant italic)))))
 
 (provide 'init-vc)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-vc.el ends here

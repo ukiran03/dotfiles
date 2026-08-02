@@ -1,11 +1,10 @@
 ;;; init-tab-bar.el --- summary -*- lexical-binding: t -*-
 
-
 ;;; Commentary:
 
 ;;; Code:
 
-;; ;; ‘Time’ on tab-bar
+;; ‘Time’ on tab-bar
 (add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
 (add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
 (use-package time
@@ -38,11 +37,11 @@
     "Produce the Menu buttom for the tab bar that shows the menu bar."
     `((menu-bar menu-item (propertize " 𝝺 " 'face 'tab-bar-tab-inactive)
                 tab-bar-menu-bar :help "Menu Bar")))
-  (setq  tab-bar-close-last-tab-choice 'tab-bar-mode-disable
-         tab-bar-show nil
-         tab-bar-tab-name-truncated-max 24
-         tab-bar-tab-name-function #'tab-bar-tab-name-current-with-count
-         tab-bar-new-tab-choice 'ibuffer)
+  (setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable
+        tab-bar-show nil
+        tab-bar-tab-name-truncated-max 24
+        tab-bar-tab-name-function #'tab-bar-tab-name-current-with-count
+        tab-bar-new-tab-choice 'ibuffer)
   (setq tab-bar-format '(tab-bar-format-menu-bar
                          tab-bar-format-history
                          tab-bar-format-tabs
@@ -54,6 +53,4 @@
         tab-bar-new-button-show nil))
 
 (provide 'init-tab-bar)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-tab-bar.el ends here

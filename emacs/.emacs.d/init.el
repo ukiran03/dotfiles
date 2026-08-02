@@ -1,6 +1,6 @@
-;;; init.el --- My Emacs Configuration.-*- lexical-binding: t no-byte-compile: t -*-
+;;; init.el --- My Emacs Configuration -*- lexical-binding: t; no-byte-compile: t -*-
 
-;;; Commentary:
+;; Commentary:
 ;; This is the primary initialization file for Emacs. It sets up aggressive
 ;; startup optimizations, structures the load paths, and modularly loads
 ;; specific configuration subsets from the `lisp/` and `site-lisp/` directories.
@@ -12,9 +12,7 @@
 (when (version< emacs-version "27.1")
   (error "This requires Emacs 27.1 and above!"))
 
-;; ==========================================
-;; ;;; STARTUP & PERFORMANCE OPTIMIZATIONS ;;;
-;; ==========================================
+;; Startup & Performance Optimizations
 
 ;; Set GC threshold high for initialization phase to prevent micro-GC pauses
 (setq gc-cons-threshold (* 50 1024 1024)) ; 50 MB
@@ -44,9 +42,7 @@
   (setq native-comp-deferred-compilation t
         comp-deferred-compilation-black-list '("/mu4e.*\\.el$")))
 
-;; ==========================================
-;; ;;; LOAD PATH CONFIGURATION            ;;;
-;; ==========================================
+;;; Load Path Configuration
 
 (defun update-load-path (&rest _)
   "Update `load-path` to force primary lisp directories to the front."
@@ -63,18 +59,14 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (update-load-path)
 (add-subdirs-to-load-path)
 
-;; ==========================================
-;; ;;; TYPOGRAPHY & FONTS                  ;;;
-;; ==========================================
+;; Typography & Fonts
 
 (dolist (face '(default fixed-pitch variable-pitch))
   (set-face-attribute face nil
                       :family "Iosevka Medium"
                       :height 140))
 
-;; ==========================================
-;; ;;; CORE ARCHITECTURE MODULES          ;;;
-;; ==========================================
+;;; Core Architecture Modules
 
 ;; MUST BE FIRST: Initializes straight.el and use-package integration
 (require 'init-package)
@@ -87,22 +79,17 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-prefix)
 (require 'init-core)
 
-;; ==========================================
-;; ;;; NAVIGATION & INTERACTION           ;;;
-;; ==========================================
+;;; Navigation & Interaction
 
 (require 'init-dired)
 (require 'init-consult)
-(require 'init-filetree)
 (require 'init-highlight)
 (require 'init-simple)
 (require 'init-search)
 (require 'init-rg)
 (require 'init-ibuffer)
 
-;; ==========================================
-;; ;;; ENVIRONMENT & UTILITIES            ;;;
-;; ==========================================
+;;; Environment & Utilities
 
 (require 'init-ui)
 (require 'init-org)
@@ -118,9 +105,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-modeline)
 (require 'init-quotes)
 
-;; ==========================================
-;; ;;; LANGUAGE & PROGRAMMING DEVELOP     ;;;
-;; ==========================================
+;;; Language & Programming Development
 
 (require 'init-ai)
 (require 'init-snippets)
@@ -140,9 +125,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-devops)
 ;; (require 'init-kyverno)
 
-;; ==========================================
-;; ;;; BUILT-IN COMMAND UNBANNING          ;;;
-;; ==========================================
+;;; Built-in Command Unbanning
 
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)

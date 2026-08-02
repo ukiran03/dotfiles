@@ -1,7 +1,7 @@
 ;;; init-utils.el --- Utilities configuration -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;;  Collection of miscellaneous utility packages for Emacs.
+;; Collection of miscellaneous utility packages for Emacs.
 
 ;;; Code:
 
@@ -46,6 +46,4 @@
     (make-directory find-temp-file-directory t)))
 
 (provide 'init-utils)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-utils.el ends here

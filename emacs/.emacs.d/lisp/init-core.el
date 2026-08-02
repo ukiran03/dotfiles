@@ -9,7 +9,7 @@
 
 ;;; Built-in Core Configurations
 (use-package emacs
-  :straight nil
+  :straight (:type built-in)
   :init
   ;; Window, Resize, and Frame settings
   (setq frame-inhibit-implied-resize nil)
@@ -51,7 +51,7 @@
 
 ;;; Mode Hook Modifiers
 (use-package help
-  :straight nil
+  :straight (:type built-in)
   :init
   (add-to-list 'display-buffer-alist
                '("\\*Help" display-buffer-in-side-window
@@ -59,7 +59,7 @@
                  (window-width . 80))))
 
 (use-package text-mode
-  :straight nil
+  :straight (:type built-in)
   :mode "\\`\\(README\\|CHANGELOG\\|COPYING\\|LICENSE\\)\\'"
   :hook ((text-mode . turn-on-auto-fill)
          (prog-mode . (lambda ()
@@ -69,29 +69,29 @@
   (setq sentence-end-without-period nil))
 
 (use-package abbrev
-  :straight nil
+  :straight (:type built-in)
   :blackout abbrev-mode)
 
 ;;; Core Modal Systems
 (use-package repeat
-  :straight nil
+  :straight (:type built-in)
   :hook (after-init . repeat-mode)
   :init
   (setq repeat-exit-key (kbd "<escape>")))
 
 (use-package server
-  :straight nil
+  :straight (:type built-in)
   :hook (after-init . server-mode))
 
 (use-package autorevert
-  :straight nil
+  :straight (:type built-in)
   :blackout global-auto-revert-mode
   :hook (after-init . global-auto-revert-mode))
 
 (delete-selection-mode 1)
 
 (use-package elec-pair
-  :straight nil
+  :straight (:type built-in)
   :hook (after-init . electric-pair-mode)
   :config
   (defun uk/electric-pair-conservative-inhibit (char)
@@ -109,7 +109,7 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
 
 ;;; Core State and History Preservation
 (use-package recentf
-  :straight nil
+  :straight (:type built-in)
   :bind ("C-x C-r" . recentf-open-files)
   :hook (after-init . recentf-mode)
   :init
@@ -122,8 +122,9 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
           "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"))
   :config
   (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:")
-  (add-to-list 'recentf-exclude
-               (lambda (file) (file-in-directory-p file package-user-dir)))
+  (when (and (boundp 'package-user-dir) package-user-dir)
+    (add-to-list 'recentf-exclude
+                 (lambda (file) (file-in-directory-p file package-user-dir))))
   (when (boundp 'org-directory)
     (add-to-list 'recentf-exclude
                  (lambda (file) (file-in-directory-p file org-directory))))
@@ -131,11 +132,11 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
   (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
 
 (use-package saveplace
-  :straight nil
+  :straight (:type built-in)
   :hook (after-init . save-place-mode))
 
 (use-package savehist
-  :straight nil
+  :straight (:type built-in)
   :hook (after-init . savehist-mode)
   :init
   (setq savehist-autosave-interval 300)
@@ -149,9 +150,7 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
 (use-package beginend
   :straight t
   :blackout beginend-global-mode
-  :hook (after-init . beginend-global-mode)
-  :config
-  (mapc (lambda (pair) (diminish (cdr pair))) beginend-modes))
+  :hook (after-init . beginend-global-mode))
 
 (use-package visual-regexp :straight t)
 (use-package visual-regexp-steroids :straight t)
@@ -240,7 +239,7 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
             (local-set-key (kbd "C-c C-c") #'eval-defun)
             (local-set-key (kbd "C-c C-b") #'eval-buffer)))
 
-;; ;;; Configuration API Definitions (Custom Defcustoms)
+;;; Configuration API Definitions (Custom Defcustoms)
 (defcustom ukiran-icon t
   "Display icons or not."
   :group 'centaur :type 'boolean)

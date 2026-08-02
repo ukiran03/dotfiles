@@ -1,4 +1,9 @@
-;; init-devops.el -- Docker, K8s, etc. -*- lexical-binding: t -*-
+;;; init-devops.el -- Docker, K8s, etc. -*- lexical-binding: t -*-
+
+;;; Commentary:
+;; DevOps integration including Docker and Kubernetes client setups.
+
+;;; Code:
 
 (use-package docker
   :straight t
@@ -22,7 +27,8 @@
                        :format my/docker-format-in-use)
                t))
 
-;; :bind ("C-c d" . docker) ; Global menu for containers, images,
+;; Global menu for containers, images, etc.
+;; (global-set-key (kbd "C-c d") #'docker)
 
 
 ;; Alternative UI's for Kubernetes
@@ -39,5 +45,5 @@
   ;; This enables the 'd' for delete, 'm' for mark workflow in lists
   (add-hook 'kubed-list-mode-hook #'hl-line-mode))
 
-
 (provide 'init-devops)
+;;; init-devops.el ends here

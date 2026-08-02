@@ -1,6 +1,12 @@
-;;; init-icon.el --- summary -*- lexical-binding: t no-byte-compile: t -*-
+;;; init-icons.el --- Icon integrations using nerd-icons -*- lexical-binding: t; no-byte-compile: t -*-
 
-;;; Icons
+;;; Commentary:
+;; Configures nerd-icons and extensions for completion prompts, corfu,
+;; dired, ibuffer, xref, and grep.
+
+;;; Code:
+
+;; Core Nerd Icons Package
 (use-package nerd-icons
   :straight t)
 
@@ -8,11 +14,6 @@
   :straight t
   :if (display-graphic-p)
   :after marginalia
-  ;; FIXME 2024-09-01: For some reason this stopped working because it
-  ;; macroexpands to `marginalia-mode' instead of
-  ;; `marginalia-mode-hook'.  What is more puzzling is that this does
-  ;; not happen in the next :hook...
-  ;; :hook (marginalia-mode . nerd-icons-completion-marginalia-setup))
   :config
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
 
@@ -34,13 +35,11 @@
   :straight t
   :if (display-graphic-p)
   :blackout
-  ;; :custom-face
-  ;; (nerd-icons-dired-dir-face
-  ;;    ((t (:inherit nerd-icons-dsilver :foreground unspecified))))
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
 (use-package nerd-icons-ibuffer
+  :straight t
   :if (display-graphic-p)
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
   :init

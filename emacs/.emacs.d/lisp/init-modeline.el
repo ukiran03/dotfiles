@@ -1,5 +1,9 @@
 ;;; init-modeline.el --- Modeline configurations -*- lexical-binding: t -*-
 
+;;; Commentary:
+;; Custom modeline that is stylistically close to the default.
+
+;;; Code:
 
 (defgroup uk-modeline nil
   "Custom modeline that is stylistically close to the default."
@@ -318,3 +322,4 @@ With optional FACE, use it to propertize the BRANCH."
   "VC state faces.")
 
 (provide 'init-modeline)
+;;; init-modeline.el ends here

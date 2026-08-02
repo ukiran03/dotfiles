@@ -46,6 +46,4 @@ With prefix ARG (\\[universal-argument]), open in another window."
         (view-file file)))))
 
 (provide 'init-project)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-project.el ends here

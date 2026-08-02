@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-;;;; Fonts & Typography (Fontaine)
+;; Fonts & Typography (Fontaine)
 (use-package fontaine
   :straight t
   :hook (after-init . fontaine-mode)
@@ -28,7 +28,7 @@
   ;; Set default startup preset
   (fontaine-set-preset 'regular))
 
-;;;; Theme Configurations
+;; Theme Configurations
 (use-package modus-themes
   :straight t
   :demand t
@@ -46,12 +46,6 @@
   (modus-vivendi-tinted-palette-overrides
    '((comment fg-dim))))
 
-;; (custom-set-faces
-;;  ;; Inherit from the face to keep colors, then specify weight
-;;  '(completions-common-part ((t (:inherit completions-common-part :weight semibold))))
-;;  '(completions-first-difference ((t (:inherit completions-first-difference :weight semibold))))
-;;  '(minibuffer-prompt ((t (:inherit minibuffer-prompt :weight semibold)))))
-
 (use-package ef-themes
   :straight t
   :config
@@ -62,8 +56,7 @@
   :config
   (setq kaolin-themes-org-scale-headings nil))
 
-
-;;;; Writing & Layout
+;; Writing & Layout
 (use-package olivetti
   :straight t
   :defer t
@@ -83,7 +76,7 @@
            :scroll-bar-width 0
            :fringe-width 8)))
 
-;;;; UI Elements & Context
+;; UI Elements & Context
 (use-package breadcrumb
   :straight t
   :hook ((text-mode prog-mode) . prot/breadcrumb-local-mode)
@@ -98,9 +91,7 @@
     (when buffer-file-name
       (breadcrumb-local-mode 1))))
 
-
-;;;; Theme Persistence Engine
-
+;; Theme Persistence Engine
 (defvar my-theme 'modus-vivendi-tinted
   "The color theme to load on startup.")
 

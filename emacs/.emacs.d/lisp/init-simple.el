@@ -1,6 +1,5 @@
 ;;; init-simple.el --- summary -*- lexical-binding: t -*-
 
-
 ;;; Commentary:
 
 ;;; Code:
@@ -193,6 +192,4 @@ Without ARG, include only the date."
 ;; hit-enter copy line at point
 
 (provide 'init-simple)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-simple.el ends here

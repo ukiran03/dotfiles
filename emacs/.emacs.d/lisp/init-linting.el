@@ -1,14 +1,20 @@
-;;; init-check.el --- Code Checker configurations.	-*- lexical-binding: t -*-
+;;; init-linting.el --- Code Linting configurations.	-*- lexical-binding: t -*-
+
+;;; Commentary:
+;; Configures Flymake, Eglot diagnostic save hooks, Jinx spell checking,
+;; and dictionary integrations.
+
+;;; Code:
 
 (use-package flymake
-  :straight nil
+  :straight (:type built-in)
   :hook (elisp-mode . flymake-mode)
   :config
   (setq flymake-no-changes-timeout nil)
   (setq flymake-fringe-indicator-position 'right-fringe)
   (setq flymake-mode-line-lighter "FY"))
 
-;; flymake to check only after file save
+;; Flymake to check only after file save
 ;; github.com/joaotavora/eglot/issues/1296#issuecomment-1727978307
 ;; sasha.ovh/wiki/emacs/Make_flymake_only_check_for_errors_on_save_including_Eglot/
 (cl-defmethod eglot-handle-notification :after
@@ -30,9 +36,10 @@
                 ("S" . jinx-previous))))
 
 (use-package dictionary
-  :straight nil
+  :straight (:type built-in)
   :init
   ;; (setq dictionary-server "localhost") -- TODO: setup dictd on void
   )
 
 (provide 'init-linting)
+;;; init-linting.el ends here

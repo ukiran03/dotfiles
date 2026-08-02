@@ -7,12 +7,12 @@
 
 ;; 1. Global Jump Binding
 (use-package emacs
-  :straight nil
+  :straight (:type built-in)
   :bind ("H-j" . dired-jump))
 
 ;; 2. Consolidated Core Dired Configuration
 (use-package dired
-  :straight nil
+  :straight (:type built-in)
   :hook ((dired-mode . dired-omit-mode)
          (dired-mode . hl-line-mode)
          (dired-mode . dired-hide-details-mode))
@@ -53,7 +53,7 @@ is inserted.  Otherwise, display it in another buffer."
 
 ;; 3. Core Standard Extension Adjustments
 (use-package dired-x
-  :straight nil
+  :straight (:type built-in)
   :after dired
   :config
   ;; File Omit Regex
@@ -125,7 +125,6 @@ is inserted.  Otherwise, display it in another buffer."
   (dired-sidebar-theme 'none)
   :bind
   ([f8] . dired-sidebar-toggle-with-current-directory))
-
 
 (provide 'init-dired)
 ;;; init-dired.el ends here

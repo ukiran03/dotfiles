@@ -1,12 +1,15 @@
-;;; init-web.el --- Web development configuration -*- lexical-binding: t; -*-
+;;; init-web.el --- Web development configuration -*- lexical-binding: t -*-
 
-;; ==========================================
+;;; Commentary:
+;; JavaScript, TypeScript, HTML, CSS, and Web-mode configurations.
+
+;;; Code:
+
 ;; JavaScript & TypeScript (Modern Tree-Sitter)
-;; ==========================================
 
 ;; Base JS mode (for shared hooks)
 (use-package js
-  :straight nil ;; built-in
+  :straight nil
   :hook ((js-base-mode . apheleia-mode)
          (js-base-mode . symbol-overlay-mode))
   :custom
@@ -50,10 +53,7 @@
   :custom
   (typescript-ts-mode-indent-offset 2))
 
-
-;; ==========================================
 ;; HTML & Templating (Web-Mode & Emmet)
-;; ==========================================
 
 ;; Emmet for HTML/JSX/TSX
 (use-package emmet-mode
@@ -93,10 +93,7 @@
   ;; Treats the script blocks in Vue/HTML properly
   (setq web-mode-content-types-alist '(("jsx" . "\\.vue\\'"))))
 
-
-;; ==========================================
 ;; Language Server Protocol (LSP via Eglot)
-;; ==========================================
 
 ;; Vue 3 LSP support using Volar
 (use-package eglot
@@ -115,10 +112,7 @@
                              (:vue (:hybridMode :json-false)
                                    :typescript (:serverPath ""))))))
 
-
-;; ==========================================
 ;; Disabled Packages / Legacy
-;; ==========================================
 
 ;; Prettier-Js (Using apheleia-mode instead via hooks)
 (use-package prettier-js
@@ -133,3 +127,4 @@
                            "--singleQuote" "true")))
 
 (provide 'init-web)
+;;; init-web.el ends here

@@ -1,7 +1,7 @@
 ;;; init-feeds.el --- Elfeed RSS Dashboard Engine -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;; An unified keyboard-driven feed aggregator supporting automatic video
+;; A unified keyboard-driven feed aggregator supporting automatic video
 ;; playback via MPV, Org-mode subscription lists, scoring layouts, and rich
 ;; text styling.
 
@@ -10,13 +10,12 @@
 ;; Global Sync/Startup Command Shorthand
 ;;;###autoload
 (defun uk-elfeed (arg)
-  "Open `elfeed`, With a prefix ARG (\\[universal-argument]), initialize
+  "Open `elfeed`. With a prefix ARG (\\[universal-argument]), initialize
 `elfeed-org` and force a full async database fetch before opening."
   (interactive "P")
   (when arg
     (require 'elfeed-org)
     (elfeed-org)
-    ;; (elfeed)
     (elfeed-update))
   (elfeed))
 
@@ -24,7 +23,7 @@
 (use-package elfeed
   :straight t
   :bind (:map elfeed-show-mode-map
-              ("V" . my/elfeed-mpv-play)) ; Clean unquoted bind syntax
+              ("V" . my/elfeed-mpv-play))
   :hook (elfeed-show-mode . visual-line-mode)
 
   :preface

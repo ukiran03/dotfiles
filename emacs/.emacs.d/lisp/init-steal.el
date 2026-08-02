@@ -1,7 +1,10 @@
-;;;; Emacs Performance Tweaks
-;;;; https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/
+;;; init-steal.el --- Performance Tweaks -*- lexical-binding: t -*-
 
-;;; Performance Tweaks
+;;; Commentary:
+;; Emacs Performance Tweaks.
+;; https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/
+
+;;; Code:
 
 ;; Disable Bidirectional Text Scanning
 (setq-default bidi-display-reordering 'left-to-right
@@ -17,8 +20,6 @@
 ;; Don’t Render Cursors in Non-Focused Windows
 (setq-default cursor-in-non-selected-windows t)
 (setq highlight-nonselected-windows nil)
-
-;;; Kill Ring (Emacs’s Clipboard History) and Clipboard
 
 ;; Save the Clipboard Before Killing
 (setq save-interprogram-paste-before-kill t)
@@ -75,4 +76,4 @@
               (when buffer-file-name (ignore-errors (recenter)))))
 
 (provide 'init-steal)
-;;; init-perf.el ends here
+;;; init-steal.el ends here

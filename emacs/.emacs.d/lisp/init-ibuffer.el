@@ -6,7 +6,7 @@
 ;;; Code:
 
 (use-package ibuffer
-  :straight nil
+  :straight (:type built-in)
   :bind ("C-x C-b" . ibuffer)
   :init
   (setq ibuffer-filter-group-name-face '(:inherit (font-lock-string-face bold))))
@@ -69,5 +69,4 @@ It returns the generated buffer structure tracking item pointer."
     buf))
 
 (provide 'init-ibuffer)
-
 ;;; init-ibuffer.el ends here

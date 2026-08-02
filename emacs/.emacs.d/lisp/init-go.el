@@ -1,7 +1,13 @@
-;;; init-go.el --- summary -*- lexical-binding: t -*-
+;;; init-go.el --- Go development environment configurations -*- lexical-binding: t -*-
+
+;;; Commentary:
+;; Comprehensive development setup for Go, featuring tree-sitter modes,
+;; eglot integration, custom apheleia formatters, and templ support.
+
+;;; Code:
 
 (use-package compile
-  :straight nil
+  :straight (:type built-in)
   :custom
   (compile-command "just "))
 
@@ -23,7 +29,6 @@
 
 (use-package gotest
   :straight t
-  ;; :defer t
   :commands (go-run))
 
 (with-eval-after-load 'project
@@ -92,6 +97,7 @@
   (setf (alist-get 'templ-ts-mode apheleia-mode-alist) '(templ-fmt)))
 
 (use-package templ-ts-mode
+  :straight t
   :mode ("\\.templ\\'" . templ-ts-mode)
   :hook ((templ-ts-mode . eglot-ensure)
          (templ-ts-mode . apheleia-mode)
@@ -124,23 +130,22 @@
 (use-package tempel
   :straight t
   :init
-  ;; Define a function that returns your templates (Tempel loves this)
   (defun my-golang-templates ()
     '((go "go func() {" n> q n> "}()")
       (defer "defer func() {" n> q n> "}()")))
 
   :config
-  ;; Safely add it as a buffer-local source when go-ts-mode activates
   (add-hook 'go-ts-mode-hook
             (lambda ()
-              (add-hook 'tempel-template-sources
-                        #'my-golang-templates nil 'local))))
+              (setq-local tempel-sources (cons #'my-golang-templates tempel-sources)))))
 
 (provide 'init-go)
 
-;;;;;; Go Tools Setup Reminder
+;;; Go Tools Setup Reminder
 ;; go install mvdan.cc/gofumpt@latest
 ;; go install github.com/segmentio/golines@latest
 ;; go install github.com/josharian/impl@latest
 ;; go install github.com/fatih/gomodifytags@latest
 ;; go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
+
+;;; init-go.el ends here

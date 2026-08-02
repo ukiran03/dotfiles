@@ -33,6 +33,7 @@ zplugin-update() {
 _zplugin_load zsh-users/zsh-autosuggestions
 _zplugin_load zsh-users/zsh-syntax-highlighting
 _zplugin_load hlissner/zsh-autopair
+# _zplugin_load marlonrichert/zsh-hist
 
 # _zplugin_load zsh-users/zsh-history-substring-search
 

@@ -1,15 +1,12 @@
-;;; init-treesit.el --- Tree-sitter configuration via treesit-auto.  -*- lexical-binding: t -*-
+;;; init-treesit.el --- Tree-sitter configuration via treesit-auto -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;; Fully automated Tree-sitter management using `treesit-auto`.
+;; Fully automated Tree-sitter management using `treesit-auto'.
 ;; Handles grammar installations, mode remappings, and Combobulate integration.
 
 ;;; Code:
 
-;; =============================================================================
-;; 1. Core Tree-sitter & Automation Setup
-;; =============================================================================
-
+;; Core Tree-sitter & Automation Setup
 (use-package treesit
   :straight nil
   :mode (("\\.tsx\\'" . tsx-ts-mode)))
@@ -25,11 +22,7 @@
   ;; Wire up all `major-mode-remap-alist` entries automatically
   (global-treesit-auto-mode))
 
-
-;; =============================================================================
-;; 2. Structural Editing with Combobulate
-;; =============================================================================
-
+;; Structural Editing with Combobulate
 (use-package combobulate
   :disabled
   :straight nil

@@ -1,7 +1,7 @@
 ;;; init-shell.el --- Shell and Eshell configuration -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;;  Configuration for Comint, Eshell enhancements, and terminal integration.
+;; Configuration for Comint, Eshell enhancements, and terminal integration.
 
 ;;; Code:
 
@@ -33,7 +33,7 @@
               ;; ("M-p" . (lambda () (interactive) (ghostel-send-key "p" "ctrl")))
               ;; ("M-n" . (lambda () (interactive) (ghostel-send-key "n" "ctrl")))
               :map project-prefix-map
-              ("s" . ghostel-project)   ;; replaces `project-shell'
+              ("s" . ghostel-project)    ;; replaces `project-shell'
               ("S" . ghostel-project-list-buffers))
   :config
   (setq ghostel-module-directory
@@ -41,7 +41,7 @@
 
   (defun my/ghostel-send-C-k-and-kill ()
     "Send `C-k' to ghostel. Like normal Emacs `C-k'.
-  Kill to end of line and put content in kill-ring."
+Kill to end of line and put content in kill-ring."
     (interactive)
     (kill-ring-save (point) (line-end-position))
     (ghostel-send-key "k" "ctrl"))
@@ -56,7 +56,7 @@
   :hook (after-init . ghostel-comint-global-mode))
 
 ;;; Eshell Directory Jumping Integration
-;;  Ref: https://karthinks.com/software/jumping-directories-in-eshell/
+;; Ref: https://karthinks.com/software/jumping-directories-in-eshell/
 (with-eval-after-load 'eshell
   (declare-function consult-dir--pick "consult-dir")
   (defvar consult-dir-sources)
@@ -82,5 +82,4 @@ any directory proffered by `consult-dir'."
                        (completing-read "cd: " eshell-dirs))))))))
 
 (provide 'init-shell)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-shell.el ends here

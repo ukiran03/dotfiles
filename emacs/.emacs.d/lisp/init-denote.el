@@ -13,7 +13,7 @@
          ("C-c n l" . denote-link)
          ("C-c n b" . denote-backlinks)
          ("C-c n d" . denote-sort-dired)
-         ("C-c n x" . my/denote-create-note-in-any-directory)) ; Integrated personal macro
+         ("C-c n x" . my/denote-create-note-in-any-directory)) ; Integrated macro
   :init
   ;; Configure paths and format hooks early
   (setq denote-directory (expand-file-name "~/Documents/Notes"))

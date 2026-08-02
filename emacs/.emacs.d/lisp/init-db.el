@@ -7,7 +7,7 @@
 
 ;; Built-in SQL client settings
 (use-package sql
-  :straight nil
+  :straight (:type built-in)
   :config
   (setq sql-mariadb-program "mariadb")
 
@@ -24,11 +24,12 @@
 (use-package sql-indent
   :straight t
   :blackout
-  :hook(sql-mode . sqlind-minor-mode))
+  :hook (sql-mode . sqlind-minor-mode))
 
 (use-package sqlformat
+  :straight t
   :config
-  (setq sqlformat-command 'pgformatter))
+  (setq sqlformat-command 'sqlformat)) ; pgformatter etc.
 
 ;; Automatic Keyword Uppercasing Engine
 (use-package sqlup-mode

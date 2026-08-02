@@ -1,15 +1,11 @@
-;;; init-snippets.el --- Snippets configurations.	-*- lexical-binding: t -*-
+;;; init-snippets.el --- Snippets configurations. -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;; Setting up in-buffer snippets and templates via Yasnippet and Tempel.
 
 ;;; Code:
 
-;; =============================================================================
-;; 1. Yasnippet Configuration
-;; =============================================================================
-
-;; Yet another snippet extension
+;; Yasnippet Configuration
 (use-package yasnippet
   :blackout yas-minor-mode
   :hook (prog-mode . yas-minor-mode))
@@ -27,11 +23,7 @@
   :init
   (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
-
-;; =============================================================================
-;; 2. Tempel Configuration (Modern, Fast Alternative)
-;; =============================================================================
-
+;; Tempel Configuration (Modern, Fast Alternative)
 (use-package tempel
   :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
          ("M-*" . tempel-insert))
@@ -43,17 +35,11 @@
     (setq-local completion-at-point-functions
                 (cons #'tempel-expand
                       completion-at-point-functions)))
-
   :hook ((conf-mode . tempel-setup-capf)
          (prog-mode . tempel-setup-capf)
          (text-mode . tempel-setup-capf)))
 
-
-;; =============================================================================
-;; 3. Global & Mode-Specific Abbrevs
-;; =============================================================================
-
-;; Ensure abbrev mode is globally enabled
+;; Global & Mode-Specific Abbrevs
 (setq-default abbrev-mode t)
 
 (define-abbrev global-abbrev-table "mygit" "https://github.com/ukiran03")

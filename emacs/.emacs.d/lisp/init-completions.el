@@ -14,7 +14,7 @@
 
 ;;; Core Emacs Minibuffer & UI Configuration
 (use-package emacs
-  :straight nil
+  :straight (:type built-in)
   :init
   ;; Minibuffer behavior
   (setq enable-recursive-minibuffers t)
@@ -34,27 +34,9 @@
   (setq resize-mini-windows t)
   (setq read-answer-short t)
   (setq echo-keystrokes 0.25)
-  (setq kill-ring-max 60))
+  (setq kill-ring-max 60)
 
-;;; Minibuffer Visual Enhancements
-(use-package mb-depth
-  :straight nil
-  :hook (after-init . minibuffer-depth-indicate-mode)
-  :config
-  (setq read-minibuffer-restore-windows nil))
-
-(use-package minibuf-eldef
-  :straight nil
-  :hook (after-init . minibuffer-electric-default-mode)
-  :config
-  (setq minibuffer-default-prompt-format " [%s]"))
-
-;;; Built-in Completion Styling & UI
-(use-package minibuffer
-  :straight nil
-  :demand t
-  :config
-  ;; Layout and UI
+  ;; Built-in Minibuffer Styling & UI (Moved from standalone 'minibuffer' block)
   (setq completions-detailed t)
   (setq completions-max-height 6)
   (setq completions-format 'one-column)
@@ -79,9 +61,22 @@
           (kill-ring (styles . (emacs22 orderless)))
           (eglot (styles . (emacs22 substring orderless))))))
 
+;;; Minibuffer Visual Enhancements
+(use-package mb-depth
+  :straight (:type built-in)
+  :hook (after-init . minibuffer-depth-indicate-mode)
+  :config
+  (setq read-minibuffer-restore-windows nil))
+
+(use-package minibuf-eldef
+  :straight (:type built-in)
+  :hook (after-init . minibuffer-electric-default-mode)
+  :config
+  (setq minibuffer-default-prompt-format " [%s]"))
+
 ;;; Session History Preservation
 (use-package savehist
-  :straight nil
+  :straight (:type built-in)
   :hook (after-init . savehist-mode)
   :config
   (setq history-length 100)
@@ -90,7 +85,7 @@
   (add-to-list 'savehist-additional-variables 'kill-ring))
 
 (use-package rfn-eshadow
-  :straight nil
+  :straight (:type built-in)
   :hook (minibuffer-setup . cursor-intangible-mode)
   :config
   (file-name-shadow-mode 1))

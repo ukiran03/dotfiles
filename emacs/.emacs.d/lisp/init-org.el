@@ -5,9 +5,7 @@
 
 ;;; Code:
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 1. Helper Functions & Custom Variables (Defined early to prevent void errors)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Helper Functions & Custom Variables
 
 (defun uk-org-agenda-include-priority-no-timestamp ()
   "Return nil if heading has a priority but no timestamp.
@@ -73,13 +71,10 @@ Produces fixed-length, perfectly aligned dates."
                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)))))
   "Custom agenda blocks for use in `org-agenda-custom-commands'.")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 2. Primary Org Mode Configuration
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Primary Org Mode Configuration
 
 (use-package org
-  :straight nil
-  ;; :hook ((org-mode . org-indent-mode))
+  :straight (:type built-in)
   :bind (("C-c A" . org-agenda)
          ("C-c a" . (lambda () (interactive) (org-agenda nil "A")))
          ("C-c c" . org-capture)
@@ -97,7 +92,7 @@ Produces fixed-length, perfectly aligned dates."
         org-imenu-depth 7)
 
   :config
-  ;; --- Visuals & Interface ---
+  ;; Visuals & Interface
   (setq org-modules nil
         org-startup-indented nil
         org-ellipsis (if (char-displayable-p ?⏷) "\t⏷" nil)
@@ -107,7 +102,7 @@ Produces fixed-length, perfectly aligned dates."
         org-hide-macro-markers nil
         org-startup-folded 'content)
 
-  ;; --- Behavior & Structure Editing ---
+  ;; Behavior & Structure Editing
   (setq org-M-RET-may-split-line '((default . nil))
         org-cycle-separator-lines 0
         org-insert-heading-respect-content t
@@ -115,13 +110,13 @@ Produces fixed-length, perfectly aligned dates."
         org-indent-indentation-per-level 2
         org-indent-mode-turns-on-hiding-stars t)
 
-  ;; --- Todo Settings & Logging ---
+  ;; Todo Settings & Logging
   (setq org-log-done 'time
         org-log-into-drawer t
         org-use-fast-todo-selection 'expert
         org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "CANCELLED(c@)" "MISSED(m@/!)" "DONE(d!)")))
 
-  ;; --- Structure Templates ---
+  ;; Structure Templates
   (setq org-structure-template-alist
         '(("s" . "src")
           ("b" . "src bash")
@@ -136,7 +131,7 @@ Produces fixed-length, perfectly aligned dates."
           ("x" . "example")
           ("X" . "export")))
 
-  ;; --- Org Agenda Setup ---
+  ;; Org Agenda Setup
   (setq org-agenda-files (list org-directory)
         org-agenda-remove-times-when-in-prefix nil
         org-agenda-follow-indirect t
@@ -166,7 +161,7 @@ Produces fixed-length, perfectly aligned dates."
             (org-agenda-remove-tags t))
            ("agenda.txt"))))
 
-  ;; --- Org Capture Setup ---
+  ;; Org Capture Setup
   (setq org-archive-location (concat (file-name-as-directory (expand-file-name "archive" org-directory)) "%s_archive::"))
 
   (setq org-capture-templates
@@ -196,7 +191,7 @@ Produces fixed-length, perfectly aligned dates."
             ("p" "Project Ideas" entry (file+headline "ideas.org" "Projects")
              ,(concat "* %^{Title} \n" without-time "%?") :empty-lines-after 1))))
 
-  ;; --- Org Babel Configuration ---
+  ;; Org Babel Configuration
   (setq org-confirm-babel-evaluate nil
         org-src-window-setup 'current-window
         org-edit-src-persistent-message nil
@@ -217,9 +212,7 @@ Produces fixed-length, perfectly aligned dates."
 
   (org-babel-do-load-languages 'org-babel-load-languages load-language-alist))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 3. Ecosystem & Third-Party Extensions
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Ecosystem & Third-Party Extensions
 
 (use-package org-modern
   :straight t
@@ -268,5 +261,4 @@ Produces fixed-length, perfectly aligned dates."
                    (function org-hugo-new-subtree-post-capture-template)))))
 
 (provide 'init-org)
-
-;;; init-org.el ends here.
+;;; init-org.el ends here

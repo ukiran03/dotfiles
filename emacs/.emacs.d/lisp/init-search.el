@@ -1,7 +1,7 @@
 ;;; init-search.el --- Search configuration -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;;  Isearch, occur, grep, and search extras.
+;; Isearch, occur, grep, and search extras.
 
 ;;; Code:
 
@@ -58,5 +58,4 @@
   (consult-customize affe-grep :preview-key "M-."))
 
 (provide 'init-search)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-search.el ends here

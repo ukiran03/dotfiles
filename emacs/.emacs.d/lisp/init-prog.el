@@ -8,7 +8,7 @@
 
 (use-package re-builder
   :straight nil
-  :config (setq reb-re-syntax 'rx)) ; I love using rx for regexps
+  :config (setq reb-re-syntax 'rx))
 
 ;; dtrt (auto find indent setting)
 (use-package dtrt-indent
@@ -34,9 +34,7 @@
     ("Editing"
      (("f" apheleia-mode "FMT" :toggle t)
       ("p" puni-mode "puni" :toggle t)
-      ("ds" drag-stuff-mode "drag stuff" :toggle t)
-      ;; ("a" aggressive-indent-mode "Ag indent" :toggle t)
-      )
+      ("ds" drag-stuff-mode "drag stuff" :toggle t))
      "Visuals"
      (("w" whitespace-mode "whitespace" :toggle t)
       ("l" display-line-numbers-mode "line numbers" :toggle t)

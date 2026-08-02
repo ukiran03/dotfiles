@@ -1,11 +1,12 @@
 ;;; init-package.el --- Initialize package configurations via straight.el. -*- lexical-binding: t -*-
 
-;;; Commentary:
+;; Commentary:
 ;; Package management configuration utilizing straight.el and use-package.
 
 ;;; Code:
 
-;;; --- Straight.el Bootstrap ---
+;;; Straight.el Bootstrap
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -22,7 +23,8 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-;;; --- Use-Package Integration ---
+;;; Use-Package Integration
+
 ;; Tell use-package to automatically use straight.el for all declarations
 (setq straight-use-package-by-default t)
 

@@ -10,7 +10,7 @@
 (use-package compat
   :straight t)
 
-;;;; Core Vertico Configuration
+;;; Core Vertico Configuration
 (use-package vertico
   :straight t
   :hook ((after-init . vertico-mode)
@@ -28,9 +28,9 @@
         vertico-group-format nil
         vertico-resize t))
 
-;;;; Vertico Multiform Display Rules
+;; Vertico Multiform Display Rules
 (use-package vertico-multiform
-  :straight nil ; Built into the vertico package
+  :straight nil
   :after vertico
   :init
   (vertico-multiform-mode 1)
@@ -55,14 +55,14 @@
 ;; M-U -> `vertico-multiform-unobtrusive'
 ;; M-V -> `vertico-multiform-vertical'
 
-;;;; Rich Annotations (Marginalia)
+;;; Rich Annotations (Marginalia)
 (use-package marginalia
   :straight t
   :hook (after-init . marginalia-mode)
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle)))
 
-;;;; Orderless Completion Style
+;;; Orderless Completion Style
 (use-package orderless
   :straight t
   :init

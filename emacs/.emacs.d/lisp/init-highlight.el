@@ -7,10 +7,10 @@
 
 ;; Highlight the current line safely
 (use-package hl-line
-  :straight nil
+  :straight (:type built-in)
   :hook ((after-init . global-hl-line-mode)
          ((dashboard-mode eshell-mode shell-mode term-mode eat-mode vterm-mode) .
-          (lambda () (hl-line-mode -1))))) ; Fix: Explicitly disable locally
+          (lambda () (hl-line-mode -1)))))
 
 (use-package lin :straight nil :defer t)
 
@@ -56,7 +56,7 @@
 
 ;; Highlight matching parens
 (use-package paren
-  :straight nil
+  :straight (:type built-in)
   :hook (after-init . show-paren-mode)
   :config
   (setq show-paren-when-point-inside-paren t
@@ -99,7 +99,7 @@
     (add-to-list 'global-colorful-modes mode)))
 
 (use-package whitespace
-  :straight nil
+  :straight (:type built-in)
   :hook (prog-mode . whitespace-mode)
   :config
   ;; Set initial default style

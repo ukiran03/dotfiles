@@ -6,7 +6,7 @@
 ;;; Code:
 
 (use-package eglot
-  :straight nil
+  :straight (:type built-in)
   :preface
   ;; Define the hook function before it is referenced in :hook
   (defun my/eglot-eldoc-settings ()
@@ -32,9 +32,9 @@
                              (completionBudget . "100ms")))))
   :config
   ;; UI & UX Tweaks
-  (setq eglot-menu-string "E"         ; Minimalist mode-line indicator
+  (setq eglot-menu-string "E"          ; Minimalist mode-line indicator
         eglot-report-progress t
-        eglot-autoshutdown t          ; Shutdown server when last buffer closes
+        eglot-autoshutdown t           ; Shutdown server when last buffer closes
         eglot-extend-to-xref t
         eglot-send-changes-idle-time 0.5)
 
@@ -59,5 +59,4 @@
 ;;   :config (eglot-booster-mode 1))
 
 (provide 'init-lsp)
-
 ;;; init-lsp.el ends here

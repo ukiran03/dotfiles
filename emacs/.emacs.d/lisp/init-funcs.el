@@ -1,6 +1,8 @@
-;;; init-funcs.el --- summary -*- lexical-binding: t -*-
+;;; init-funcs.el --- Personal Utility Functions -*- lexical-binding: t -*-
 
 ;;; Commentary:
+;; Core custom helper functions for buffer manipulation, file management,
+;; configuration reloading, and compilation utilities.
 
 ;;; Code:
 
@@ -72,20 +74,20 @@
 (defalias 'ukiran-reload-init-file #'reload-init-file)
 
 ;; Open custom file
-(defun find-custom-file()
+(defun find-custom-file ()
   "Open custom files."
   (interactive)
   (when (and (boundp 'custom-file) custom-file (file-exists-p custom-file))
     (find-file custom-file)))
 
-;; Font
+;; Font & UI
 (defun font-installed-p (font-name)
   "Check if font with FONT-NAME is available."
   (find-font (font-spec :name font-name)))
 
 (defun icons-displayable-p ()
   "Return non-nil if icons are displayable."
-  (and ukiran-icon
+  (and (bound-and-true-p ukiran-icon)
        (or (featurep 'nerd-icons)
            (require 'nerd-icons nil t))))
 
@@ -100,34 +102,40 @@
       (display-time-mode 1)
       (display-battery-mode 1))))
 
-;; Misc
-(defun byte-compile-elpa ()
-  "Compile packages in elpa directory. Useful if you switch Emacs versions."
+;; Compilation Helpers (Updated for straight.el paths)
+(defun byte-compile-straight-build ()
+  "Compile packages in straight build directory."
   (interactive)
-  (if (fboundp 'async-byte-recompile-directory)
-      (async-byte-recompile-directory package-user-dir)
-    (byte-recompile-directory package-user-dir 0 t)))
+  (let ((dir (expand-file-name "straight/build" user-emacs-directory)))
+    (if (file-exists-p dir)
+        (if (fboundp 'async-byte-recompile-directory)
+            (async-byte-recompile-directory dir)
+          (byte-recompile-directory dir 0 t))
+      (message "Straight build directory not found."))))
 
 (defun byte-compile-site-lisp ()
   "Compile packages in site-lisp directory."
   (interactive)
   (let ((dir (locate-user-emacs-file "site-lisp")))
-    (if (fboundp 'async-byte-recompile-directory)
-        (async-byte-recompile-directory dir)
-      (byte-recompile-directory dir 0 t))))
+    (if (file-exists-p dir)
+        (if (fboundp 'async-byte-recompile-directory)
+            (async-byte-recompile-directory dir)
+          (byte-recompile-directory dir 0 t))
+      (message "Site-lisp directory not found."))))
 
-(defun native-compile-elpa ()
-  "Native-compile packages in elpa directory."
+(defun native-compile-straight-build ()
+  "Native-compile packages in straight build directory."
   (interactive)
-  (if (fboundp 'native-compile-async)
-      (native-compile-async package-user-dir t)))
+  (let ((dir (expand-file-name "straight/build" user-emacs-directory)))
+    (when (and (file-exists-p dir) (fboundp 'native-compile-async))
+      (native-compile-async dir t))))
 
 (defun native-compile-site-lisp ()
   "Native compile packages in site-lisp directory."
   (interactive)
   (let ((dir (locate-user-emacs-file "site-lisp")))
-    (if (fboundp 'native-compile-async)
-        (native-compile-async dir t))))
+    (when (and (file-exists-p dir) (fboundp 'native-compile-async))
+      (native-compile-async dir t))))
 
 (provide 'init-funcs)
 
