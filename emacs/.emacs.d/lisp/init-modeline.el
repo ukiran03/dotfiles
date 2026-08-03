@@ -321,5 +321,36 @@ With optional FACE, use it to propertize the BRANCH."
     (up-to-date . uk-modeline-vc-up-to-date))
   "VC state faces.")
 
+;;; Major/Minor mode lighters (⇝)
+
+(defvar mode-line-cleaner-alist
+  `((lisp-interaction-mode . "λ")
+    (emacs-lisp-mode       . "Eλ")
+    (python-mode           . "Py")
+    (sh-mode               . "SH")
+    (js-jsx-mode           . "jsX")
+    (js-mode               . "js")
+    (racket-mode           . "RKT")
+    (scheme-mode           . "λSCM")
+    (protobuf-mode         . "PBuf")
+    (emmet-mode            . " </>")
+    (org-mode              . ,(propertize "ORG" 'face 'success)))
+  "Alist for `clean-mode-line'.
+
+  ; ;; When you add a new element to the alist, keep in mind that you
+  ; ;; must pass the correct minor/major mode symbol and a string you
+  ; ;; want to use in the modeline *in lieu of* the original.")
+
+(defun clean-mode-line ()
+  (cl-loop for cleaner in mode-line-cleaner-alist
+           do (let* ((mode (car cleaner))
+                     (mode-str (cdr cleaner))
+                     (old-mode-str (cdr (assq mode minor-mode-alist))))
+                (when old-mode-str
+                  (setcar old-mode-str mode-str))
+                ;; major mode
+                (when (eq mode major-mode)
+                  (setq mode-name mode-str)))))
+
 (provide 'init-modeline)
 ;;; init-modeline.el ends here

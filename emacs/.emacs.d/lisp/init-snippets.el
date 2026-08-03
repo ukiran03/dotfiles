@@ -7,7 +7,6 @@
 
 ;; Yasnippet Configuration
 (use-package yasnippet
-  :blackout yas-minor-mode
   :hook (prog-mode . yas-minor-mode))
 
 ;; Collection of ready-made yasnippet snippets

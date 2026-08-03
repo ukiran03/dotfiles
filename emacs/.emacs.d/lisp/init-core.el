@@ -69,8 +69,7 @@
   (setq sentence-end-without-period nil))
 
 (use-package abbrev
-  :straight (:type built-in)
-  :blackout abbrev-mode)
+  :straight (:type built-in))
 
 ;;; Core Modal Systems
 (use-package repeat
@@ -85,7 +84,6 @@
 
 (use-package autorevert
   :straight (:type built-in)
-  :blackout global-auto-revert-mode
   :hook (after-init . global-auto-revert-mode))
 
 (delete-selection-mode 1)
@@ -149,7 +147,6 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
 ;;; Third-Party Navigation & Editing Extensions
 (use-package beginend
   :straight t
-  :blackout beginend-global-mode
   :hook (after-init . beginend-global-mode))
 
 (use-package visual-regexp :straight t)
@@ -217,7 +214,6 @@ from `r/emacs/comments/1hwf46n/comment/m63mddk'"
 (use-package persistent-scratch
   :disabled
   :straight t
-  :blackout
   :hook ((after-init . persistent-scratch-autosave-mode)
          (lisp-interaction-mode . persistent-scratch-mode))
   :init

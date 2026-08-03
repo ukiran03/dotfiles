@@ -60,7 +60,6 @@
   :hook ((js-jsx-mode . emmet-mode)
          (tsx-ts-mode . emmet-mode)
          (web-mode    . emmet-mode))
-  :blackout (emmet-mode . " </>")
   :bind
   (:map emmet-mode-keymap
         ("C-<return>" . nil))
@@ -117,7 +116,6 @@
 ;; Prettier-Js (Using apheleia-mode instead via hooks)
 (use-package prettier-js
   :disabled
-  :blackout (prettier-js-mode . " ;")
   :config
   (setq prettier-js-args '("--trailing-comma" "all"
                            "--bracket-spacing" "true"

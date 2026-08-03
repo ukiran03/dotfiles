@@ -44,7 +44,6 @@
 ;; Emacs 30.1+ Built-in completion preview
 (use-package completion-preview
   :straight nil
-  :blackout
   :hook (prog-mode . completion-preview-mode))
 
 (use-package newcomment
@@ -53,23 +52,19 @@
 
 (use-package subword
   :straight nil
-  :blackout subword-mode
   :hook (prog-mode . subword-mode))
 
 (use-package page-break-lines
-  :blackout
   :hook (prog-mode . page-break-lines-mode))
 
 (use-package eldoc
   :straight nil
-  :blackout eldoc-mode
   :config
   (setq eldoc-echo-area-use-multiline-p t))
 
 ;; Format-all (Disabled in favor of apheleia)
 (use-package format-all
   :disabled
-  :blackout
   :commands format-all-mode
   :config
   (setq format-all-formatters
@@ -137,17 +132,17 @@
   (setopt puni-blink-region-face 'show-paren-match))
 
 (use-package aggressive-indent
-  :blackout
   :hook ((emacs-lisp-mode
           lisp-interaction-mode
           racket-mode
           scheme-mode) . aggressive-indent-mode))
 
 (use-package indent-bars
+  :straight t
+  :hook ((yaml-mode . indent-bars-mode)
+         (python-mode . indent-bars-mode))
   :custom
   (indent-bars-color '(font-lock-comment-face :face-bg nil :blend 0.4))
-  (indent-bars-color-by-depth '(:source-color t :factor 0.4))
-  (indent-bars-highlight-current-depth '(:source-color t :factor 0.8))
   (indent-bars-pattern " . . . . .")
   (indent-bars-width-frac 0.1)
   (indent-bars-pad-frac 0.1)
@@ -202,7 +197,6 @@
 ;;   :straight nil
 ;;   :defer t
 ;;   :vc (:url "https://github.com/AmaiKinono/clue")
-;;   :blackout (clue-mode . " #")
 ;;   :config
 ;;   (setq clue-auto-enable-modes '(prog-mode)))
 

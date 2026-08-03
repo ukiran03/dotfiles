@@ -10,6 +10,7 @@ emacs/.emacs.d/elpa/
 emacs/.emacs.d/data/
 emacs/.emacs.d/site-lisp/
 emacs/.emacs.d/var/
+!emacs/.emacs.d/straight/versions
 emacs/.emacs.d/places
 emacs/.emacs.d/recentf
 emacs/.emacs.d/history

@@ -6,17 +6,18 @@
 
 ;;; Code:
 
-(use-package python-ts-mode
+(use-package python
   :straight nil
+  :mode ("\\.py\\'" . python-ts-mode)
+  :interpreter ("python" . python-ts-mode)
   :hook ((python-ts-mode . apheleia-mode)
          (python-ts-mode . eglot-ensure)
          (python-ts-mode . indent-bars-mode)
          (python-ts-mode . symbol-overlay-mode))
-  :mode ("\\.py\\'" . python-ts-mode)
-  :interpreter ("python" . python-ts-mode))
+  :config
+  ;; Map standard python-mode to python-ts-mode if tree-sitter is available
+  (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode)))
 
-;; Remap all python buffers to tree-sitter mode
-(add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
 
 (provide 'init-python)
 ;;; init-python.el ends here

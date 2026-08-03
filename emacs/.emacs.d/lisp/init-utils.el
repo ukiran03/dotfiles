@@ -15,20 +15,6 @@
   (setq trashed-sort-key '("Date deleted" . t))
   (setq trashed-date-format "%Y-%m-%d %H:%M:%S"))
 
-(use-package blackout
-  :straight t
-  :config
-  (pcase-dolist (`(,mode . ,tag)
-                 '((lisp-interaction-mode . "λ")
-                   (python-mode           . "Py")
-                   (emacs-lisp-mode       . "Eλ")
-                   (sh-mode               . "SH")
-                   (js-jsx-mode           . "Js+JSX")
-                   (js-mode               . "Js")
-                   (racket-mode           . "RKT")
-                   (scheme-mode           . "λSCM")))
-    (blackout mode tag)))
-
 (use-package drag-stuff
   :straight t
   ;; :init (drag-stuff-global-mode 1)

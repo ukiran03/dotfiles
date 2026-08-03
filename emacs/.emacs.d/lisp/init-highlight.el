@@ -75,9 +75,8 @@
 ;; Efficient cursor jump reference highlights
 (use-package symbol-overlay
   :straight t
-  :blackout t
-  :init
-  (setq symbol-overlay-idle-time 0.1)
+  :custom
+  (symbol-overlay-idle-time 0.1)
   :bind (:map symbol-overlay-mode-map
               ("M-i"  . symbol-overlay-put)
               ("M-n"  . symbol-overlay-jump-next)
@@ -87,10 +86,10 @@
               ("M-C"  . symbol-overlay-remove-all)
               ([M-f3] . symbol-overlay-remove-all)))
 
+
 ;; In-buffer hex and literal color visualizer
 (use-package colorful-mode
   :straight t
-  :blackout t
   :init
   (setq colorful-use-prefix nil)
   ;; (setq colorful-prefix-string "⬤")

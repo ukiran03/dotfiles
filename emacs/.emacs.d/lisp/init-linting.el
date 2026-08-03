@@ -12,7 +12,7 @@
   :config
   (setq flymake-no-changes-timeout nil)
   (setq flymake-fringe-indicator-position 'right-fringe)
-  (setq flymake-mode-line-lighter "FY"))
+  (setq flymake-mode-line-lighter "fly"))
 
 ;; Flymake to check only after file save
 ;; github.com/joaotavora/eglot/issues/1296#issuecomment-1727978307
@@ -28,7 +28,6 @@
 
 (use-package jinx
   :straight t
-  :blackout
   :bind
   (([remap ispell-word] . jinx-correct)
    (:repeat-map jinx-repeat-map

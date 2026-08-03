@@ -38,8 +38,8 @@
   :straight nil
   :mode "\\.go\\'"
   :interpreter "go"
-  :hook ((go-ts-mode . symbol-overlay-mode)
-         (go-ts-mode . my/go-init-logic)
+  :hook ((go-ts-mode . my/go-init-logic)
+         (go-ts-mode . symbol-overlay-mode)
          (go-ts-mode . puni-mode)
          (go-ts-mode . apheleia-mode))
   :bind (:map go-ts-mode-map
@@ -116,7 +116,6 @@
 ;; Protocol Buffers & gRPC configs
 (use-package protobuf-mode
   :straight t
-  :blackout (protobuf-mode . "PBuf")
   :mode ("\\.proto\\'" . protobuf-mode)
   :hook ((protobuf-mode . eglot-ensure)
          (protobuf-mode . apheleia-mode))

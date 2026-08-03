@@ -34,7 +34,6 @@
   :disabled
   :straight t
   :if (display-graphic-p)
-  :blackout
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
