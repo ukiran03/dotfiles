@@ -1,1 +1,1 @@
-/home/ukiran/.local/bin/mailsync.sh
+/home/ukiran/.local/sbin/mailsync.sh

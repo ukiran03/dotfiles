@@ -27,7 +27,7 @@ Config
       , Run Com "sh" ["-c", "awk '/wlp3s0/ {print $2 + $10}' /proc/net/dev | numfmt --to=iec"] "netusage" 30
       , Run Memory [ "-t", "<fc=#6D8895>M</fc> <used>", "-d", "1"
                    , "--", "--scale", "1024"] 50
-      , Run Com "sh" ["-c", "datediff 2002-11-20 $(date +'%Y-%m-%d') -f '<fc=#0031a9>%yy %mm %dd</fc>'"] "age" 0
+      , Run Com "sh" ["-c", "datediff 2002-11-20 today -f '<fc=#0031a9>%yy %mm %dd</fc>'"] "age" 0
       , Run Com "sh" ["-c", "notmuch count 'tag:unread and tag:inbox'"] "notmuch" 6000 -- 30 min
       , Run Date "%a, %d %b %Y, <fc=#3f578f>%I:%M:%S %p (%R)</fc>" "date" 10
       , Run Com ".config/xmobar/scripts/trayer-padding-icon.sh" [] "trayerpad" 50

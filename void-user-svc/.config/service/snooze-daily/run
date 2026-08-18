@@ -2,7 +2,7 @@
 
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/snooze"
 STAMP_FILE="$CACHE_DIR/daily"
-CRON_DIR="$HOME/.local/bin/cron.daily"
+CRON_DIR="$HOME/.local/sbin/cron.daily"
 
 mkdir -p "$CACHE_DIR"
 

@@ -354,3 +354,5 @@ else
 	echo "Already using $mode theme. Use -f to force."
 	exit 0
 fi
+
+# killall trayer

@@ -56,7 +56,7 @@ format = '[(\($virtualenv\) )]($style)'
 
 [kubernetes]
 symbol = "k8s"
-format = "(\\($symbol [$context](cyan):[$namespace](bold fg:magenta)\\)) "
+format = "(\\($symbol [$context](fg:bright-purple):[$namespace](bold fg:bright-blue)\\)) "
 disabled = true
 contexts = [{ context_pattern = "k3d-k3s-default", context_alias = "k3s-default" },]
 

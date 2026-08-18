@@ -23,4 +23,4 @@ colorBgCompletion :: String = "#c0deff"
 colorText :: String = "#FFFFFF"
 
 colorTrayer :: String
-colorTrayer = "--tint 0xFFFFFFFF"
+colorTrayer = "0xf2f2f2"
