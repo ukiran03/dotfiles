@@ -6,61 +6,75 @@
 
 ;;; Code:
 
-(defvar hugo-base-dir "~/Git/blog/"
-  "Base directory for the Hugo blog.")
+(defun org-hugo-export-to-md-and-open ()
+  "Export the current Org buffer to Markdown and open the resulting file."
+  (interactive)
+  (org-open-file (org-hugo-export-to-md)))
 
-(defvar tag-list '("prog" "leetcode")
-  "Default list of available tags for Hugo posts.")
+(defvar-keymap my/hugo-command-map
+  :doc "Keymap for ox-hugo export commands."
+  :name "ox-hugo Export"
+  "h" '("Export to MD file" . org-hugo-export-to-md)
+  "o" '("Export to MD & Open" . org-hugo-export-to-md-and-open)
+  "t" '("Temporary MD Buffer" . org-hugo-export-as-md))
 
-(defvar categories-list '("codeblog" "personal")
-  "Default list of available categories for Hugo posts.")
+(use-package ox-hugo
+  :straight t
+  :after ox
+  :demand t)
 
-(defun today-is ()
-  "Return current date formatted for post filenames."
-  (format-time-string "%Y-%m-%d-"))
+(defcustom ox-hugo-base-dir "~/Git/blog/"
+  "Base directory for Hugo project."
+  :type 'directory
+  :group 'ox-hugo)
 
-(defun now-is ()
-  "Return current timestamp formatted for Hugo frontmatter."
-  (concat (format-time-string "%Y-%m-%dT%T")
-          ((lambda (x) (concat (substring x 0 3) ":" (substring x 3 5)))
-           (format-time-string "%z"))))
+(defvar ox-hugo-tag-list nil
+  "List of available tags for completion.")
+
+(defvar ox-hugo-category-list nil
+  "List of available categories for completion.")
 
 ;;;###autoload
 (defun uk-org-hugo-new-post ()
-  "Creates a new org file in Hugo's content/posts directory."
+  "Create a new Org file for ox-hugo in the 'org-content/' directory."
   (interactive)
-  (let* ((title (read-from-minibuffer "Title: "))
-         (tags (completing-read "Tags: " tag-list))
-         (categories (completing-read "Categories: " categories-list))
-         (filename
-          (read-from-minibuffer
-           "Filename: "
-           (replace-regexp-in-string
-            "-\\.org" ".org"
-            (concat (downcase
-                     (replace-regexp-in-string "[^a-z0-9]+" "-" title))
-                    ".org"))))
-         (blogfile (concat "posts/" (today-is) filename))
-         (url (concat "posts/"
-                      (today-is)
-                      (downcase
-                       (replace-regexp-in-string "[^a-z0-9]+" "-" title))))
-         (path (concat hugo-base-dir "content/" blogfile)))
+  (let* ((title (read-string "Title: "))
+         ;; Downcase first so regex correctly catches uppercase letters
+         (slug (downcase (replace-regexp-in-string "[^a-z0-9]+" "-" title)))
+         (clean-slug (replace-regexp-in-string "^-\\|-$" "" slug))
+
+         ;; Use completing-read-multiple if you want comma-separated tags/categories,
+         ;; or stick to standard completing-read if single-item is intended.
+         (tags (completing-read "Tags: " ox-hugo-tag-list))
+         (categories (completing-read "Category: " ox-hugo-category-list))
+
+         (default-filename (concat clean-slug ".org"))
+         (filename (read-string "Filename: " default-filename))
+
+         (date-prefix (format-time-string "%Y-%m-%d-"))
+         (blogfile (concat date-prefix filename))
+         (content-dir (expand-file-name "org-content/" ox-hugo-base-dir))
+         (path (expand-file-name blogfile content-dir)))
 
     (if (file-exists-p path)
-        (message "File already exists!")
-      (message blogfile)
-      (switch-to-buffer (generate-new-buffer blogfile))
-      (insert "#+TITLE: " title)
-      (insert "\n#+DATE: " (now-is))
-      (insert "\n#+TYPE: posts")
-      (insert "\n#+URL: /" url "/")
-      (insert "\n#+CATEGORIES: " categories)
-      (insert "\n#+TAGS[]: " tags)
-      (insert "\n#+DRAFT: true\n\n")
-      (org-mode)
-      (write-file path)
-      (goto-char (point-max)))))
+        (message "File already exists: %s" path)
+      ;; Open/create the file directly
+      (progn
+        (find-file path)
+        (org-mode)
+        ;; Insert standard Hugo / Org headers
+        (insert (format "#+TITLE: %s\n" title)
+                (format "#+DATE: %s\n" (format-time-string "%Y-%m-%dT%T%:z"))
+                (format "#+HUGO_CATEGORIES: %s\n" categories)
+                (format "#+HUGO_TAGS: %s\n" tags)
+                (format "#+HUGO_BUNDLE: %s\n" clean-slug)
+                "#+EXPORT_FILE_NAME: index\n"
+                "#+DRAFT: true\n"
+                "#+DESCRIPTION: ")
+        ;; Save the newly created file immediately
+        (save-buffer)
+        (goto-char (point-max))
+        (message "Created new post at: %s" path)))))
 
 (provide 'init-hugo)
 ;;; init-hugo.el ends here
