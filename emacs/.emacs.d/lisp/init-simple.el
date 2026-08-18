@@ -14,19 +14,45 @@
 
 (use-package simple
   :straight nil
-  :bind (("C-S-w" . uk-simple-copy-line)
-         ("C-w" . uk-kill-region)
-         ("C-z" . nil)
-         ("<f2>" . nil)
-         ("C-<return>" . dwim-new-line)
-         ("S-SPC" . uk-insert-space-after-cursor)
-         ("C-S-<backspace>" . uk-kill-whole-line)
-         ("C-y" . uk-smart-yank)
-         ("H-q" . read-only-mode)
-         ("H-Q" . view-mode))
+  :diminish visual-line-mode
+  :bind
+  (("C-S-w" . uk-simple-copy-line)
+   ("C-w" . uk-kill-region)
+   ("C-z" . nil)
+   ("<f2>" . nil)
+   ("C-<return>" . dwim-new-line)
+   ("S-SPC" . uk-insert-space-after-cursor)
+   ("C-S-<backspace>" . uk-kill-whole-line)
+   ("C-y" . uk-smart-yank)
+   ("C-|" . shell-command-on-buffer)
+   ("H-q" . read-only-mode)
+   ("H-Q" . view-mode))
+  :hook
+  ((text-mode . visual-line-mode)
+   (prog-mode . enable-trailing-whitespace)
+   (markdown-mode . enable-trailing-whitespace)
+   (conf-mode . enable-trailing-whitespace))
+  :init
+  (setq track-eol t) ; Keep cursor at end of lines. Requires line-move-visual nil.
+  (setq kill-whole-line t) ; Kill line including '\n'
+  (setq line-move-visual nil)
+  (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
   :config
+  ;;  Whitespace Management
+  (defun enable-trailing-whitespace ()
+    "Show trailing spaces and delete on saving."
+    (setq show-trailing-whitespace t)
+    (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
+
+  (defun uk-toggle-show-trailing-whitespace ()
+    "Toggle `show-trailing-whitespace' in the current buffer."
+    (interactive)
+    (setq show-trailing-whitespace (not show-trailing-whitespace))
+    (message "show-trailing-whitespace set to: %s" show-trailing-whitespace))
+
+  ;;  Editing & Movement Enhancements
   (defun uk-insert-space-after-cursor ()
-    "Inserts a space after the cursor without moving the point."
+    "Insert a space after the cursor without moving the point."
     (interactive)
     (save-excursion
       (insert " ")))
@@ -38,10 +64,9 @@
     (pulse-momentary-highlight-region (line-beginning-position) (line-end-position)))
 
   (defun uk-smart-yank (arg)
-    "Wrapper for `yank`.
-With no prefix argument, it behaves like a normal `yank`.  With a
-standard prefix argument `C-u` (ARG is '(4)), it replaces the current
-line."
+    "Wrapper for `yank'. With no prefix argument, it behaves like a normal
+`yank'. With a standard prefix argument `C-u' (ARG is '(4)), it replaces
+the current line."
     (interactive "P")
     (if (equal arg '(4))
         ;; If C-u was pressed, replace the current line
@@ -51,34 +76,30 @@ line."
           (yank)
           ;; Ensure the yanked text stays neatly on its own line
           (unless (string-suffix-p "\n" (current-kill 0))
-            (insert "\n"))
-          )
+            (insert "\n")))
       ;; Otherwise, perform a standard yank
       (yank arg)))
 
-  ;; This restores the built-in active-mark/delete-selection features
+  ;; Restores the built-in active-mark/delete-selection features
   (put 'uk-smart-yank 'delete-selection 'yank)
 
   (defun dwim-new-line (&optional arg)
     "Insert newline(s) at end of line.
-With ARG > 0, insert ARG newlines after current line.
-With ARG < 0, insert |ARG| newlines after previous line.
-If ARG is nil, insert one newline after current line."
+With ARG > 0, insert ARG newlines after current line.  With ARG < 0,
+insert |ARG| newlines after previous line.  If ARG is nil, insert one
+newline after current line."
     (interactive "P")
-    ;; Default to 1 if no arg given
     (let ((n (prefix-numeric-value arg)))
       (when (< n 0)
         (forward-line -1)
-        ;; (beginning-of-line)
-        ;; (open-line 0)
         (setq n (- n)))
       (end-of-line)
       (newline n t)))
 
   (defun uk-kill-whole-line (&optional arg)
     "If the region is active, delete all whole lines under the region.
-With prefix ARG, act as normal `kill-whole-line'
-If the region is not active, `kill-whole-line' line at the point."
+With prefix ARG, act as normal `kill-whole-line'.  If the region is not
+active, `kill-whole-line' at the point."
     (interactive "p")
     (if (region-active-p)
         (let ((start (save-excursion
@@ -91,33 +112,24 @@ If the region is not active, `kill-whole-line' line at the point."
       (kill-whole-line arg)))
 
   (defun uk-kill-region ()
+    "Kill region only if it is active."
     (interactive)
     (when (use-region-p)
-      (kill-region (region-beginning) (region-end)))))
+      (kill-region (region-beginning) (region-end))))
 
-(use-package simple
-  :straight nil
-  :diminish visual-line-mode
-  :hook ((text-mode . visual-line-mode)
-         (prog-mode . enable-trailing-whitespace)
-         (markdown-mode . enable-trailing-whitespace)
-         (conf-mode . enable-trailing-whitespace))
-  :init
-  (setq kill-whole-line t ; Kill line including '\n'
-        track-eol t ; Keep cursor at end of lines. Requires line-move-visual nil.
-        line-move-visual nil)
-  (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
-  :config
-  (defun enable-trailing-whitespace ()
-    "Show trailing spaces and delete on saving."
-    (setq show-trailing-whitespace t)
-    (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
-
-  (defun uk-toggle-show-trailing-whitespace ()
-    "Toggle show-trailing-whitespace in the current buffer."
-    (interactive)
-    (setq show-trailing-whitespace (not show-trailing-whitespace))
-    (message "show-trailing-whitespace set to: %s" show-trailing-whitespace)))
+  (defun shell-command-on-buffer (command &optional replace)
+    "Execute `shell-command-on-region' on the entire current buffer.
+With a prefix argument (C-u), replace the buffer contents with the output."
+    (interactive
+     (list (read-shell-command "Shell command on buffer: ")
+           current-prefix-arg))
+    (if replace
+        (shell-command-on-region (point-min) (point-max) command
+                                 (current-buffer) t
+                                 shell-command-default-error-buffer t)
+      (shell-command-on-region (point-min) (point-max) command
+                               nil nil
+                               shell-command-default-error-buffer t))))
 
 (use-package display-line-numbers
   :straight nil

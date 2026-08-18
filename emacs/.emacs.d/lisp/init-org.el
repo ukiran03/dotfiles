@@ -220,13 +220,13 @@ Produces fixed-length, perfectly aligned dates."
   :hook ((org-agenda-finalize . org-modern-agenda))
   :config
   (setq org-modern-star 'replace
-        org-modern-replace-stars "✳"
+        org-modern-replace-stars "◉"    ;"✳"
         org-modern-checkbox nil
         org-modern-tag nil
         org-modern-progress nil
         org-modern-label-border nil
         org-modern-timestamp nil
-        org-modern-table nil
+        org-modern-table t
         org-modern-priority nil
         org-modern-horizontal-rule t
         org-modern-todo nil

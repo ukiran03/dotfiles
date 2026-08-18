@@ -30,15 +30,19 @@
 
 ;; Theme Configurations
 (use-package modus-themes
-  :straight t
+  :straight (modus-themes
+             :type git :host github :repo "protesilaos/modus-themes"
+             :fork (:host github :repo "ukiran03/modus-themes"))
   :demand t
   :custom
   (modus-themes-bold-constructs nil)
   (modus-themes-italic-constructs t)
   (modus-themes-mixed-fonts nil)
-  ;; (modus-themes-completions '((t . (extrabold)))) FIXME: hardcoded in src
-  ;; (modus-themes-prompts '(extrabold))
   (modus-themes-to-toggle '(modus-operandi modus-vivendi-tinted))
+
+  ;; NOTE: Depricated (hardcoded in the source meanwhile)
+  ;; (modus-themes-prompts '(extrabold))
+
   ;; Palette overrides
   (modus-themes-common-palette-overrides
    '((border-mode-line-active unspecified)

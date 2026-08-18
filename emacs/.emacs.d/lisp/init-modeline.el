@@ -334,7 +334,7 @@ With optional FACE, use it to propertize the BRANCH."
     (scheme-mode           . "λSCM")
     (protobuf-mode         . "PBuf")
     (emmet-mode            . " </>")
-    (org-mode              . ,(propertize "ORG" 'face 'success)))
+    (org-mode              . ,(propertize "Org" 'face 'success)))
   "Alist for `clean-mode-line'.
 
   ; ;; When you add a new element to the alist, keep in mind that you
@@ -351,6 +351,7 @@ With optional FACE, use it to propertize the BRANCH."
                 ;; major mode
                 (when (eq mode major-mode)
                   (setq mode-name mode-str)))))
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
 (provide 'init-modeline)
 ;;; init-modeline.el ends here

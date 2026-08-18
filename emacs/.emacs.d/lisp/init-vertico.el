@@ -35,17 +35,21 @@
   :init
   (vertico-multiform-mode 1)
   :config
+  ;; Target general categories
   (setq vertico-multiform-categories
         '((jinx grid (vertico-grid-annotate . 20))
+          (consult-grep buffer)
+          (locate buffer)
           (t reverse)))
 
+  ;; Target specific commands that share the file category
   (setq vertico-multiform-commands
-        '((consult-grep buffer)
-          (consult-git-grep buffer)
-          (consult-ripgrep buffer)
-          (consult-locate buffer)
-          (consult-find buffer)
-          (consult-fd buffer))))
+        '((consult-line t)
+          (consult-imenu buffer indexed)
+          (consult-outline buffer indexed)
+          (consult-find buffer indexed)
+          (consult-fd buffer indexed)
+          (consult-locate buffer indexed))))
 
 ;;; Multiform Key-chord Reminders:
 ;; M-B -> `vertico-multiform-buffer'

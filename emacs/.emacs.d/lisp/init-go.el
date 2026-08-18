@@ -16,16 +16,11 @@
   :straight t
   :defer t
   :commands (godef-jump
-             godef-jump-other-window
-             godef-describe
-             go-import-add
-             go-goto-arguments
-             go-goto-docstring
-             go-goto-function
-             go-goto-imports
-             go-goto-method-receiver
-             go-goto-function-name
-             go-goto-return-values))
+             godef-jump-other-window godef-describe
+             go-import-add go-goto-arguments
+             go-goto-docstring go-goto-function
+             go-goto-imports go-goto-method-receiver
+             go-goto-function-name go-goto-return-values))
 
 (use-package gotest
   :straight t
@@ -126,17 +121,18 @@
                  '(protobuf-mode . ("buf" "lsp" "serve")))))
 
 ;; Tempel Snippets
-(use-package tempel
-  :straight t
-  :init
-  (defun my-golang-templates ()
-    '((go "go func() {" n> q n> "}()")
-      (defer "defer func() {" n> q n> "}()")))
+;; (use-package tempel
+;;   :straight t
+;;   :init
+;;   (defun my-golang-templates ()
+;;     '((go "go func() {" n> q n> "}()")
+;;       (defer "defer func() {" n> q n> "}()")))
 
-  :config
-  (add-hook 'go-ts-mode-hook
-            (lambda ()
-              (setq-local tempel-sources (cons #'my-golang-templates tempel-sources)))))
+;;   :config
+;;   (add-hook 'go-ts-mode-hook
+;;             (lambda ()
+;;               (setq-local tempel-sources
+;;                           (cons #'my-golang-templates tempel-sources)))))
 
 (provide 'init-go)
 
