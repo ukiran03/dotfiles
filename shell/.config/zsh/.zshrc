@@ -66,9 +66,17 @@ bindkey '^[[63;6~' redo
 
 # Multi-line Command Line Editing (Ctrl-X Ctrl-E)
 autoload -U edit-command-line
+edit-command-line-and-redraw-prompt () {
+    zle edit-command-line
+    zle reset-prompt # redraw to fix mess of prompt and input text.
+    zle end-of-buffer-or-history # move cursor to the end of input.
+}
+# load both widgets
 zle -N edit-command-line
-bindkey '^xe' edit-command-line
-bindkey '^x^e' edit-command-line
+zle -N edit-command-line-and-redraw-prompt
+
+# Use Ctrl-x-Ctrl-e to edit command line
+bindkey '^x^e' edit-command-line-and-redraw-prompt
 
 # ==============================================================================
 # COMPLETIONS (Fast Init)
@@ -109,8 +117,22 @@ fi
 # ==============================================================================
 # INTEGRATIONS & TOOLS
 # ==============================================================================
+
+# Custom Widgets
+
+# Copy current command buffer to clipboard (Linux / X11)
+function copy-buffer-to-clipboard() {
+  echo -n "$BUFFER" | xclip -selection clipboard
+  zle -M "Copied to clipboard"
+}
+zle -N copy-buffer-to-clipboard
+bindkey '^Xy' copy-buffer-to-clipboard
+
 # Aliases
 alias rm="trash-put -v"
+
+# Suffix Aliases
+alias -s md=bat # Just type the filename to open it with the associated program
 
 # Tmux Pane Rename Helper
 rename_tmux_pane_to_cwd() {
