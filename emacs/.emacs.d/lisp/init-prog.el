@@ -57,6 +57,14 @@
 (use-package page-break-lines
   :hook (prog-mode . page-break-lines-mode))
 
+(use-package dumb-jump
+  :straight t
+  :custom
+  (dumb-jump-prefer-searcher 'rg)
+  (xref-show-definitions-function #'consult-xref)
+  :config
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+
 (use-package eldoc
   :straight nil
   :config
@@ -80,6 +88,10 @@
         '("clang-format" "--style={IndentWidth: 4}"))
   (setf (alist-get 'hindent apheleia-formatters)
         '("hindent"))
+  (setf (alist-get 'typstyle apheleia-formatters)
+        '("typstyle" "--indent-width=4"))
+
+  (setf (alist-get 'typst-ts-mode apheleia-mode-alist) '(typstyle))
   (setf (alist-get 'haskell-mode apheleia-mode-alist) '(hindent))
   (setf (alist-get 'elm-mode apheleia-mode-alist) '(elm-format)))
 

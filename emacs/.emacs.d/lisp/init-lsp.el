@@ -13,7 +13,8 @@
     (setq eldoc-documentation-strategy
           'eldoc-documentation-compose-eagerly))
 
-  :hook ((eglot-managed-mode . my/eglot-eldoc-settings)
+  :hook (
+         ;; (eglot-managed-mode . my/eglot-eldoc-settings)
          (eglot-managed-mode . (lambda ()
                                  (setq-local project-mode-line
                                              (not

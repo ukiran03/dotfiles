@@ -23,12 +23,34 @@
 (use-package yaml-mode
   :straight t
   :hook ((yaml-mode . indent-bars-mode)
-         (yaml-mode . symbol-overlay-mode)))
+         (yaml-mode . symbol-overlay-mode)
+         (yaml-mode . subword-mode)))
 ;; (add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
 
 (use-package conf-xdefaults-mode
   :straight (:type built-in)
   :mode "\\`\\(xresources\\|xmodmap\\)\\'")
+
+(use-package haskell-mode
+  :straight t)
+
+(use-package typst-ts-mode
+  :straight t
+  :hook ((typst-ts-mode . apheleia-mode)
+         (typst-ts-mode . eglot-ensure))
+  :config
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '((typst-ts-mode) . ("tinymist" "lsp")))
+    (setq eglot-workspace-configuration
+          '((tinymist . (:exportPdf "onSave"
+                                    :formatterMode "typstyle")))))
+  :init
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (when (derived-mode-p 'typst-ts-mode)
+                (setq-local eldoc-documentation-strategy
+                            'eldoc-documentation-default)))))
 
 (provide 'init-langs)
 ;;; init-langs.el ends here
