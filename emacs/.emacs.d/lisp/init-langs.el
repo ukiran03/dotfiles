@@ -52,5 +52,21 @@
                 (setq-local eldoc-documentation-strategy
                             'eldoc-documentation-default)))))
 
+(use-package mermaid-mode
+  :straight t)
+
+(use-package elixir-ts-mode
+  :straight (:type built-in))
+
+(use-package inf-elixir
+  :straight t
+  ;; :bind (("C-c i i" . 'inf-elixir)
+  ;;        ("C-c i p" . 'inf-elixir-project)
+  ;;        ("C-c i l" . 'inf-elixir-send-line)
+  ;;        ("C-c i r" . 'inf-elixir-send-region)
+  ;;        ("C-c i b" . 'inf-elixir-send-buffer)
+  ;;        ("C-c i R" . 'inf-elixir-reload-module))
+  )
+
 (provide 'init-langs)
 ;;; init-langs.el ends here

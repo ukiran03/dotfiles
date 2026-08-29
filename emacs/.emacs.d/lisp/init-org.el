@@ -209,6 +209,8 @@ Produces fixed-length, perfectly aligned dates."
 
   (use-package ob-go
     :init (cl-pushnew '(go . t) load-language-alist))
+  (use-package ob-mermaid
+    :straight t)
 
   (org-babel-do-load-languages 'org-babel-load-languages load-language-alist))
 

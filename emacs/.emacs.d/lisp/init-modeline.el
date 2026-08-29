@@ -71,6 +71,7 @@
               '("%e"
                 uk-modeline-kbd-macro
                 uk-modeline-narrow
+                uk-modeline-zoom
                 uk-modeline-remote-file
                 uk-modeline-buffer-status
                 uk-modeline-window-dedicated
@@ -114,6 +115,15 @@ to the current window's mode line.")
         (propertize " ⥮" 'face 'uk-modeline-bold-blue-face)))
   "Mode line construct to display a narrowed buffer indicator.")
 (put 'uk-modeline-narrow 'risky-local-variable t)
+
+;;;; Zoom Window
+(defvar-local uk-modeline-zoom
+    '(:eval
+      (when (and (fboundp 'zoom-window--enable-p)
+                 (zoom-window--enable-p))
+        (propertize " Z𜲋" 'face 'uk-modeline-bold-blue-face)))
+  "Mode line construct to display zoom-window indicator.")
+(put 'uk-modeline-zoom 'risky-local-variable t)
 
 ;;;; Flymake errors, warnings, notes
 

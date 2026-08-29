@@ -177,12 +177,14 @@
     (rg regexp files dir))
 
   (defun hl-todo-rg-project ()
-    "Use `rg' to find all TODO or similar keywords in current project."
+    "Use `rg' to find all TODO: or similar keywords with punctuation in current project."
     (interactive)
     (unless (require 'rg nil t)
       (user-error "`rg' package is not installed"))
-    (rg-project
-     (replace-regexp-in-string "\\\\[<>]*" "" (hl-todo--regexp)) "everything")))
+    (let* ((raw-regex (hl-todo--regexp))
+           ;; Strip Emacs symbol/word boundaries and clean up syntax for ripgrep
+           (clean-regex (replace-regexp-in-string "\\\\_<\\|\\\\_>\\|\\\\[<>]*" "" raw-regex)))
+      (rg-project clean-regex "everything"))))
 
 (provide 'init-highlight)
 

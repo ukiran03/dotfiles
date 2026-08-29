@@ -13,7 +13,6 @@
 
 ;; Group ibuffer's list by project
 (use-package ibuffer-project
-  :disabled
   :autoload (ibuffer-project-generate-filter-groups
              ibuffer-do-sort-by-project-file-relative)
   :functions icons-displayable-p

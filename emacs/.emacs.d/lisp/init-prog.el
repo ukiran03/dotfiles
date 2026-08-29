@@ -95,6 +95,13 @@
   (setf (alist-get 'haskell-mode apheleia-mode-alist) '(hindent))
   (setf (alist-get 'elm-mode apheleia-mode-alist) '(elm-format)))
 
+(use-package apheleia
+  :straight t
+  :config
+  ;; Enable for standard elixir-mode and tree-sitter variant
+  (add-to-list 'apheleia-mode-alist '(elixir-mode . mix-format))
+  (add-to-list 'apheleia-mode-alist '(elixir-ts-mode . mix-format)))
+
 ;; Click to browse URL or to send to e-mail address
 (use-package goto-addr
   :straight nil

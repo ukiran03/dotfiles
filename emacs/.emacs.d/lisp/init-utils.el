@@ -31,5 +31,8 @@
   (unless (file-exists-p find-temp-file-directory)
     (make-directory find-temp-file-directory t)))
 
+(use-package caps-lock
+  :straight t)
+
 (provide 'init-utils)
 ;;; init-utils.el ends here
