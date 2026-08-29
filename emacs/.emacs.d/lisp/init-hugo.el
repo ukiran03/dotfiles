@@ -1,8 +1,8 @@
-;;; init-hugo.el --- Hugo Blog Post Automation Engine -*- lexical-binding: t -*-
+;;; init-hugo.el --- Hugo Blog Post Automation Workflow -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;; Scaffolds new Hugo blog posts in Org-mode with automated dates, titles, tags,
-;; categories, and URL slugs.
+;; Scaffolds new Hugo blog posts in Org-mode with automated dates, titles,
+;; tags, categories, and URL slugs using `ox-hugo'.
 
 ;;; Code:
 
@@ -31,7 +31,7 @@
 (defvar ox-hugo-tag-list nil
   "List of available tags for completion.")
 
-(defvar ox-hugo-category-list nil
+(defvar ox-hugo-category-list '("Personal" "Codeblog" "Notes")
   "List of available categories for completion.")
 
 ;;;###autoload
@@ -53,6 +53,7 @@
 
          (date-prefix (format-time-string "%Y-%m-%d-"))
          (blogfile (concat date-prefix filename))
+         (bundle (file-name-sans-extension (file-name-nondirectory blogfile)))
          (content-dir (expand-file-name "org-content/" ox-hugo-base-dir))
          (path (expand-file-name blogfile content-dir)))
 
@@ -65,9 +66,10 @@
         ;; Insert standard Hugo / Org headers
         (insert (format "#+TITLE: %s\n" title)
                 (format "#+DATE: %s\n" (format-time-string "%Y-%m-%dT%T%:z"))
+                (format "#+HUGO_TYPE: posts\n")
                 (format "#+HUGO_CATEGORIES: %s\n" categories)
                 (format "#+HUGO_TAGS: %s\n" tags)
-                (format "#+HUGO_BUNDLE: %s\n" clean-slug)
+                (format "#+HUGO_BUNDLE: %s\n" bundle)
                 "#+EXPORT_FILE_NAME: index\n"
                 "#+DRAFT: true\n"
                 "#+DESCRIPTION: ")
