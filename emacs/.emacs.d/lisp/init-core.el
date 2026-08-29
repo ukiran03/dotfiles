@@ -14,6 +14,7 @@
   ;; Window, Resize, and Frame settings
   (setq frame-inhibit-implied-resize nil)
   (setq initial-scratch-message nil)
+  (setq inhibit-startup-screen t)
   (setq help-window-select t)
   (setq frame-title-format
         '("%b" (:eval (let ((host (file-remote-p default-directory 'host)))
