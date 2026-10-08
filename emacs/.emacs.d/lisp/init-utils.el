@@ -5,6 +5,9 @@
 
 ;;; Code:
 
+(use-package emamux
+  :straight t)
+
 (use-package trashed
   :disabled
   :straight t

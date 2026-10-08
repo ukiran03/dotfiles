@@ -43,28 +43,30 @@
         comp-deferred-compilation-black-list '("/mu4e.*\\.el$")))
 
 ;;; Load Path Configuration
-
 (defun update-load-path (&rest _)
   "Update `load-path` to force primary lisp directories to the front."
   (dolist (dir '("site-lisp" "lisp"))
     (push (expand-file-name dir user-emacs-directory) load-path)))
 
-(defun add-subdirs-to-load-path (&rest _)
-  "Recursively add subdirectories in `site-lisp` to `load-path`.
-Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
-  (let ((default-directory (expand-file-name "site-lisp" user-emacs-directory)))
-    (normal-top-level-add-subdirs-to-load-path)))
-
 ;; Run path updates immediately for built-in/pre-loaded configuration
 (update-load-path)
-(add-subdirs-to-load-path)
 
 ;; Typography & Fonts
+
+;; (dolist (face '(default fixed-pitch variable-pitch))
+;;   (set-face-attribute face nil
+;;                       :family "Iosevka Medium"
+;;                       :height 140))
 
 (dolist (face '(default fixed-pitch variable-pitch))
   (set-face-attribute face nil
                       :family "Iosevka Medium"
-                      :height 140))
+                      :height 170))
+
+;; (dolist (face '(default fixed-pitch variable-pitch))
+;;   (set-face-attribute face nil
+;;                       :family "Iosevka Medium"
+;;                       :height 127))
 
 ;;; Core Architecture Modules
 
@@ -116,6 +118,7 @@ Avoid placing large files like EAF in `site-lisp` to prevent slow startup."
 (require 'init-dape)
 (require 'init-python)
 (require 'init-go)
+(require 'init-java)
 (require 'init-c)
 (require 'init-db)
 (require 'init-web)

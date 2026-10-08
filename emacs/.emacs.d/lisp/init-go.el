@@ -91,9 +91,25 @@
   (setf (alist-get 'protobuf-mode apheleia-mode-alist) '(buf-fmt))
   (setf (alist-get 'templ-ts-mode apheleia-mode-alist) '(templ-fmt)))
 
+;; (use-package templ-ts-mode
+;;   :straight t
+;;   :mode ("\\.templ\\'" . templ-ts-mode)
+;;   :hook ((templ-ts-mode . eglot-ensure)
+;;          (templ-ts-mode . apheleia-mode)
+;;          (templ-ts-mode . emmet-mode))
+;;   :config
+;;   (with-eval-after-load 'eglot
+;;     (defvar eglot-server-programs)
+;;     (add-to-list 'eglot-server-programs
+;;                  '(templ-ts-mode . ("templ" "lsp")))))
+
+;; Compatibility stubs for older Emacs versions lacking recent go-ts-mode internal functions
+
 (use-package templ-ts-mode
-  :straight t
+  :straight (:host github :repo "ukiran03/templ-ts-mode")
   :mode ("\\.templ\\'" . templ-ts-mode)
+  :preface
+  (require 'go-ts-mode)
   :hook ((templ-ts-mode . eglot-ensure)
          (templ-ts-mode . apheleia-mode)
          (templ-ts-mode . emmet-mode))
@@ -121,18 +137,19 @@
                  '(protobuf-mode . ("buf" "lsp" "serve")))))
 
 ;; Tempel Snippets
-;; (use-package tempel
-;;   :straight t
-;;   :init
-;;   (defun my-golang-templates ()
-;;     '((go "go func() {" n> q n> "}()")
-;;       (defer "defer func() {" n> q n> "}()")))
+(use-package tempel
+  :straight t
+  ;; :init
+  ;; (defun my-golang-templates ()
+  ;;   '((go "go func() {" n> q n> "}()")
+  ;;     (defer "defer func() {" n> q n> "}()")))
 
-;;   :config
-;;   (add-hook 'go-ts-mode-hook
-;;             (lambda ()
-;;               (setq-local tempel-sources
-;;                           (cons #'my-golang-templates tempel-sources)))))
+  ;; :config
+  ;; (add-hook 'go-ts-mode-hook
+  ;;           (lambda ()
+  ;;             (setq-local tempel-sources
+  ;;                         (cons #'my-golang-templates tempel-sources))))
+  )
 
 (provide 'init-go)
 

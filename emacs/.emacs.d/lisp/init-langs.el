@@ -68,5 +68,21 @@
   ;;        ("C-c i R" . 'inf-elixir-reload-module))
   )
 
+(use-package rust-mode
+  :straight t
+  :init
+  (defvar rust-indent-offset 4)
+  (setq rust-mode-treesitter-derive t)
+  :custom
+  (rust-format-on-save t)
+  :hook (rust-mode . eglot-ensure)
+  :bind (:map rust-mode-map
+              ("<f1>" . compile)))
+
+(use-package gleam-ts-mode
+  :straight t
+  :ensure t
+  :mode (rx ".gleam" eos))
+
 (provide 'init-langs)
 ;;; init-langs.el ends here

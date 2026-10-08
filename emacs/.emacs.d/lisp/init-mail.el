@@ -26,7 +26,7 @@
             :query "tag:flagged"
             :key "f")
           ( :name "sent"
-            :query "tag:sent"
+            :query "from:ushakiranreddi@gmail.com or from:reddiushakiran@gmail.com"
             :sort-order newest-first
             :key "t")
           ( :name "drafts"

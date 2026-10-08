@@ -2,138 +2,786 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Wed Dec 18 22:23:38 2024
+;; Created Wed Sep 16 22:26:24 2026
 ;; Desktop file format version 208
-;; Emacs version 30.0.92
+;; Emacs version 31.1
 
 ;; Global section:
-(setq desktop-saved-frameset [frameset 1 (26466 65042 249908 160000) (desktop . "208") "ukiran@arch" nil nil ((((minibuffer . t) (undecorated) (override-redirect) (font . "-UKWN-Uosevka-medium-normal-normal-*-13-*-*-*-d-0-iso10646-1") (border-width . 0) (internal-border-width . 0) (child-frame-border-width) (right-divider-width . 0) (bottom-divider-width . 0) (vertical-scroll-bars) (horizontal-scroll-bars) (foreground-color . "#A0B3C5") (background-color . "#1D252C") (mouse-color . "black") (border-color . "black") (screen-gamma) (line-spacing) (left-fringe . 8) (right-fringe . 8) (no-special-glyphs) (scroll-bar-foreground) (scroll-bar-background) (menu-bar-lines . 0) (tab-bar-lines . 1) (tool-bar-lines . 0) (title) (wait-for-wm . t) (tool-bar-position . top) (inhibit-double-buffering) (icon-type . t) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 16) (scroll-bar-height . 16) (alpha) (alpha-background . 100) (no-focus-on-map) (no-accept-focus) (fullscreen) (visibility . t) (use-frame-synchronization) (skip-taskbar) (z-group) (cursor-color . "#5EC4FF") (display-type . color) (background-mode . dark) (font-parameter) (sticky) (shaded) (environment) (last-focus-update) (tabs (tab (name . "init-check.el") (explicit-name) (time . 1734539892.2455976) (ws ((min-height . 4) (min-width . 20) (min-height-ignore . 3) (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 68) (min-pixel-width . 160) (min-pixel-height-ignore . 51) (min-pixel-width-ignore . 64) (min-pixel-height-safe . 17) (min-pixel-width-safe . 32)) hc (pixel-width . 1906) (pixel-height . 1010) (total-width . 238) (total-height . 59) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 954) (pixel-height . 1010) (total-width . 119) (total-height . 59) (normal-height . 1.0) (normal-width . 0.5) (parameters (context "emacs-todo.org" (front-context-string . "\n*** few command") (rear-context-string . "\n** DONE Consult"))) (buffer "emacs-todo.org" (selected) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 33) (start . 1)) (prev-buffers ("org-test.el" 1 1) ("init-package.el" 1 165) ("*dashboard*" 1 1) ("*scratch*" 1 836))) (leaf (last . t) (pixel-width . 952) (pixel-height . 1010) (total-width . 119) (total-height . 59) (normal-height . 1.0) (normal-width . 0.5) (parameters (context "init-check.el" (front-context-string . ";; :init\n  ;; (k") (rear-context-string . "x-previous)))\n  "))) (buffer "init-check.el" (selected . t) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 743) (start . 1)) (prev-buffers ("init-org.el" 1 1324))))) (current-tab (name . "prot-scratch.el") (explicit-name))) (frameset--id . "BC80-448C-B5E6-00D3") (frameset--mini t . t) (modeline . t) (unsplittable) (icon-name) (display . ":0") (explicit-name) (dnd-root-window-position) (height . 60) (width . 236) (left . 4) (top . 26)) ((min-height . 4) (min-width . 20) (min-height-ignore . 3) (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 68) (min-pixel-width . 160) (min-pixel-height-ignore . 51) (min-pixel-width-ignore . 64) (min-pixel-height-safe . 17) (min-pixel-width-safe . 32)) hc (pixel-width . 1906) (pixel-height . 1009) (total-width . 238) (total-height . 59) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 948) (pixel-height . 1009) (total-width . 118) (total-height . 59) (normal-height . 1.0) (normal-width . 0.49684210526315786) (parameters (context)) (buffer "prot-emacs.org" (selected) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 323956) (start . 323956)) (prev-buffers ("prot-emacs.org" 323956 323956) ("*dashboard*" 1 1) ("emacs-todo.org" 1 33) ("org-test.el" 1 1) ("init-package.el" 1 165) ("*scratch*" 1 836))) (leaf (last . t) (pixel-width . 958) (pixel-height . 1009) (total-width . 120) (total-height . 59) (normal-height . 1.0) (normal-width . 0.5031578947368421) (buffer "prot-scratch.el" (selected . t) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 3036) (start . 1742)) (prev-buffers ("prot-emacs-essentials.el" 4962 6150) ("prot-org.el" 16936 17622)))))])
+(setq desktop-saved-frameset [frameset 1 (27306 51768 760435 104000) (desktop . "208") "ukiran@void" nil nil ((((minibuffer . t) (undecorated) (override-redirect) (font . "-UKWN-Iosevka-medium-normal-normal-*-17-*-*-*-d-0-iso10646-1") (border-width . 0) (internal-border-width . 0) (child-frame-border-width) (right-divider-width . 0) (bottom-divider-width . 0) (vertical-scroll-bars) (horizontal-scroll-bars) (foreground-color . "#ffffff") (background-color . "#0d0e1c") (mouse-color . "black") (border-color . "black") (screen-gamma) (line-spacing) (left-fringe . 8) (right-fringe . 8) (no-special-glyphs) (scroll-bar-foreground . "#61647a") (scroll-bar-background . "#0d0e1c") (menu-bar-lines . 0) (tab-bar-lines . 0) (tool-bar-lines . 0) (title) (wait-for-wm . t) (tool-bar-position . top) (inhibit-double-buffering) (icon-type . t) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 16) (scroll-bar-height . 16) (alpha) (alpha-background) (borders-respect-alpha-background) (no-focus-on-map) (no-accept-focus) (fullscreen) (visibility . t) (use-frame-synchronization) (skip-taskbar) (z-group) (cursor-color . "#ff66ff") (display-type . color) (background-mode . dark) (font-parameter) (environment) (dnd-root-window-position) (last-focus-update . t) (zoom-window-buffers "Unprintable entity" "Unprintable entity") (zoom-window-enabled) (sticky) (shaded) (frameset--id . "13DA-B751-D9DA-5FA8") (frameset--mini t . t) (height . 47) (width . 103) (modeline . t) (unsplittable) (left . 960) (top . 27) (icon-name) (display . ":0") (explicit-name)) ((min-height . 4) (min-width . 10) (min-height-ignore . 3) (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 88) (min-pixel-width . 90) (min-pixel-height-ignore . 66) (min-pixel-width-ignore . 36) (min-pixel-height-safe . 22) (min-pixel-width-safe . 18)) leaf (pixel-width . 947) (pixel-height . 1018) (total-width . 105) (total-height . 46) (normal-height . 1.0) (normal-width . 1.0) (buffer "project/cmd/main.go" (selected . t) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 6503) (start . 5797)) (prev-buffers ("scheme.go" 3423 4384) ("project" 1 149) ("project/cmd" 1 104))))])
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
-(setq search-ring '(#("Jinx[" 0 5 (isearch-case-fold-search nil isearch-regexp-function nil)) #("pro" 0 3 (isearch-case-fold-search t isearch-regexp-function nil)) #("init" 0 4 (isearch-case-fold-search t isearch-regexp-function nil)) #("ui" 0 2 (isearch-case-fold-search t isearch-regexp-function nil)) #("sni" 0 3 (isearch-case-fold-search t isearch-regexp-function nil)) #("`" 0 1 (isearch-case-fold-search t isearch-regexp-function nil)) #("dired" 0 5 (isearch-case-fold-search t isearch-regexp-function nil)) #("Fur" 0 3 (isearch-case-fold-search nil isearch-regexp-function nil)) #("simi" 0 4 (isearch-case-fold-search t isearch-regexp-function nil)) #("Mo" 0 2 (isearch-case-fold-search nil isearch-regexp-function nil)) #("sec" 0 3 (isearch-case-fold-search t isearch-regexp-function nil)) #("emacs" 0 5 (isearch-case-fold-search t isearch-regexp-function nil))))
+(setq search-ring '(#("manager" 0 7 (isearch-case-fold-search t isearch-regexp-function nil)) #("setcontrollerreference" 0 22 (isearch-case-fold-search t isearch-regexp-function nil)) #("corev1" 0 6 (isearch-case-fold-search t isearch-regexp-function nil)) #("apie" 0 4 (isearch-case-fold-search t isearch-regexp-function nil)) #("8081" 0 4 (isearch-case-fold-search t isearch-regexp-function nil)) #("image" 0 5 (isearch-case-fold-search t isearch-regexp-function nil)) #("tech start" 0 10 (isearch-case-fold-search t isearch-regexp-function nil)) #("k8s.io/sample-controller" 0 24 (isearch-case-fold-search t isearch-regexp-function nil)) #("4." 0 2 (isearch-case-fold-search t isearch-regexp-function nil)) #("3." 0 2 (isearch-case-fold-search t isearch-regexp-function nil)) #("2." 0 2 (isearch-case-fold-search t isearch-regexp-function nil)) #("scerat" 0 6 (isearch-case-fold-search t isearch-regexp-function nil)) #("run" 0 3 (isearch-case-fold-search t isearch-regexp-function nil)) #(".j" 0 2 (isearch-case-fold-search t isearch-regexp-function nil))))
 (setq regexp-search-ring nil)
-(setq register-alist (list (desktop-list* 98 (record 'frameset-register (vector 'frameset 1 '(26466 65034 345851 84000) 'register nil nil nil (list (list (list '(minibuffer . t) '(parent-frame) '(undecorated) '(override-redirect) '(font-backend ftcrhb x) '(font . "-UKWN-Uosevka-medium-normal-normal-*-13-*-*-*-d-0-iso10646-1") '(border-width . 0) '(internal-border-width . 0) '(child-frame-border-width) '(right-divider-width . 0) '(bottom-divider-width . 0) '(vertical-scroll-bars) '(horizontal-scroll-bars) '(foreground-color . "#A0B3C5") '(background-color . "#1D252C") '(mouse-color . "black") '(border-color . "black") '(screen-gamma) '(line-spacing) '(left-fringe . 8) '(right-fringe . 8) '(no-special-glyphs) '(scroll-bar-foreground) '(scroll-bar-background) '(menu-bar-lines . 0) '(tab-bar-lines . 1) '(tool-bar-lines . 0) '(buffer-predicate) '(title) '(wait-for-wm . t) '(tool-bar-position . top) '(inhibit-double-buffering) '(icon-type . t) '(auto-raise) '(auto-lower) '(cursor-type . box) '(scroll-bar-width . 16) '(scroll-bar-height . 16) '(alpha) '(alpha-background . 100) '(no-focus-on-map) '(no-accept-focus) '(fullscreen) '(visibility . t) '(use-frame-synchronization) '(skip-taskbar) '(z-group) '(client . "Unprintable entity") '(cursor-color . "#5EC4FF") '(display-type . color) '(background-mode . dark) '(font-parameter) '(sticky) '(shaded) '(window-system . x) '(environment) '(last-focus-update . t) (list 'tabs (list 'tab '(name . "init-check.el") '(explicit-name) '(time . 1734539892.2455976) '(ws ((min-height . 4) (min-width . 20) (min-height-ignore . 3) (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 68) (min-pixel-width . 160) (min-pixel-height-ignore . 51) (min-pixel-width-ignore . 64) (min-pixel-height-safe . 17) (min-pixel-width-safe . 32)) hc (pixel-width . 1906) (pixel-height . 1010) (total-width . 238) (total-height . 59) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 954) (pixel-height . 1010) (total-width . 119) (total-height . 59) (normal-height . 1.0) (normal-width . 0.5) (parameters (context "emacs-todo.org" (front-context-string . "\n*** few command") (rear-context-string . "\n** DONE Consult"))) (buffer "emacs-todo.org" (selected) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 33) (start . 1)) (prev-buffers ("org-test.el" 1 1) ("init-package.el" 1 165) ("*dashboard*" 1 1) ("*scratch*" 1 836))) (leaf (last . t) (pixel-width . 952) (pixel-height . 1010) (total-width . 119) (total-height . 59) (normal-height . 1.0) (normal-width . 0.5) (parameters (context "init-check.el" (front-context-string . ";; :init\n  ;; (k") (rear-context-string . "x-previous)))\n  "))) (buffer "init-check.el" (selected . t) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 743) (start . 1)) (prev-buffers ("init-org.el" 1 1324)))) '(wc . "Unprintable entity") (desktop-list* 'wc-point (let ((mk (make-marker))) (add-hook 'desktop-delay-hook (lambda nil (set-marker mk 743 (get-buffer "init-check.el")))) mk)) '(wc-bl "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity") '(wc-bbl "Unprintable entity")) '(current-tab (name . "prot-scratch.el") (explicit-name))) '(frameset--id . "BC80-448C-B5E6-00D3") '(frameset--mini t . t) '(modeline . t) '(unsplittable) '(icon-name) '(display . ":0") '(explicit-name) '(dnd-root-window-position) '(height . 60) '(width . 236) '(buffer-list "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity") '(buried-buffer-list "Unprintable entity" "Unprintable entity") '(left . 4) '(top . 26)) '((min-height . 4) (min-width . 20) (min-height-ignore . 3) (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 68) (min-pixel-width . 160) (min-pixel-height-ignore . 51) (min-pixel-width-ignore . 64) (min-pixel-height-safe . 17) (min-pixel-width-safe . 32)) 'hc '(pixel-width . 1906) '(pixel-height . 1010) '(total-width . 238) '(total-height . 59) '(normal-height . 1.0) '(normal-width . 1.0) '(combination-limit) '(leaf (pixel-width . 948) (pixel-height . 1010) (total-width . 118) (total-height . 59) (normal-height . 1.0) (normal-width . 0.49684210526315786) (parameters (context)) (buffer "prot-emacs.org" (selected) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 323956) (start . 323956)) (prev-buffers ("prot-emacs.org" 323956 323956) ("*dashboard*" 1 1) ("emacs-todo.org" 1 33) ("org-test.el" 1 1) ("init-package.el" 1 165) ("*scratch*" 1 836))) '(leaf (last . t) (pixel-width . 958) (pixel-height . 1010) (total-width . 120) (total-height . 59) (normal-height . 1.0) (normal-width . 0.5031578947368421) (buffer "prot-scratch.el" (selected . t) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 3036) (start . 1742)) (prev-buffers ("prot-emacs-essentials.el" 4962 6150) ("prot-org.el" 16936 17622)))) '(((minibuffer . t) (parent-frame) (undecorated) (override-redirect) (font-backend ftcrhb x) (font . "-UKWN-Uosevka-medium-normal-normal-*-13-*-*-*-d-0-iso10646-1") (border-width . 0) (internal-border-width . 0) (child-frame-border-width) (right-divider-width . 0) (bottom-divider-width . 0) (vertical-scroll-bars) (horizontal-scroll-bars) (foreground-color . "#A0B3C5") (background-color . "#1D252C") (mouse-color . "black") (border-color . "black") (screen-gamma) (line-spacing) (left-fringe . 8) (right-fringe . 8) (no-special-glyphs) (scroll-bar-foreground) (scroll-bar-background) (menu-bar-lines . 0) (tab-bar-lines . 0) (tool-bar-lines . 0) (buffer-predicate) (title) (wait-for-wm . t) (tool-bar-position . top) (inhibit-double-buffering) (icon-type . t) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 16) (scroll-bar-height . 16) (alpha) (alpha-background . 100) (no-focus-on-map) (no-accept-focus) (fullscreen) (visibility . icon) (use-frame-synchronization) (skip-taskbar) (z-group) (client . "Unprintable entity") (environment "_=/usr/local/bin/emacsclient" "GOPATH=/home/ukiran/.local/share/go" "OLDPWD=/home/ukiran" "DOTFILES=/home/ukiran/dotfiles" "LC_NUMERIC=en_US.UTF-8" "MAIL=/var/spool/mail/ukiran" "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus" "GDMSESSION=herbstluftwm" "XDG_SCREENSHOTS_DIR=/home/ukiran/Pictures/screenshots" "PATH=/usr/local/bin:/usr/bin:/bin:/home/ukiran/.bin:/home/ukiran/.local/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/ukiran/.bin:/home/ukiran/.local/bin:/home/ukiran/.bin:/home/ukiran/.local/bin" "BROWSER=firefox" "XDG_DATA_DIRS=/usr/share:/usr/local/share:/home/ukiran/.local/share" "GTK3_MODULES=xapp-gtk3-module" "LC_ALL=en_US.UTF-8" "LC_TIME=en_US.UTF-8" "DEBUGINFOD_URLS=https://debuginfod.archlinux.org " "XDG_RUNTIME_DIR=/run/user/1000" "XDG_STATE_HOME=/home/ukiran/.local/state" "XDG_SESSION_ID=2" "XDG_VTNR=7" "LC_MEASUREMENT=en_US.UTF-8" "LC_TELEPHONE=en_US.UTF-8" "SHLVL=2" "DISPLAY=:0" "VISUAL=nvim" "USER=ukiran" "ZDOTDIR=/home/ukiran/.config/zsh" "LC_IDENTIFICATION=en_US.UTF-8" "XDG_SESSION_CLASS=user" "XDG_CACHE_HOME=/home/ukiran/.cache" "WGETRC=/home/ukiran/.config/wget/wgetrc" "XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0" "ERRFILE=/home/ukiran/.config/X11/xsession-errors" "CARGO_HOME=/home/ukiran/.local/share/cargo" "HISTFILE=/home/ukiran/.config/shell/bash_history" "LC_PAPER=en_US.UTF-8" "LANG=en_US.UTF-8" "HOME=/home/ukiran" "GTK2_RC_FILES=/home/ukiran/.config/gtk-2.0/gtkrc" "MOTD_SHOWN=pam" "TERMINAL=alacritty" "XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/ukiran" "IPYTHONDIR=/home/ukiran/.config/ipython" "XAUTHORITY=/home/ukiran/.Xauthority" "XDG_SESSION_TYPE=x11" "QT_QPA_PLATFORMTHEME=qt5ct" "LOGNAME=ukiran" "XDG_SESSION_DESKTOP=herbstluftwm" "PWD=/home/ukiran" "XDG_SEAT=seat0" "GTK_MODULES=canberra-gtk-module" "EDITOR=nvim" "LC_MONETARY=en_US.UTF-8" "DESKTOP_SESSION=herbstluftwm" "XDG_CONFIG_HOME=/home/ukiran/.config" "CUDA_CACHE_PATH=/home/ukiran/.cache/nv" "XDG_DATA_HOME=/home/ukiran/.local/share" "LC_NAME=en_US.UTF-8" "LC_ADDRESS=en_US.UTF-8" "ICEAUTHORITY=/home/ukiran/.cache/ICEauthority" "XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0" "SHELL=/usr/bin/zsh") (cursor-color . "#5EC4FF") (display-type . color) (background-mode . dark) (font-parameter) (sticky) (shaded) (last-focus-update) (frameset--id . "0FD8-8C7E-6FB5-ECF2") (frameset--mini t) (height . 61) (width . 236) (modeline . t) (unsplittable) (buffer-list "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity") (buried-buffer-list) (icon-name) (display . ":0") (explicit-name)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 68) (min-pixel-width . 80) (min-pixel-height-ignore . 34) (min-pixel-width-ignore . 32) (min-pixel-height-safe . 17) (min-pixel-width-safe . 16)) leaf (pixel-width . 1906) (pixel-height . 1027) (total-width . 238) (total-height . 60) (normal-height . 1.0) (normal-width . 1.0) (buffer "*dashboard*" (selected) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 1) (start . 1)) (next-buffers ".emacs.desktop.lock") (prev-buffers (".emacs.desktop.lock" 1 1) ("*dashboard*" 1 1) ("*scratch*" 1 836) ("prot-scratch.el" 1 3036))))) "BC80-448C-B5E6-00D3" (let ((mk (make-marker))) (add-hook 'desktop-delay-hook (lambda nil (set-marker mk 3036 (get-buffer "prot-scratch.el")))) mk))) (desktop-list* 97 (record 'frameset-register (vector 'frameset 1 '(26466 64954 201478 183000) 'register nil nil nil (list (list (list '(minibuffer . t) '(parent-frame) '(undecorated) '(override-redirect) '(font-backend ftcrhb x) '(font . "-UKWN-Uosevka-medium-normal-normal-*-13-*-*-*-d-0-iso10646-1") '(border-width . 0) '(internal-border-width . 0) '(child-frame-border-width) '(right-divider-width . 0) '(bottom-divider-width . 0) '(vertical-scroll-bars) '(horizontal-scroll-bars) '(foreground-color . "#A0B3C5") '(background-color . "#1D252C") '(mouse-color . "black") '(border-color . "black") '(screen-gamma) '(line-spacing) '(left-fringe . 8) '(right-fringe . 8) '(no-special-glyphs) '(scroll-bar-foreground) '(scroll-bar-background) '(menu-bar-lines . 0) '(tab-bar-lines . 1) '(tool-bar-lines . 0) '(buffer-predicate) '(title) '(wait-for-wm . t) '(tool-bar-position . top) '(inhibit-double-buffering) '(icon-type . t) '(auto-raise) '(auto-lower) '(cursor-type . box) '(scroll-bar-width . 16) '(scroll-bar-height . 16) '(alpha) '(alpha-background . 100) '(no-focus-on-map) '(no-accept-focus) '(fullscreen) '(visibility . t) '(use-frame-synchronization) '(skip-taskbar) '(z-group) '(window-system . x) '(cursor-color . "#5EC4FF") '(display-type . color) '(background-mode . dark) '(font-parameter) '(sticky) '(shaded) '(environment) '(last-focus-update . t) (list 'tabs (list 'tab '(name . "init-check.el") '(explicit-name) '(time . 1734539892.2455976) '(ws ((min-height . 4) (min-width . 20) (min-height-ignore . 3) (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 68) (min-pixel-width . 160) (min-pixel-height-ignore . 51) (min-pixel-width-ignore . 64) (min-pixel-height-safe . 17) (min-pixel-width-safe . 32)) hc (pixel-width . 1906) (pixel-height . 1010) (total-width . 238) (total-height . 59) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 954) (pixel-height . 1010) (total-width . 119) (total-height . 59) (normal-height . 1.0) (normal-width . 0.5) (parameters (context "emacs-todo.org" (front-context-string . "\n*** few command") (rear-context-string . "\n** DONE Consult"))) (buffer "emacs-todo.org" (selected) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 33) (start . 1)) (prev-buffers ("org-test.el" 1 1) ("init-package.el" 1 165) ("*dashboard*" 1 1) ("*scratch*" 1 836))) (leaf (last . t) (pixel-width . 952) (pixel-height . 1010) (total-width . 119) (total-height . 59) (normal-height . 1.0) (normal-width . 0.5) (parameters (context "init-check.el" (front-context-string . ";; :init\n  ;; (k") (rear-context-string . "x-previous)))\n  "))) (buffer "init-check.el" (selected . t) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 743) (start . 1)) (prev-buffers ("init-org.el" 1 1324)))) '(wc . "Unprintable entity") (desktop-list* 'wc-point (let ((mk (make-marker))) (add-hook 'desktop-delay-hook (lambda nil (set-marker mk 743 (get-buffer "init-check.el")))) mk)) '(wc-bl "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity") '(wc-bbl "Unprintable entity")) '(current-tab (name . "prot-scratch.el") (explicit-name))) '(frameset--id . "BC80-448C-B5E6-00D3") '(frameset--mini t . t) '(height . 60) '(width . 236) '(modeline . t) '(unsplittable) '(buffer-list "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity") '(buried-buffer-list "Unprintable entity" "Unprintable entity") '(left . 4) '(top . 26) '(icon-name) '(display . ":0") '(explicit-name)) '((min-height . 4) (min-width . 20) (min-height-ignore . 3) (min-width-ignore . 8) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 68) (min-pixel-width . 160) (min-pixel-height-ignore . 51) (min-pixel-width-ignore . 64) (min-pixel-height-safe . 17) (min-pixel-width-safe . 32)) 'hc '(pixel-width . 1906) '(pixel-height . 1010) '(total-width . 238) '(total-height . 59) '(normal-height . 1.0) '(normal-width . 1.0) '(combination-limit) '(leaf (pixel-width . 954) (pixel-height . 1010) (total-width . 119) (total-height . 59) (normal-height . 1.0) (normal-width . 0.5) (parameters (context)) (buffer "prot-emacs.org" (selected) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 323956) (start . 323956)) (prev-buffers ("prot-emacs.org" 323956 323956) ("*dashboard*" 1 1) ("emacs-todo.org" 1 33) ("org-test.el" 1 1) ("init-package.el" 1 165) ("*scratch*" 1 836))) '(leaf (last . t) (pixel-width . 952) (pixel-height . 1010) (total-width . 119) (total-height . 59) (normal-height . 1.0) (normal-width . 0.5) (buffer "prot-scratch.el" (selected . t) (hscroll . 0) (fringes 8 8 t nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 3036) (start . 1742)) (prev-buffers ("prot-emacs-essentials.el" 4962 6150) ("prot-org.el" 16936 17622)))))) "BC80-448C-B5E6-00D3" (let ((mk (make-marker))) (add-hook 'desktop-delay-hook (lambda nil (set-marker mk 3036 (get-buffer "prot-scratch.el")))) mk)))))
-(setq file-name-history '("~/.emacs.d/.emacs.desktop.lock" "~/.emacs.d/" "~/Videos/Tuts/Emacs/Protes/.emacs.d/prot-lisp/prot-scratch.el" "~/Videos/Tuts/Emacs/Protes/.emacs.d/prot-emacs-modules/prot-emacs-essentials.el" "~/Videos/Tuts/Emacs/Protes/.emacs.d/prot-lisp/prot-org.el" "~/dotfiles/emacs/.emacs.d/lisp/init-check.el" "~/dotfiles/emacs/.emacs.d/lisp/init-org.el" "~/dotfiles/emacs/.emacs.d/lisp/org-test.el" "~/dotfiles/emacs/.emacs.d/lisp/setup-modeline.el" "~/dotfiles/emacs/.emacs.d/lisp/" "~/dotfiles/emacs/.emacs.d/lisp/init-utils.el" "~/dotfiles/emacs/.emacs.d/init.el" "~/dotfiles/emacs/.emacs.d/lisp/init-window.el" "~/dotfiles/emacs/.emacs.d/lisp/init-prefix.el" "~/dotfiles/emacs/.emacs.d/lisp/init-vertico.el" "~/swami-speech.txt" "~/Videos/Tuts/Computer Science/SICP/cs61A_sicp/get.md" "~/dotfiles/emacs/.emacs.d/" "~/dotfiles/emacs/.emacs.d/lisp/init-completions.el" "~/Git/repos/OEmacs/karthink-emacs/lisp/setup-vc.el" "~/Git/repos/OEmacs/karthink-emacs/lisp/setup-ui.el" "~/Git/repos/OEmacs/karthink-emacs/lisp/setup-cw.el" "~/Git/repos/OEmacs/karthink-emacs/lisp/personal.el" "~/dotfiles/scripts/.bin/remacs.sh" "~/.bin/tuxi" "~/dotfiles/emacs/.emacs.d/lisp/init-lsp.el" "~/Git/repos/OEmacs/karthink-emacs" "~/Git/repos/OEmacs/" "~/.emacs.d/lisp/init-completions.el" "~/dotfiles/scripts/.bin/tor-lib.sh" "~/dotfiles/scripts/.bin/dnemo" "~/dotfiles/scripts/.bin/pcb" "~/.bin/best.sh" "~/Videos/Tuts/Emacs/Protes/modelineVids.txt" "~/Videos/Tuts/Emacs/Protes/ProtGNUEmacsVids.txt" "~/prog/sicp/solutions/sicp-2/ex1-30-sum-series-iter.scm" "~/prog/sicp/solutions/sicp-2/ex1-19-clever-fib.scm" "~/prog/sicp/solutions/sicp-2/ex2-04-alternate-pairs.scm" "~/prog/sicp/solutions/chibi-sicp/index.org" "~/prog/sicp/solutions/chibi-sicp/Experience_Report.org" "~/prog/sicp/sicp.org" "~/prog/sicp/common.scm" "~/prog/sync.http" "~/prog/pyinX.py" "~/prog/csg2dsa/file.py" "~/prog/fontpreview" "~/prog/racket/first.rkt" "~/packages.txt" "~/test.rkt" "/run/media/ukiran/449B-9E8C/The Prestige (2006) [BluRay] [1080p] [YTS.AM]/The.Prestige.English-WWW.MY-SUBS.CO.srt" "~/dotfiles/emacs/.emacs.d/lisp/init-consult.el" "~/.config/rofi/config.rasi" "/usr/local/share/emacs/30.0.92/lisp/emacs-lisp/" "~/.emacs.d/lisp/init-racket.el" "~/.emacs.d/init.el" "~/prog/htdp2e/01-Fixed-Size-Data/05-Adding-Structure/" "~/prog/htdp2e/01-Fixed-Size-Data/05-Adding-Structure/game.rkt" #("/home/ukiran/prog/htdp2e/02-Arbitrarily-Large-Data/08-Lists/Ex-142.rkt" 0 70 (project "~/prog/htdp2e/")) "~/dotfiles/emacs/.emacs.d/lisp/init-tab-bar.el" "~/dotfiles/emacs/.emacs.d/lisp/init-ibuffer.el" #("/home/ukiran/dotfiles/emacs/.emacs.d/lisp/init-dired.el" 0 55 (project "~/dotfiles/emacs/.emacs.d/")) "~/dotfiles/emacs/.emacs.d/lisp/init-dired.el" "~/todo.org" "~/dotfiles/emacs/.emacs.d/lisp/init-workspaces.el" "~/Git/repos/OEmacs/centauremacs/" "/toshiba/Media/Movies/Korean/D - Bong Joon ho/Tokyo - 2008 [tt0976060]/Tokyo (2008).srt" "~/Videos/Tuts/Emacs/GavinFreeborn/" "~/dotfiles/emacs/.emacs.d/emasc-inst-pkgs.txt" "~/dotfiles/emacs/.emacs.d/emacs-todo.org" "~/dotfiles/emacs/.emacs.d/lisp/init-test.el" "~/.emacs.d/etc/yasnippet/snippets/emacs-lisp-mode/+new-snippet+" "~/Git/repos/OEmacs/centauremacs/lisp/init-base.el" "~/Git/repos/OEmacs/centauremacs/lisp/init-vcs.el" "~/Git/repos/OEmacs/centauremacs/lisp/init-go.el" "~/.emacs.d/etc/yasnippet/snippets/racket-mode/2htdp-setup" "~/Videos/Tuts/wids.txt" "~/Documents/Misc/emacs-seg-fault.md" "/home/ukiran/dotfiles/emacs/.emacs.d/lisp/init-denote.el" "~/4-1/deepu-letter.txt" "~/dotfiles/emacs/.emacs.d/lisp/init-core.el" #("/home/ukiran/dotfiles/emacs/.emacs.d/lisp/init-window.el" 0 56 (project "~/dotfiles/emacs/.emacs.d/")) "/home/ukiran/dotfiles/emacs/.emacs.d/lisp/init-vc.el" "~/.config/rofi/colors.rasi" "~/dotfiles/polybar/.config/polybar/config.ini" "~/.config/polybar/bmods.ini" "~/deepu-letter.txt" "~/.config/alacritty/alacritty.toml.u" "~/.config/alacritty/" "~/.emacs.d/lisp/init-denote.el" "~/.config/polybar/config.ini" "~/.emacs.d/early-init.el" "~/.emacs.d/custom.el" "~/.emacs.d/.gitignore" "~/dotfiles/emacs/.emacs.d/custom.el" "~/.emacs.d/elpa/detached-0.10.1/README.md" "~/dotfiles/emacs/.emacs.d/early-init.el" "~/.config/alacritty/alacritty.toml" "~/.config/polybar/" "~/deep-letter.txt" "~/Videos/God/edits/"))
+(setq register-alist (list (desktop-list* 49 (let ((mk (make-marker))) (add-hook 'desktop-delay-hook (lambda nil (set-marker mk 6503 (get-buffer "project/cmd/main.go")))) mk))))
+(setq file-name-history '("~/.emacs.d/" "~/prog/mooc-k8s/_ref/kubebuilder/project/cmd/main.go" "~/prog/mooc-k8s/_ref/kubebuilder/project/cmd/emptymain.go" "~/prog/mooc-k8s/_ref/kubebuilder/project/config/" "~/prog/mooc-k8s/_ref/kubebuilder/project" "~/prog/mooc-k8s/_ref/kubebuilder/cronjob" "~/advice.md" "~/projects.md" "~/projects.org" "~/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/config/rbac/role.yaml" "/tmp/emacs_tmps/" #("/home/ukiran/Git/Projects/minurl/internal/stream/streams.go" 0 59 (project "~/Git/Projects/minurl/")) #("/home/ukiran/Git/Projects/minurl/cmd/api/main.go" 0 48 (project "~/Git/Projects/minurl/")) "~/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/" "~/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/internal/controller/_controller.go" "~/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/internal/controller/memcached_controller.go" "~/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/config/samples/" "~/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator" "~/prog/mooc-k8s/_ref/kubebuilder/getstarted" "~/prog/mooc-k8s/_ref/kubebuilder/guestbook/api/v1/guestbook_types.go" "~/prog/mooc-k8s/_ref/kubebuilder/guestbook/config/" "~/prog/mooc-k8s/_ref/kubebuilder/guestbook/cmd/main.go" "~/prog/mooc-k8s/_ref/kubebuilder/guestbook" "~/prog/mooc-k8s/_ref/kubebuilder" "~/prog/mooc-k8s/_ref/" "~/prog/mooc-k8s/diy-crd-controller/manifests/" "~/prog/mooc-k8s/diy-crd-controller/manifests" "~/prog/mooc-k8s/_ref/follow/ch06/manifests/countdown.yaml" "~/prog/mooc-k8s/diy-crd-controller/" "~/prog/mooc-k8s/diy-crd-controller/countdown.yaml" "~/prog/mooc-k8s/diy-crd-controller/resourcedefinition.yaml" "~/prog/mooc-k8s/diy-crd-controller" "~/prog/mooc-k8s/" "~/ushakiran_resume.pdf" "~/Git/resume/resume.typ" "~/Git/resume/2.typ" "~/Git/resume/" "~/docker-runtime.org" #("/tmp/workspaces/6dd04f/sample-controller/main.go" 0 48 (project "/tmp/workspaces/6dd04f/sample-controller/")) "/tmp/workspaces/6dd04f/sample-controller/pkg/signals/signal.go" "/tmp/workspaces/6dd04f/my-controller/pkg/signals/signal_posix.go" "/tmp/workspaces/6dd04f/my-controller/pkg/signals/signal.go" "/tmp/workspaces/6dd04f/my-controller/pkg/signals" "/tmp/workspaces/6dd04f/my-controller/pkg" "/tmp/workspaces/6dd04f/sample-controller/pkg/" "/tmp/workspaces/6dd04f/my-controller/" "/tmp/workspaces/6dd04f/my-controller/main.go" "/tmp/workspaces/6dd04f/" "/tmp/workspaces/" "/tmp/workspaces/6dd04f/my-crontab.yaml" "/tmp/workspaces/6dd04f/resourcedefinition.yaml" "/tmp/workspaces/6dd04f" "~/crds.org" "~/Videos/Movies/vids.txt" "~/Videos/God/Sampoorna_Ramayanam_Video/vids.txt" "~/.tmp/jav" "~/.config/sxhkd/xmonad_sxhkdrc" "~/prog/mooc-k8s/_ref/follow/ch06/cd-crd/cmd/" "~/.tmp/jav/vids.txt" "~/prog/mooc-k8s/_ref/follow/ch06/manifests/" "~/prog/mooc-k8s/_ref/follow/ch06/manifests" "~/prog/mooc-k8s/_ref/follow/ch06/manifests/resourcedefinition.yaml" "~/prog/mooc-k8s/_ref/follow/ch06/" "~/prog/mooc-k8s/_ref/follow/ch06/manifests/clusterrole.yaml" "~/prog/mooc-k8s/_ref/material-example/" "~/prog/mooc-k8s/_ref/follow/ch06/cd-crd/" "~/prog/mooc-k8s/_ref/follow/ch06/cd-crd/cmd/main.go" "~/prog/mooc-k8s/_ref/follow/ch06/cd-crd/main.go" "~/prog/mooc-k8s/_ref/follow/ch06/cd-crd/main.g" "~/prog/mooc-k8s/_ref/material-example/app10-go/install.sh" "~/prog/mooc-k8s/_ref/material-example/app10-go/" "~/prog/mooc-k8s/_ref/follow/ch06/cd-crd" "~/index.js" "~/Downloads/Helium/" "~/prog/mooc-k8s/_ref/follow/ch06/countdown.yaml" "~/prog/mooc-k8s/_ref/follow/ch06/resourcedefinition.yaml" "~/prog/mooc-k8s/_ref/follow/ch06" #("/home/ukiran/prog/mooc-k8s/todo-app/README.org" 0 46 (project "~/prog/mooc-k8s/")) #("/home/ukiran/Git/Projects/cinemad/cmd/api/routes.go" 0 51 (project "~/Git/Projects/cinemad/")) "~/.config/startup/xtwm_startup.sh" "~/dotfiles/xorg-twm/.config/xmonad/xmonad.hs" "~/.config/xmobar/src/xmobarrc_dark" "~/dotfiles/emacs/.emacs.d/init.el" "~/.config/X11/xresources" "~/.emacs.d/init.el" "~/.local/sbin/" "~/dotfiles/xorg-twm/.config/xmobar/src/xmobarrc_light" "~/Git/Projects/cinemad/_ref/" "~/Git/Projects/cinemad/_ref" "/tmp/workspaces/8294aa/" "/tmp/workspaces/8294aa/main.go" "/tmp/workspaces/8294aa" "/tmp/workspaces/57cbd8/go-stripe/Justfile.2" "~/Git/Projects/cinemad/.envrc" "~/Git/Projects/cinemad/Justfile" #("/home/ukiran/Git/Projects/cinemad/.envrc" 0 40 (project "~/Git/Projects/cinemad/")) #("/home/ukiran/Git/Projects/limelight/.envrc" 0 42 (project "~/Git/Projects/limelight/")) "~/.profile" "~/Git/Projects/cinemad/" "/tmp/workspaces/57cbd8/go-stripe/Makefile"))
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
 (desktop-create-buffer 208
-  "/home/ukiran/Videos/Tuts/Emacs/Protes/.emacs.d/prot-lisp/prot-scratch.el"
-  "prot-scratch.el"
-  'emacs-lisp-mode
-  '(font-lock-mode eldoc-mode pulsar-mode diff-hl-show-hunk-mouse-mode diff-hl-mode hl-todo-mode colorful-mode corfu-mode highlight-defined-mode aggressive-indent-mode goggles-mode rainbow-delimiters-mode symbol-overlay-mode display-line-numbers-mode yas-minor-mode breadcrumb-local-mode subword-mode page-break-lines-mode goto-address-prog-mode puni-mode sideline-mode flymake-mode jinx-mode beginend-prog-mode)
-  3036
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/project/cmd/main.go"
+  "main.go"
+  'go-ts-mode
+  '(eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode font-lock-mode hl-todo-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  6503
+  '(7282 nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 51763 554626 232000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring (745 1 3599 3663 4315 52 791 899 899 931 1436 713 745 736 270 6503))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/.local/share/go/pkg/mod/k8s.io/apimachinery@v0.37.0/pkg/runtime/scheme.go"
+  "scheme.go"
+  'go-ts-mode
+  '(font-lock-mode hl-todo-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  4384
   '(nil nil)
+  t
   nil
-  nil
-  '((show-trailing-whitespace . t) (buffer-display-time 26466 65029 355498 341000) (buffer-file-coding-system . prefer-utf-8-unix))
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 51631 842870 555000) (buffer-file-coding-system . undecided-unix))
   '((mark-ring nil)))
 
 (desktop-create-buffer 208
-  "/home/ukiran/.emacs.d/.emacs.desktop.lock"
-  ".emacs.desktop.lock"
-  'text-mode
-  '(font-lock-mode pulsar-mode diff-hl-show-hunk-mouse-mode diff-hl-mode hl-todo-mode corfu-mode goggles-mode breadcrumb-local-mode goto-address-mode jinx-mode)
+  nil
+  "rbac"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  111
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/project/config/rbac/")
+  '((buffer-display-time 27306 51574 234204 773000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/project/config/rbac/kustomization.yaml"
+  "kustomization.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
   1
   '(nil nil)
   nil
   nil
-  '((show-trailing-whitespace . t) (buffer-display-time 26466 65038 676136 178000))
+  '((indent-tabs-mode) (buffer-display-time 27306 51529 733131 564000) (buffer-file-coding-system . undecided-unix) (truncate-lines))
   '((mark-ring nil)))
 
 (desktop-create-buffer 208
-  "/home/ukiran/Videos/Tuts/Emacs/Protes/.emacs.d/prot-emacs-modules/prot-emacs-essentials.el"
-  "prot-emacs-essentials.el"
-  'emacs-lisp-mode
-  '(symbol-overlay-mode font-lock-mode eldoc-mode pulsar-mode diff-hl-show-hunk-mouse-mode diff-hl-mode hl-todo-mode colorful-mode corfu-mode highlight-defined-mode aggressive-indent-mode goggles-mode rainbow-delimiters-mode display-line-numbers-mode yas-minor-mode breadcrumb-local-mode subword-mode page-break-lines-mode goto-address-prog-mode puni-mode sideline-mode flymake-mode jinx-mode beginend-prog-mode)
-  6150
-  '(3413 nil)
   nil
-  nil
-  '((show-trailing-whitespace . t) (buffer-display-time 26466 64638 596878 42000) (buffer-file-coding-system . utf-8-unix))
-  '((mark-ring (3414 5958 6150 6150))))
+  "config"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  329
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/project/config/")
+  '((buffer-display-time 27306 51525 903893 924000))
+  '((mark-ring nil)))
 
 (desktop-create-buffer 208
-  "/home/ukiran/Videos/Tuts/Emacs/Protes/.emacs.d/prot-lisp/prot-org.el"
-  "prot-org.el"
-  'emacs-lisp-mode
-  '(font-lock-mode eldoc-mode pulsar-mode diff-hl-show-hunk-mouse-mode diff-hl-mode hl-todo-mode colorful-mode corfu-mode highlight-defined-mode aggressive-indent-mode goggles-mode rainbow-delimiters-mode symbol-overlay-mode display-line-numbers-mode yas-minor-mode breadcrumb-local-mode subword-mode page-break-lines-mode goto-address-prog-mode puni-mode sideline-mode flymake-mode jinx-mode beginend-prog-mode)
-  17622
+  nil
+  "manager"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  178
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/project/config/manager/")
+  '((buffer-display-time 27306 51524 895151 792000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/project/config/manager/manager.yaml"
+  "manager.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  1813
   '(nil nil)
   nil
   nil
-  '((show-trailing-whitespace . t) (buffer-display-time 26466 64496 123350 233000) (buffer-file-coding-system . prefer-utf-8-unix))
+  '((indent-tabs-mode) (buffer-display-time 27306 51499 335975 293000) (buffer-file-coding-system . undecided-unix) (truncate-lines))
   '((mark-ring nil)))
 
 (desktop-create-buffer 208
-  "/home/ukiran/Videos/Tuts/Emacs/Protes/.emacs.d/prot-emacs.org"
-  "prot-emacs.org"
-  'org-mode
-  '(font-lock-mode pulsar-mode diff-hl-show-hunk-mouse-mode diff-hl-mode corfu-mode beginend-org-mode org-modern-mode beginend-outline-mode goggles-mode breadcrumb-local-mode goto-address-mode org-indent-mode)
-  323956
-  '(323728 nil)
-  nil
-  nil
-  '((show-trailing-whitespace . t) (tab-width . 8) (indent-tabs-mode) (buffer-display-time 26466 64977 11661 858000) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t))
-  '((mark-ring (1 323658))))
-
-(desktop-create-buffer 208
-  "/home/ukiran/dotfiles/emacs/.emacs.d/lisp/init-check.el"
-  "init-check.el"
-  'emacs-lisp-mode
-  '(symbol-overlay-mode font-lock-mode eldoc-mode pulsar-mode diff-hl-show-hunk-mouse-mode diff-hl-mode hl-todo-mode colorful-mode corfu-mode highlight-defined-mode aggressive-indent-mode goggles-mode rainbow-delimiters-mode display-line-numbers-mode yas-minor-mode breadcrumb-local-mode subword-mode page-break-lines-mode goto-address-prog-mode puni-mode sideline-mode flymake-mode jinx-mode beginend-prog-mode)
-  743
-  '(498 nil)
-  nil
-  nil
-  '((show-trailing-whitespace . t) (buffer-display-time 26466 64099 652916 302000) (buffer-file-coding-system . prefer-utf-8-unix))
-  '((mark-ring nil)))
-
-(desktop-create-buffer 208
-  "/home/ukiran/dotfiles/emacs/.emacs.d/lisp/init-org.el"
-  "init-org.el"
-  'emacs-lisp-mode
-  '(font-lock-mode eldoc-mode pulsar-mode diff-hl-show-hunk-mouse-mode diff-hl-mode hl-todo-mode colorful-mode corfu-mode highlight-defined-mode aggressive-indent-mode goggles-mode rainbow-delimiters-mode symbol-overlay-mode display-line-numbers-mode yas-minor-mode breadcrumb-local-mode subword-mode page-break-lines-mode goto-address-prog-mode puni-mode sideline-mode flymake-mode jinx-mode beginend-prog-mode)
-  1324
-  '(nil nil)
-  nil
-  nil
-  '((show-trailing-whitespace . t) (buffer-display-time 26466 64098 66063 665000) (buffer-file-coding-system . utf-8-unix))
-  '((mark-ring nil)))
-
-(desktop-create-buffer 208
-  "/home/ukiran/dotfiles/emacs/.emacs.d/emacs-todo.org"
-  "emacs-todo.org"
-  'org-mode
-  '(font-lock-mode pulsar-mode diff-hl-show-hunk-mouse-mode diff-hl-mode corfu-mode beginend-org-mode org-modern-mode beginend-outline-mode goggles-mode breadcrumb-local-mode goto-address-mode jinx-mode org-indent-mode)
-  33
-  '(nil nil)
-  nil
-  nil
-  '((show-trailing-whitespace . t) (tab-width . 8) (indent-tabs-mode) (buffer-display-time 26466 64098 66063 317000) (buffer-file-coding-system . undecided-unix) (truncate-lines . t))
-  '((mark-ring nil)))
-
-(desktop-create-buffer 208
-  "/home/ukiran/dotfiles/emacs/.emacs.d/lisp/org-test.el"
-  "org-test.el"
-  'emacs-lisp-mode
-  '(font-lock-mode eldoc-mode pulsar-mode diff-hl-show-hunk-mouse-mode diff-hl-mode hl-todo-mode colorful-mode corfu-mode highlight-defined-mode aggressive-indent-mode goggles-mode rainbow-delimiters-mode symbol-overlay-mode display-line-numbers-mode yas-minor-mode breadcrumb-local-mode subword-mode page-break-lines-mode goto-address-prog-mode puni-mode sideline-mode flymake-mode jinx-mode beginend-prog-mode)
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/project/config/manager/kustomization.yaml"
+  "kustomization.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
   1
   '(nil nil)
   nil
   nil
-  '((show-trailing-whitespace . t) (buffer-display-time 26466 64036 160495 996000) (buffer-file-coding-system . prefer-utf-8))
+  '((indent-tabs-mode) (buffer-display-time 27306 51497 399738 868000) (buffer-file-coding-system . undecided-unix) (truncate-lines))
   '((mark-ring nil)))
 
 (desktop-create-buffer 208
-  "/home/ukiran/dotfiles/emacs/.emacs.d/lisp/init-package.el"
-  "init-package.el"
-  'emacs-lisp-mode
-  '(hl-todo-mode font-lock-mode eldoc-mode pulsar-mode diff-hl-show-hunk-mouse-mode diff-hl-mode colorful-mode corfu-mode highlight-defined-mode aggressive-indent-mode goggles-mode rainbow-delimiters-mode symbol-overlay-mode display-line-numbers-mode yas-minor-mode breadcrumb-local-mode subword-mode page-break-lines-mode goto-address-prog-mode puni-mode sideline-mode flymake-mode jinx-mode beginend-prog-mode)
-  165
-  '(1512 nil)
+  nil
+  "default"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  115
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/project/config/default/")
+  '((buffer-display-time 27306 51484 224708 681000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "project"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  149
+  '(1 nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/project/")
+  '((buffer-display-time 27306 51418 391288 229000))
+  '((mark-ring (1))))
+
+(desktop-create-buffer 208
+  nil
+  "cmd"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  104
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/project/cmd/")
+  '((buffer-display-time 27306 51410 791599 868000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/Git/Projects/minurl/internal/data/types.go"
+  "types.go"
+  'go-ts-mode
+  '(display-fill-column-indicator-mode font-lock-mode hl-todo-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  201
+  '(nil nil)
   nil
   nil
-  '((show-trailing-whitespace . t) (buffer-display-time 26466 63755 934384 323000) (buffer-file-coding-system . utf-8-unix))
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 48333 589690 449000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "kubebuilder"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  92
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/")
+  '((buffer-display-time 27306 51155 713941 50000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "getstarted"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  104
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/")
+  '((buffer-display-time 27306 51135 971022 362000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "memcached-operator"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  269
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/")
+  '((buffer-display-time 27306 51135 75879 682000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "config"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  400
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/config/")
+  '((buffer-display-time 27306 51134 271413 446000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "rbac"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  768
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/config/rbac/")
+  '((buffer-display-time 27306 51134 23041 850000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/config/rbac/role.yaml"
+  "role.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  215
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 27306 46163 492063 897000) (buffer-file-coding-system . undecided-unix) (truncate-lines))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/advice.md"
+  "advice.md"
+  'markdown-mode
+  '(eldoc-mode font-lock-mode hl-todo-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  1
+  '(3114 nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (tab-width . 4) (buffer-display-time 27306 48336 870208 434000) (buffer-file-coding-system . utf-8-unix) (truncate-lines))
+  '((mark-ring (3113 1))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/projects.md"
+  "projects.md"
+  'markdown-mode
+  '(eldoc-mode font-lock-mode hl-todo-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  25
+  '(2417 nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (tab-width . 4) (buffer-display-time 27306 48089 117238 686000) (buffer-file-coding-system . utf-8-unix) (truncate-lines))
+  '((mark-ring (1 2416 24 1))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/projects.org"
+  "projects.org"
+  'org-mode
+  '(font-lock-mode beginend-org-mode org-appear-mode beginend-outline-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  3325
+  '(3325 nil)
+  nil
+  nil
+  '((tab-width . 8) (buffer-display-time 27306 48085 747913 480000) (buffer-file-coding-system . undecided-unix) (truncate-lines))
+  '((mark-ring (1 1734))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/internal/controller/memcached_controller.go"
+  "memcached_controller.go"
+  'go-ts-mode
+  '(font-lock-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eglot--managed-mode hl-todo-mode eldoc-mode flymake-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  1739
+  '(1795 nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 46157 139833 51000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring (1453 8589 8331 8309 8279 8244 8244 9600 3759 3794 3837 3885 3916 4359 4390 1739))))
+
+(desktop-create-buffer 208
+  "/tmp/emacs_tmps/alpha-37b87.go"
+  "alpha-37b87.go"
+  'go-ts-mode
+  '(font-lock-mode hl-todo-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  1
+  '(1 nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 46126 951521 655000) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring (556 1))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/.local/share/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.25.0/pkg/builder/controller.go"
+  "controller.go"
+  'go-ts-mode
+  '(display-fill-column-indicator-mode font-lock-mode hl-todo-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  9763
+  '(9763 nil)
+  t
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 37635 934696 13000) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring (3305 3305 3305 3309 3310 1813 1799 1582 1583 1580 1579 1799 1777 2308 2311))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/Git/Projects/minurl/internal/stream/streams.go"
+  "streams.go"
+  'go-ts-mode
+  '(font-lock-mode hl-todo-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  189
+  '(189 nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 37617 397401 593000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring (189 189))))
+
+(desktop-create-buffer 208
+  "/usr/lib/go/src/builtin/builtin.go"
+  "builtin.go"
+  'go-ts-mode
+  '(font-lock-mode hl-todo-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  3358
+  '(3329 nil)
+  t
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 37310 844230 198000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring (3358))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/Git/Projects/minurl/cmd/api/main.go"
+  "main.go"
+  'go-ts-mode
+  '(eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode font-lock-mode hl-todo-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  2197
+  '(nil nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 37017 576867 821000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/.local/share/go/pkg/mod/k8s.io/api@v0.37.0/core/v1/types.go"
+  "types.go"
+  'go-ts-mode
+  '(font-lock-mode hl-todo-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  168343
+  '(nil nil)
+  t
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 36494 777193 809000) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/api/v1alpha1/memcached_types.go"
+  "memcached_types.go"
+  'go-ts-mode
+  '(hl-todo-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode font-lock-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  1228
+  '(1228 nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 28777 460999 983000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring (675 197 197 675 1233 1233 675 675 1 18 112 582 1269 510 583 674))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/.local/share/go/pkg/mod/k8s.io/apimachinery@v0.37.0/pkg/apis/meta/v1/types.go"
+  "types.go"
+  'go-ts-mode
+  '(hl-todo-mode font-lock-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  81940
+  '(85009 nil)
+  t
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 28756 688321 810000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring (85009 85010))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/.local/share/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.25.0/alias.go"
+  "alias.go"
+  'go-ts-mode
+  '(hl-todo-mode font-lock-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  1637
+  '(nil nil)
+  t
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 28555 375331 87000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "*Fd*"
+  'dired-mode
+  '(font-lock-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  1
+  '(284 nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/")
+  '((buffer-display-time 27306 27690 489329 49000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/config/samples/cache_v1alpha1_memcached.yaml"
+  "cache_v1alpha1_memcached.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  209
+  '(1 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 27306 27092 449273 796000) (buffer-file-coding-system . undecided-unix) (truncate-lines))
+  '((mark-ring (208 209 1 209))))
+
+(desktop-create-buffer 208
+  nil
+  "samples"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  136
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/config/samples/")
+  '((buffer-display-time 27306 27091 291855 907000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "v1alpha1"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  200
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/api/v1alpha1/")
+  '((buffer-display-time 27306 26347 653912 387000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "api"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  126
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/getstarted/memcached-operator/api/")
+  '((buffer-display-time 27306 26343 236944 469000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "guestbook"
+  'dired-mode
+  '(dired-omit-mode font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  494
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/guestbook/")
+  '((buffer-display-time 27306 25962 462251 348000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "config"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  430
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/guestbook/config/")
+  '((buffer-display-time 27306 25961 104689 751000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "samples"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  178
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/guestbook/config/samples/")
+  '((buffer-display-time 27306 25959 696608 331000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/guestbook/config/samples/webapp_v1_guestbook.yaml"
+  "webapp_v1_guestbook.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  196
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 27306 15342 327784 59000) (buffer-file-coding-system . undecided-unix) (truncate-lines))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/guestbook/config/samples/kustomization.yaml"
+  "kustomization.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 27306 15340 322204 931000) (buffer-file-coding-system . undecided-unix) (truncate-lines))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/guestbook/api/v1/guestbook_types.go"
+  "guestbook_types.go"
+  'go-ts-mode
+  '(hl-todo-mode font-lock-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eglot--managed-mode eldoc-mode flymake-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  549
+  '(2510 nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 15260 96389 202000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring (3220 3192 3221 1330 1330 2401 2510))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/guestbook/cmd/main.go"
+  "main.go"
+  'go-ts-mode
+  '(hl-todo-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode font-lock-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  2193
+  '(562 nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 15221 618174 99000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring (548 8684 1226 548))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/guestbook/Makefile"
+  "Makefile"
+  'makefile-gmake-mode
+  '(hl-todo-mode font-lock-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  2476
+  '(880 nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 15221 618173 97000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "cmd"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  106
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/kubebuilder/guestbook/cmd/")
+  '((buffer-display-time 27306 14159 717175 557000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "_ref"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  250
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/")
+  '((buffer-display-time 27306 13521 359632 851000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "diy-crd-controller"
+  'dired-mode
+  '(corfu-mode font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  94
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/diy-crd-controller/")
+  '((buffer-display-time 27306 13508 799500 368000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "manifests"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  161
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/diy-crd-controller/manifests/")
+  '((buffer-display-time 27306 13380 633298 201000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/diy-crd-controller/manifests/resourcedefinition.yaml"
+  "resourcedefinition.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  120
+  '(128 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 27306 13392 304885 425000) (buffer-file-coding-system . utf-8-unix) (truncate-lines))
+  '((mark-ring (557 78 168 111 1 766 767 148 148 534 767 767 265 240 254))))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/diy-crd-controller/manifests/dummysite.yaml"
+  "dummysite.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  67
+  '(156 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 27306 13375 162007 156000) (buffer-file-coding-system . utf-8-unix) (truncate-lines))
+  '((mark-ring (1 155 156 88 88 31 31 1 50 156 72))))
+
+(desktop-create-buffer 208
+  nil
+  "mooc-k8s"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  76
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/")
+  '((buffer-display-time 27306 13341 472880 194000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "manifests"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  102
+  '(311 nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/follow/ch06/manifests/")
+  '((buffer-display-time 27306 13329 609772 721000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/follow/ch06/manifests/clusterrole.yaml"
+  "clusterrole.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 27306 12780 423815 16000) (buffer-file-coding-system . undecided-unix) (truncate-lines))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/follow/ch06/manifests/countdown.yaml"
+  "countdown.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  142
+  '(142 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 27306 12672 738234 326000) (buffer-file-coding-system . undecided-unix) (truncate-lines))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/follow/ch06/manifests/resourcedefinition.yaml"
+  "resourcedefinition.yaml"
+  'yaml-mode
+  '(hl-todo-mode font-lock-mode indent-bars-mode symbol-overlay-mode subword-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  1282
+  '(1 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 27306 12671 422985 479000) (buffer-file-coding-system . undecided-unix) (truncate-lines))
+  '((mark-ring (1281 806 1 1368 187 335 273 335 1621 1368 806))))
+
+(desktop-create-buffer 208
+  nil
+  "ch06"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  202
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/follow/ch06/")
+  '((buffer-display-time 27306 10455 816864 855000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "cd-crd"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  197
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/follow/ch06/cd-crd/")
+  '((buffer-display-time 27306 10451 249617 31000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "follow"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  87
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/follow/")
+  '((buffer-display-time 27306 10443 490271 439000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "cmd"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  103
+  '(nil nil)
+  t
+  '("/home/ukiran/prog/mooc-k8s/_ref/follow/ch06/cd-crd/cmd/")
+  '((buffer-display-time 27306 10431 857521 783000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/prog/mooc-k8s/_ref/follow/ch06/cd-crd/cmd/main.go"
+  "main.go"
+  'go-ts-mode
+  '(hl-todo-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eldoc-mode flymake-mode eglot--managed-mode font-lock-mode symbol-overlay-mode puni-mode apheleia-mode rainbow-delimiters-mode whitespace-mode display-line-numbers-mode breadcrumb-local-mode yas-minor-mode dtrt-indent-mode completion-preview-mode subword-mode page-break-lines-mode goto-address-prog-mode abbrev-mode beginend-prog-mode envrc-mode corfu-mode diff-hl-mode diff-hl-show-hunk-mouse-mode pulsar-mode)
+  562
+  '(nil nil)
+  t
+  nil
+  '((show-trailing-whitespace . t) (indent-tabs-mode . t) (buffer-display-time 27306 10430 849507 986000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "Git"
+  'dired-mode
+  '(font-lock-mode envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode beginend-dired-mode)
+  605
+  '(nil nil)
+  t
+  '("/home/ukiran/Git/")
+  '((buffer-display-time 27306 10423 241712 171000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "resume"
+  'dired-mode
+  '(pulsar-mode corfu-mode font-lock-mode envrc-mode dired-omit-mode hl-line-mode dired-hide-details-mode diff-hl-dired-mode diff-hl-show-hunk-mouse-mode beginend-dired-mode)
+  177
+  '(nil nil)
+  t
+  '("/home/ukiran/Git/resume/")
+  '((buffer-display-time 27306 10424 24708 442000))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ukiran/Git/resume/resume.typ"
+  "resume.typ"
+  'typst-ts-mode
+  '(hl-todo-mode outline-minor-mode font-lock-mode eglot-semantic-tokens-mode eglot-inlay-hints-mode eglot--managed-mode pulsar-mode diff-hl-show-hunk-mouse-mode diff-hl-mode eldoc-mode flymake-mode apheleia-mode visual-line-mode display-line-numbers-mode breadcrumb-local-mode goto-address-mode abbrev-mode envrc-mode corfu-mode)
+  4450
+  '(1 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 27306 10424 560701 127000) (buffer-file-coding-system . utf-8-unix) (truncate-lines))
+  '((mark-ring (1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1))))
+
+(desktop-create-buffer 208
+  nil
+  "*info*"
+  'Info-mode
+  '(envrc-mode diff-hl-show-hunk-mouse-mode pulsar-mode font-lock-mode isearch-fold-quotes-mode)
+  227
+  '(nil nil)
+  t
+  '("dir" "Top" nil)
+  '((tab-width . 8) (buffer-display-time 27306 29784 259343 158000) (case-fold-search . t))
   '((mark-ring nil)))
 

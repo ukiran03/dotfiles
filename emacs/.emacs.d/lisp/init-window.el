@@ -112,6 +112,7 @@
           "\\*apheleia-.*-log\\*"
           "\\*Async Shell Command\\*"
           "\\*compilation\\*"
+          ;; "\\*rustfmt\\*"
           go-test-mode
           racket-repl-mode
           help-mode

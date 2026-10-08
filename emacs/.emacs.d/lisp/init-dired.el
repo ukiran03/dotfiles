@@ -126,5 +126,15 @@ is inserted.  Otherwise, display it in another buffer."
   :bind
   ([f8] . dired-sidebar-toggle-with-current-directory))
 
+;; Similar to builtin find-dired, but uses `fd'
+(use-package fd-dired
+  :straight t
+  :config
+  (setq fd-dired-pre-fd-args "-c never")
+
+  ;; [08-09-2026] DOUBT: using '-x' vs '-X'
+  (setq fd-dired-ls-option
+        '("-x ls -ld --quoting-style=literal" . "-ld")))
+
 (provide 'init-dired)
 ;;; init-dired.el ends here

@@ -227,6 +227,7 @@
 
 ;; Direnv Integration
 (use-package envrc
+  :straight t
   :config
   (setq envrc-none-lighter nil)
   (setq envrc-on-lighter
@@ -236,6 +237,9 @@
   :hook (after-init . envrc-global-mode)
   :bind (:map envrc-mode-map
               ("C-c e" . envrc-command-map)))
+
+(use-package dotenv-mode
+  :straight t)
 
 (provide 'init-prog)
 ;;; init-prog.el ends here
