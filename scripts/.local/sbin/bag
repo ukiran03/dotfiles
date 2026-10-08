@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# Usaage: bag <file>
+
+file=$(echo "$1" | sed 's/\./\\./g')
+bat --pager "less --raw-control-chars --quit-if-one-screen --mouse --use-color -JMR -PM'$file   %lt-%lb?L/%L ?pB%pB\%'" "$1"

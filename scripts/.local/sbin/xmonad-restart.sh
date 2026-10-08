@@ -12,5 +12,3 @@ xmonad --restart
 # changevolume > /dev/null 2>&1
 # uk-bright > /dev/null 2>&1
 laptop-brightness.sh > /dev/null 2>&1
-
-# killall trayer

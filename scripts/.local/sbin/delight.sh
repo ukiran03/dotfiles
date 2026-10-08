@@ -30,13 +30,13 @@ _sed() {
 }
 
 _redshift() {
-    _depcheck rso
+	_depcheck rso
 	case "$1" in
 	light) rso 3500 ;;
 	dark) rso 4500 ;;
 	esac
 
-    return 0
+	return 0
 }
 
 _emacs() {
@@ -47,9 +47,12 @@ _emacs() {
 
 	# Handle argument parsing and validation
 	case "$1" in
-		light) new_theme="$light_theme" ;;
-		dark)  new_theme="$dark_theme" ;;
-		*)     echo "Usage: _emacs [light|dark]"; return 1 ;;
+	light) new_theme="$light_theme" ;;
+	dark) new_theme="$dark_theme" ;;
+	*)
+		echo "Usage: _emacs [light|dark]"
+		return 1
+		;;
 	esac
 
 	# If Emacs is running, change the theme dynamically via emacsclient
@@ -70,7 +73,7 @@ _emacs() {
 			END {
 				if (!found) print "(setq my-theme \x27" theme ")"
 			}
-		' "$custom_file" > "${custom_file}.tmp" && mv "${custom_file}.tmp" "$custom_file"
+		' "$custom_file" >"${custom_file}.tmp" && mv "${custom_file}.tmp" "$custom_file"
 	fi
 }
 
@@ -305,6 +308,23 @@ _wallpaper() {
 	echo "[wallpaper]: Switched to $1 theme."
 }
 
+_trayer() {
+	_depcheck trayer
+	killall trayer
+	local light_color="0xf2f2f2"
+	local dark_color="0x0d0e1c"
+	local colorTrayer
+
+	case "$1" in
+	-l | light) colorTrayer="$light_color" ;;
+	-d | dark | *) colorTrayer="$dark_color" ;;
+	esac
+
+	trayer --edge top --align right --widthtype request --SetDockType true \
+		--SetPartialStrut true --expand true --transparent true \
+		--alpha 0 --tint "$colorTrayer" --height 21 &
+}
+
 declare -g global_theme="dark" # fallback
 
 if [[ -f "$STATE_FILE" ]]; then
@@ -322,7 +342,7 @@ case "$1" in
 	;;
 esac
 
-apps=(_xmonad _emacs _rofi _xmobar _xresources _zathura _dunst _system_theme _xsettingsd _redshift)
+apps=(_xmonad _emacs _rofi _xmobar _xresources _zathura _dunst _system_theme _xsettingsd _redshift _trayer)
 
 # The Logic: Check if we should skip the "Already Set" check
 # We run the theme change IF:
@@ -342,8 +362,8 @@ if [[ "$2" == "-f" ]] || [[ "$global_theme" != "$mode" ]]; then
 	killall dunst || true # to reload dunst, and ignore exit status.
 	_wallpaper "$mode"
 	_gsettings_theme & # as bg
-    # _redshift "$mode" &
-	_restart_xmonad    # restart xmonad
+	# _redshift "$mode" &
+	_restart_xmonad # restart xmonad
 	# betterlockscreen -u "$WALLPAPER" > /dev/null 2>&1 &
 
 	# This pauses the script until ALL background jobs started above
@@ -354,5 +374,3 @@ else
 	echo "Already using $mode theme. Use -f to force."
 	exit 0
 fi
-
-# killall trayer
