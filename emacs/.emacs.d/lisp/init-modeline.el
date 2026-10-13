@@ -94,6 +94,7 @@
                 uk-modeline-cursor-position
                 "  "
                 uk-modeline-scroll
+                uk-modeline-scroll-lock
                 " "))
 
 
@@ -196,16 +197,25 @@ Specific to the current window's mode line.")
   "Mode line construct to display the buffer scroll percentage.")
 (put 'uk-modeline-scroll 'risky-local-variable t)
 
+;;;; Scroll Lock Mode Indicator
+(defvar-local uk-modeline-scroll-lock
+  '(:eval
+    (when scroll-lock-mode
+      (propertize " scrlk"
+                  'face 'uk-modeline-bold-blue-face)))
+  "Mode line construct to display scroll lock mode status.")
+(put 'uk-modeline-scroll-lock 'risky-local-variable t)
+
 ;;;; Text scale
 (defvar-local uk-modeline-text-scale
-    '(:eval
-      (when (and (boundp 'text-scale-mode-amount)
-                 (/= text-scale-mode-amount 0))
-        (propertize
-         (format
-          (if (> text-scale-mode-amount 0) " %+d" " %-d")
-          text-scale-mode-amount)
-         'face 'uk-modeline-unimportant-bold-face))))
+  '(:eval
+    (when (and (boundp 'text-scale-mode-amount)
+               (/= text-scale-mode-amount 0))
+      (propertize
+       (format
+        (if (> text-scale-mode-amount 0) " %+d" " %-d")
+        text-scale-mode-amount)
+       'face 'uk-modeline-unimportant-bold-face))))
 (put 'uk-modeline-text-scale 'risky-local-variable t)
 
 ;;;; Buffer related
