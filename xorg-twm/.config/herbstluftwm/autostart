@@ -13,6 +13,7 @@ hc keyunbind --all
 
 # External startup scripts
 bash "$HOME"/.config/startup/xtwm_startup.sh
+bash "$HOME"/.config/startup/herbs_startup
 
 # Modifiers
 Mod5=Mod5      # Hyper key
@@ -26,19 +27,22 @@ Mod=Mod4       # Super key (Main Windows Key)
 # tag_names=( {1..9} )
 tag_names=( "1" "2" "3" "4" "5" "6" "7" "8" "9" )
 tag_keys=( {1..9} )
-scratch_tag=">_<"
+scratch_tag="~"
 
 # Rename the initial implicit 'default' tag to '1' safely
 hc rename default "${tag_names[0]}" || true
 
-# Force creation of the box symbol scratchpad tag
+# Force creation of the "~" scratchpad tag
 hc add "$scratch_tag"
+
+# Pin the scratchpad to the end of the tag list (as described in the manual)
+hc attr tags.by-name."$scratch_tag".at_end true
 
 # Initialize and bind tags 1-9
 for i in "${!tag_names[@]}" ; do
     hc add "${tag_names[$i]}"
     hc set_layout horizontal
-    hc set default_frame_layout 1
+    hc set default_frame_layout 1 # TODO: or horizontal ?
     key="${tag_keys[$i]}"
     if [ -n "$key" ] ; then
         hc keybind "$Mod-$key" use "${tag_names[$i]}"
@@ -180,13 +184,17 @@ hc set focus_follows_mouse true
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
 
-hc set frame_border_active_color '#222222cc'
-hc set frame_border_normal_color '#101010cc'
-hc set frame_bg_normal_color '#565656cc'
-hc set frame_bg_active_color '#345F0Ccc'
+hc set frame_border_active_color '#222222cc' # TODO:
+hc set frame_border_normal_color '#101010cc' # TODO:
+# hc set frame_bg_normal_color '#565656'
+hc set frame_bg_normal_color '#9f9f9f'
+hc set frame_bg_active_color '#006800'
 
 hc set frame_border_width 1
-hc set show_frame_decorations 'focused_if_multiple'
+
+# hc set show_frame_decorations 'focused_if_multiple'
+hc set show_frame_decorations 'if_multiple'
+
 hc set frame_normal_opacity 50
 hc set frame_active_opacity 50
 hc set frame_bg_transparent off
@@ -202,7 +210,7 @@ hc attr theme.title_depth 1
 hc attr theme.outer_width 0
 hc attr theme.inner_width 0
 hc attr theme.inner_color black
-hc attr theme.border_width 3
+hc attr theme.border_width 3    # TODO: 4
 hc attr theme.floating.border_width 3
 hc attr theme.floating.outer_width 2
 hc attr theme.floating.outer_color white
@@ -230,8 +238,9 @@ hc attr theme.background_color '#141414'
 hc attr theme.active.padding_bottom 0
 hc set window_gap 1
 hc set frame_padding 0
+# hc set smart_window_surroundings one_window_and_frame
 hc set smart_window_surroundings off
-hc set smart_frame_surroundings off
+hc set smart_frame_surroundings off # TODO: hide_gaps
 hc set mouse_recenter_gap 0
 
 hc set default_frame_layout horizontal

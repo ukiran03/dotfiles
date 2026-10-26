@@ -11,54 +11,77 @@ super + grave
 
 # #Raises volume
 XF86Audio{RaiseVolume,LowerVolume,Mute}
-    /home/ukiran/.local/bin/changevolume {up,down,mute}
+    /home/ukiran/.local/sbin/changevolume {up,down,mute}
 
 # Emacs
 super + e
-    emacsclient -c -a 'emacs'
+    emacsclient -nc -a 'emacs'
 
 # mpd, ncmpcpp
 XF86Audio{Play,Next,Prev,Stop}
     mpc {toggle,next,prev,stop}
 
-# Youtube, Firefox etc.
+# mpv toggle, mpv-mpris is the only dep
 alt + F7
+    playerctl --player=mpv play-pause
+
+# Youtube, Firefox etc.
+shift + alt + F7
     playerctl play-pause
 
 # Email
 XF86Mail
    thunderbird
 
+XF86Explorer
+    /home/ukiran/.local/sbin/internet
 # terminal: zellij or tmux
 super + {_, shift + } Return
-        {alacritty -e tmux new-session -A -s 'Main', alacritty}
-    # {alacritty -T zellij -e zellij attach --create Main, alacritty}
+        {urxvtc -e tmux new-session -A -s 'Main', urxvtc}
 
 shift + KP_End
     thunar
 
 # Screenshot using `maim'
 Print
-   /home/ukiran/.local/bin/screenshot.sh
+   /home/ukiran/.local/sbin/screenshot.sh
 ctrl + Print
-    /home/ukiran/.local/bin/screenshot.sh -s
+    /home/ukiran/.local/sbin/screenshot.sh -s
 ctrl + shift + Print
-    /home/ukiran/.local/bin/screenshot.sh -c
+    /home/ukiran/.local/sbin/screenshot.sh -c
 alt + Print
-    /home/ukiran/.local/bin/screenshot.sh -w
+    /home/ukiran/.local/sbin/screenshot.sh -w
 
 # Browser, Chat
 super + {F10, F11, F12}
     {telegram-desktop, tor-browser, qbittorrent}
+
+# super + shift + F9
+    # ~/.Zen-browser/zen-bin --private-window
+
 super + shift + F9
-    ~/.Zen-browser/zen-bin --private-window
+    gtk-launch helium-incognito
+    # gtk-launch brave-incognito-browser
+
 super + F9
-    ~/.Zen-browser/zen-bin
+    gtk-launch helium
+
+
+super + ctrl + F9
+    qutebrowser
+
 # brightness
 super + bracket{left,right}
-    /home/ukiran/.local/bin/uk-bright {down,up}
+    /home/ukiran/.local/sbin/laptop-brightness.sh {down,up}
+    # /home/ukiran/.local/sbin/uk-bright {down,up}
 
-super + y; {b, c, s}
+super + y; {b, c, p, s}
     {polybar-toggle, \
     conky-toggle, \
+    picom-toggle, \
     pkill -USR1 -x sxhkd && dunstify -a ignore -i key_bindings "Reloaded key bindings"}
+
+super + Escape
+    ~/.local/sbin/powermenu.sh
+
+# pkill -USR1 -x sxhkd && dunstify -a ignore -i key_bindings "Reloaded key bindings"

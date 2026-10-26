@@ -1,11 +1,12 @@
 #! /bin/bash
-# 
+#
 # Author: github.com/shvmsaini
 # This script marks the current focused client to be used as "scratchpad", which in my understanding is a window which can be spawned anywhere on any tag.
 # Supported Flags:
 # --no-float : Makes window to not be in floating state if it already isn't.
 # --no-sticky : Makes window to only appear in its current tag.
 # First argument is Key and second is mode
+
 
 hc() {
     herbstclient "$@"
@@ -24,7 +25,7 @@ sticky=true
 while [ $# -gt 2 ]; do
   case $1 in
     --no-float)
- 		floating=false     	
+ 		floating=false
       ;;
     --no-sticky)
      	sticky=false
@@ -49,12 +50,12 @@ if [ $? -eq 0 ]; then
 
 		# Remove from file
 		sed -i "/$key/d" $file
-		
+
 		# Set back previous properties
 		hc set_attr clients.$id.floating $isFloating
 		hc set_attr clients.$id.sticky $isSticky
 		hc move $currTag
-		
+
 		dunstify -a "ignore" -t 1500 "Unmarked" --icon $icon
 		exit 0
 	fi
@@ -63,8 +64,8 @@ else
 	# Remove any existing keys
 	sed -i "/$key/d" $file
 	dunstify -a "ignore" -t 1500 "Marked" --icon $icon
-	id=$(hc get_attr clients.focus.winid) 
-	
+	id=$(hc get_attr clients.focus.winid)
+
 	# Get Current Properties of the client
 	isFloating=$(hc get_attr clients.$id.floating)
 	currTag=$(hc get_attr clients.$id.tag)
@@ -73,7 +74,7 @@ else
 	# Set supplied/default properties
 	hc set_attr clients.$id.sticky $sticky
 	hc set_attr clients.$id.floating $floating
-	
-	# Store 
+
+	# Store
 	echo $key=$id=$isSticky=$isFloating=$currTag >> $file
 fi
