@@ -28,8 +28,12 @@ xorg-twm/.config/herbstluftwm/*
 
 # xmobar
 xorg-twm/.config/xmobar/*
-!xorg-twm/.config/xmobar/src
+!xorg-twm/.config/xmobar/Justfile
+!xorg-twm/.config/xmobar/cabal.project
+!xorg-twm/.config/xmobar/xmobar-config.cabal
+!xorg-twm/.config/xmobar/config.hs
 !xorg-twm/.config/xmobar/xpm
+!xorg-twm/.config/xmobar/src
 !xorg-twm/.config/xmobar/scripts
 !xorg-twm/.config/xmobar/trayer-padding-icon.sh
 

@@ -1,0 +1,18 @@
+# List available recipes
+default:
+    @just --list
+
+# Clean the build artifacts (only use if things break)
+clean:
+    cabal clean
+
+# Build the binary incrementally using GHC 9.4.8 (only recompiles changes)
+build:
+    ghcup run --ghc 9.4.8 -- cabal build --allow-newer=xmobar:base
+
+# Copy the custom binary to "./xmobar-uk"
+copy:
+    cp $(ghcup run --ghc 9.4.8 -- cabal list-bin xmobar) ./xmobar-uk
+
+# Fast setup: builds changes and copies (skips clean)
+setup: build copy

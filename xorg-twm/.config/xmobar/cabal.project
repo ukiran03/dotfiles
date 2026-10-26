@@ -1,0 +1,7 @@
+packages: .
+          /home/ukiran/Git/Builds/xmobar-0.44.2/xmobar
+
+allow-newer: xmobar:base
+
+package xmobar
+  flags: +all_extensions

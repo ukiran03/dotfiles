@@ -1,0 +1,8 @@
+cabal-version: 3.16
+name:          xmobar-config
+version:       0.1.0.0
+
+executable xmobar
+  main-is:          config.hs
+  build-depends:    base, xmobar
+  default-language: Haskell2010

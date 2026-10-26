@@ -1,7 +1,7 @@
 module Colors.Current where
 import XMonad
 
-colorScheme = "Operandi"
+colorScheme = "light"
 
 colorActive :: String = "#531ab6" -- magenta-cooler
 colorInactive :: String = "#c4c4c4" -- bg-inactive

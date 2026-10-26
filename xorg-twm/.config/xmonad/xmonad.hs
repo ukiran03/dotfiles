@@ -136,14 +136,14 @@ main =
     . ewmh
     . withEasySB
         (statusBarProp
-           ("xmobar " ++ myXmobarConfig)
+           myXmobarCmd
            (copiesPP (xmobarColor colorBlue "" . wrap (":") ("")) myXmobarPP))
         defToggleStrutsKey
     . docks
     $ myConfig
 
-myXmobarConfig :: String
-myXmobarConfig = "~/.config/xmobar/xmobarrc"
+myXmobarCmd :: String
+myXmobarCmd = "/home/ukiran/.config/xmobar/xmobar-uk " ++ colorScheme
 
 myConfig =
   def
@@ -529,7 +529,6 @@ myXmobarPP =
         , ppVisible = yellow . wrap ("(") (")")
         , ppHidden = wrap " " " "
         , ppHiddenNoWindows = gray . const ""
-        -- ∎⏹■◾
         , ppUrgent = tagUrgent . wrap " " " "
         , ppLayout = wrap " " " " . lowWhite
         , ppOrder = \(ws:l:_:ex) -> [ws, l] ++ ex
@@ -609,8 +608,9 @@ myManageHook =
 myStartupHook :: X ()
 myStartupHook = do
   spawnOnce "bash $HOME/.config/startup/xtwm_startup.sh"
-  spawn "sleep 2 && /usr/libexec/polkit-gnome-authentication-agent-1"
   spawnOnce
-    ("trayer --edge top --align right --widthtype request --SetDockType true " ++
-     "--SetPartialStrut true --expand true --transparent true " ++
-     "--alpha 0 --tint " ++ colorTrayer ++ " --height 21 &")
+    ("trayer --edge top --align right --widthtype request --SetDockType true "
+       ++ "--SetPartialStrut true --expand true --transparent true "
+       ++ "--alpha 0 --tint "
+       ++ colorTrayer
+       ++ " --height 21 &")
