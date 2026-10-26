@@ -32,10 +32,12 @@ Xft.lcdfilter:              lcddefault
 ! URxvt.italicFont:           xft:Iosevka Term:size=14.25:style=Italic
 ! URxvt.boldItalicFont:       xft:Iosevka Term:size=14.25:style=Bold Italic
 
-URxvt.font:           xft:Iosevka Term:size=14.25:style=Semibold,xft:Iosevka Nerd Font Mono:size=14.25
-URxvt.boldFont:       xft:Iosevka Term:size=14.25:style=Bold,xft:Iosevka Nerd Font Mono:size=14.25
-URxvt.italicFont:     xft:Iosevka Term:size=14.25:style=Italic,xft:Iosevka Nerd Font Mono:size=14.25
-URxvt.boldItalicFont: xft:Iosevka Term:size=14.25:style=Bold Italic,xft:Iosevka Nerd Font Mono:size=14.25
+! Monitor: 12.75, Laptop: 14.25, Laptop-Zoom: 16
+
+URxvt.font:           xft:Iosevka Term:size=16:style=Semibold,xft:Iosevka Nerd Font Mono:size=16
+URxvt.boldFont:       xft:Iosevka Term:size=16:style=Bold,xft:Iosevka Nerd Font Mono:size=16
+URxvt.italicFont:     xft:Iosevka Term:size=16:style=Italic,xft:Iosevka Nerd Font Mono:size=16
+URxvt.boldItalicFont: xft:Iosevka Term:size=16:style=Bold Italic,xft:Iosevka Nerd Font Mono:size=16
 
 ! Layout & Behavior
 URxvt.letterSpace:          0

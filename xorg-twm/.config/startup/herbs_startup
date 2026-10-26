@@ -17,6 +17,9 @@ _check () {
     command -v "$1" > /dev/null
 }
 
+###
+_check sxhkd && sxhkd -c "$HOME"/.config/sxhkd/herbs_sxhkdrc &
+
 # Specify keyboard layout options.  See the setxkbmap(1) manual for
 # the command line arguments and the xkeyboard-config(7) manual for
 # the layout names and options.
@@ -36,12 +39,12 @@ _check () {
 # key chords into separate files, based on their scope.  The ones that
 # pertain to the window manager are defined in sxhkdrc_bspwm and
 # sxhkdrc_herbstluftwm, respectively.
-_check sxhkd && sxhkd -c "$HOME"/.config/sxhkd/herbs_sxhkdrc &
+# _check sxhkd && sxhkd -c "$HOME"/.config/sxhkd/herbs_sxhkdrc &
 
 # Check if tmux session 'Main' exists, and create it if it doesn't
-if ! tmux has-session -t 'Main' 2>/dev/null; then
-  tmux new-session -d -s 'Main'
-fi
+# if ! tmux has-session -t 'Main' 2>/dev/null; then
+#   tmux new-session -d -s 'Main'
+# fi
 
 # Run the tool that sets the wallpaper.  A program could be used that
 # handles the desktop in general, including the option to set icons.
@@ -54,18 +57,18 @@ fi
 #     nitrogen --restore
 # fi
 
-if _check feh
-then
-    ~/.fehbg &
-fi
+# if _check feh
+# then
+#     ~/.fehbg &
+# fi
 
 
 # Use the same cursor everywhere, PKG: extra/xorg-xsetroot
-if _check xsetroot
-then
-    xsetroot -cursor_name left_ptr & #cursor active at boot
-    xsetroot -solid '#5A8E3A' &
-fi
+# if _check xsetroot
+# then
+#     xsetroot -cursor_name left_ptr & #cursor active at boot
+#     xsetroot -solid '#5A8E3A' &
+# fi
 
 # check once again
 
@@ -78,7 +81,7 @@ fi
 # xset r rate 200 50
 
 # Load my Xresources
-xrdb -load "$XDG_CONFIG_HOME/X11/xresources" || true # ignore errors
+# xrdb -load "$XDG_CONFIG_HOME/X11/xresources" || true # ignore errors
 
 # _check xrdb && [ -f "$HOME"/.Xresources ] && xrdb -I "$HOME" -merge "$HOME"/.Xresources
 
@@ -86,33 +89,33 @@ xrdb -load "$XDG_CONFIG_HOME/X11/xresources" || true # ignore errors
 # _check nm-applet && nm-applet &
 
 # Dunst
-_check dunst && dunst &
+# _check dunst && dunst &
 
 
 # chekc monitors
 # Check if HDMI-1-0 is connected
-if xrandr | grep "HDMI-1-0 connected"; then
-    # HDMI-1-0 is connected, set it as active and primary
-    xrandr --output HDMI-1-0 --auto --primary
-    # Turn off eDP-1 display
-    xrandr --output eDP-1 --off
-    # Initial brightness for external monitor
-    xrandr --output HDMI-1-0 --brightness 0.85
-    brightness_file="/home/ukiran/.config/my_display/brightness"
-    # Check if the file exists
-    if [ -f "$brightness_file" ]; then
-	echo "0.85" > "$brightness_file"
-    else
-	touch "$brightness_file"
-	echo "0.85" > "$brightness_file"
-    fi
-else
-    # HDMI-1-0 is not connected, set eDP-1 as active and primary
-    xrandr --output eDP-1 --auto --primary
-    # Turn off HDMI-1-0 display
-    xrandr --output HDMI-1-0 --off
-    # setxkbmap -option altwin:swap_lalt_lwin ----------------------- back to normal for while
-fi
+# if xrandr | grep "HDMI-1-0 connected"; then
+#     # HDMI-1-0 is connected, set it as active and primary
+#     xrandr --output HDMI-1-0 --auto --primary
+#     # Turn off eDP-1 display
+#     xrandr --output eDP-1 --off
+#     # Initial brightness for external monitor
+#     xrandr --output HDMI-1-0 --brightness 0.85
+#     brightness_file="/home/ukiran/.config/my_display/brightness"
+#     # Check if the file exists
+#     if [ -f "$brightness_file" ]; then
+# 	echo "0.85" > "$brightness_file"
+#     else
+# 	touch "$brightness_file"
+# 	echo "0.85" > "$brightness_file"
+#     fi
+# else
+#     # HDMI-1-0 is not connected, set eDP-1 as active and primary
+#     xrandr --output eDP-1 --auto --primary
+#     # Turn off HDMI-1-0 display
+#     xrandr --output HDMI-1-0 --off
+#     # setxkbmap -option altwin:swap_lalt_lwin ----------------------- back to normal for while
+# fi
 
 
 # if pgrep -x "xfce4-clipman" > /dev/null
@@ -122,40 +125,40 @@ fi
 #     xfce4-clipman &
 # fi
 
-greenclip daemon &
+# greenclip daemon &
 
 
-if pgrep -f "xfce4-power-manager" > /dev/null
-then echo "xfce4-power-manager" is already running
-else
-    echo "starting xfce4-power-manager"
-    xfce4-power-manager &
-fi
+# if pgrep -f "xfce4-power-manager" > /dev/null
+# then echo "xfce4-power-manager" is already running
+# else
+#     echo "starting xfce4-power-manager"
+#     xfce4-power-manager &
+# fi
 
 # _check emacs && emacs -T emacs-server &
 
-xsettingsd -c ~/.config/xsettingsd/xsettingsd.conf &
+# xsettingsd -c ~/.config/xsettingsd/xsettingsd.conf &
 
-_check mpc && mpc update &
+# _check mpc && mpc update &
 
-_check numlockx && numlockx on &
+# _check numlockx && numlockx on &
 
-_check thunar && thunar --daemon &
+# _check thunar && thunar --daemon &
 
-laptop-brightness.sh > /dev/null 2>&1
+# laptop-brightness.sh > /dev/null 2>&1
 
 #nmcli networking off &
 # bash internet &
 
 ### Redshift
-if _check rso; then
-    rso
-fi
+# if _check rso; then
+#     rso
+# fi
 
-urxvtd -q &
+# urxvtd -q &
 
 # /usr/lib/xfce4/notifyd/xfce4-notifyd &
-/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+# /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 #/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # xfsettingsd --daemon --disable-wm-check --sm-client-disable &
 

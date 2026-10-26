@@ -61,7 +61,7 @@
 (dolist (face '(default fixed-pitch variable-pitch))
   (set-face-attribute face nil
                       :family "Iosevka Medium"
-                      :height 170))
+                      :height 160))
 
 ;; (dolist (face '(default fixed-pitch variable-pitch))
 ;;   (set-face-attribute face nil

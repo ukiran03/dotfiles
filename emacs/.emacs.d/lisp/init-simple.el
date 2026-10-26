@@ -134,7 +134,10 @@ With a prefix argument (C-u), replace the buffer contents with the output."
 (use-package display-line-numbers
   :straight nil
   :commands (uk-toggle-line-numbers)
-  :hook ((prog-mode yaml-mode conf-mode text-mode) . display-line-numbers-mode)
+
+  ;; NOTE: trying to relay heavily on `avy-*'
+  ;; :hook ((prog-mode yaml-mode conf-mode text-mode)
+  ;;        . display-line-numbers-mode)
   :init (setq display-line-numbers-width-start t)
   (setq display-line-numbers-type 'relative)
   :config

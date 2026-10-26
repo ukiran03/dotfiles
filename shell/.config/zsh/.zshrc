@@ -164,3 +164,11 @@ if [[ -d "$GCLOUD_SDK_DIR" ]]; then
 	[[ -f "$GCLOUD_SDK_DIR/completion.zsh.inc" ]] &&
 		source "$GCLOUD_SDK_DIR/completion.zsh.inc"
 fi
+
+# pnpm
+export PNPM_HOME='/home/ukiran/.local/share/pnpm'
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end

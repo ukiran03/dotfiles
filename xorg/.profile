@@ -51,6 +51,10 @@ export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 # ==============================================================================
 # Tool & Language Configurations
 # ==============================================================================
+
+# Java
+source /etc/profile.d/jdk.sh
+
 # Android
 export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
 alias adb='HOME="$XDG_DATA_HOME"/android adb'
@@ -92,6 +96,7 @@ export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:/usr/share/terminfo"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/rustup"
 export ASDF_DATA_DIR="$XDG_DATA_HOME"/asdf
 
 # ==============================================================================

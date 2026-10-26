@@ -73,7 +73,7 @@ super + ctrl + F9
 # brightness
 super + bracket{left,right}
     /home/ukiran/.local/sbin/laptop-brightness.sh {down,up}
-# /home/ukiran/.local/sbin/uk-bright {down,up}
+    # /home/ukiran/.local/sbin/uk-bright {down,up}
 
 super + y; {b, c, p, s}
     {polybar-toggle, \

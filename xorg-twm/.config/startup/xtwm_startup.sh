@@ -78,6 +78,9 @@ fi
 if _check "laptop-brightness.sh"; then
 	laptop-brightness.sh >/dev/null 2>&1
 fi
-_launch "godoc" "$HOME/.bin/godocs.sh"
+
+# _launch "godoc" "$HOME/.bin/godocs.sh"
+
+/usr/libexec/polkit-gnome-authentication-agent-1 &
 
 echo "Environment initialized successfully."
