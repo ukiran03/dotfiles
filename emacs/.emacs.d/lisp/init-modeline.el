@@ -87,7 +87,8 @@
                 uk-modeline-misc-info
                 "  "
                 uk-modeline-flymake
-
+                "  "
+                uk-modeline-overwrite
                 mode-line-format-right-align
                 uk-modeline-text-scale
                 "  "
@@ -205,6 +206,15 @@ Specific to the current window's mode line.")
                   'face 'uk-modeline-bold-blue-face)))
   "Mode line construct to display scroll lock mode status.")
 (put 'uk-modeline-scroll-lock 'risky-local-variable t)
+
+;;;; OverWrite Mode Indicator
+(defvar-local uk-modeline-overwrite
+  '(:eval
+    (when overwrite-mode
+      (propertize " ow"
+                  'face 'error)))
+  "Mode line construct to display overwrite-mode status.")
+(put 'uk-modeline-overwrite 'risky-local-variable t)
 
 ;;;; Text scale
 (defvar-local uk-modeline-text-scale

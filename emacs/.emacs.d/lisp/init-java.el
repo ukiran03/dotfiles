@@ -1,11 +1,27 @@
 ;;; init-java.el --- Java Configuration -*- lexical-binding: t -*-
 
-(use-package java-mode
-  :straight nil
+(defun java-compile-command ()
+  "Compile command to run the current Java file."
+  (interactive)
+  (let* ((file (buffer-file-name))
+         (filename (and file (file-name-nondirectory file)))
+         (basename (and file (file-name-base file))))
+    (if (not file)
+        (message "Buffer is not visiting a file.")
+      ;; Set the buffer-local or global compile-command default
+      (setq compile-command (format "javac %s && java %s" filename basename))
+      ;; Call compile interactively so it prompts you with the command
+      ;; pre-filled
+      (call-interactively #'compile))))
+
+(use-package cc-mode
+  :ensure nil
   :hook ((java-mode . symbol-overlay-mode)
          (java-mode . puni-mode)
          (java-mode . apheleia-mode)
-         (java-mode . (lambda () (setq c-basic-offset 2)))))
+         (java-mode . (lambda () (setq c-basic-offset 2))))
+  :bind (:map java-mode-map
+              ("<f1>" . java-compile-command)))
 
 (use-package apheleia
   :straight t
