@@ -33,21 +33,29 @@ _sed() {
 }
 
 _redshift() {
-	_depcheck rso
+	_depcheck redshift && _depcheck rso || return 1
+
 	case "$1" in
-	light) rso 3500 ;;
-	dark) rso 4500 ;;
+	light) rso 3500 2>/dev/null || true ;;
+	dark) rso 4500 2>/dev/null || true ;;
 	esac
 	return 0
 }
 
 _btop() {
-	# Replace 'my_new_theme' with your target theme name
-	NEW_THEME="my_new_theme"
-	BTOP_CONF="$HOME/.config/btop/btop.conf"
+	local btop_conf="$HOME/.config/btop/btop.conf"
+	local theme_light="paper"
+	local theme_dark="default"
+	local target_theme
 
-	if [ -f "$BTOP_CONF" ]; then
-		sed -i "s/^color_theme = .*/color_theme = \"$NEW_THEME\"/" "$BTOP_CONF"
+	case "$1" in
+	light) target_theme="$theme_light" ;;
+	dark) target_theme="$theme_dark" ;;
+	*) return 1 ;;
+	esac
+
+	if [ -f "$btop_conf" ]; then
+		sed -i "s/^color_theme = .*/color_theme = \"$target_theme\"/" "$btop_conf"
 	fi
 }
 
@@ -69,7 +77,7 @@ _emacs() {
 	if pgrep -x emacs >/dev/null; then
 		emacsclient -e "(when (and (fboundp 'modus-themes-get-themes) (fboundp 'consult-theme)) (consult-theme '$new_theme))" >/dev/null 2>&1
 	else
-		touch "$custom_file"
+		[ -f "$custom_file" ] || mkdir -p "$(dirname "$custom_file")" && touch "$custom_file"
 		awk -v found=0 -v theme="$new_theme" '
 			/\(setq my-theme \x27/ {
 				found=1;
@@ -84,7 +92,7 @@ _emacs() {
 }
 
 _rofi() {
-	_depcheck rofi
+	_depcheck rofi || return 1
 	local rofi_dir="$CONFIG_DIR/rofi"
 	local theme_dir="$rofi_dir/themes"
 	local theme_file="$rofi_dir/colors.rasi"
@@ -103,7 +111,7 @@ _rofi() {
 }
 
 _xsettingsd() {
-	_depcheck xsettingsd
+	_depcheck xsettingsd || return 1
 	local xset_dir="$CONFIG_DIR/xsettingsd"
 	local theme_dir="$xset_dir/themes"
 	local theme_file="$xset_dir/xsettingsd.conf"
@@ -171,7 +179,7 @@ _restart_herbstluftwm() {
 }
 
 _xmobar() {
-	_depcheck xmobar
+	_depcheck xmobar || return 1
 	local xmobar_dir="$CONFIG_DIR/xmobar"
 	local theme_dir="$xmobar_dir/src"
 	local theme_file="$xmobar_dir/xmobarrc"
@@ -190,7 +198,7 @@ _xmobar() {
 }
 
 _polybar() {
-	_depcheck polybar
+	_depcheck polybar || return 1
 	local polybar_dir="$CONFIG_DIR/polybar"
 	local theme_dir="$polybar_dir/themes"
 	local theme_file="$polybar_dir/colors.ini"
@@ -226,7 +234,7 @@ _system_theme() {
 }
 
 _gsettings_theme() {
-	_depcheck gsettings
+	_depcheck gsettings || return 1
 	case "$1" in
 	light)
 		gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme_light"
@@ -281,7 +289,7 @@ _xresources() {
 }
 
 _zathura() {
-	_depcheck zathura
+	_depcheck zathura || return 1
 	local zathura_dir="$CONFIG_DIR/zathura"
 	local theme_dir="$zathura_dir/src"
 	local theme_file="$zathura_dir/zathurarc"
@@ -300,7 +308,7 @@ _zathura() {
 }
 
 _dunst() {
-	_depcheck dunst
+	_depcheck dunst || return 1
 	local dunst_dir="$CONFIG_DIR/dunst"
 	local theme_dir="$dunst_dir/src"
 	local theme_file="$dunst_dir/dunstrc"
@@ -342,7 +350,7 @@ _wallpaper() {
 }
 
 _trayer() {
-	_depcheck trayer
+	_depcheck trayer || return 1
 	killall trayer 2>/dev/null || true
 	local light_color="0xf2f2f2"
 	local dark_color="0x0d0e1c"
@@ -377,7 +385,7 @@ esac
 current_wm=$(_current_wm)
 echo "Active window manager: $current_wm"
 
-apps=(_xmonad _emacs _rofi _xresources _zathura _dunst _system_theme _xsettingsd _gsettings_theme _redshift)
+apps=(_xmonad _emacs _rofi _xresources _zathura _dunst _system_theme _xsettingsd _gsettings_theme _redshift _btop)
 
 if [[ "$2" == "-f" ]] || [[ "$global_theme" != "$mode" ]]; then
 	echo "Applying $mode theme..."
@@ -385,8 +393,11 @@ if [[ "$2" == "-f" ]] || [[ "$global_theme" != "$mode" ]]; then
 
 	echo "$mode" >"$STATE_FILE"
 
+	# Launch apps in background and collect their PIDs
+	pids=()
 	for app in "${apps[@]}"; do
 		"$app" "$mode" &
+		pids+=($!) # Fixed: was pid+=(!$)
 	done
 
 	killall dunst 2>/dev/null || true
@@ -401,7 +412,13 @@ if [[ "$2" == "-f" ]] || [[ "$global_theme" != "$mode" ]]; then
 		_trayer "$mode"
 	fi
 
-	wait
+	# Wait only for the specific loop background jobs to finish
+	for pid in "${pids[@]}"; do
+		wait "$pid" 2>/dev/null || true
+	done
+
+	echo "Theme switch complete."
+
 else
 	echo "Already using $mode theme. Use -f to force."
 	exit 0

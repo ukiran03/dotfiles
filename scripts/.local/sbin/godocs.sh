@@ -11,10 +11,10 @@ echo "Starting Go documentation servers..."
 # echo "  - pkgsite: http://localhost:6061"
 
 # 2. Classic godoc (If you still need it for standard library exploration)
-godoc -http=localhost:6060 > /dev/null 2>&1 &
+godoc -http=127.0.0.1:6060 > /dev/null 2>&1 &
 echo "  - godoc:   http://localhost:6060"
 
-echo "Servers are running in the background. Use 'pkill pkgsite' to stop them."
+echo "Servers are running in the background."
 
 ### Not in woods yet
 # dufs --allow-search ~/prog/doc/go.dev/ &
