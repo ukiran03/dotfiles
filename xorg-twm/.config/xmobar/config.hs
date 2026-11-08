@@ -71,7 +71,7 @@ makeConfig t =
             (BatteryP
                ["BAT1"]
                [ "-t"
-               , " <fc=" ++ gray t ++ ">b</fc><acstatus><left> "
+               , " <acstatus><left> "
                , "-L"
                , "20"
                , "-H"
@@ -84,7 +84,7 @@ makeConfig t =
                , "-O"
                , "<fc=" ++ green t ++ "><fn=1>\xF1E6 </fn></fc>"
                , "-o"
-               , "<fc=" ++ red t ++ ">- </fc>"
+               , "<fc=" ++ gray t ++ ">b</fc><fc=" ++ red t ++ ">- </fc>"
                , "-a"
                , chargeScript
                , "-P"
@@ -158,7 +158,8 @@ makeConfig t =
                6000)
         , Run
             (Date
-               ("%a, %d %b %Y, <fc=" ++ cyan t ++ ">%I:%M:%S %p (%R)</fc>")
+               -- ("%a, %d %b %Y, <fc=" ++ cyan t ++ ">%I:%M:%S %p (%R)</fc>")
+               ("%a, %d %b %Y, <fc=" ++ cyan t ++ ">%I:%M %p</fc>")
                "date"
                10)
         , Run (Com trayerScript [] "trayerpad" 50)

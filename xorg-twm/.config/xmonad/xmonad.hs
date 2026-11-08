@@ -584,6 +584,7 @@ myManageHook =
     , title =? "Gum Dialog" --> doCenterFloat
     , className =? "Brave-browser" --> viewShiftHook (myWorkspaces !! 0)
     , className =? "Helium" --> viewShiftHook (myWorkspaces !! 0)
+    , className =? "Vivaldi-stable" --> viewShiftHook (myWorkspaces !! 0)
     , className =? "TelegramDesktop" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "Tor Browser" --> viewShiftHook (myWorkspaces !! 8)
     , className =? "calibre" --> viewShiftHook (myWorkspaces !! 8)

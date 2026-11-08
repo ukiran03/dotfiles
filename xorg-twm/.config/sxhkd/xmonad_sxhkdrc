@@ -60,11 +60,13 @@ super + {F10, F11, F12}
     # ~/.Zen-browser/zen-bin --private-window
 
 super + shift + F9
-    gtk-launch helium-incognito
+    gtk-launch vivaldi-stable-private
+    # gtk-launch helium-incognito
     # gtk-launch brave-incognito-browser
 
 super + F9
-    gtk-launch helium
+    gtk-launch vivaldi-stable
+    # gtk-launch helium
 
 
 super + ctrl + F9

@@ -10,7 +10,7 @@ export LC_ALL="en_US.UTF-8"
 export EDITOR="emacs -q --load ~/.mini-emacs.el -nw"
 export VISUAL="emacs -q --load ~/.mini-emacs.el -nw"
 export TERMINAL="alacritty"
-export BROWSER="firefox"
+# export BROWSER="firefox"
 
 # Pager & Man pages
 export GROFF_NO_SGR=1
