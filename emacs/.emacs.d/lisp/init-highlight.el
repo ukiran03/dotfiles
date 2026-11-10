@@ -8,38 +8,37 @@
 ;; Highlight the current line safely
 (use-package hl-line
   :straight (:type built-in)
-  :hook ((after-init . global-hl-line-mode)
-         ((dashboard-mode eshell-mode shell-mode term-mode eat-mode vterm-mode) .
-          (lambda () (hl-line-mode -1)))))
+  :hook
+  ((after-init . global-hl-line-mode)
+   ((dashboard-mode eshell-mode shell-mode term-mode eat-mode vterm-mode) .
+    (lambda () (hl-line-mode -1)))))
 
-(use-package lin :straight nil :defer t)
+(use-package lin
+  :straight nil
+  :defer t)
 
 ;; Smooth visual line/region pulsing
 (use-package pulsar
   :straight t
   :defer t
   :commands (pulsar-pulse-line pulsar-highlight-dwim)
-  :config
-  (setq pulsar-pulse t
-        pulsar-delay 0.03
-        pulsar-iterations 10
-        pulsar-face 'pulsar-generic
-        pulsar-highlight-face 'pulsar-cyan
-        pulsar-pulse-on-window-change t)
+  :custom
+  (pulsar-pulse t)
+  (pulsar-delay 0.03)
+  (pulsar-iterations 10)
+  (pulsar-face 'pulsar-generic)
+  (pulsar-highlight-face 'pulsar-cyan)
+  (pulsar-pulse-on-window-change t)
+  (pulsar-pulse-region-functions
+   '(easy-kill yank kill-rectangle uk-kill-whole-line
+               transpose-words transpose-chars transpose-lines
+               yank-rectangle open-rectangle undo primitive-undo))
+  (pulsar-pulse-functions
+   '(ding avy-goto-char-2 avy-goto-line avy-goto-word-1
+          avy-goto-char-timer avy-copy-line avy-kill-whole-line
+          pop-to-mark-command pop-global-mark goto-last-change
+          exit-minibuffer abort-minibuffers))
 
-  ;; Efficient, clean list additions
-  (setq pulsar-pulse-region-functions
-        (append '(easy-kill yank kill-rectangle uk-kill-whole-line
-                            transpose-words transpose-chars transpose-lines
-                            yank-rectangle open-rectangle undo primitive-undo)
-                pulsar-pulse-region-functions))
-
-  (setq pulsar-pulse-functions
-        (append '(ding avy-goto-char-2 avy-goto-line avy-goto-word-1
-                       avy-goto-char-timer avy-copy-line avy-kill-whole-line
-                       pop-to-mark-command pop-global-mark goto-last-change
-                       exit-minibuffer abort-minibuffers)
-                pulsar-pulse-functions))
   :hook
   (;; Handles both startup graphics and Emacs daemon server frame allocations
    (server-after-make-frame . (lambda ()
@@ -50,6 +49,7 @@
    (imenu-after-jump . pulsar-reveal-entry)
    (consult-after-jump . pulsar-recenter-center)
    (consult-after-jump . pulsar-reveal-entry))
+
   :bind
   (("C-c p p" . pulsar-pulse-line)
    ("C-c p h" . pulsar-highlight-dwim)))
@@ -57,60 +57,52 @@
 ;; Highlight matching parens
 (use-package paren
   :straight (:type built-in)
-  :hook (after-init . show-paren-mode)
-  :config
-  (setq show-paren-when-point-inside-paren t
-        show-paren-when-point-in-periphery t))
+  :custom
+  (show-paren-when-point-inside-paren t)
+  (show-paren-when-point-in-periphery t)
+  :hook
+  (after-init . show-paren-mode))
 
 ;; Highlight brackets according to their depth
 (use-package rainbow-delimiters
   :straight t
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
 
 ;; Syntax highlighting of known Elisp symbols
 (use-package highlight-defined
   :straight t
-  :hook ((emacs-lisp-mode inferior-emacs-lisp-mode) . highlight-defined-mode))
+  :hook
+  ((emacs-lisp-mode inferior-emacs-lisp-mode) . highlight-defined-mode))
 
 ;; Efficient cursor jump reference highlights
 (use-package symbol-overlay
   :straight t
   :custom
   (symbol-overlay-idle-time 0.1)
-  :bind (:map symbol-overlay-mode-map
-              ("M-i"  . symbol-overlay-put)
-              ("M-n"  . symbol-overlay-jump-next)
-              ("M-p"  . symbol-overlay-jump-prev)
-              ("M-N"  . symbol-overlay-switch-forward)
-              ("M-P"  . symbol-overlay-switch-backward)
-              ("M-C"  . symbol-overlay-remove-all)
-              ([M-f3] . symbol-overlay-remove-all)))
-
+  :bind
+  (:map symbol-overlay-mode-map
+        ("M-i"  . symbol-overlay-put)
+        ("M-n"  . symbol-overlay-jump-next)
+        ("M-p"  . symbol-overlay-jump-prev)
+        ("M-N"  . symbol-overlay-switch-forward)
+        ("M-P"  . symbol-overlay-switch-backward)
+        ("M-C"  . symbol-overlay-remove-all)
+        ([M-f3] . symbol-overlay-remove-all)))
 
 ;; In-buffer hex and literal color visualizer
 (use-package colorful-mode
   :straight t
-  :init
-  (setq colorful-use-prefix nil)
-  ;; (setq colorful-prefix-string "⬤")
+  :custom
+  (colorful-use-prefix nil)
+  ;; (colorful-prefix-string "⬤")
   :config
   (dolist (mode '(html-mode php-mode help-mode helpful-mode))
     (add-to-list 'global-colorful-modes mode)))
 
 (use-package whitespace
   :straight (:type built-in)
-  :hook (prog-mode . whitespace-mode)
-  :config
-  ;; Set initial default style
-  (setq whitespace-style '(face tabs tab-mark))
-
-  ;; Customizing symbols using your ASCII numbers
-  (setq whitespace-display-mappings
-        '((space-mark 32 [183] [46])       ; Space mapped to middle dot / period
-          (space-mark 160 [164] [95])      ; NBSP mapped to currency / underscore
-          (newline-mark 10 [36 10])        ; Newline mapped to $ + newline
-          (tab-mark 9 [187 9] [92 9])))     ; Tab mapped to » / \
-
+  :preface
   (defun uk/choose-whitespace-style ()
     "Interactively switch between 3 distinct whitespace styles on the fly."
     (interactive)
@@ -129,36 +121,24 @@
       (when whitespace-mode
         (whitespace-mode -1)
         (whitespace-mode 1))
-      (message "Whitespace style updated to: %s" choice))))
+      (message "Whitespace style updated to: %s" choice)))
+
+  :custom
+  (whitespace-style '(face tabs tab-mark))
+  (whitespace-display-mappings
+   '((space-mark 32 [183] [46])        ; Space mapped to middle dot / period
+     (space-mark 160 [164] [95])       ; NBSP mapped to currency / underscore
+     (newline-mark 10 [36 10])         ; Newline mapped to $ + newline
+     (tab-mark 9 [187 9] [92 9])))     ; Tab mapped to » / \
+
+  :hook
+  (prog-mode . whitespace-mode))
 
 ;; Keyword / Tag highlighting and project searches
 (use-package hl-todo
   :straight t
   :demand t
-  :bind (:map hl-todo-mode-map
-              ("C-c t o" . hl-todo-occur)
-              ("C-c t p" . hl-todo-previous)
-              ("C-c t n" . hl-todo-next)
-              ("C-c t i" . hl-todo-insert)
-              ("C-c t r" . hl-todo-rg-project)
-              ("C-c t R" . hl-todo-rg))
-  :hook (hl-todo-mode . (lambda ()
-                          (add-hook 'flymake-diagnostic-functions
-                                    #'hl-todo-flymake nil t)))
-  :config
-  (setq hl-todo-require-punctuation t
-        hl-todo-highlight-punctuation ":")
-  (setq hl-todo-keyword-faces
-        '(("TODO"   . '(error bold))
-          ("DOUBT"  . '(error bold))
-          ("NOTE"   . '(warning bold))
-          ("REDO"   . '(warning bold))
-          ("Q"      . '(warning bold))
-          ("A"      . '(font-lock-constant-face bold))
-          ("REVIEW" . '(font-lock-constant-face bold))
-          ("FIXME"  . '(error bold))))
-  ;; Enable the global mode
-  (global-hl-todo-mode 1)
+  :preface
   ;; Silence compiler warning for rip-grep interface integration functions
   (declare-function rg "ext:rg")
   (declare-function rg-project "ext:rg")
@@ -177,15 +157,44 @@
     (rg regexp files dir))
 
   (defun hl-todo-rg-project ()
-    "Use `rg' to find all TODO: or similar keywords with punctuation in current project."
+    "Use `rg' to find all TODO: or similar keywords with punctuation in
+current project."
     (interactive)
     (unless (require 'rg nil t)
       (user-error "`rg' package is not installed"))
     (let* ((raw-regex (hl-todo--regexp))
            ;; Strip Emacs symbol/word boundaries and clean up syntax for ripgrep
-           (clean-regex (replace-regexp-in-string "\\\\_<\\|\\\\_>\\|\\\\[<>]*" "" raw-regex)))
-      (rg-project clean-regex "everything"))))
+           (clean-regex
+            (replace-regexp-in-string "\\\\_<\\|\\\\_>\\|\\\\[<>]*" "" raw-regex)))
+      (rg-project clean-regex "everything")))
+
+  :custom
+  (hl-todo-require-punctuation t)
+  (hl-todo-highlight-punctuation ":")
+  (hl-todo-keyword-faces
+   '(("TODO"   . '(error bold))
+     ("DOUBT"  . '(error bold))
+     ("NOTE"   . '(warning bold))
+     ("REDO"   . '(warning bold))
+     ("Q"      . '(warning bold))
+     ("A"      . '(font-lock-constant-face bold))
+     ("REVIEW" . '(font-lock-constant-face bold))
+     ("FIXME"  . '(error bold))))
+
+  :hook
+  ((hl-todo-mode . (lambda ()
+                     (add-hook 'flymake-diagnostic-functions
+                               #'hl-todo-flymake nil t)))
+   (after-init . global-hl-todo-mode))
+
+  :bind
+  (:map hl-todo-mode-map
+        ("C-c t o" . hl-todo-occur)
+        ("C-c t p" . hl-todo-previous)
+        ("C-c t n" . hl-todo-next)
+        ("C-c t i" . hl-todo-insert)
+        ("C-c t r" . hl-todo-rg-project)
+        ("C-c t R" . hl-todo-rg)))
 
 (provide 'init-highlight)
-
 ;;; init-highlight.el ends here

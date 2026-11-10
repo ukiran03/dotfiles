@@ -7,11 +7,7 @@
 
 (use-package docker
   :straight t
-  ;; :demand t
-  :hook ((docker-container-mode docker-image-mode) . hl-line-mode)
-  :custom
-  (docker-show-messages nil)
-  :config
+  :preface
   (defun my/docker-format-in-use (container-count)
     "Format the CONTAINER-COUNT string into a usage indicator."
     (let ((count (string-trim container-count "[\" ]+")))
@@ -19,6 +15,13 @@
           "-"
         "U")))
 
+  :custom
+  (docker-show-messages nil)
+
+  :hook
+  ((docker-container-mode docker-image-mode) . hl-line-mode)
+
+  :config
   (add-to-list 'docker-image-columns
                '(:name "Usage"
                        :width 7
@@ -40,10 +43,11 @@
 ;;; https://eshelyaron.com/kubed.html
 (use-package kubed
   :straight t
-  :bind (("H-a k" . kubed-prefix-map))
-  :config
+  :bind
+  (("H-a k" . kubed-prefix-map))
+  :hook
   ;; This enables the 'd' for delete, 'm' for mark workflow in lists
-  (add-hook 'kubed-list-mode-hook #'hl-line-mode))
+  (kubed-list-mode . hl-line-mode))
 
 (provide 'init-devops)
 ;;; init-devops.el ends here

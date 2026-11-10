@@ -5,31 +5,40 @@
 
 ;;; Code:
 
+;; Core Ibuffer Configuration
 (use-package ibuffer
   :straight (:type built-in)
-  :bind ("C-x C-b" . ibuffer)
-  :init
-  (setq ibuffer-filter-group-name-face '(:inherit (font-lock-string-face bold))))
+  :custom
+  (ibuffer-filter-group-name-face '(:inherit (font-lock-string-face bold)))
+  :bind
+  ("C-x C-b" . ibuffer))
 
 ;; Group ibuffer's list by project
 (use-package ibuffer-project
+  :straight t
   :autoload (ibuffer-project-generate-filter-groups
              ibuffer-do-sort-by-project-file-relative)
   :functions icons-displayable-p
-  :hook (ibuffer . (lambda ()
-                     "Group ibuffer's list by project."
-                     (setq ibuffer-filter-groups
-                           (ibuffer-project-generate-filter-groups))
-                     (unless (eq ibuffer-sorting-mode 'project-file-relative)
-                       (ibuffer-do-sort-by-project-file-relative))))
-  :init (setq ibuffer-project-use-cache t)
+  :preface
+  (defun my/ibuffer-project-group-name (root type)
+    "Return group name for project ROOT and TYPE."
+    (if (and (stringp type) (> (length type) 0))
+        (format "%s %s" type root)
+      (format "%s" root)))
+
+  :custom
+  (ibuffer-project-use-cache t)
+
+  :hook
+  (ibuffer . (lambda ()
+               "Group ibuffer's list by project."
+               (setq ibuffer-filter-groups
+                     (ibuffer-project-generate-filter-groups))
+               (unless (eq ibuffer-sorting-mode 'project-file-relative)
+                 (ibuffer-do-sort-by-project-file-relative))))
+
   :config
   (with-no-warnings
-    (defun my/ibuffer-project-group-name (root type)
-      "Return group name for project ROOT and TYPE."
-      (if (and (stringp type) (> (length type) 0))
-          (format "%s %s" type root)
-        (format "%s" root)))
     (if (icons-displayable-p)
         (progn
           (advice-add #'ibuffer-project-group-name
@@ -52,10 +61,12 @@
 ;; Avy-style visual selection jump menus for fast buffer switching
 (use-package frog-jump-buffer
   :straight t
-  :bind (("H-b a"   . frog-jump-buffer)
-         ("H-b 4 a" . frog-jump-buffer-other-window)))
+  :bind
+  (("H-b a"    . frog-jump-buffer)
+   ("H-b 4 a" . frog-jump-buffer-other-window)))
 
-;; Interactive Buffer generation primitive utilities
+;;; Interactive Buffer Generation Utility
+
 (defun new-empty-buffer ()
   "Create a new scratch-style empty temporary buffer.
 New buffer will be named “untitled”, “untitled<2>”, etc.

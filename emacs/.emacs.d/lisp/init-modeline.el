@@ -65,65 +65,67 @@
   "Face for modeline Keyboard Macro indicators."
   :group 'uk-modeline-faces)
 
-;;;;;; Modeline Format
-(setq mode-line-right-align-edge 'right-margin)
-(setq-default mode-line-format
-              '("%e"
-                uk-modeline-kbd-macro
-                uk-modeline-narrow
-                uk-modeline-zoom
-                uk-modeline-remote-file
-                uk-modeline-buffer-status
-                uk-modeline-window-dedicated
-                " "
-                uk-modeline-buffer-name
-                "  "
-                uk-modeline-major-mode
-                " "
-                mode-line-process
-                "  "
-                (uk-modeline-vc-info uk-modeline-vc-info)
-                "  "
-                uk-modeline-misc-info
-                "  "
-                uk-modeline-flymake
-                "  "
-                uk-modeline-overwrite
-                mode-line-format-right-align
-                uk-modeline-text-scale
-                "  "
-                uk-modeline-cursor-position
-                "  "
-                uk-modeline-scroll
-                uk-modeline-scroll-lock
-                " "))
-
+;;;; Modeline Format Configuration
+(use-package emacs
+  :straight (:type built-in)
+  :custom
+  (mode-line-right-align-edge 'right-margin)
+  (mode-line-format
+   '("%e"
+     uk-modeline-kbd-macro
+     uk-modeline-narrow
+     uk-modeline-zoom
+     uk-modeline-remote-file
+     uk-modeline-buffer-status
+     uk-modeline-window-dedicated
+     " "
+     uk-modeline-buffer-name
+     "  "
+     uk-modeline-major-mode
+     " "
+     mode-line-process
+     "  "
+     (uk-modeline-vc-info uk-modeline-vc-info)
+     "  "
+     uk-modeline-misc-info
+     "  "
+     uk-modeline-flymake
+     "  "
+     uk-modeline-overwrite
+     mode-line-format-right-align
+     uk-modeline-text-scale
+     "  "
+     uk-modeline-cursor-position
+     "  "
+     uk-modeline-scroll
+     uk-modeline-scroll-lock
+     " ")))
 
 ;;;; Keyboard macro indicator
 (defvar-local uk-modeline-kbd-macro
-    '(:eval
-      (when (and (mode-line-window-selected-p) defining-kbd-macro)
-        (propertize " KMacro" 'face 'uk-modeline-kbd-macro-face)))
+  '(:eval
+    (when (and (mode-line-window-selected-p) defining-kbd-macro)
+      (propertize " KMacro" 'face 'uk-modeline-kbd-macro-face)))
   "Mode line construct displaying `mode-line-defining-kbd-macro' Specific
 to the current window's mode line.")
 (put 'uk-modeline-kbd-macro 'risky-local-variable t)
 
 ;;;; Narrow
 (defvar-local uk-modeline-narrow
-    '(:eval
-      (when (and (buffer-narrowed-p)
-                 (not (derived-mode-p
-                       'Info-mode 'help-mode 'special-mode 'message-mode)))
-        (propertize " ⥮" 'face 'uk-modeline-bold-blue-face)))
+  '(:eval
+    (when (and (buffer-narrowed-p)
+               (not (derived-mode-p
+                     'Info-mode 'help-mode 'special-mode 'message-mode)))
+      (propertize " ⥮" 'face 'uk-modeline-bold-blue-face)))
   "Mode line construct to display a narrowed buffer indicator.")
 (put 'uk-modeline-narrow 'risky-local-variable t)
 
 ;;;; Zoom Window
 (defvar-local uk-modeline-zoom
-    '(:eval
-      (when (and (fboundp 'zoom-window--enable-p)
-                 (zoom-window--enable-p))
-        (propertize " Z𜲋" 'face 'uk-modeline-bold-blue-face)))
+  '(:eval
+    (when (and (fboundp 'zoom-window--enable-p)
+               (zoom-window--enable-p))
+      (propertize " Z𜲋" 'face 'uk-modeline-bold-blue-face)))
   "Mode line construct to display zoom-window indicator.")
 (put 'uk-modeline-zoom 'risky-local-variable t)
 
@@ -201,7 +203,7 @@ Specific to the current window's mode line.")
 ;;;; Scroll Lock Mode Indicator
 (defvar-local uk-modeline-scroll-lock
   '(:eval
-    (when scroll-lock-mode
+    (when (bound-and-true-p scroll-lock-mode)
       (propertize " scrlk"
                   'face 'uk-modeline-bold-blue-face)))
   "Mode line construct to display scroll lock mode status.")
@@ -259,10 +261,10 @@ Specific to the current window's mode line.")
 
 ;;;; Dedicated window
 (defvar-local uk-modeline-window-dedicated
-    '(:eval (when (window-dedicated-p)
-              (propertize "= "
-                          'face 'uk-modeline-bold-blue-face
-                          'mouse-face 'mode-line-highlight)))
+  '(:eval (when (window-dedicated-p)
+            (propertize "= "
+                        'face 'uk-modeline-bold-blue-face
+                        'mouse-face 'mode-line-highlight)))
   "Mode line construct for dedicated window indicator.")
 (put 'uk-modeline-window-dedicated 'risky-local-variable t)
 
@@ -325,7 +327,7 @@ BACKEND."
                     rev)))
       branch)))
 
-(defun uk-modeline--vc-text (file branch &optional face)
+(defun uk-modeline--vc-text (_file branch &optional face)
   "Prepare text for Git controlled FILE, given BRANCH.
 With optional FACE, use it to propertize the BRANCH."
   (format "%s %s"
@@ -365,11 +367,7 @@ With optional FACE, use it to propertize the BRANCH."
     (protobuf-mode         . "PBuf")
     (emmet-mode            . " </>")
     (org-mode              . ,(propertize "Org" 'face 'success)))
-  "Alist for `clean-mode-line'.
-
-  ; ;; When you add a new element to the alist, keep in mind that you
-  ; ;; must pass the correct minor/major mode symbol and a string you
-  ; ;; want to use in the modeline *in lieu of* the original.")
+  "Alist for `clean-mode-line'.")
 
 (defun clean-mode-line ()
   (cl-loop for cleaner in mode-line-cleaner-alist

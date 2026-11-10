@@ -22,10 +22,6 @@
 ;; Core Extensible Database and Engine Setup
 (use-package elfeed
   :straight t
-  :bind (:map elfeed-show-mode-map
-              ("V" . my/elfeed-mpv-play))
-  :hook (elfeed-show-mode . visual-line-mode)
-
   :preface
   ;; Declare helper functions early so that variables can safely reference them
   (defun elfeed-display-buffer (buf &optional _act)
@@ -45,21 +41,25 @@ current article URL."
             (message "Streaming target media via MPV..."))
         (message "Warning: No valid structural URL target found for this entry."))))
 
-  :config
-  ;; Global Properties and View Engine Rules
-  (setq elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory)
-        elfeed-feeds nil ; Overridden by elfeed-org files below
-        elfeed-search-filter "@6-months-ago +unread -trash -fun -hn")
+  :custom
+  (elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory))
+  (elfeed-feeds nil) ; Overridden by elfeed-org files below
+  (elfeed-search-filter "@6-months-ago +unread -trash -fun -hn")
+  (elfeed-show-entry-switch #'elfeed-display-buffer)
 
-  ;; Safely map custom function now that it's compile-declared in :preface
-  (setq elfeed-show-entry-switch #'elfeed-display-buffer))
+  :bind
+  (:map elfeed-show-mode-map
+        ("V" . my/elfeed-mpv-play))
+
+  :hook
+  (elfeed-show-mode . visual-line-mode))
 
 ;; Org-Mode Subscriber File Layout Association
 (use-package elfeed-org
   :straight t
   :after elfeed
-  :init
-  (setq rmh-elfeed-org-files (list (expand-file-name "feeds.org" org-directory)))
+  :custom
+  (rmh-elfeed-org-files (list (expand-file-name "feeds.org" org-directory)))
   :config
   (elfeed-org))
 
@@ -90,9 +90,9 @@ current article URL."
   :disabled
   :straight t
   :after elfeed
-  :config
-  (setq elfeed-dashboard-file
-        (expand-file-name "elfeed-dashboard.org" user-emacs-directory)))
+  :custom
+  (elfeed-dashboard-file
+   (expand-file-name "elfeed-dashboard.org" user-emacs-directory)))
 
 (provide 'init-feeds)
 ;;; init-feeds.el ends here

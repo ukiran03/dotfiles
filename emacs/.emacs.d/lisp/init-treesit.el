@@ -8,8 +8,9 @@
 
 ;; Core Tree-sitter & Automation Setup
 (use-package treesit
-  :straight nil
-  :mode (("\\.tsx\\'" . tsx-ts-mode)))
+  :straight (:type built-in)
+  :mode
+  ("\\.tsx\\'" . tsx-ts-mode))
 
 (use-package treesit-auto
   :straight t
@@ -24,21 +25,22 @@
 
 ;; Structural Editing with Combobulate
 (use-package combobulate
-  :disabled
+  :disabled t
   :straight nil
   ;; Installs Combobulate directly via Emacs 29+ built-in VC package manager
   :vc (:url "https://github.com/mickeynp/combobulate.git" :branch "master")
   :custom
   (combobulate-key-prefix "H-m")
+  :hook
   ;; Enable combobulate-mode for all Tree-sitter powered programming modes
-  :hook ((python-ts-mode . combobulate-mode)
-         (js-ts-mode . combobulate-mode)
-         (html-ts-mode . combobulate-mode)
-         (css-ts-mode . combobulate-mode)
-         (go-ts-mode . combobulate-mode)
-         (typescript-ts-mode . combobulate-mode)
-         (tsx-ts-mode . combobulate-mode)
-         (json-ts-mode . combobulate-mode)))
+  ((python-ts-mode . combobulate-mode)
+   (js-ts-mode . combobulate-mode)
+   (html-ts-mode . combobulate-mode)
+   (css-ts-mode . combobulate-mode)
+   (go-ts-mode . combobulate-mode)
+   (typescript-ts-mode . combobulate-mode)
+   (tsx-ts-mode . combobulate-mode)
+   (json-ts-mode . combobulate-mode)))
 
 (provide 'init-treesit)
 ;;; init-treesit.el ends here

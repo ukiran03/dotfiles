@@ -1,6 +1,8 @@
 ;;; init-rg.el --- ripgrep utils -*- lexical-binding: t -*-
 
 ;;; Commentary:
+;; Configures `rg.el` for ripgrep integrations, custom search macros,
+;; and specialized Golang code scraper transient menus.
 
 ;;; Code:
 
@@ -8,16 +10,14 @@
   :straight t
   :defer t
   :commands (rg-menu rg-isearch-menu code-scrapers-golang)
-
-  :bind (:map global-map
-         ("M-s R" . rg-menu)
-         ("M-s c" . code-scrapers-golang))
-
+  :bind
+  (:map global-map
+        ("M-s R" . rg-menu)
+        ("M-s c" . code-scrapers-golang))
   :init
   ;; Safely inject the isearch keybinding into the built-in isearch system
   (with-eval-after-load 'isearch
     (define-key isearch-mode-map (kbd "M-s r") #'rg-isearch-menu))
-
   :config
   ;; Golang Scrapers
   (rg-define-search rg-go-import-blocks

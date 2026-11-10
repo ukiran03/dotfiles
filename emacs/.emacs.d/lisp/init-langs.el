@@ -22,9 +22,10 @@
 
 (use-package yaml-mode
   :straight t
-  :hook ((yaml-mode . indent-bars-mode)
-         (yaml-mode . symbol-overlay-mode)
-         (yaml-mode . subword-mode)))
+  :hook
+  ((yaml-mode . indent-bars-mode)
+   (yaml-mode . symbol-overlay-mode)
+   (yaml-mode . subword-mode)))
 ;; (add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
 
 (use-package conf-xdefaults-mode
@@ -36,21 +37,22 @@
 
 (use-package typst-ts-mode
   :straight t
-  :hook ((typst-ts-mode . apheleia-mode)
-         (typst-ts-mode . eglot-ensure))
+  :hook
+  ((typst-ts-mode . apheleia-mode)
+   (typst-ts-mode . eglot-ensure))
+  :init
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (when (derived-mode-p 'typst-ts-mode)
+                (setq-local eldoc-documentation-strategy
+                            'eldoc-documentation-default))))
   :config
   (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
                  '((typst-ts-mode) . ("tinymist" "lsp")))
     (setq eglot-workspace-configuration
           '((tinymist . (:exportPdf "onSave"
-                                    :formatterMode "typstyle")))))
-  :init
-  (add-hook 'eglot-managed-mode-hook
-            (lambda ()
-              (when (derived-mode-p 'typst-ts-mode)
-                (setq-local eldoc-documentation-strategy
-                            'eldoc-documentation-default)))))
+                         :formatterMode "typstyle"))))))
 
 (use-package mermaid-mode
   :straight t)
@@ -70,18 +72,18 @@
 
 (use-package rust-mode
   :straight t
-  :init
-  (defvar rust-indent-offset 4)
-  (setq rust-mode-treesitter-derive t)
   :custom
+  (rust-indent-offset 4)
+  (rust-mode-treesitter-derive t)
   (rust-format-on-save t)
-  :hook (rust-mode . eglot-ensure)
-  :bind (:map rust-mode-map
-              ("<f1>" . compile)))
+  :hook
+  (rust-mode . eglot-ensure)
+  :bind
+  (:map rust-mode-map
+        ("<f1>" . compile)))
 
 (use-package gleam-ts-mode
   :straight t
-  :ensure t
   :mode (rx ".gleam" eos))
 
 (provide 'init-langs)

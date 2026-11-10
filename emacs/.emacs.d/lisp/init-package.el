@@ -23,18 +23,18 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-;;; Use-Package Integration
+;;; Package Management & Use-Package Setup
 
 ;; Tell use-package to automatically use straight.el for all declarations
 (setq straight-use-package-by-default t)
 
 ;; Configure base use-package options
-(setq use-package-always-defer t
-      use-package-expand-minimally t
-      use-package-enable-imenu-support t)
-
-;; Load built-in use-package directly
-(require 'use-package)
+(use-package use-package
+  :straight (:type built-in)
+  :custom
+  (use-package-always-defer t)
+  (use-package-expand-minimally t)
+  (use-package-enable-imenu-support t))
 
 ;; Ensure diminish works via straight
 (use-package diminish

@@ -1,44 +1,21 @@
 ;;; init-simple.el --- summary -*- lexical-binding: t -*-
 
 ;;; Commentary:
+;; Core editing behaviors, custom movement functions, whitespace handlers,
+;; line-number toggles, and utility commands.
 
 ;;; Code:
 
 (use-package emacs
-  :straight nil
-  :init
-  ;; (size-indication-mode 1)
-  (column-number-mode 1)
-  :config
-  (setq-default fill-column 79))
+  :straight (:type built-in)
+  :custom
+  (fill-column 79)
+  (column-number-mode t))
 
 (use-package simple
-  :straight nil
+  :straight (:type built-in)
   :diminish visual-line-mode
-  :bind
-  (("C-S-w" . uk-simple-copy-line)
-   ("C-w" . uk-kill-region)
-   ("C-z" . nil)
-   ("<f2>" . nil)
-   ("C-<return>" . dwim-new-line)
-   ("S-SPC" . uk-insert-space-after-cursor)
-   ("C-S-<backspace>" . uk-kill-whole-line)
-   ("C-y" . uk-smart-yank)
-   ("C-|" . shell-command-on-buffer)
-   ("H-q" . read-only-mode)
-   ("H-Q" . view-mode))
-  :hook
-  ((text-mode . visual-line-mode)
-   (prog-mode . enable-trailing-whitespace)
-   (markdown-mode . enable-trailing-whitespace)
-   (conf-mode . enable-trailing-whitespace))
-  :init
-  (setq track-eol t) ; Keep cursor at end of lines. Requires line-move-visual nil.
-  (setq kill-whole-line t) ; Kill line including '\n'
-  (setq line-move-visual nil)
-  (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
-  :config
-  ;;  Whitespace Management
+  :preface
   (defun enable-trailing-whitespace ()
     "Show trailing spaces and delete on saving."
     (setq show-trailing-whitespace t)
@@ -50,7 +27,7 @@
     (setq show-trailing-whitespace (not show-trailing-whitespace))
     (message "show-trailing-whitespace set to: %s" show-trailing-whitespace))
 
-  ;;  Editing & Movement Enhancements
+  ;; Editing & Movement Enhancements
   (defun uk-insert-space-after-cursor ()
     "Insert a space after the cursor without moving the point."
     (interactive)
@@ -61,7 +38,8 @@
     "Copy the current line to the `kill-ring'."
     (interactive)
     (copy-region-as-kill (line-beginning-position) (line-end-position))
-    (pulse-momentary-highlight-region (line-beginning-position) (line-end-position)))
+    (pulse-momentary-highlight-region
+     (line-beginning-position) (line-end-position)))
 
   (defun uk-smart-yank (arg)
     "Wrapper for `yank'. With no prefix argument, it behaves like a normal
@@ -79,9 +57,6 @@ the current line."
             (insert "\n")))
       ;; Otherwise, perform a standard yank
       (yank arg)))
-
-  ;; Restores the built-in active-mark/delete-selection features
-  (put 'uk-smart-yank 'delete-selection 'yank)
 
   (defun dwim-new-line (&optional arg)
     "Insert newline(s) at end of line.
@@ -129,25 +104,47 @@ With a prefix argument (C-u), replace the buffer contents with the output."
                                  shell-command-default-error-buffer t)
       (shell-command-on-region (point-min) (point-max) command
                                nil nil
-                               shell-command-default-error-buffer t))))
+                               shell-command-default-error-buffer t)))
+
+  :custom
+  (track-eol t)       ; Keep cursor at end of lines. Requires line-move-visual nil.
+  (kill-whole-line t) ; Kill line including '\n'
+  (line-move-visual nil)
+  (show-trailing-whitespace nil) ; Don't show trailing whitespace by default
+
+  :hook
+  ((text-mode . visual-line-mode)
+   (prog-mode . enable-trailing-whitespace)
+   (markdown-mode . enable-trailing-whitespace)
+   (conf-mode . enable-trailing-whitespace))
+
+  :bind
+  (("C-S-w" . uk-simple-copy-line)
+   ("C-w" . uk-kill-region)
+   ("C-z" . nil)
+   ("<f2>" . nil)
+   ("C-<return>" . dwim-new-line)
+   ("S-SPC" . uk-insert-space-after-cursor)
+   ("C-S-<backspace>" . uk-kill-whole-line)
+   ("C-y" . uk-smart-yank)
+   ("C-|" . shell-command-on-buffer)
+   ("H-q" . read-only-mode)
+   ("H-Q" . view-mode))
+
+  :config
+  ;; Restores the built-in active-mark/delete-selection features
+  (put 'uk-smart-yank 'delete-selection 'yank))
 
 (use-package display-line-numbers
-  :straight nil
+  :straight (:type built-in)
   :commands (uk-toggle-line-numbers)
-
-  ;; NOTE: trying to relay heavily on `avy-*'
-  ;; :hook ((prog-mode yaml-mode conf-mode text-mode)
-  ;;        . display-line-numbers-mode)
-  :init (setq display-line-numbers-width-start t)
-  (setq display-line-numbers-type 'relative)
-  :config
+  :preface
   (defun uk-toggle-line-numbers ()
     "Toggle line numbers.
-Cycles through regular, relative and no line numbers. The order
-depends on what `display-line-numbers-type' is set to. If you're
-using Emacs 26+, and visual-line-mode is on, this skips relative
-and uses visual instead.  See `display-line-numbers' for what
-these values mean."
+Cycles through regular, relative and no line numbers. The order depends
+on what `display-line-numbers-type' is set to. If you're using Emacs
+26+, and visual-line-mode is on, this skips relative and uses visual
+instead.  See `display-line-numbers' for what these values mean."
     (interactive)
     (defvar uk--line-number-style display-line-numbers-type)
     (let* ((styles `(t ,(if visual-line-mode 'visual 'relative) nil))
@@ -163,7 +160,11 @@ these values mean."
                (pcase next
                  (`t "normal")
                  (`nil "disabled")
-                 (_ (symbol-name next)))))))
+                 (_ (symbol-name next))))))
+
+  :custom
+  (display-line-numbers-width-start t)
+  (display-line-numbers-type 'relative))
 
 (defcustom uk-comment-keywords
   '("TODO" "DOUBT" "NOTE" "REVIEW" "FIXME" "REDO")
@@ -203,8 +204,8 @@ Without ARG, include only the date."
 ;;; TODO: write these functions
 ;; `isearch-kill-region': set mark, find DEST with isearch, kill the region
 ;;
-;; `consult-copy-line': similar to `consult-line', but no preview, on
-;; hit-enter copy line at point
+;; `consult-copy-line': similar to `consult-line', but no preview, on hit-enter
+;; copy line at point
 
 (provide 'init-simple)
 ;;; init-simple.el ends here

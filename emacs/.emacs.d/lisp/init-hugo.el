@@ -6,6 +6,21 @@
 
 ;;; Code:
 
+;;; Customization Options & Variables
+
+(defcustom ox-hugo-base-dir "~/Git/blog/"
+  "Base directory for Hugo project."
+  :type 'directory
+  :group 'ox-hugo)
+
+(defvar ox-hugo-tag-list nil
+  "List of available tags for completion.")
+
+(defvar ox-hugo-category-list '("Personal" "Codeblog" "Notes")
+  "List of available categories for completion.")
+
+;;; Export Helper Functions & Keymaps
+
 (defun org-hugo-export-to-md-and-open ()
   "Export the current Org buffer to Markdown and open the resulting file."
   (interactive)
@@ -18,21 +33,14 @@
   "o" '("Export to MD & Open" . org-hugo-export-to-md-and-open)
   "t" '("Temporary MD Buffer" . org-hugo-export-as-md))
 
+;;; Package Configuration
+
 (use-package ox-hugo
   :straight t
   :after ox
   :demand t)
 
-(defcustom ox-hugo-base-dir "~/Git/blog/"
-  "Base directory for Hugo project."
-  :type 'directory
-  :group 'ox-hugo)
-
-(defvar ox-hugo-tag-list nil
-  "List of available tags for completion.")
-
-(defvar ox-hugo-category-list '("Personal" "Codeblog" "Notes")
-  "List of available categories for completion.")
+;;; Interactive Scaffolding Command
 
 ;;;###autoload
 (defun uk-org-hugo-new-post ()

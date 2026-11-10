@@ -8,11 +8,12 @@
 
 (use-package flymake
   :straight (:type built-in)
-  :hook (elisp-mode . flymake-mode)
-  :config
-  (setq flymake-no-changes-timeout nil)
-  (setq flymake-fringe-indicator-position 'right-fringe)
-  (setq flymake-mode-line-lighter "fly"))
+  :custom
+  (flymake-no-changes-timeout nil)
+  (flymake-fringe-indicator-position 'right-fringe)
+  (flymake-mode-line-lighter "fly")
+  :hook
+  (elisp-mode . flymake-mode))
 
 ;; Flymake to check only after file save
 ;; github.com/joaotavora/eglot/issues/1296#issuecomment-1727978307
@@ -36,7 +37,7 @@
 
 (use-package dictionary
   :straight (:type built-in)
-  :init
+  ;; :init
   ;; (setq dictionary-server "localhost") -- TODO: setup dictd on void
   )
 

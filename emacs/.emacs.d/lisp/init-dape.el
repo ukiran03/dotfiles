@@ -2,18 +2,20 @@
 
 (use-package dape
   :straight t
-  :init
-  ;; Performance tweaks (commonly set early, but fine here or in :config)
-  (setq gc-cons-threshold 80000000)
+  :custom
+  ;; Performance tweaks
+  (gc-cons-threshold 80000000)
+
+  ;; Window layout & inlay hints
+  (dape-buffer-window-arrangement 'right)
+  (dape-inlay-hints-variable-name-max 50)
+  (dape-inlay-hints nil)
+
+  :hook
+  ;; Pulse source line on display
+  (dape-display-source-hook . pulse-momentary-highlight-one-line)
 
   :config
-  (setq dape-buffer-window-arrangement 'right)
-  (setq dape-inlay-hints-variable-name-max 50)
-  (setq dape-inlay-hints nil)
-  :config
-  ;; Pulse source line (performance hit)
-  (add-hook 'dape-display-source-hook #'pulse-momentary-highlight-one-line)
-
   ;; To not display info and/or buffers on startup
   ;; (remove-hook 'dape-start-hook #'dape-info)
   (remove-hook 'dape-start-hook #'dape-repl)

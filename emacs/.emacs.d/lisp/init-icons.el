@@ -14,14 +14,14 @@
   :straight t
   :if (display-graphic-p)
   :after marginalia
-  :config
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
-
+  :custom
   ;; By default, icons are shown in all sorts of completion prompts.
   ;; When those have different kinds of candidates, like files and
   ;; folders, the icons are helpful.  If all the candidates have the
   ;; same icon though, I prefer not to see any icon.
-  (setq nerd-icons-completion-category-icons nil))
+  (nerd-icons-completion-category-icons nil)
+  :config
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
 (use-package nerd-icons-corfu
   :straight t
@@ -40,17 +40,18 @@
 (use-package nerd-icons-ibuffer
   :straight t
   :if (display-graphic-p)
-  :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
-  :init
-  (setq nerd-icons-ibuffer-icon-size 0.8)
-  (setq nerd-icons-ibuffer-formats
-        '((mark " " (icon 2 2)
-                " " (name 20 20 :left :elide)
-                " " modified read-only locked
-                " " (size-h 7 -1 :right)
-                " " (mode+ 16 16 :left :elide)
-                " " filename-and-process+)
-          (mark " " name))))
+  :custom
+  (nerd-icons-ibuffer-icon-size 0.8)
+  (nerd-icons-ibuffer-formats
+   '((mark " " (icon 2 2)
+           " " (name 20 20 :left :elide)
+           " " modified read-only locked
+           " " (size-h 7 -1 :right)
+           " " (mode+ 16 16 :left :elide)
+           " " filename-and-process+)
+     (mark " " name)))
+  :hook
+  (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 (use-package nerd-icons-xref
   :straight t

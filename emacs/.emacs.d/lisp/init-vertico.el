@@ -5,51 +5,48 @@
 
 ;;; Code:
 
-(require 'use-package)
-
 (use-package compat
   :straight t)
 
 ;;; Core Vertico Configuration
 (use-package vertico
   :straight t
-  :hook ((after-init . vertico-mode)
-         (rfn-eshadow-update-overlay . vertico-directory-tidy))
-  :bind (:map vertico-map
-              ("M-q" . vertico-quick-exit)
-              ("C-q" . vertico-quick-insert)
-              ("RET" . vertico-directory-enter)
-              ("DEL" . vertico-directory-delete-char)
-              ("M-DEL" . vertico-directory-delete-word))
-  :init
-  (setq vertico-cycle t
-        vertico-scroll-margin 2
-        vertico-count 3
-        vertico-group-format nil
-        vertico-resize t))
+  :custom
+  (vertico-cycle t)
+  (vertico-scroll-margin 2)
+  (vertico-count 3)
+  (vertico-group-format nil)
+  (vertico-resize t)
+  :hook
+  ((after-init . vertico-mode)
+   (rfn-eshadow-update-overlay . vertico-directory-tidy))
+  :bind
+  (:map vertico-map
+        ("M-q" . vertico-quick-exit)
+        ("C-q" . vertico-quick-insert)
+        ("RET" . vertico-directory-enter)
+        ("DEL" . vertico-directory-delete-char)
+        ("M-DEL" . vertico-directory-delete-word)))
 
 ;; Vertico Multiform Display Rules
 (use-package vertico-multiform
-  :straight nil
+  :straight (:type built-in)
   :after vertico
-  :init
-  (vertico-multiform-mode 1)
+  :custom
+  (vertico-multiform-categories
+   '((jinx grid (vertico-grid-annotate . 20))
+     (consult-grep buffer)
+     (locate buffer)
+     (t reverse)))
+  (vertico-multiform-commands
+   '((consult-line t)
+     (consult-imenu buffer indexed)
+     (consult-outline buffer indexed)
+     (consult-find buffer indexed)
+     (consult-fd buffer indexed)
+     (consult-locate buffer indexed)))
   :config
-  ;; Target general categories
-  (setq vertico-multiform-categories
-        '((jinx grid (vertico-grid-annotate . 20))
-          (consult-grep buffer)
-          (locate buffer)
-          (t reverse)))
-
-  ;; Target specific commands that share the file category
-  (setq vertico-multiform-commands
-        '((consult-line t)
-          (consult-imenu buffer indexed)
-          (consult-outline buffer indexed)
-          (consult-find buffer indexed)
-          (consult-fd buffer indexed)
-          (consult-locate buffer indexed))))
+  (vertico-multiform-mode 1))
 
 ;;; Multiform Key-chord Reminders:
 ;; M-B -> `vertico-multiform-buffer'
@@ -62,20 +59,19 @@
 ;;; Rich Annotations (Marginalia)
 (use-package marginalia
   :straight t
-  :hook (after-init . marginalia-mode)
-  :bind (:map minibuffer-local-map
-              ("M-A" . marginalia-cycle)))
+  :hook
+  (after-init . marginalia-mode)
+  :bind
+  (:map minibuffer-local-map
+        ("M-A" . marginalia-cycle)))
 
 ;;; Orderless Completion Style
 (use-package orderless
   :straight t
-  :init
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion))))
-  ;; (setq orderless-matching-styles '(orderless-prefixes orderless-regexp))
-  ;; (setq orderless-smart-case nil)
-  )
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
 
 (provide 'init-vertico)
 ;;; init-vertico.el ends here

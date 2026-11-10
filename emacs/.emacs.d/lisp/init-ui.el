@@ -8,23 +8,25 @@
 ;; Fonts & Typography (Fontaine)
 (use-package fontaine
   :straight t
-  :hook (after-init . fontaine-mode)
-  :bind ("C-c f" . fontaine-set-preset)
+  :custom
+  (fontaine-presets
+   '((regular
+      :default-family "Iosevka Medium"
+      :default-size 11.25)
+     (medium
+      :default-family "Iosevka Medium"
+      :default-size 13)
+     (large
+      :default-family "Iosevka Medium"
+      :default-size 15.5)
+     (huge
+      :default-family "Iosevka Medium"
+      :default-size 17.25)))
+  :hook
+  (after-init . fontaine-mode)
+  :bind
+  ("C-c f" . fontaine-set-preset)
   :config
-  ;; Define your Iosevka steps here instead of manual strings
-  (setq fontaine-presets
-        '((regular
-           :default-family "Iosevka Medium"
-           :default-size 11.25)
-          (medium
-           :default-family "Iosevka Medium"
-           :default-size 13)
-          (large
-           :default-family "Iosevka Medium"
-           :default-size 15.5)
-          (huge
-           :default-family "Iosevka Medium"
-           :default-size 17.25)))
   ;; Set default startup preset
   (fontaine-set-preset 'regular))
 
@@ -39,11 +41,6 @@
   (modus-themes-italic-constructs t)
   (modus-themes-mixed-fonts nil)
   (modus-themes-to-toggle '(modus-operandi modus-vivendi-tinted))
-
-  ;; NOTE: Depricated (hardcoded in the source meanwhile)
-  ;; (modus-themes-prompts '(extrabold))
-
-  ;; Palette overrides
   (modus-themes-common-palette-overrides
    '((border-mode-line-active unspecified)
      (border-mode-line-inactive unspecified)))
@@ -52,48 +49,49 @@
 
 (use-package ef-themes
   :straight t
-  :config
-  (setq ef-themes-to-toggle '(ef-cyprus ef-day)))
+  :custom
+  (ef-themes-to-toggle '(ef-cyprus ef-day)))
 
 (use-package kaolin-themes
   :straight t
-  :config
-  (setq kaolin-themes-org-scale-headings nil))
+  :custom
+  (kaolin-themes-org-scale-headings nil))
 
 ;; Writing & Layout
 (use-package olivetti
   :straight t
   :defer t
-  :config
-  (setq olivetti-style 'fancy))
+  :custom
+  (olivetti-style 'fancy))
 
 (use-package spacious-padding
   :straight t
-  :config
-  (setq spacious-padding-widths
-        '( :internal-border-width 0
-           :header-line-width 0
-           :mode-line-width 0
-           :custom-button-width 0
-           :tab-width 0
-           :right-divider-width 3
-           :scroll-bar-width 0
-           :fringe-width 8)))
+  :custom
+  (spacious-padding-widths
+   '(:internal-border-width 0
+                            :header-line-width 0
+                            :mode-line-width 0
+                            :custom-button-width 0
+                            :tab-width 0
+                            :right-divider-width 3
+                            :scroll-bar-width 0
+                            :fringe-width 8)))
 
 ;; UI Elements & Context
 (use-package breadcrumb
   :straight t
-  :hook ((text-mode prog-mode) . prot/breadcrumb-local-mode)
-  :config
-  (setq breadcrumb-project-max-length 0.5)
-  (setq breadcrumb-project-crumb-separator "/")
-  (setq breadcrumb-imenu-max-length 1.0)
-  (setq breadcrumb-imenu-crumb-separator " > ")
-
+  :preface
   (defun prot/breadcrumb-local-mode ()
     "Enable `breadcrumb-local-mode' if the buffer is visiting a file."
     (when buffer-file-name
-      (breadcrumb-local-mode 1))))
+      (breadcrumb-local-mode 1)))
+  :custom
+  (breadcrumb-project-max-length 0.5)
+  (breadcrumb-project-crumb-separator "/")
+  (breadcrumb-imenu-max-length 1.0)
+  (breadcrumb-imenu-crumb-separator " > ")
+  :hook
+  ((text-mode prog-mode) . prot/breadcrumb-local-mode))
 
 ;; Theme Persistence Engine
 (defvar my-theme 'modus-vivendi-tinted

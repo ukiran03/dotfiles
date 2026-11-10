@@ -6,16 +6,17 @@
 
 ;;; Code:
 
-;; File and buffer
+;;; File and Buffer Operations
+
 (defun revert-this-buffer ()
-  "Revert the current buffer."
+  "Revert the current buffer without prompting if safe."
   (interactive)
   (unless (minibuffer-window-active-p (selected-window))
     (revert-buffer t t)
     (message "Reverted this buffer")))
 
 (defun delete-this-file ()
-  "Delete the current file, and kill the buffer."
+  "Delete the file visited by the current buffer, and kill the buffer."
   (interactive)
   (let ((filename (buffer-file-name)))
     (unless filename
@@ -27,7 +28,7 @@
       (message "Deleted and killed %s" filename))))
 
 (defun rename-this-file (new-name)
-  "Renames both current buffer and file it's visiting to NEW-NAME."
+  "Rename current buffer and the file it is visiting to NEW-NAME."
   (interactive "sNew name: ")
   (let ((old-name (buffer-file-name)))
     (unless old-name
@@ -45,11 +46,11 @@
   (let ((file-name (buffer-file-name)))
     (if (and (fboundp 'tramp-tramp-file-p)
              (tramp-tramp-file-p file-name))
-        (user-error "Cannot open tramp file")
+        (user-error "Cannot open TRAMP file via file:// URL")
       (browse-url (concat "file://" file-name)))))
 
 (defun copy-file-name ()
-  "Copy the current buffer file name to the clipboard."
+  "Copy the current buffer's file name (or dired directory) to the clipboard."
   (interactive)
   (let ((filename (if (derived-mode-p 'dired-mode)
                       default-directory
@@ -61,38 +62,39 @@
       (warn "Current buffer is not attached to a file!"))))
 
 (defun create-scratch-buffer ()
-  "Create a scratch buffer."
+  "Create and switch to a new lisp-interaction scratch buffer."
   (interactive)
   (switch-to-buffer (get-buffer-create "*scratch*"))
   (lisp-interaction-mode))
 
-;; Reload configurations
+;;; Configuration & Custom File Management
+
 (defun reload-init-file ()
-  "Reload Emacs configurations."
+  "Reload Emacs user initialization file."
   (interactive)
   (load user-init-file))
 (defalias 'ukiran-reload-init-file #'reload-init-file)
 
-;; Open custom file
 (defun find-custom-file ()
-  "Open custom files."
+  "Open the external Emacs custom-file if it exists."
   (interactive)
   (when (and (boundp 'custom-file) custom-file (file-exists-p custom-file))
     (find-file custom-file)))
 
-;; Font & UI
+;;; Font, Icons, & UI Helpers
+
 (defun font-installed-p (font-name)
-  "Check if font with FONT-NAME is available."
+  "Return non-nil if a font with FONT-NAME is available on the system."
   (find-font (font-spec :name font-name)))
 
 (defun icons-displayable-p ()
-  "Return non-nil if icons are displayable."
+  "Return non-nil if icons are displayable and enabled."
   (and (bound-and-true-p ukiran-icon)
        (or (featurep 'nerd-icons)
            (require 'nerd-icons nil t))))
 
 (defun uk-toggle-time-bat-status ()
-  "Toggle both `display-time-mode` and `display-battery-mode` together."
+  "Toggle both `display-time-mode' and `display-battery-mode' simultaneously."
   (interactive)
   (if (and display-time-mode display-battery-mode)
       (progn
@@ -102,9 +104,10 @@
       (display-time-mode 1)
       (display-battery-mode 1))))
 
-;; Compilation Helpers (Updated for straight.el paths)
+;;; Compilation & Maintenance Utilities
+
 (defun byte-compile-straight-build ()
-  "Compile packages in straight build directory."
+  "Byte-compile packages located in the straight.el build directory."
   (interactive)
   (let ((dir (expand-file-name "straight/build" user-emacs-directory)))
     (if (file-exists-p dir)
@@ -114,7 +117,7 @@
       (message "Straight build directory not found."))))
 
 (defun byte-compile-site-lisp ()
-  "Compile packages in site-lisp directory."
+  "Byte-compile packages located in the site-lisp directory."
   (interactive)
   (let ((dir (locate-user-emacs-file "site-lisp")))
     (if (file-exists-p dir)
@@ -124,20 +127,18 @@
       (message "Site-lisp directory not found."))))
 
 (defun native-compile-straight-build ()
-  "Native-compile packages in straight build directory."
+  "Asynchronously native-compile packages in the straight.el build directory."
   (interactive)
   (let ((dir (expand-file-name "straight/build" user-emacs-directory)))
     (when (and (file-exists-p dir) (fboundp 'native-compile-async))
       (native-compile-async dir t))))
 
 (defun native-compile-site-lisp ()
-  "Native compile packages in site-lisp directory."
+  "Asynchronously native-compile packages in the site-lisp directory."
   (interactive)
   (let ((dir (locate-user-emacs-file "site-lisp")))
     (when (and (file-exists-p dir) (fboundp 'native-compile-async))
       (native-compile-async dir t))))
 
 (provide 'init-funcs)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-funcs.el ends here

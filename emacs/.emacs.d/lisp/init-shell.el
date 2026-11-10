@@ -7,38 +7,24 @@
 
 ;;; Comint & System Shells
 (use-package comint
-  :straight nil
-  :config
-  (setq comint-process-echoes t))
+  :straight (:type built-in)
+  :custom
+  (comint-process-echoes t))
 
 ;;; Eshell Prompt Styling
 (use-package eshell-prompt-extras
   :straight t
   :after esh-opt
+  :custom
+  (eshell-highlight-prompt nil)
+  (eshell-prompt-function #'epe-theme-lambda)
   :config
-  (autoload 'epe-theme-lambda "eshell-prompt-extras")
-  (setq eshell-highlight-prompt nil
-        eshell-prompt-function #'epe-theme-lambda))
+  (autoload 'epe-theme-lambda "eshell-prompt-extras"))
 
 ;;; Terminal Visual Command Overrides
 (use-package ghostel
   :straight t
-  :hook ((ghostel-mode . (lambda () (show-paren-local-mode -1)))
-         (eshell-load . ghostel-eshell-visual-command-mode))
-  :bind (:map ghostel-semi-char-mode-map
-              ("C-k"  . my/ghostel-send-C-k-and-kill)
-              ("M-s"   . nil)  ;; Clear the conflicting prefix first
-              ("M-s l" . consult-line)
-              ;; Go up/down the shell history with M-n/p
-              ;; ("M-p" . (lambda () (interactive) (ghostel-send-key "p" "ctrl")))
-              ;; ("M-n" . (lambda () (interactive) (ghostel-send-key "n" "ctrl")))
-              :map project-prefix-map
-              ("s" . ghostel-project)    ;; replaces `project-shell'
-              ("S" . ghostel-project-list-buffers))
-  :config
-  (setq ghostel-module-directory
-        (expand-file-name "ghostel" user-emacs-directory))
-
+  :preface
   (defun my/ghostel-send-C-k-and-kill ()
     "Send `C-k' to ghostel. Like normal Emacs `C-k'.
 Kill to end of line and put content in kill-ring."
@@ -46,6 +32,24 @@ Kill to end of line and put content in kill-ring."
     (kill-ring-save (point) (line-end-position))
     (ghostel-send-key "k" "ctrl"))
 
+  :custom
+  (ghostel-module-directory
+   (expand-file-name "ghostel" user-emacs-directory))
+
+  :hook
+  ((ghostel-mode . (lambda () (show-paren-local-mode -1)))
+   (eshell-load . ghostel-eshell-visual-command-mode))
+
+  :bind
+  (:map ghostel-semi-char-mode-map
+        ("C-k"  . my/ghostel-send-C-k-and-kill)
+        ("M-s"   . nil)  ;; Clear the conflicting prefix first
+        ("M-s l" . consult-line)
+        :map project-prefix-map
+        ("s" . ghostel-project)     ;; replaces `project-shell'
+        ("S" . ghostel-project-list-buffers))
+
+  :config
   (add-to-list 'project-switch-commands '(ghostel-project "Ghostel") t)
   (add-to-list 'project-switch-commands
                '(ghostel-project-list-buffers "Ghostel buffers") t))
@@ -53,11 +57,14 @@ Kill to end of line and put content in kill-ring."
 (use-package ghostel-comint
   :disabled
   :ensure ghostel
-  :hook (after-init . ghostel-comint-global-mode))
+  :hook
+  (after-init . ghostel-comint-global-mode))
 
 ;;; Eshell Directory Jumping Integration
 ;; Ref: https://karthinks.com/software/jumping-directories-in-eshell/
-(with-eval-after-load 'eshell
+(use-package eshell
+  :straight (:type built-in)
+  :preface
   (declare-function consult-dir--pick "consult-dir")
   (defvar consult-dir-sources)
 

@@ -8,17 +8,16 @@
 ;; Built-in SQL client settings
 (use-package sql
   :straight (:type built-in)
-  :config
-  (setq sql-mariadb-program "mariadb")
-
+  :custom
+  (sql-mariadb-program "mariadb")
   ;; Optional bonus: Define a safe, fast preset to connect to your local dev DB
   ;; You can launch this instantly using `M-x sql-connect`
-  (setq sql-connection-alist
-        '((dev-db (sql-product 'mariadb)
-                  (sql-user "root")
-                  (sql-database "development")
-                  (sql-server "localhost")
-                  (sql-port 3306)))))
+  (sql-connection-alist
+   '((dev-db (sql-product 'mariadb)
+             (sql-user "root")
+             (sql-database "development")
+             (sql-server "localhost")
+             (sql-port 3306)))))
 
 ;; Smart SQL Syntax Indentation Engine
 (use-package sql-indent
@@ -27,8 +26,8 @@
 
 (use-package sqlformat
   :straight t
-  :config
-  (setq sqlformat-command 'sqlformat)) ; pgformatter etc.
+  :custom
+  (sqlformat-command 'sqlformat)) ; pgformatter etc.
 
 ;; Automatic Keyword Uppercasing Engine
 (use-package sqlup-mode

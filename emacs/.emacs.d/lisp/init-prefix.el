@@ -1,5 +1,9 @@
 ;;; init-prefix.el --- Hyper Key Prefix Action maps -*- lexical-binding: t -*-
 
+;;; Commentary:
+;; Configures Hyper modifier translations, custom prefix action maps,
+;; global keymaps, and repeat maps.
+
 ;;; Code:
 
 (require 'cl-lib)
@@ -7,7 +11,10 @@
 ;;; Hyper Key & Keyboard Chord Translation Setup
 
 ;; Bind your Window Manager/OS Super modifier combos to Emacs Hyper
-(setq x-hyper-keysym 'hyper)
+(use-package emacs
+  :straight (:type built-in)
+  :custom
+  (x-hyper-keysym 'hyper))
 
 (defun my/map-hyper-chord (key-string)
   "Translate the 3-modifier chord (Ctrl-Alt-Super) to Hyper for a given KEY-STRING."

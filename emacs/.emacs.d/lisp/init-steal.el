@@ -6,74 +6,74 @@
 
 ;;; Code:
 
-;; Disable Bidirectional Text Scanning
-(setq-default bidi-display-reordering 'left-to-right
-              bidi-paragraph-direction 'left-to-right)
-(setq bidi-inhibit-bpa t)
+;; Performance & Core Tweaks
+(use-package emacs
+  :straight (:type built-in)
+  :preface
+  (defun toggle-delete-other-windows ()
+    "Delete other windows in frame if any, or restore previous window config."
+    (interactive)
+    (if (and (bound-and-true-p winner-mode)
+             (equal (selected-window) (next-window)))
+        (winner-undo)
+      (delete-other-windows)))
 
-;; Skip Fontification During Input
-(setq redisplay-skip-fontification-on-input t)
+  :custom
+  ;; Disable Bidirectional Text Scanning
+  (bidi-display-reordering 'left-to-right)
+  (bidi-paragraph-direction 'left-to-right)
+  (bidi-inhibit-bpa t)
 
-;; Increase Process Output Buffer for LSP
-(setq read-process-output-max (* 4 1024 1024)) ; 4MB
+  ;; Skip Fontification During Input
+  (redisplay-skip-fontification-on-input t)
 
-;; Don’t Render Cursors in Non-Focused Windows
-(setq-default cursor-in-non-selected-windows t)
-(setq highlight-nonselected-windows nil)
+  ;; Increase Process Output Buffer for LSP
+  (read-process-output-max (* 4 1024 1024)) ; 4MB
 
-;; Save the Clipboard Before Killing
-(setq save-interprogram-paste-before-kill t)
+  ;; Don’t Render Cursors in Non-Focused Windows
+  (cursor-in-non-selected-windows t)
+  (highlight-nonselected-windows nil)
 
-;; No Duplicates in the Kill Ring
-(setq kill-do-not-save-duplicates t)
+  ;; Save the Clipboard Before Killing
+  (save-interprogram-paste-before-kill t)
+
+  ;; No Duplicates in the Kill Ring
+  (kill-do-not-save-duplicates t)
+
+  ;; Sane Syntax in re-builder
+  (reb-re-syntax 'string)
+
+  ;; Prevent ffap from Pinging Hostnames
+  (ffap-machine-p-known 'reject)
+
+  ;; Proportional Window Resizing
+  (window-combination-resize t)
+
+  :config
+  ;; Recenter After save-place Restores Position
+  (advice-add 'save-place-find-file-hook :after
+              (lambda (&rest _)
+                (when buffer-file-name (ignore-errors (recenter))))))
 
 ;; Persist the Kill Ring Across Sessions
-(setq savehist-additional-variables
-      '(search-ring regexp-search-ring kill-ring))
-(add-hook 'savehist-save-hook
-          (lambda ()
-            (setq kill-ring
-                  (mapcar #'substring-no-properties
-                          (cl-remove-if-not #'stringp kill-ring)))))
+(use-package savehist
+  :straight (:type built-in)
+  :custom
+  (savehist-additional-variables '(search-ring regexp-search-ring kill-ring))
+  :config
+  (add-hook 'savehist-save-hook
+            (lambda ()
+              (setq kill-ring
+                    (mapcar #'substring-no-properties
+                            (cl-remove-if-not #'stringp kill-ring))))))
 
 ;;; Editing
 
 ;; Auto-Chmod Scripts on Save
 (use-package sh-mode
-  :straight nil
-  :hook (after-save . executable-make-buffer-file-executable-if-script-p))
-
-;; Sane Syntax in re-builder
-(setq reb-re-syntax 'string)
-
-;; Prevent ffap from Pinging Hostnames
-(setq ffap-machine-p-known 'reject)
-
-;;; Windows
-
-;; Proportional Window Resizing
-(setq window-combination-resize t)
-
-;; Reversible `C-x 1'
-(defun toggle-delete-other-windows ()
-  "Delete other windows in frame if any, or restore previous window config."
-  (interactive)
-  (if (and winner-mode
-           (equal (selected-window) (next-window)))
-      (winner-undo)
-    (delete-other-windows)))
-;; (global-set-key (kbd "C-x 1") #'toggle-delete-other-windows)
-
-;;; Misc
-
-;; Faster Mark Popping: After the first C-u C-SPC you can keep pressing just
-;; C-SPC to continue popping, uses `repeat-mode'
-;; (setq set-mark-command-repeat-pop t) ; Already using it
-
-;; Recenter After save-place Restores Position
-(advice-add 'save-place-find-file-hook :after
-            (lambda (&rest _)
-              (when buffer-file-name (ignore-errors (recenter)))))
+  :straight (:type built-in)
+  :hook
+  (after-save . executable-make-buffer-file-executable-if-script-p))
 
 (provide 'init-steal)
 ;;; init-steal.el ends here
