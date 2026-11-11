@@ -6,7 +6,7 @@
   (panel-image-width 250)
   (panel-image-height 250)
   (panel-title "\n")
-  (panel-intro-display 'always)
+  (panel-intro-display 'tty)
   (panel-intro-lines
    '("┌─┐ ┌┬┐ ┌─┐ ┌─┐ ┌─┐"
      "├┤  │││ ├─┤ │   └─┐"
@@ -17,8 +17,8 @@
      ("q"     . "close this panel")))
 
   ;; Uncomment to use a custom avatar image:
-  ;; (panel-image-file
-  ;;  (expand-file-name "avatars/musashi1.jpg" user-emacs-directory))
+  (panel-image-file
+   (expand-file-name "avatars/musashi1.jpg" user-emacs-directory))
 
   :hook
   (panel-mode . (lambda () (setq-local global-hl-line-mode nil)))

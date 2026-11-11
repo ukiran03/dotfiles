@@ -1,4 +1,4 @@
-;;; init-window.el --- Window & Buffer configurations.	-*- lexical-binding: t -*-
+;;; init-window.el --- Window & Buffer configurations. -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;; Window, workspace, and buffer routing management rules.
@@ -8,12 +8,19 @@
 ;;;; Built-in Window Customizations
 (use-package emacs
   :straight (:type built-in)
-  :custom
+  :config
   ;; Silence annoying logs entirely, preventing them from stealing focus
-  (display-buffer-alist
-   '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
-     (display-buffer-no-window)
-     (allow-no-window . t))))
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
+                 (display-buffer-no-window)
+                 (allow-no-window . t)))
+  ;; Shell
+  (add-to-list 'display-buffer-alist
+               '("\\*Async Shell Command\\*"
+                 (display-buffer-reuse-window display-buffer-in-side-window)
+                 (reusable-frames . visible)
+                 (side . bottom)
+                 (window-height . 0.2))))
 
 (use-package window
   :straight (:type built-in)

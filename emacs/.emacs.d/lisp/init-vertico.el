@@ -30,23 +30,27 @@
 
 ;; Vertico Multiform Display Rules
 (use-package vertico-multiform
-  :straight (:type built-in)
+  :straight nil
   :after vertico
-  :custom
-  (vertico-multiform-categories
-   '((jinx grid (vertico-grid-annotate . 20))
-     (consult-grep buffer)
-     (locate buffer)
-     (t reverse)))
-  (vertico-multiform-commands
-   '((consult-line t)
-     (consult-imenu buffer indexed)
-     (consult-outline buffer indexed)
-     (consult-find buffer indexed)
-     (consult-fd buffer indexed)
-     (consult-locate buffer indexed)))
+  :init
+  ;; Keeps the mode active immediately upon initialization
+  (vertico-multiform-mode 1)
   :config
-  (vertico-multiform-mode 1))
+  ;; Target general categories
+  (setq vertico-multiform-categories
+        '((jinx grid (vertico-grid-annotate . 20))
+          (consult-grep buffer)
+          (locate buffer)
+          (t reverse)))
+
+  ;; Target specific commands
+  (setq vertico-multiform-commands
+        '((consult-line t)
+          (consult-imenu buffer indexed)
+          (consult-outline buffer indexed)
+          (consult-find buffer indexed)
+          (consult-fd buffer indexed)
+          (consult-locate buffer indexed))))
 
 ;;; Multiform Key-chord Reminders:
 ;; M-B -> `vertico-multiform-buffer'

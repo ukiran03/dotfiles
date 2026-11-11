@@ -108,6 +108,14 @@
   "C-g" #'keyboard-quit)
 (keymap-set global-map "H-v" vc-hyper-map)
 
+;; General Prefix with `Space'
+(defvar-keymap space-hyper-map
+  :doc "General key actions with H-S-*"
+  :name "General"
+  :prefix t
+  "r e" #'restart-emacs)
+(keymap-set global-map "C-M-s-SPC" space-hyper-map)
+
 ;; Window Configurations Prefix (H-w)
 (defvar-keymap window-hyper-map
   :doc "Window structural alterations."
