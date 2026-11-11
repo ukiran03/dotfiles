@@ -16,6 +16,12 @@ export TERMINAL="alacritty"
 export GROFF_NO_SGR=1
 export MANPAGER="less -JMR --use-color -Dd+r -Du+b -DPcs -DERd -DSys --mouse"
 
+# Gpg
+export GNUPGHOME="$HOME/.gnupg"
+if [ -d "$XDG_RUNTIME_DIR/gnupg" ]; then
+    export GPG_AGENT_INFO="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent:0:1"
+fi
+
 # ==============================================================================
 # XDG Base Directories
 # ==============================================================================

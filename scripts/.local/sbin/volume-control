@@ -14,9 +14,9 @@ if ! _check pamixer; then
 fi
 
 # Icons for notifications
-up_icon="notification-audio-volume-high"
-down_icon="notification-audio-volume-medium"
-muted_icon="notification-audio-volume-muted"
+up_icon="audio-volume-high-symbolic"
+down_icon="audio-volume-low-symbolic"
+muted_icon="audio-volume-muted-symbolic"
 
 # Volume pipe for xmobar
 _volume_pipe="/tmp/.volume-pipe"
