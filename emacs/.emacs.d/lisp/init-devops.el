@@ -44,7 +44,7 @@
 (use-package kubed
   :straight t
   :bind
-  (("H-a k" . kubed-prefix-map))
+  (("C-M-s-SPC k" . kubed-prefix-map))
   :hook
   ;; This enables the 'd' for delete, 'm' for mark workflow in lists
   (kubed-list-mode . hl-line-mode))

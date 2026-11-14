@@ -33,16 +33,28 @@
   (:map java-mode-map
         ("<f1>" . java-compile-command)))
 
+;; (use-package apheleia
+;;   :straight t
+;;   :config
+;;   ;; Register the formatter name and its shell command properly
+;;   (setf (alist-get 'google-java-format apheleia-formatters)
+;;         '("google-java-format" "-"))
+
+;;   ;; Map java-mode to use that formatter symbol
+;;   (setf (alist-get 'java-mode apheleia-mode-alist)
+;;         'google-java-format))
+
 (use-package apheleia
   :straight t
   :config
-  ;; Register the formatter name and its shell command properly
-  (setf (alist-get 'google-java-format apheleia-formatters)
-        '("google-java-format" "-"))
+  ;; Define the custom formatter as a list of strings
+  (setf (alist-get 'clang-java-format apheleia-formatters)
+        '("clang-format" "--style={BasedOnStyle: Google, ColumnLimit: 79}" "-"))
 
-  ;; Map java-mode to use that formatter symbol
+  ;; Map java-mode to use your custom formatter symbol
   (setf (alist-get 'java-mode apheleia-mode-alist)
-        'google-java-format))
+        'clang-java-format))
+
 
 (provide 'init-java)
 ;;; init-java.el ends here

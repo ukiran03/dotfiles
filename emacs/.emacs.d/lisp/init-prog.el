@@ -23,7 +23,7 @@
   :straight nil
   :preface
   (defun my-compile-goto-error-recenter (&rest _args)
-    "Recenter window after `compile-goto-error`."
+    "Recenter window after `compile-goto-error'."
     (recenter-top-bottom))
 
   :custom

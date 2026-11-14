@@ -115,6 +115,37 @@
   :prefix t
   "r e" #'restart-emacs)
 (keymap-set global-map "C-M-s-SPC" space-hyper-map)
+(which-key-add-keymap-based-replacements space-hyper-map
+  "r" "Restart")
+
+;; Infrastructure Prefixes (H-SPC d)
+(defvar-keymap docker-map
+  :doc "Docker Infrastructure management operations."
+  :name "Docker"
+  "i" #'docker-images
+  "c" #'docker-containers
+  "v" #'docker-volumes
+  "n" #'docker-networks
+  "x" #'docker-contexts
+  "C" #'docker-compose)
+(keymap-set global-map "C-M-s-SPC d" docker-map)
+(which-key-add-keymap-based-replacements space-hyper-map
+  "d" "Docker")
+
+;; AI. Gptel prefixes (H-SPC g)
+(defvar-keymap gptel-map
+  :doc "GPTel, a simple, extensible LLM client"
+  :name "GPTel"
+  "g" #'gptel-menu
+  "i" #'gptel
+  "s" #'gptel-send)
+(keymap-set global-map "C-M-s-SPC g" gptel-map)
+(which-key-add-keymap-based-replacements space-hyper-map
+  "g" "GPTel")
+
+;; Kubed
+(which-key-add-keymap-based-replacements space-hyper-map
+  "k" "Kubed")
 
 ;; Window Configurations Prefix (H-w)
 (defvar-keymap window-hyper-map
@@ -144,27 +175,6 @@
   :parent ctl-x-5-map
   "C-g" #'keyboard-quit)
 (keymap-set global-map "H-5" other-frame-hyper-map)
-
-;; Infrastructure Prefixes (H-a d)
-(defvar-keymap docker-map
-  :doc "Docker Infrastructure management operations."
-  :name "Docker"
-  "i" #'docker-images
-  "c" #'docker-containers
-  "v" #'docker-volumes
-  "n" #'docker-networks
-  "x" #'docker-contexts
-  "C" #'docker-compose)
-(keymap-set global-map "H-a d" docker-map)
-
-;; AI. Gptel prefixes (H-a g)
-(defvar-keymap gptel-map
-  :doc "GPTel, a simple, extensible LLM client"
-  :name "GPTel"
-  "g" #'gptel-menu
-  "i" #'gptel
-  "s" #'gptel-send)
-(keymap-set global-map "H-a g" gptel-map)
 
 ;;; Global Shortcuts & Specialized Utility Keymaps
 

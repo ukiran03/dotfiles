@@ -1,7 +1,8 @@
 ;;; init-org.el --- Org Mode configurations.	-*- lexical-binding: t -*-
 
-;; Commentary: Comprehensive Org mode setup, featuring Agenda, Capture, Babel,
-;; and Hugo integrations.
+;;; Commentary:
+;; Comprehensive Org mode setup, featuring Agenda, Capture, Babel, and Hugo
+;; integrations.
 
 ;;; Code:
 
@@ -75,131 +76,7 @@ Produces fixed-length, perfectly aligned dates."
 
 (use-package org
   :straight (:type built-in)
-  :bind (("C-c A" . org-agenda)
-         ("C-c a" . (lambda () (interactive) (org-agenda nil "A")))
-         ("C-c c" . org-capture)
-         :map org-mode-map
-         ("H-n b" . org-narrow-to-block)
-         ("H-n e" . org-narrow-to-element)
-         ("H-n s" . org-narrow-to-subtree)
-         ("M-."   . org-edit-special)
-         ("C-c j" . org-babel-goto-named-src-block)
-         :map org-src-mode-map
-         ("M-,"   . org-edit-src-exit))
-
-  :init
-  (setq org-directory (expand-file-name "~/Documents/org")
-        org-imenu-depth 7)
-
-  :config
-  ;; Visuals & Interface
-  (setq org-modules nil
-        org-startup-indented nil
-        org-ellipsis (if (char-displayable-p ?⏷) "\t⏷" nil)
-        org-pretty-entities nil
-        org-hide-emphasis-markers t
-        org-hide-leading-stars nil
-        org-hide-macro-markers nil
-        org-startup-folded 'content)
-
-  ;; Behavior & Structure Editing
-  (setq org-M-RET-may-split-line '((default . nil))
-        org-cycle-separator-lines 0
-        org-insert-heading-respect-content t
-        org-adapt-indentation nil
-        org-indent-indentation-per-level 2
-        org-indent-mode-turns-on-hiding-stars t)
-
-  ;; Todo Settings & Logging
-  (setq org-log-done 'time
-        org-log-into-drawer t
-        org-use-fast-todo-selection 'expert
-        org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "CANCELLED(c@)" "MISSED(m@/!)" "DONE(d!)")))
-
-  ;; Structure Templates
-  (setq org-structure-template-alist
-        '(("s" . "src")
-          ("b" . "src bash")
-          ("q" . "src sql")
-          ("g" . "src go")
-          ("t" . "src text")
-          ("e" . "src emacs-lisp")
-          ("v" . "src verb")
-          ("eE" . "src emacs-lisp :results value code :lexical t")
-          ("et" . "src emacs-lisp :tangle FILENAME")
-          ("eT" . "src emacs-lisp :tangle FILENAME :mkdirp yes")
-          ("x" . "example")
-          ("X" . "export")))
-
-  ;; Org Agenda Setup
-  (setq org-agenda-files (list org-directory)
-        org-agenda-remove-times-when-in-prefix nil
-        org-agenda-follow-indirect t
-        org-scheduled-past-days 365
-        org-deadline-past-days 365
-        org-agenda-time-leading-zero t
-        org-agenda-window-setup 'current-window
-        org-agenda-format-date #'prot-org-agenda-format-date-aligned)
-
-  (setq org-agenda-sorting-strategy
-        '(((agenda habit-down time-up priority-down category-keep)
-           (todo priority-down category-keep)
-           (tags priority-down category-keep)
-           (search category-keep))))
-
-  (setq org-agenda-custom-commands
-        `(("A" "Daily agenda and top priority tasks"
-           ,uk-org-custom-daily-agenda
-           ((org-agenda-fontify-priorities nil)
-            (org-agenda-prefix-format "\t %t %s")
-            (org-agenda-dim-blocked-tasks nil)))
-          ("P" "Plain text daily agenda and top priorities"
-           ,uk-org-custom-daily-agenda
-           ((org-agenda-with-colors nil)
-            (org-agenda-prefix-format "%t %s")
-            (org-agenda-fontify-priorities nil)
-            (org-agenda-remove-tags t))
-           ("agenda.txt"))))
-
-  ;; Org Capture Setup
-  (setq org-archive-location (concat (file-name-as-directory (expand-file-name "archive" org-directory)) "%s_archive::"))
-
-  (setq org-capture-templates
-        (let* ((without-time
-                (concat ":PROPERTIES:\n"
-                        ":CAPTURED: %U\n"
-                        ":CUSTOM_ID: h:%(format-time-string \"%Y%m%dT%H%M%S\")\n"
-                        ":END:\n\n"))
-               (with-time
-                (concat "DEADLINE: %^T\n"
-                        ":PROPERTIES:\n"
-                        ":CAPTURED: %U\n"
-                        ":CUSTOM_ID: h:%(format-time-string \"%Y%m%dT%H%M%S\")\n"
-                        ":APPT_WARNTIME: 20\n"
-                        ":END:\n\n")))
-          `(("t" "Tasks to do")
-            ("tt" "Work tasks" entry (file+headline "tasks.org" "Work")
-             ,(concat "* TODO %^{Title} \n" without-time "%a\n%?") :empty-lines-after 1)
-            ("th" "Home tasks" entry (file+headline "tasks.org" "Home")
-             ,(concat "* TODO %^{Title} \n" without-time "%?") :empty-lines-after 1)
-            ("tp" "Personal tasks" entry (file+headline "tasks.org" "Personal")
-             ,(concat "* TODO %^{Title} \n" without-time "%?") :empty-lines-after 1)
-            ("w" "Wishlist" entry (file+headline "tasks.org" "Wishlist")
-             ,(concat "* %^{Title} \n" without-time "%a\n%?") :empty-lines-after 1)
-            ("u" "Unprocessed" entry (file+headline "tasks.org" "Unprocessed")
-             ,(concat "* %^{Title}\n" without-time "%?"))
-            ("p" "Project Ideas" entry (file+headline "ideas.org" "Projects")
-             ,(concat "* %^{Title} \n" without-time "%?") :empty-lines-after 1))))
-
-  ;; Org Babel Configuration
-  (setq org-confirm-babel-evaluate nil
-        org-src-window-setup 'current-window
-        org-edit-src-persistent-message nil
-        org-src-fontify-natively t
-        org-src-preserve-indentation t
-        org-src-tab-acts-natively t
-        org-edit-src-content-indentation 0)
-
+  :preface
   (defconst load-language-alist
     '((emacs-lisp . t)
       (python     . t)
@@ -207,40 +84,182 @@ Produces fixed-length, perfectly aligned dates."
       (shell      . t))
     "Alist of org ob languages.")
 
-  (use-package ob-go
-    :init (cl-pushnew '(go . t) load-language-alist))
-  (use-package ob-mermaid
-    :straight t)
+  :custom
+  (org-directory (expand-file-name "~/Documents/org"))
+  (org-imenu-depth 7)
 
+  ;; Visuals & Interface
+  (org-modules nil)
+  (org-startup-indented nil)
+  (org-ellipsis (if (char-displayable-p ?⏷) "\t⏷" nil))
+  (org-pretty-entities nil)
+  (org-hide-emphasis-markers t)
+  (org-hide-leading-stars nil)
+  (org-hide-macro-markers nil)
+  (org-startup-folded 'content)
+
+  ;; Behavior & Structure Editing
+  (org-M-RET-may-split-line '((default . nil)))
+  (org-cycle-separator-lines 0)
+  (org-insert-heading-respect-content t)
+  (org-adapt-indentation nil)
+  (org-indent-indentation-per-level 2)
+  (org-indent-mode-turns-on-hiding-stars t)
+
+  ;; Todo Settings & Logging
+  (org-log-done 'time)
+  (org-log-into-drawer t)
+  (org-use-fast-todo-selection 'expert)
+  (org-todo-keywords
+   '((sequence "TODO(t)" "WAIT(w)" "ACTIVE(a)" "|" "CANCELLED(c@)" "MISSED(m@/!)" "DONE(d!)")))
+  (org-todo-keyword-faces
+   `(("ACTIVE" . (:foreground ,(face-attribute 'diary :foreground nil t) :weight bold))
+     ("WAIT"   . (:foreground ,(face-attribute 'warning :foreground nil t)))
+     ("TODO"   . (:foreground ,(face-attribute 'error :foreground nil t) :weight bold))
+     ("CANCELLED"   . (:foreground ,(face-attribute 'shadow :foreground nil t)))
+     ("MISSED"   . (:foreground ,(face-attribute 'shadow :foreground nil t) :weight bold))))
+
+  ;; Structure Templates
+  (org-structure-template-alist
+   '(("s" . "src")
+     ("b" . "src bash")
+     ("q" . "src sql")
+     ("g" . "src go")
+     ("t" . "src text")
+     ("e" . "src emacs-lisp")
+     ("v" . "src verb")
+     ("eE" . "src emacs-lisp :results value code :lexical t")
+     ("et" . "src emacs-lisp :tangle FILENAME")
+     ("eT" . "src emacs-lisp :tangle FILENAME :mkdirp yes")
+     ("x" . "example")
+     ("X" . "export")))
+
+  ;; Org Agenda Setup
+  (org-agenda-files (list org-directory))
+  (org-agenda-remove-times-when-in-prefix nil)
+  (org-agenda-follow-indirect t)
+  (org-scheduled-past-days 365)
+  (org-deadline-past-days 365)
+  (org-agenda-time-leading-zero t)
+  (org-agenda-window-setup 'current-window)
+  (org-agenda-format-date #'prot-org-agenda-format-date-aligned)
+  (org-agenda-sorting-strategy
+   '(((agenda habit-down time-up priority-down category-keep)
+      (todo priority-down category-keep)
+      (tags priority-down category-keep)
+      (search category-keep))))
+  (org-agenda-custom-commands
+   `(("A" "Daily agenda and top priority tasks"
+      ,uk-org-custom-daily-agenda
+      ((org-agenda-fontify-priorities nil)
+       (org-agenda-prefix-format "\t %t %s")
+       (org-agenda-dim-blocked-tasks nil)))
+     ("P" "Plain text daily agenda and top priorities"
+      ,uk-org-custom-daily-agenda
+      ((org-agenda-with-colors nil)
+       (org-agenda-prefix-format "%t %s")
+       (org-agenda-fontify-priorities nil)
+       (org-agenda-remove-tags t))
+      ("agenda.txt"))))
+
+  ;; Org Capture Setup
+  (org-archive-location
+   (concat (file-name-as-directory
+            (expand-file-name "archive" org-directory)) "%s_archive::"))
+  (org-capture-templates
+   (let* ((without-time
+           (concat ":PROPERTIES:\n"
+                   ":CAPTURED: %U\n"
+                   ":CUSTOM_ID: h:%(format-time-string \"%Y%m%dT%H%M%S\")\n"
+                   ":END:\n\n"))
+          (with-time
+           (concat "DEADLINE: %^T\n"
+                   ":PROPERTIES:\n"
+                   ":CAPTURED: %U\n"
+                   ":CUSTOM_ID: h:%(format-time-string \"%Y%m%dT%H%M%S\")\n"
+                   ":APPT_WARNTIME: 20\n"
+                   ":END:\n\n")))
+     `(("t" "Tasks to do")
+       ("tt" "Work tasks" entry (file+headline "tasks.org" "Work")
+        ,(concat "* TODO %^{Title} \n" without-time "%a\n%?") :empty-lines-after 1)
+       ("th" "Home tasks" entry (file+headline "tasks.org" "Home")
+        ,(concat "* TODO %^{Title} \n" without-time "%?") :empty-lines-after 1)
+       ("tp" "Personal tasks" entry (file+headline "tasks.org" "Personal")
+        ,(concat "* TODO %^{Title} \n" without-time "%?") :empty-lines-after 1)
+       ("w" "Wishlist" entry (file+headline "tasks.org" "Wishlist")
+        ,(concat "* %^{Title} \n" without-time "%a\n%?") :empty-lines-after 1)
+       ("c" "Codegnan" entry (file+headline "events.org" "Codegnan")
+        ,(concat "* %^{Title} \n" with-time) :empty-lines-after 1)
+       ("i" "Interview" entry (file+headline "events.org" "Interview") ;TODO:
+        ,(concat "* TODO^{Title} \n" without-time) :empty-lines-after 1)
+       ("u" "Unprocessed" entry (file+headline "tasks.org" "Unprocessed")
+        ,(concat "* %^{Title}\n" without-time "%?"))
+       ("p" "Project Ideas" entry (file+headline "ideas.org" "Projects")
+        ,(concat "* %^{Title} \n" without-time "%?") :empty-lines-after 1))))
+
+  ;; Org Babel Configuration
+  (org-confirm-babel-evaluate nil)
+  (org-src-window-setup 'current-window)
+  (org-edit-src-persistent-message nil)
+  (org-src-fontify-natively t)
+  (org-src-preserve-indentation t)
+  (org-src-tab-acts-natively t)
+  (org-edit-src-content-indentation 0)
+
+  :bind
+  (("C-c A" . org-agenda)
+   ("C-c a" . (lambda () (interactive) (org-agenda nil "A")))
+   ("C-c c" . org-capture)
+   :map org-mode-map
+   ("H-n b" . org-narrow-to-block)
+   ("H-n e" . org-narrow-to-element)
+   ("H-n s" . org-narrow-to-subtree)
+   ("M-."   . org-edit-special)
+   ("C-c j" . org-babel-goto-named-src-block)
+   :map org-src-mode-map
+   ("M-,"   . org-edit-src-exit))
+
+  :config
   (org-babel-do-load-languages 'org-babel-load-languages load-language-alist))
+
+;; Org Babel Extensions
+(use-package ob-go
+  :after org
+  :init (cl-pushnew '(go . t) load-language-alist))
+
+(use-package ob-mermaid
+  :straight t
+  :after org)
 
 ;;; Ecosystem & Third-Party Extensions
 
 (use-package org-modern
   :straight t
   :after org
-  :hook ((org-agenda-finalize . org-modern-agenda))
-  :config
-  (setq org-modern-star 'replace
-        org-modern-replace-stars "◉"    ;"✳"
-        org-modern-checkbox nil
-        org-modern-tag nil
-        org-modern-progress nil
-        org-modern-label-border nil
-        org-modern-timestamp nil
-        org-modern-table t
-        org-modern-priority nil
-        org-modern-horizontal-rule t
-        org-modern-todo nil
-        org-modern-block-name nil
-        org-modern-keyword nil
-        org-modern-internal-target nil
-        org-modern-radio-target nil))
+  :custom
+  (org-modern-star 'replace)
+  (org-modern-replace-stars "◉")     ; "✳"
+  (org-modern-checkbox nil)
+  (org-modern-tag nil)
+  (org-modern-progress nil)
+  (org-modern-label-border nil)
+  (org-modern-timestamp nil)
+  (org-modern-table t)
+  (org-modern-priority nil)
+  (org-modern-horizontal-rule t)
+  (org-modern-todo nil)
+  (org-modern-block-name nil)
+  (org-modern-keyword nil)
+  (org-modern-internal-target nil)
+  (org-modern-radio-target nil)
+  :hook
+  (org-agenda-finalize . org-modern-agenda))
 
 (use-package org-appear
   :straight t
   :after org
-  :hook (org-mode . org-appear-mode))
+  :hook
+  (org-mode . org-appear-mode))
 
 (use-package ox-hugo
   :disabled

@@ -40,5 +40,9 @@
 (use-package diminish
   :straight t)
 
+(use-package straight-overview
+  :straight t
+  :commands (straight-overview))
+
 (provide 'init-package)
 ;;; init-package.el ends here
