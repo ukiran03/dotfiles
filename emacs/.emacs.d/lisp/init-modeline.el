@@ -262,7 +262,7 @@ Specific to the current window's mode line.")
 ;;;; Dedicated window
 (defvar-local uk-modeline-window-dedicated
   '(:eval (when (window-dedicated-p)
-            (propertize "= "
+            (propertize "=d "
                         'face 'uk-modeline-bold-blue-face
                         'mouse-face 'mode-line-highlight)))
   "Mode line construct for dedicated window indicator.")
@@ -279,25 +279,35 @@ Specific to the current window's mode line.")
 (put 'uk-modeline-major-mode 'risky-local-variable t)
 
 (defvar uk-modeline-icons
-  '((dired-mode . "")
-    (wdired-mode . "")
-    (archive-mode . "")
-    (diff-mode . "")
-    (comint-mode . "")
-    (magit-mode . "")
-    (t . ""))
-  "Association list mapping major modes to Nerd Font icons.")
+  '((dired-mode   . ("󰉖 " . "📁"))
+    (wdired-mode  . ("󰷎 ". "📂"))
+    (archive-mode . ("󱈎 " . "📦"))
+    (diff-mode    . ("" . "±"))
+    (comint-mode  . ("󰞷" . ">_"))
+    (magit-mode   . ("󰊢" . ""))
+    (org-mode     . ("" . ""))
+    (t            . ("". "?")))        ; 󰈔
+  "Alist mapping major modes to a cons cell of (PRIMARY-ICON . FALLBACK-ICON).")
 
 (defun uk-modeline-get-major-mode-icon (mode)
-  "Return the icon string for the given MODE, supporting derived modes."
-  (let ((icon (catch 'found
-                (dolist (cell uk-modeline-icons)
-                  (let ((key (car cell)))
-                    (when (or (eq key t)
-                              (and (symbolp key) (provided-mode-derived-p mode key)))
-                      (throw 'found (cdr cell))))))))
+  "Return the primary icon for MODE if displayable, otherwise use the
+fallback text."
+  (let* ((entry (catch 'found
+                  (dolist (cell uk-modeline-icons)
+                    (let ((key (car cell)))
+                      (when (or (eq key t)
+                                (and (symbolp key)
+                                     (provided-mode-derived-p mode key)))
+                        (throw 'found (cdr cell)))))))
+         (primary  (car entry))
+         (fallback (cdr entry))
+         ;; Check if Emacs can render the primary icon character
+         (icon (if (and primary
+                        (> (length primary) 0)
+                        (char-displayable-p (string-to-char primary)))
+                   primary
+                 fallback)))
     (if icon (concat icon " ") "")))
-
 ;;;; VC
 
 (defvar-local uk-modeline-vc-info
@@ -356,8 +366,8 @@ With optional FACE, use it to propertize the BRANCH."
 ;;; Major/Minor mode lighters (⇝)
 
 (defvar mode-line-cleaner-alist
-  `((lisp-interaction-mode . "λ")
-    (emacs-lisp-mode       . "Eλ")
+  `((lisp-interaction-mode . "󰘧")
+    (emacs-lisp-mode       . "E󰘧")
     (python-mode           . "Py")
     (sh-mode               . "SH")
     (js-jsx-mode           . "jsX")

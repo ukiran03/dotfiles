@@ -63,6 +63,10 @@
                       :family "Iosevka Medium"
                       :height 160))
 
+;; Set a fallback font specifically for Nerd Font symbols / Unicode symbols
+(when (display-graphic-p)
+  (set-fontset-font t 'unicode "Iosevka Nerd Font" nil 'append))
+
 ;; (dolist (face '(default fixed-pitch variable-pitch))
 ;;   (set-face-attribute face nil
 ;;                       :family "Iosevka Medium"
